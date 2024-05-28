@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>GB.Opera</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\GB.Opera.Application\GB.Opera.Application.csproj" />
+    <ProjectReference Include="..\GB.Opera.Domain.Tests\GB.Opera.Domain.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+  </ItemGroup>
+
+</Project>
