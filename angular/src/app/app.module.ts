@@ -17,6 +17,9 @@ import { FeatureManagementModule } from '@abp/ng.feature-management';
 import { AbpOAuthModule } from '@abp/ng.oauth';
 import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ThemeLeptonXModule } from "@abp/ng.theme.lepton-x";
+import { SideMenuLayoutModule } from "@abp/ng.theme.lepton-x/layouts";
+import { AccountLayoutModule } from "@abp/ng.theme.lepton-x/account";
 
 @NgModule({
   imports: [
@@ -37,7 +40,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     
     FeatureManagementModule.forRoot(),
     InternetConnectionStatusComponent,
-    ThemeBasicModule.forRoot(),
+    // ThemeBasicModule.forRoot(),
+    ThemeLeptonXModule.forRoot(),
+    SideMenuLayoutModule.forRoot(),
+    AccountLayoutModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
