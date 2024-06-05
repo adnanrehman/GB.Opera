@@ -9,11 +9,16 @@ import { LhscUploadComponent } from './components/lhsc-upload/lhsc-upload.compon
 import { OwnershipComponent } from './components/ownership/ownership.component';
 import { ProductsServicesAndRawMaterialsComponent } from './components/products-services-and-raw-materials/products-services-and-raw-materials.component';
 import { ReportsComponent } from './components/reports/reports.component';
-
+import { ApplicationComponent } from './components/application/application.component';
 const routes: Routes = [
   {
     path: '',
     children: [
+      {
+        path: 'app',
+        component: ApplicationComponent,
+        pathMatch: "full"
+      },
       {
         path: 'gb-facts',
         component: GbFactsComponent,

@@ -9,7 +9,7 @@ import { GbirComponent } from './application/components/gbir/gbir.component';
 import { GbUniversalFactsComponent } from './application/components/gb-universal-facts/gb-universal-facts.component';
 import { ProductsServicesAndRawMaterialsComponent } from './application/components/products-services-and-raw-materials/products-services-and-raw-materials.component';
 import { EconomicAndStatisticalDataComponent } from './application/components/economic-and-statistical-data/economic-and-statistical-data.component';
-
+import { ApplicationComponent } from './application/components/application/application.component';
 const routes: Routes = [
   {
     path: '',
@@ -44,63 +44,69 @@ const routes: Routes = [
         iconClass: 'fas fa-question-circle',
         children: [
           {
+            path: 'app',
+            name: 'app',
+            order: 1,
+            component: ApplicationComponent,
+          },
+          {
             path: 'gb-facts',
             name: 'GB Facts',
-            order: 1,
+            order: 2,
             component: GbFactsComponent,
           },
           {
             path: 'accounts-classification',
             name: 'Accounts Classification',
-            order: 2,
+            order: 3,
             component: AccountsClassificationComponent,
           },
           {
             path: 'ownership',
             name: 'Ownership',
-            order: 3,
+            order: 4,
             component: OwnershipComponent,
           },
           {
             path: 'reports',
             name: 'Reports',
-            order: 4,
+            order: 5,
             component: ReportsComponent,
           },
           {
             path: 'lhsc-upload',
             name: 'LHSC Upload',
-            order: 5,
+            order: 6,
             component: LhscUploadComponent,
           },
           {
             path: 'gbir',
             name: 'GBIR',
-            order: 6,
+            order: 7,
             component: GbirComponent,
           },
           {
             path: 'gbir-universal-facts',
             name: 'GBIR Universal Facts',
-            order: 7,
+            order: 8,
             component: GbUniversalFactsComponent,
           },
           {
             path: 'gbir-universal-facts-view',
             name: 'GBIR Universal Facts View',
-            order: 8,
+            order: 9,
             component: GbUniversalFactsComponent,
           },
           {
             path: 'products-services-and-raw-materials',
             name: 'Products Services And Raw Materials',
-            order: 9,
+            order: 10,
             component: ProductsServicesAndRawMaterialsComponent,
           },
           {
             path: 'economic-and-statistical-data',
             name: 'Economic and Statistical Data',
-            order: 10,
+            order: 11,
             component: EconomicAndStatisticalDataComponent,
           },
         ],

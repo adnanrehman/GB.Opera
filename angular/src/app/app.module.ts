@@ -20,12 +20,16 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { ThemeLeptonXModule } from "@abp/ng.theme.lepton-x";
 import { SideMenuLayoutModule } from "@abp/ng.theme.lepton-x/layouts";
 import { AccountLayoutModule } from "@abp/ng.theme.lepton-x/account";
+import { CommonModule } from '@angular/common';
+import { ApplicationModule } from './application/application.module';
 
 @NgModule({
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    ApplicationModule,
     CoreModule.forRoot({
       environment,
       registerLocaleFn: registerLocale(),

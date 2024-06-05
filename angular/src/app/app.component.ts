@@ -10,14 +10,6 @@ import { Component, ElementRef, Renderer2 } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor(private renderer: Renderer2,private elRef:ElementRef) {}
+  constructor() {}
 
-  ngAfterViewInit() {
-    debugger;
-    var result = this.elRef.nativeElement.getElementsByClassName("lpx-menu-item-link");
-    Array.from(result).forEach((el) => {
-      this.renderer.setAttribute(el,"target", "_blank");
-      this.renderer.setAttribute(el,'id', `1122`);
-  });
-  }
 }
