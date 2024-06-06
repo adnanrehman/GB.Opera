@@ -44,9 +44,9 @@ import { ApplicationModule } from './application/application.module';
     
     FeatureManagementModule.forRoot(),
     InternetConnectionStatusComponent,
-    // ThemeBasicModule.forRoot(),
-    ThemeLeptonXModule.forRoot(),
-    SideMenuLayoutModule.forRoot(),
+    ThemeBasicModule.forRoot(),
+    // ThemeLeptonXModule.forRoot(),
+    // SideMenuLayoutModule.forRoot(),
     AccountLayoutModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

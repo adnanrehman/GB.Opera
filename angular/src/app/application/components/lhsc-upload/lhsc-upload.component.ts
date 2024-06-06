@@ -8,13 +8,5 @@ import { TabService } from '@proxy/tab/tab.service';
   styleUrl: './lhsc-upload.component.scss'
 })
 export class LhscUploadComponent {
-  constructor(private tabService: TabService) {}
 
-  ngOnInit() {
-    debugger;
-    this.tabService.addTab({title:"LHSC Upload",component:LhscUploadComponent});
-    this.tabService.tabs$.subscribe(tabs => {
-      var tabs = tabs;
-    });
-  }
 }

@@ -1,12 +1,13 @@
 import { AuthService } from '@abp/ng.core';
-import { NgFor } from '@angular/common';
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ElementRef } from '@angular/core';
 import { TabService } from '@proxy/tab/tab.service';
 
 @Component({
   selector: 'app-application',
-  standalone: true,
-  imports: [NgFor],
+  // standalone: true,
+  // imports: [CommonModule,NgFor,NgIf],
   templateUrl: './application.component.html',
   styleUrl: './application.component.scss'
 })
@@ -16,15 +17,20 @@ export class ApplicationComponent {
   selectedIndex = 0;
 
   @ViewChild('tabContainer', { read: ViewContainerRef }) tabContainer!: ViewContainerRef;
+  // @ViewChild('tabContainer', {static: true}) tabContainer: ViewContainerRef;
 
   constructor(private authService: AuthService,private tabService: TabService, private cfr: ComponentFactoryResolver) {}
 
-  ngOnInit() {
+  ngAfterViewInit(){
     debugger;
     this.tabService.tabs$.subscribe(tabs => {
       this.tabs = tabs;
       this.loadTabComponent();
     });
+  }
+
+  ngOnInit() {
+    
   }
 
   addTab(title: string, component: any) {

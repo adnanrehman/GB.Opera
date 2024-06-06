@@ -8,13 +8,5 @@ import { TabService } from '@proxy/tab/tab.service';
   styleUrl: './reports.component.scss'
 })
 export class ReportsComponent {
-  constructor(private tabService: TabService) {}
 
-  ngOnInit() {
-    debugger;
-    this.tabService.addTab({title:"Reports",component:ReportsComponent});
-    this.tabService.tabs$.subscribe(tabs => {
-      var tabs = tabs;
-    });
-  }
 }

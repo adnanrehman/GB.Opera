@@ -8,13 +8,5 @@ import { TabService } from '@proxy/tab/tab.service';
   styleUrl: './economic-and-statistical-data.component.scss'
 })
 export class EconomicAndStatisticalDataComponent {
-  constructor(private tabService: TabService) {}
 
-  ngOnInit() {
-    debugger;
-    this.tabService.addTab({title:"Economic And Statistical Data",component:EconomicAndStatisticalDataComponent});
-    this.tabService.tabs$.subscribe(tabs => {
-      var tabs = tabs;
-    });
-  }
 }

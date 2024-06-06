@@ -11,66 +11,66 @@ import { ProductsServicesAndRawMaterialsComponent } from './components/products-
 import { ReportsComponent } from './components/reports/reports.component';
 import { ApplicationComponent } from './components/application/application.component';
 const routes: Routes = [
-  {
-    path: '',
-    children: [
-      {
-        path: 'app',
-        component: ApplicationComponent,
-        pathMatch: "full"
-      },
-      {
-        path: 'gb-facts',
-        component: GbFactsComponent,
-        pathMatch: "full"
-      },
-      {
-        path: 'accounts-classification',
-        pathMatch: "full",
-        component: AccountsClassificationComponent,
-      },
-      {
-        path: 'ownership',
-        pathMatch: "full",
-        component: OwnershipComponent,
-      },
-      {
-        path: 'reports',
-        pathMatch: "full",
-        component: ReportsComponent,
-      },
-      {
-        path: 'lhsc-upload',
-        pathMatch: "full",
-        component: LhscUploadComponent,
-      },
-      {
-        path: 'gbir',
-        pathMatch: "full",
-        component: GbirComponent,
-      },
-      {
-        path: 'gbir-universal-facts',
-        pathMatch: "full",
-        component: GbUniversalFactsComponent,
-      },
-      {
-        path: 'gbir-universal-facts-view',
-        pathMatch: "full",
-        component: GbUniversalFactsComponent,
-      },
-      {
-        path: 'products-services-and-raw-materials',
-        pathMatch: "full",
-        component: ProductsServicesAndRawMaterialsComponent,
-      },
-      {
-        path: 'economic-and-statistical-data',
-        pathMatch: "full",
-        component: EconomicAndStatisticalDataComponent,
-      },
-    ],
-  },
+  // {
+  //   path: '',
+  //   children: [
+  //     {
+  //       path: 'app',
+  //       component: ApplicationComponent,
+  //       pathMatch: "full"
+  //     },
+  //     {
+  //       path: 'gb-facts',
+  //       component: GbFactsComponent,
+  //       pathMatch: "full"
+  //     },
+  //     {
+  //       path: 'accounts-classification',
+  //       pathMatch: "full",
+  //       component: AccountsClassificationComponent,
+  //     },
+  //     {
+  //       path: 'ownership',
+  //       pathMatch: "full",
+  //       component: OwnershipComponent,
+  //     },
+  //     {
+  //       path: 'reports',
+  //       pathMatch: "full",
+  //       component: ReportsComponent,
+  //     },
+  //     {
+  //       path: 'lhsc-upload',
+  //       pathMatch: "full",
+  //       component: LhscUploadComponent,
+  //     },
+  //     {
+  //       path: 'gbir',
+  //       pathMatch: "full",
+  //       component: GbirComponent,
+  //     },
+  //     {
+  //       path: 'gbir-universal-facts',
+  //       pathMatch: "full",
+  //       component: GbUniversalFactsComponent,
+  //     },
+  //     {
+  //       path: 'gbir-universal-facts-view',
+  //       pathMatch: "full",
+  //       component: GbUniversalFactsComponent,
+  //     },
+  //     {
+  //       path: 'products-services-and-raw-materials',
+  //       pathMatch: "full",
+  //       component: ProductsServicesAndRawMaterialsComponent,
+  //     },
+  //     {
+  //       path: 'economic-and-statistical-data',
+  //       pathMatch: "full",
+  //       component: EconomicAndStatisticalDataComponent,
+  //     },
+  //   ],
+  // },
 ];
 
 @NgModule({

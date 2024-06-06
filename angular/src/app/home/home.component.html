@@ -1,4 +1,91 @@
-<div class="container">
+<div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar">
+  <ul class="nav flex-column text-white w-100">
+    <a href="#" class="nav-link h3 text-grey my-2">
+      Application
+    </a>
+    <li href="#" class="nav-link" (click)="addinTab('GbFacts')">
+      <i class="bx bxs-dashboard"></i>
+      <span class="mx-2 text-white">GB Facts</span>
+    </li>
+    <li href="#" class="nav-link" (click)="addinTab('AccountClassification')">
+      <i class="bx bx-user-check"></i>
+      <span class="mx-2 text-white">Account Classification</span>
+    </li>
+    <li href="#" class="nav-link" (click)="addinTab('ownership')">
+      <i class="bx bx-user-check"></i>
+      <span class="mx-2 text-white">Ownership</span>
+    </li>
+    <li href="#" class="nav-link" (click)="addinTab('reports')">
+      <i class="bx bx-user-check"></i>
+      <span class="mx-2 text-white">Reports</span>
+    </li>
+    <li href="#" class="nav-link" (click)="addinTab('lhsc-upload')">
+      <i class="bx bx-user-check"></i>
+      <span class="mx-2 text-white">LHSC Upload</span>
+    </li>
+    <li href="#" class="nav-link" (click)="addinTab('gbir')">
+      <i class="bx bx-user-check"></i>
+      <span class="mx-2 text-white">GBIR</span>
+    </li>
+    <li href="#" class="nav-link" (click)="addinTab('gbir-universal-facts')">
+      <i class="bx bx-user-check"></i>
+      <span class="mx-2 text-white">GBIR Universal Facts</span>
+    </li>
+    <li href="#" class="nav-link" (click)="addinTab('gbir-universal-facts-view')">
+      <i class="bx bx-user-check"></i>
+      <span class="mx-2 text-white">GBIR Universal Facts View</span>
+    </li>
+    <li href="#" class="nav-link" (click)="addinTab('products-services-and-raw-materials')">
+      <i class="bx bx-user-check"></i>
+      <span class="mx-2 text-white">Products Services And Raw Materials</span>
+    </li>
+    <li href="#" class="nav-link" (click)="addinTab('economic-and-statistical-data')">
+      <i class="bx bx-user-check"></i>
+      <span class="mx-2 text-white">Economic and Statistical Data</span>
+    </li>
+  </ul>
+
+  <span href="#" class="nav-link h4 w-100 mb-5">
+    <a href=""><i class="bx bxl-instagram-alt text-white"></i></a>
+    <a href=""><i class="bx bxl-twitter px-2 text-white"></i></a>
+    <a href=""><i class="bx bxl-facebook text-white"></i></a>
+  </span>
+</div>
+
+<!-- Main Wrapper -->
+<div class="p-1 my-container active-cont">
+  <div class="container">
+    <div>
+      <ul class="nav nav-tabs">
+        <li *ngFor="let tab of tabs; let i = index" class="nav-item">
+          <a
+            class="nav-link"
+            [ngClass]="{ active: selectedIndex === i }"
+            (click)="selectTab(i)"
+            href="#"
+            >{{ tab.title }}
+            <button (click)="closeTab(i, $event)" class="close">&times;</button>
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <ng-container *ngFor="let tab of tabs; let i = index">
+          <div
+            *ngIf="selectedIndex === i"
+            class="tab-pane active"
+            #tabContainer
+          ></div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- <div class="container">
   <div class="p-5 text-center">
     <div class="d-inline-block bg-success text-white p-1 h5 rounded mb-4" role="alert">
       <h5 class="m-1">
@@ -359,4 +446,4 @@
       border-left: 0 !important;
     }
   }
-</style>
+</style> -->
