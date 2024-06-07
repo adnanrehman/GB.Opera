@@ -3,46 +3,47 @@
     <a href="#" class="nav-link h3 text-grey my-2">
       Application
     </a>
-    <li href="#" class="nav-link" (click)="addinTab('GbFacts')">
+    <li href="#" class="nav-link" (click)="addinTab('GbFacts',0)">
       <i class="bx bxs-dashboard"></i>
       <span class="mx-2 text-white">GB Facts</span>
     </li>
-    <li href="#" class="nav-link" (click)="addinTab('AccountClassification')">
+    <li href="#" class="nav-link" (click)="addinTab('AccountClassification',1)">
       <i class="bx bx-user-check"></i>
       <span class="mx-2 text-white">Account Classification</span>
     </li>
-    <li href="#" class="nav-link" (click)="addinTab('ownership')">
+    <li href="#" class="nav-link" (click)="addinTab('ownership',2)">
       <i class="bx bx-user-check"></i>
       <span class="mx-2 text-white">Ownership</span>
     </li>
-    <li href="#" class="nav-link" (click)="addinTab('reports')">
+    <li href="#" class="nav-link" (click)="addinTab('reports',3)">
       <i class="bx bx-user-check"></i>
       <span class="mx-2 text-white">Reports</span>
     </li>
-    <li href="#" class="nav-link" (click)="addinTab('lhsc-upload')">
+    <li href="#" class="nav-link" (click)="addinTab('lhsc-upload',4)">
       <i class="bx bx-user-check"></i>
       <span class="mx-2 text-white">LHSC Upload</span>
     </li>
-    <li href="#" class="nav-link" (click)="addinTab('gbir')">
+    <li href="#" class="nav-link" (click)="addinTab('gbir',5)">
       <i class="bx bx-user-check"></i>
       <span class="mx-2 text-white">GBIR</span>
     </li>
-    <li href="#" class="nav-link" (click)="addinTab('gbir-universal-facts')">
+    <li href="#" class="nav-link" (click)="addinTab('gbir-universal-facts',6)">
       <i class="bx bx-user-check"></i>
       <span class="mx-2 text-white">GBIR Universal Facts</span>
     </li>
-    <li href="#" class="nav-link" (click)="addinTab('gbir-universal-facts-view')">
+    <li href="#" class="nav-link" (click)="addinTab('gbir-universal-facts-view',7)">
       <i class="bx bx-user-check"></i>
       <span class="mx-2 text-white">GBIR Universal Facts View</span>
     </li>
-    <li href="#" class="nav-link" (click)="addinTab('products-services-and-raw-materials')">
+    <li href="#" class="nav-link" (click)="addinTab('products-services-and-raw-materials',8)">
       <i class="bx bx-user-check"></i>
       <span class="mx-2 text-white">Products Services And Raw Materials</span>
     </li>
-    <li href="#" class="nav-link" (click)="addinTab('economic-and-statistical-data')">
+    <li href="#" class="nav-link" (click)="addinTab('economic-and-statistical-data',9)">
       <i class="bx bx-user-check"></i>
       <span class="mx-2 text-white">Economic and Statistical Data</span>
     </li>
+    
   </ul>
 
   <span href="#" class="nav-link h4 w-100 mb-5">
@@ -68,6 +69,7 @@
           </a>
         </li>
       </ul>
+     
       <div class="tab-content">
         <ng-container *ngFor="let tab of tabs; let i = index">
           <div

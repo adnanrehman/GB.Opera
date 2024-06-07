@@ -33,15 +33,15 @@ export class HomeComponent {
     this.authService.navigateToLogin();
   }
 
-  ngOnInit(){
-    debugger;
+  ngAfterViewInit(){
+    ;
     this.tabService.tabs$.subscribe(tabs => {
       this.tabs = tabs;
-      this.loadTabComponent();
+    
     });
   }
 
-  addinTab(type:string){
+  addinTab(type:string,index : number){
     if(type == "GbFacts"){
       this.addTab("Gb Facts", GbFactsComponent);
     }else if(type == "AccountClassification"){
@@ -63,13 +63,16 @@ export class HomeComponent {
     }else if(type == "economic-and-statistical-data"){
       this.addTab("Economic and Statistical Data", EconomicAndStatisticalDataComponent);
     }
+    this.selectTab(index);
   }
 
   addTab(title: string, component: any) {
+    
     this.tabService.addTab({ title, component });
   }
 
   selectTab(index: number) {
+    
     this.selectedIndex = index;
     this.loadTabComponent();
   }
@@ -83,13 +86,15 @@ export class HomeComponent {
     this.loadTabComponent();
   }
 
-  async loadTabComponent() {
-    debugger;
-    if (this.tabs.length > 0) {
+  loadTabComponent() {
+    
+    
       this.tabContainer.clear();
       const component = this.tabs[this.selectedIndex].component;
       // const factory = this.cfr.resolveComponentFactory(component);
       this.tabContainer.createComponent(component);
+      
+      
     }
-  }
+  
 }

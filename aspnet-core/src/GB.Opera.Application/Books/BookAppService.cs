@@ -10,6 +10,7 @@ using Volo.Abp.Domain.Repositories;
 namespace GB.Opera.Books
 {
     public class BookAppService :
+
     CrudAppService<
         Book, //The Book entity
         BookDto, //Used to show books
