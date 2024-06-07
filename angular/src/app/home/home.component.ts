@@ -21,24 +21,23 @@ export class HomeComponent {
   tabs: any[] = [];
   selectedIndex = 0;
 
-  @ViewChild('tabContainer', { read: ViewContainerRef }) tabContainer!: ViewContainerRef;
+  @ViewChild('tabContainer', {read: ViewContainerRef}) tabContainer: ViewContainerRef;
+  
   get hasLoggedIn(): boolean {
     return this.authService.isAuthenticated;
   }
 
-  constructor(private authService: AuthService,private tabService: TabService, private cfr: ComponentFactoryResolver
+  constructor(private authService: AuthService,private tabService: TabService
   ) {}
 
   login() {
     this.authService.navigateToLogin();
   }
 
-  ngAfterViewInit(){
-    ;
+  ngOnInit(){
     this.tabService.tabs$.subscribe(tabs => {
       this.tabs = tabs;
-    
-    });
+    }); 
   }
 
   addinTab(type:string,index : number){
@@ -63,6 +62,7 @@ export class HomeComponent {
     }else if(type == "economic-and-statistical-data"){
       this.addTab("Economic and Statistical Data", EconomicAndStatisticalDataComponent);
     }
+    this.loadTabComponent();
     this.selectTab(index);
   }
 
@@ -74,7 +74,7 @@ export class HomeComponent {
   selectTab(index: number) {
     
     this.selectedIndex = index;
-    this.loadTabComponent();
+    // this.loadTabComponent();
   }
 
   closeTab(index: number, event: Event) {
@@ -88,13 +88,12 @@ export class HomeComponent {
 
   loadTabComponent() {
     
-    
-      this.tabContainer.clear();
+    if(this.tabs.length > 0){
+      
       const component = this.tabs[this.selectedIndex].component;
-      // const factory = this.cfr.resolveComponentFactory(component);
       this.tabContainer.createComponent(component);
       
-      
     }
+  }
   
 }
