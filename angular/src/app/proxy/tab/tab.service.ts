@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { RestService, Rest } from '@abp/ng.core';
 
 interface Tab {
+  href: string;
   title: string;
   component: Type<any>;
 }

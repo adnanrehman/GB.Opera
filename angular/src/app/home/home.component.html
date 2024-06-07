@@ -55,32 +55,31 @@
 
 <!-- Main Wrapper -->
 <div class="p-1 my-container active-cont">
-  <div class="container">
-    <div>
-      <ul class="nav nav-tabs">
-        <li *ngFor="let tab of tabs; let i = index" class="nav-item">
-          <a
-            class="nav-link"
-            [ngClass]="{ active: selectedIndex === i }"
-            (click)="selectTab(i)"
-            href="#"
-            >{{ tab.title }}
-            <button (click)="closeTab(i, $event)" class="close">&times;</button>
-          </a>
-        </li>
-      </ul>
-     
-      <div class="tab-content">
-        <ng-container *ngFor="let tab of tabs; let i = index">
-          <div
-            *ngIf="selectedIndex === i"
-            class="tab-pane active"
-            #tabContainer
-          ></div>
-        </ng-container>
-      </div>
+  <div class="card p-3 shadow">
+    <nav>
+      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+        <button *ngFor="let tab of tabs; let i = index"
+          class="nav-link"
+          [ngClass]="{ 'active':activeTab === tab.href}"
+          (click)="selectTab(tab.href)" type="button"
+          >{{ tab.title }}
+          <button (click)="closeTab(i, $event)" class="close">&times;</button>
+        </button>
     </div>
-  </div>
+  </nav>
+		<div class="tab-content p-3 border bg-light" id="navtabContent" #navtabContent>
+      <ng-template class="tab-pane" #container *ngIf="tabs.length == 1">
+      </ng-template>
+      <ng-container *ngFor="let tab of tabs; let i = index">        
+        <div 
+          class="tab-pane"
+          attr.id="{{tab.href}}"
+          [ngClass]="activeTab === tab.href ? 'active show' : 'd-none'"
+          #tabContainer
+        > </div>
+      </ng-container>
+		</div>
+	</div>        
 </div>
 
 

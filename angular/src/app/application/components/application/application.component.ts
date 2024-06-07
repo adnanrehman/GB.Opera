@@ -34,7 +34,7 @@ export class ApplicationComponent {
   }
 
   addTab(title: string, component: any) {
-    this.tabService.addTab({ title, component });
+    // this.tabService.addTab({ title, component });
   }
 
   selectTab(index: number) {
