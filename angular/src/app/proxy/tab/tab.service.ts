@@ -5,6 +5,7 @@ import { RestService, Rest } from '@abp/ng.core';
 interface Tab {
   href: string;
   title: string;
+  index: number;
   component: Type<any>;
 }
 

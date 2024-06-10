@@ -11,6 +11,7 @@ import { LhscUploadComponent } from '../application/components/lhsc-upload/lhsc-
 import { OwnershipComponent } from '../application/components/ownership/ownership.component';
 import { ProductsServicesAndRawMaterialsComponent } from '../application/components/products-services-and-raw-materials/products-services-and-raw-materials.component';
 import { ReportsComponent } from '../application/components/reports/reports.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ export class HomeComponent {
   selectedIndex = 0;
   activeTab:string = "GbFacts"
   navbarCollapsed = true;
+  public gfg = true; 
 
   toggleNavbarCollapsing() {
     this.navbarCollapsed = !this.navbarCollapsed;
@@ -38,31 +40,37 @@ export class HomeComponent {
     return this.authService.isAuthenticated;
   }
 
-  constructor(private authService: AuthService,private tabService: TabService,
-  ) {}
+  constructor(private authService: AuthService,private tabService: TabService,private spinner: NgxSpinnerService,
+  ) {
+
+  }
 
   login() {
     this.authService.navigateToLogin();
   }
 
   ngAfterViewInit(){
-    this.tabService.addTab({ title:"Gb Facts",component:GbFactsComponent,href:"GbFacts" });
-    this.selectTab("GbFacts");
-    this.loadTabComponent();
+    // this.tabService.addTab({ title:"Gb Facts",component:GbFactsComponent,href:"GbFacts" });
+    // this.selectTab("GbFacts");
+    // this.loadTabComponent();
   }
   
 
   ngOnInit(){
+    this.spinner.show();
     this.tabService.tabs$.subscribe(tabs => {
       this.tabs = tabs;
+      this.spinner.hide();
     }); 
   }
 
   addinTab(type:string,index : number){
     if(type == "GbFacts"){
       this.addTab("Gb Facts", GbFactsComponent,index,type);
+      index++;
     }else if(type == "AccountClassification"){
       this.addTab("Accounts Classificartion", AccountsClassificationComponent,index,type);
+      index++;
     }else if(type == "ownership"){
       this.addTab("Ownership", OwnershipComponent,index,type);
     }else if(type == "reports"){
@@ -84,24 +92,31 @@ export class HomeComponent {
   }
 
   addTab(title: string, component: any, index:number,href:string) {
+    this.spinner.show();
     if(this.tabs.length > 0){
       var exist = this.tabs.find(a=>a.title.toString() == title.toString());
       if(exist == undefined){
-        this.tabService.addTab({ title:title,component:component,href:href });
-        this.selectTab(href);
-        this.loadTabComponent();
-      
+        this.tabService.addTab({ title:title,component:component,href:href,index:index });
+        this.selectTab(index);
+        setTimeout(()=>{           
+          this.loadTabComponent();
+          this.spinner.hide();
+     }, 100);        
       }  
+
     }else{
-      this.tabService.addTab({ title:title,component:component,href:href });
-      this.selectTab(href);
-      this.loadTabComponent();
+      this.tabService.addTab({ title:title,component:component,href:href,index:index  });
+      this.selectTab(index);      
+      setTimeout(()=>{         
+        this.loadTabComponent();
+        this.spinner.hide();
+   }, 500);
       
     }
   }
 
-  selectTab(href: string) {
-    this.activeTab = href;
+  selectTab(index: number) {
+    this.selectedIndex = index;
   //   let elements = document.getElementsByClassName("d-none");
   //   for (var i = 0; i < elements.length; i++) {
   //     elements[i].nextElementSibling.setAttribute("class", "d-none");
@@ -109,15 +124,17 @@ export class HomeComponent {
   }
 
   closeTab(index: number, event: Event) {
+    debugger;
     event.stopPropagation();
     this.tabService.removeTab(index);
     if (this.selectedIndex === index && this.tabs.length > 0) {
       this.selectedIndex = Math.max(0, index - 1);
     }
+    this.selectTab(index - 1);
     // this.loadTabComponent();
   }
 
-  loadTabComponent() {    
+  async loadTabComponent() {    
     debugger;
     if(this.tabs.length > 0){    
       if(this.widgetTargets.length == 0)  {
@@ -125,13 +142,13 @@ export class HomeComponent {
       }else{
         // this.navtab.nativeElement.nextSibling.classList.toggle('d-none');
         this.widgetTargets.map((vcr: ViewContainerRef,index:number) =>{
-          index = index+1;
+          // index = index+1;
           vcr.clear();
           const component = this.tabs[index].component;
           const componentRef = vcr.createComponent(component);
-          let element: HTMLElement = <HTMLElement>componentRef.location.nativeElement;
-          if(this.widgetTargets.length != index)
-            element.style.display = "none";
+          // let element: HTMLElement = <HTMLElement>componentRef.location.nativeElement;
+          // if(this.widgetTargets.length != index)
+          //   element.style.display = "none";
         }); 
       }
   

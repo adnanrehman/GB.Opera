@@ -1,8 +1,8 @@
 <div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar">
-  <ul class="nav flex-column text-white w-100">
-    <a href="#" class="nav-link h3 text-grey my-2">
-      Application
-    </a>
+
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab header="Application">
+          <ul class="nav flex-column bg-nav w-100">
     <li href="#" class="nav-link" (click)="addinTab('GbFacts',0)">
       <i class="bx bxs-dashboard"></i>
       <span class="mx-2 text-white">GB Facts</span>
@@ -45,6 +45,56 @@
     </li>
     
   </ul>
+    </p-accordionTab>
+    <p-accordionTab header="Countries & Markets">
+      <ul class="nav flex-column bg-nav w-100">
+<li href="#" class="nav-link" (click)="addinTab('GbFacts',0)">
+  <i class="bx bxs-dashboard"></i>
+  <span class="mx-2 text-white">Country Group</span>
+</li>
+<li href="#" class="nav-link" (click)="addinTab('AccountClassification',1)">
+  <i class="bx bx-user-check"></i>
+  <span class="mx-2 text-white">Countries</span>
+</li>
+<li href="#" class="nav-link" (click)="addinTab('ownership',2)">
+  <i class="bx bx-user-check"></i>
+  <span class="mx-2 text-white">Country Profile (Admin)</span>
+</li>
+<li href="#" class="nav-link" (click)="addinTab('reports',3)">
+  <i class="bx bx-user-check"></i>
+  <span class="mx-2 text-white">Country Profile</span>
+</li>
+<li href="#" class="nav-link" (click)="addinTab('lhsc-upload',4)">
+  <i class="bx bx-user-check"></i>
+  <span class="mx-2 text-white">Markets / Sectors</span>
+</li>
+<li href="#" class="nav-link" (click)="addinTab('gbir',5)">
+  <i class="bx bx-user-check"></i>
+  <span class="mx-2 text-white">Currency Exchange</span>
+</li>
+</ul>
+    </p-accordionTab>
+    <p-accordionTab header="Administration">
+      <ul class="nav flex-column bg-nav text-white w-100">
+<li href="/identity/roles" class="nav-link text-white">
+  <i class="fa fa-id-card-o"></i>
+  <span class="mx-2 text-white">Roles</span>
+</li>
+<li href="/identity/users" class="nav-link text-white">
+  <i class="fa fa-id-card-o"></i>
+  <span class="mx-2 text-white">Users</span>
+</li>
+<li href="/tenant-management/tenants" class="nav-link text-white">
+  <i class="fa fa-users"></i>
+  <span class="mx-2 text-white">Tenants</span>
+</li>
+<li href="/setting-management" class="nav-link text-white">
+  <i class="fa fa-cog"></i>
+  <span class="mx-2 text-white">Settings</span>
+</li>
+</ul>
+    </p-accordionTab>
+</p-accordion>
 
   <span href="#" class="nav-link h4 w-100 mb-5">
     <a href=""><i class="bx bxl-instagram-alt text-white"></i></a>
@@ -55,31 +105,28 @@
 
 <!-- Main Wrapper -->
 <div class="p-1 my-container active-cont">
-  <div class="card p-3 shadow">
-    <nav>
-      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-        <button *ngFor="let tab of tabs; let i = index"
-          class="nav-link"
-          [ngClass]="{ 'active':activeTab === tab.href}"
-          (click)="selectTab(tab.href)" type="button"
-          >{{ tab.title }}
-          <button (click)="closeTab(i, $event)" class="close">&times;</button>
-        </button>
+  <div class="p-5 text-center" *ngIf="tabs.length == 0">
+    <div class="d-inline-block bg-success text-white p-1 h5 rounded mb-4" role="alert">
+      <h5 class="m-1">
+        <i class="fas fa-rocket" aria-hidden="true"></i> Congratulations, You are land in <strong>Opera</strong>
+      </h5>
     </div>
-  </nav>
-		<div class="tab-content p-3 border bg-light" id="navtabContent" #navtabContent>
-      <ng-template class="tab-pane" #container *ngIf="tabs.length == 1">
-      </ng-template>
-      <ng-container *ngFor="let tab of tabs; let i = index">        
-        <div 
-          class="tab-pane"
-          attr.id="{{tab.href}}"
-          [ngClass]="activeTab === tab.href ? 'active show' : 'd-none'"
-          #tabContainer
-        > </div>
-      </ng-container>
-		</div>
-	</div>        
+    <h1>Welcome to the Opera Community</h1>
+  </div>
+  <div class="card p-3 shadow" *ngIf="tabs.length > 0">
+    <p-tabView dynamic="true" cache="false" [scrollable]="true">
+      <p-tabPanel [header]="tab.title" *ngFor="let tab of tabs; let i = index" [selected]="i == selectedIndex">
+        <ng-template pTemplate="header" > 
+          {{ tab.title }}
+          <button (click)="closeTab(i, $event)" class="btn btn-sm ms-1">
+            <i class="fa fa-close"></i>
+          </button>
+      </ng-template> 
+          <!-- {{ tab.title }} -->
+          <ng-container #tabContainer></ng-container>
+      </p-tabPanel>
+  </p-tabView>
+</div>
 </div>
 
 
