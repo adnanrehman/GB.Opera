@@ -12,6 +12,7 @@ import { OwnershipComponent } from '../application/components/ownership/ownershi
 import { ProductsServicesAndRawMaterialsComponent } from '../application/components/products-services-and-raw-materials/products-services-and-raw-materials.component';
 import { ReportsComponent } from '../application/components/reports/reports.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CountryGroupComponent } from '../markets/components/country-group/country-group.component';
 
 @Component({
   selector: 'app-home',
@@ -67,10 +68,10 @@ export class HomeComponent {
   addinTab(type:string,index : number){
     if(type == "GbFacts"){
       this.addTab("Gb Facts", GbFactsComponent,index,type);
-      index++;
+      
     }else if(type == "AccountClassification"){
       this.addTab("Accounts Classificartion", AccountsClassificationComponent,index,type);
-      index++;
+     
     }else if(type == "ownership"){
       this.addTab("Ownership", OwnershipComponent,index,type);
     }else if(type == "reports"){
@@ -87,6 +88,9 @@ export class HomeComponent {
       this.addTab("Products Services And Raw Materials", ProductsServicesAndRawMaterialsComponent,index,type);
     }else if(type == "economic-and-statistical-data"){
       this.addTab("Economic and Statistical Data", EconomicAndStatisticalDataComponent,index,type);
+    }
+    else if(type == "country-group"){
+      this.addTab("Country Group", CountryGroupComponent,index,type);
     }
     
   }
