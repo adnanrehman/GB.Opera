@@ -22,6 +22,7 @@ import { SideMenuLayoutModule } from "@abp/ng.theme.lepton-x/layouts";
 import { AccountLayoutModule } from "@abp/ng.theme.lepton-x/account";
 import { CommonModule } from '@angular/common';
 import { ApplicationModule } from './application/application.module';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
   imports: [
@@ -56,7 +57,7 @@ import { ApplicationModule } from './application/application.module';
     })
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER],
+  providers: [APP_ROUTE_PROVIDER,DialogService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
