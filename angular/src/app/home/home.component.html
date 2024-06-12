@@ -1,6 +1,6 @@
 <div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar">
-  <p-accordion *ngFor="let menu of menus" [activeIndex]="0">
-    <p-accordionTab header="{{menu.title}}">
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab header="{{menu.title}}" *ngFor="let menu of menus" >
       <ul class="nav flex-column bg-nav w-100">
         <li href="#" class="nav-link" (click)="addinTab(sub.href)" *ngFor="let sub of menu.menuItems">
           <i class="bx bxs-dashboard"></i>

@@ -110,6 +110,7 @@ export class HomeComponent {
   addTab(title: string, component: any,href:string) {
     this.spinner.show();
     if(this.tabs.length > 0){
+      debugger;
       var exist = this.tabs.find(a=>a.title.toString() == title.toString());
       if(exist == undefined){
         this.tabService.addTab({ title:title,component:component,href:href });
@@ -118,7 +119,9 @@ export class HomeComponent {
           this.loadTabComponent();
           this.spinner.hide();
      }, 100);        
-      }  
+      } else{
+        this.selectTab(href);
+      } 
 
     }else{
       this.tabService.addTab({ title:title,component:component,href:href  });
