@@ -12,6 +12,7 @@ import { OwnershipComponent } from '../application/components/ownership/ownershi
 import { ProductsServicesAndRawMaterialsComponent } from '../application/components/products-services-and-raw-materials/products-services-and-raw-materials.component';
 import { ReportsComponent } from '../application/components/reports/reports.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MenuService } from '@proxy/menu/menu.service';
 
 @Component({
   selector: 'app-home',
@@ -20,8 +21,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class HomeComponent {
   tabs: any[] = [];
+  menus: any[] = [];
   selectedIndex = 0;
-  activeTab:string = "GbFacts"
+  activeTab!:string;
   navbarCollapsed = true;
   public gfg = true; 
 
@@ -40,7 +42,10 @@ export class HomeComponent {
     return this.authService.isAuthenticated;
   }
 
-  constructor(private authService: AuthService,private tabService: TabService,private spinner: NgxSpinnerService,
+  constructor(private authService: AuthService,
+    private tabService: TabService,
+    private menuService: MenuService,
+    private spinner: NgxSpinnerService,
   ) {
 
   }
@@ -62,42 +67,53 @@ export class HomeComponent {
       this.tabs = tabs;
       this.spinner.hide();
     }); 
+    this.menuService.menus$.subscribe(menus => {
+      this.menus = menus;
+      this.spinner.hide();
+    }); 
   }
 
-  addinTab(type:string,index : number){
-    if(type == "GbFacts"){
-      this.addTab("Gb Facts", GbFactsComponent,index,type);
-      index++;
-    }else if(type == "AccountClassification"){
-      this.addTab("Accounts Classificartion", AccountsClassificationComponent,index,type);
-      index++;
-    }else if(type == "ownership"){
-      this.addTab("Ownership", OwnershipComponent,index,type);
-    }else if(type == "reports"){
-      this.addTab("Reports", ReportsComponent,index,type);
-    }else if(type == "lhsc-upload"){
-      this.addTab("LHSC Upload", LhscUploadComponent,index,type);
-    }else if(type == "gbir"){
-      this.addTab("GBIR", GbirComponent,index,type);
-    }else if(type == "gbir-universal-facts"){
-      this.addTab("GBIR Universal Facts", GbUniversalFactsComponent,index,type);
-    }else if(type == "gbir-universal-facts-view"){
-      this.addTab("GBIR Universal Facts View", GbUniversalFactsViewComponent,index,type);
-    }else if(type == "products-services-and-raw-materials"){
-      this.addTab("Products Services And Raw Materials", ProductsServicesAndRawMaterialsComponent,index,type);
-    }else if(type == "economic-and-statistical-data"){
-      this.addTab("Economic and Statistical Data", EconomicAndStatisticalDataComponent,index,type);
+  addinTab(type:string){
+    debugger;
+    this.menus.forEach(element => {
+      var currentTab = element.menuItems.find(x => x.href == type);
+    if(currentTab != null){
+      this.addTab(currentTab.title, currentTab.component,currentTab.href);
     }
+    });
+    
+
+    // if(type == "gb-facts"){
+    //   this.addTab("Gb Facts", GbFactsComponent,type);
+    // }else if(type == "account-classification"){
+    //   this.addTab("Accounts Classificartion", AccountsClassificationComponent,type);
+    // }else if(type == "ownership"){
+    //   this.addTab("Ownership", OwnershipComponent,type);
+    // }else if(type == "reports"){
+    //   this.addTab("Reports", ReportsComponent,type);
+    // }else if(type == "lhsc-upload"){
+    //   this.addTab("LHSC Upload", LhscUploadComponent,type);
+    // }else if(type == "gbir"){
+    //   this.addTab("GBIR", GbirComponent,type);
+    // }else if(type == "gbir-universal-facts"){
+    //   this.addTab("GBIR Universal Facts", GbUniversalFactsComponent,type);
+    // }else if(type == "gbir-universal-facts-view"){
+    //   this.addTab("GBIR Universal Facts View", GbUniversalFactsViewComponent,type);
+    // }else if(type == "products-services-and-raw-materials"){
+    //   this.addTab("Products Services And Raw Materials", ProductsServicesAndRawMaterialsComponent,type);
+    // }else if(type == "economic-and-statistical-data"){
+    //   this.addTab("Economic and Statistical Data", EconomicAndStatisticalDataComponent,type);
+    // }
     
   }
 
-  addTab(title: string, component: any, index:number,href:string) {
+  addTab(title: string, component: any,href:string) {
     this.spinner.show();
     if(this.tabs.length > 0){
       var exist = this.tabs.find(a=>a.title.toString() == title.toString());
       if(exist == undefined){
-        this.tabService.addTab({ title:title,component:component,href:href,index:index });
-        this.selectTab(index);
+        this.tabService.addTab({ title:title,component:component,href:href });
+        this.selectTab(href);
         setTimeout(()=>{           
           this.loadTabComponent();
           this.spinner.hide();
@@ -105,8 +121,8 @@ export class HomeComponent {
       }  
 
     }else{
-      this.tabService.addTab({ title:title,component:component,href:href,index:index  });
-      this.selectTab(index);      
+      this.tabService.addTab({ title:title,component:component,href:href  });
+      this.selectTab(href);      
       setTimeout(()=>{         
         this.loadTabComponent();
         this.spinner.hide();
@@ -115,8 +131,8 @@ export class HomeComponent {
     }
   }
 
-  selectTab(index: number) {
-    this.selectedIndex = index;
+  selectTab(href: string) {
+    this.activeTab = href;
   //   let elements = document.getElementsByClassName("d-none");
   //   for (var i = 0; i < elements.length; i++) {
   //     elements[i].nextElementSibling.setAttribute("class", "d-none");
@@ -127,10 +143,10 @@ export class HomeComponent {
     debugger;
     event.stopPropagation();
     this.tabService.removeTab(index);
-    if (this.selectedIndex === index && this.tabs.length > 0) {
-      this.selectedIndex = Math.max(0, index - 1);
-    }
-    this.selectTab(index - 1);
+    // if (this.selectedIndex === index && this.tabs.length > 0) {
+    //   this.selectedIndex = Math.max(0, index - 1);
+    // }
+    this.selectTab(this.tabs[index-1].href);
     // this.loadTabComponent();
   }
 
