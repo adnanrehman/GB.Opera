@@ -113,7 +113,7 @@
     </div>
     <h1>Welcome to the Opera Community</h1>
   </div>
-  <div class="card p-3 shadow" *ngIf="tabs.length > 0">
+  <div class="card p-0 shadow" *ngIf="tabs.length > 0">
     <p-tabView dynamic="true" cache="false" [scrollable]="true">
       <p-tabPanel [header]="tab.title" *ngFor="let tab of tabs; let i = index" [selected]="i == selectedIndex">
         <ng-template pTemplate="header" > 
