@@ -1,1 +1,13 @@
-<p>ownership works!</p>
+
+
+<div class="row">
+    <div class="col-sm-11">
+        <p-tree [value]="data" selectionMode="single" (onNodeSelect)="editAccount($event)" class="w-full md:w-30rem" [filter]="true" filterMode="strict" filterPlaceholder="Search Ownership" > 
+            <ng-template pTemplate="header"> 
+              </ng-template> 
+        </p-tree>
+    </div>
+    <div class="col-sm-1 mt-1">
+        <a class="btn btn-primary" (click)="addAccount()"><i class="fa fa-plus fa-sm me-2"></i>Add</a>
+    </div>
+    </div>
