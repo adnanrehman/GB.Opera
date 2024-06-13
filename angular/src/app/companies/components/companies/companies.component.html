@@ -1,1 +1,372 @@
-<p>companies works!</p>
+<div class="container ms-2">
+  <div class="row mb-2">
+    <div class="col-md-3">
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <p-dropdown
+            [options]="markets"
+            placeholder="Select a Market"
+            optionLabel="name"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body p-0">
+              <h6 class="selector p-1 mb-1 border-bottom">Sectors</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Banks</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Capital Goods</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Commercial & Professional</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Consumer Durables & Appar</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Consumer Services</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Diversified Financials</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Energy</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Food & Beverages</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Food & Staples Retailing</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Health Care Equipment & S、</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Insurance</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Materials</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Media</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Not Listed</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Pharma, Biotech & Life Scie</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">REITS</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Real Estate Mgmt & Dev</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Retailing</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Software & Services</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Telecommunication Services</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body p-2">
+          <div class="row">
+            <div class="col-md-8">
+              <p-autoComplete
+                [suggestions]="filteredCountries"
+                field="name"
+                placeholder="Search the companies"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+              >
+              </p-autoComplete>
+            </div>
+            <div class="col-md-4">
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
+              <!-- <p-fileUpload
+              chooseLabel="Upload Beta"
+              styleClass="p-button-sm text-end"
+              mode="basic"
+              [showUploadButton]="false"
+              [showCancelButton]="false"
+              [maxFileSize]="1000000"
+              [customUpload]="true"
+              [auto]="true"
+              accept="image/*"
+            >
+            </p-fileUpload> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="col-form-label col-4">Company</label>
+                  <input
+                    autofocus
+                    type="text"
+                    class="form-control col-8"
+                    name="Company"
+                    placeholder="Company"
+                  />
+                </div>
+                <div class="col-md-12 mt-2">
+                  <!-- <label class="col-form-label">Company (AR)</label> -->
+                  <input
+                    autofocus
+                    type="text"
+                    class="form-control"
+                    name="Company"
+                    placeholder="Company (AR)"
+                  />
+                </div>
+                <div class="col-md-12">
+                  <label class="col-form-label">Ticker</label>
+                  <input
+                    autofocus
+                    type="text"
+                    class="form-control"
+                    name="Company"
+                    placeholder="Ticker"
+                  />
+                </div>
+                <div class="col-md-12 mt-2">
+                  <!-- <label class="col-form-label">Ticker (AR)</label> -->
+                  <input
+                    autofocus
+                    type="text"
+                    class="form-control"
+                    name="Company"
+                    placeholder="Ticker (AR)"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 text-center mt-2">
+              <p-image
+                src="https://salogos.org/wp-content/uploads/2021/12/%D8%A8%D9%86%D9%83-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF.png"
+                imageClass="d-block rounded"
+                height=""
+                width="80%"
+              ></p-image>
+
+              <span class="text-muted py-2">Allowed JPG, GIF or PNG. Max size of 1 MB</span>
+              <p-fileUpload
+                name="imgContactAvatar"
+                #imgContactAvatar
+                chooseLabel="Upload Logo"
+                styleClass="p-button-sm"
+                mode="basic"
+                chooseIcon="pi pi-user"
+                [showUploadButton]="false"
+                [showCancelButton]="false"
+                [maxFileSize]="1000000"
+                [customUpload]="true"
+                [auto]="true"
+                accept="image/*"
+              >
+              </p-fileUpload>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label class="col-form-label">GB Sector</label>
+              <p-dropdown
+                [options]="markets"
+                placeholder="Select a Gb Sector"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">GB Indusrial Group</label>
+              <p-dropdown
+                [options]="markets"
+                placeholder="Select a Gb Group"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Official Sector</label>
+              <p-dropdown
+                [options]="markets"
+                placeholder="Select a Official Sector"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Internal Category</label>
+              <p-dropdown
+                [options]="markets"
+                placeholder="Select a Internal Category"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Financial Currency</label>
+              <p-dropdown
+                [options]="markets"
+                placeholder="Select a Financial Currency"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Trading Main</label>
+              <p-dropdown
+                [options]="markets"
+                placeholder="Select a Trading Main"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Trading Sub</label>
+              <p-dropdown
+                [options]="markets"
+                placeholder="Select a Trading Sub"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Cap Size</label>
+              <p-dropdown
+                [options]="markets"
+                placeholder="Select a Cap Size"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Establishment</label>
+              <p-calendar [style]="{ width: '100%' }" placeholder="Select a Establishment Date" />
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Company Activation</label>
+              <p-dropdown
+                [options]="markets"
+                placeholder="Select a Company Activation"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-4 d-flex flex-row bd-highlight mt-2">
+              <div class="form-check me-2">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="defaultCheck3">Attributes</label>
+              </div>
+              <div class="form-check me-2">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="defaultCheck2">Main</label>
+              </div>
+              <div class="form-check me-2">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="defaultCheck1">Has Funds</label>
+              </div>
+            </div>
+            <div class="col-md-4 mt-2">
+              <input
+                autofocus
+                type="text"
+                class="form-control"
+                name="Company"
+                placeholder="Active Index Alt Ticker"
+              />
+            </div>
+            <div class="col-md-2 mt-2">
+              <input
+                autofocus
+                type="text"
+                class="form-control"
+                name="Company"
+                placeholder="Stock Ticker"
+              />
+            </div>
+            <div class="col-md-2 mt-2">
+              <input
+                autofocus
+                type="text"
+                class="form-control"
+                name="Company"
+                placeholder="Order No"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Overview</label>
+              <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+              </textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Overview (AR)</label>
+              <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+              </textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Bussiness Activity</label>
+              <textarea
+                rows="3"
+                class="form-control"
+                placeholder="Describe Bussiness Activity here..."
+              >
+              </textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Bussiness Activity (AR)</label>
+              <textarea
+                rows="3"
+                class="form-control"
+                placeholder="Describe Bussiness Activity here..."
+              >
+              </textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+                <p-table #dt [value]="companies" [tableStyle]="{ 'max-height': '20rem' }" responsiveLayout="stack" styleClass="p-datatable-strip">
+                <ng-template pTemplate="caption">
+                  <div class="d-flex flex-column flex-md-row justify-content-between">
+                    <div class="mr-auto p-2">
+                      <span>
+                        <h5>Companies</h5>
+                      </span>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th>Company</th>
+                    <th>Ticker</th>
+                    <th>Year Established</th>
+                    <th>Establishment</th>
+                    <th>Order</th>
+                    <th>Alternate</th>
+                    <th>Stock Ticker</th>
+                    <th>English</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                  <tr>
+                    <td>
+                        <p> <p-tableCheckbox [value]="item"></p-tableCheckbox></p>
+                    </td>
+                    <td>{{item.company}}</td>
+                    <td>{{item.ticker}}</td>
+                    <td>{{item.ye}}</td>
+                    <td>{{item.est}}</td>
+                    <td>{{item.order}}</td>
+                    <td>{{item.alternate}}</td>
+                    <td>{{item.st}}</td>
+                    <td>{{item.eng}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
