@@ -1,1 +1,717 @@
-<p>ownership-companies works!</p>
+<div class="container ms-2">
+  <div class="row mb-2">
+    <div class="col-md-3">
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <p-dropdown
+            [options]="markets"
+            placeholder="Select a Market"
+            optionLabel="name"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
+        </div>
+        <div class="col-md-12 mt-2">
+          <p-dropdown
+            [options]="markets"
+            placeholder="Select a Sector"
+            optionLabel="name"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h6>Companies</h6>
+          <div class="card">
+            <div class="card-body p-0">
+              <h6 class="selector p-1 mb-1 border-bottom">MIS</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">RJHI</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">ALAWWAL</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">ALINMA</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">ARNB</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">ALBILAD</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">BJAZ</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">BSFR</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">RIBL</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">SAMBA</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">SAB</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">SAIB</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">SNB</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body p-2">
+          <div class="row">
+            <div class="col-md-8">
+              <p-autoComplete
+                [suggestions]="filteredCountries"
+                field="name"
+                placeholder="Search the RIBL"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+              >
+              </p-autoComplete>
+            </div>
+            <div class="col-md-4">
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <p-tabView>
+              <p-tabPanel header="Subsidiaries">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Company</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Company"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Company (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Country</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Country"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Country (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Priciple Activity</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Priciple Activity"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Priciple Activity (AR)"
+                    />
+                  </div>
+                  <div class="col-md-3">
+                    <label class="col-form-label">Company Type</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Company Type"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                    <label class="col-form-label">Share</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Priciple Activity (AR)"
+                    />
+                  </div>
+                  <div class="col-md-3">
+                    <label class="col-form-label">Update Date</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
+                    <label class="col-form-label">Order</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Order"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Description</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Description (AR)</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <p-table
+                      #dt
+                      [value]="subsidiaries"
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Subsidiaries</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center">
+                            <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
+                          </th>
+                          <th>Subsidiary Company</th>
+                          <th>Share</th>
+                          <th>Priciple Activity</th>
+                          <th>Customer Order</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center">
+                            <!-- <p-tableCheckbox [value]="item"></p-tableCheckbox> -->
+                          </td>
+                          <td>{{ item.company }}</td>
+                          <td>{{ item.share }}</td>
+                          <td>{{ item.pa }}</td>
+                          <td>{{ item.order }}</td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Sister Companies">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Company Name</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Company"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Company Name (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Relation</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Relation"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Relation (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Description</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Description (AR)</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <p-table
+                      #dt
+                      [value]="subsidiaries"
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Sister Companies</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center"></th>
+                          <th>Siter Company</th>
+                          <th>Relation</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center"></td>
+                          <td>{{ item.company }}</td>
+                          <td>{{ item.share }}</td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Products">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Product Name</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Product Name"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Product Name (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Last Product</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Last Product"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Last Product (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Description</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Description (AR)</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Launch Date</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Activation</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Activation"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <p-table
+                      #dt
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Products</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center"></th>
+                          <th>Company Product</th>
+                          <th>Launch Date</th>
+                          <th>Last Product</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center"></td>
+                          <td>{{ item.company }}</td>
+                          <td>{{ item.share }}</td>
+                          <td>{{ item.order }}</td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Raw Materials">
+                <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label col-4">Material Name</label>
+                      <input
+                        autofocus
+                        type="text"
+                        class="form-control"
+                        name="Company"
+                        placeholder="Material Name"
+                      />
+                      <input
+                        autofocus
+                        type="text"
+                        class="form-control mt-2"
+                        name="Company"
+                        placeholder="Material Name (AR)"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label col-4">Current Provider</label>
+                      <input
+                        autofocus
+                        type="text"
+                        class="form-control"
+                        name="Company"
+                        placeholder="Current Provider"
+                      />
+                      <input
+                        autofocus
+                        type="text"
+                        class="form-control mt-2"
+                        name="Company"
+                        placeholder="Current Provider (AR)"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Last Provider</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Last Provider"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="Last Provider (AR)"
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label col-4">Reason</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Reason"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="Reason (AR)"
+                        />
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Description</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Description (AR)</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Activation</label>
+                      <p-dropdown
+                        [options]="markets"
+                        placeholder="Select a Activation"
+                        optionLabel="name"
+                        [style]="{ width: '100%' }"
+                        [showClear]="true"
+                      >
+                      </p-dropdown>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-12">
+                      <p-table
+                        #dt
+                        [tableStyle]="{ 'max-height': '20rem' }"
+                        responsiveLayout="stack"
+                        styleClass="p-datatable-gridlines"
+                      >
+                        <ng-template pTemplate="caption">
+                          <div class="d-flex flex-column flex-md-row justify-content-between">
+                            <div class="mr-auto p-2">
+                              <span>
+                                <h5>Materials</h5>
+                              </span>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th class="text-center"></th>
+                            <th>Raw Material</th>
+                            <th>Current Provider</th>
+                            <th>Last Provider</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                          <tr>
+                            <td class="text-center"></td>
+                            <td>{{ item.company }}</td>
+                            <td>{{ item.share }}</td>
+                            <td>{{ item.order }}</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+              </p-tabPanel>
+              <p-tabPanel header="Foriegn Investment Options">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="col-form-label">Permitted Share to Foreigners</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Permitted Share to Foreigners"
+                        />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-form-label">Permitted Share to GCC Nationals</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Permitted Share to GCC Nationals"
+                        />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-form-label">Permitted Share to Arab Nationals</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Permitted Share to Arab Nationals"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Permited Date</label>
+                      <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Activation</label>
+                      <p-dropdown
+                        [options]="markets"
+                        placeholder="Select a Activation"
+                        optionLabel="name"
+                        [style]="{ width: '100%' }"
+                        [showClear]="true"
+                      >
+                      </p-dropdown>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Description</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Description (AR)</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-12">
+                      <p-table
+                        #dt
+                        [tableStyle]="{ 'max-height': '20rem' }"
+                        responsiveLayout="stack"
+                        styleClass="p-datatable-gridlines"
+                      >
+                        <ng-template pTemplate="caption">
+                          <div class="d-flex flex-column flex-md-row justify-content-between">
+                            <div class="mr-auto p-2">
+                              <span>
+                                <h5>Foreign Investment Options</h5>
+                              </span>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th class="text-center"></th>
+                            <th>Permitted Share to Foreigners</th>
+                            <th>Permitted Share to GCC Nationals</th>
+                            <th>Permitted Share to Arab Nationals</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                          <tr>
+                            <td class="text-center"></td>
+                            <td>{{ item.company }}</td>
+                            <td>{{ item.share }}</td>
+                            <td>{{ item.order }}</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+              </p-tabPanel>
+              <p-tabPanel header="MiscNotes">
+                <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Date</label>
+                      <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Activation</label>
+                      <p-dropdown
+                        [options]="markets"
+                        placeholder="Select a Activation"
+                        optionLabel="name"
+                        [style]="{ width: '100%' }"
+                        [showClear]="true"
+                      >
+                      </p-dropdown>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Description</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Description (AR)</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Note</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Note (AR)</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-12">
+                      <p-table
+                        #dt
+                        [tableStyle]="{ 'max-height': '20rem' }"
+                        responsiveLayout="stack"
+                        styleClass="p-datatable-gridlines"
+                      >
+                        <ng-template pTemplate="caption">
+                          <div class="d-flex flex-column flex-md-row justify-content-between">
+                            <div class="mr-auto p-2">
+                              <span>
+                                <h5>MISC Note</h5>
+                              </span>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th class="text-center"></th>
+                            <th>Date</th>
+                            <th>Note</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                          <tr>
+                            <td class="text-center"></td>
+                            <td>{{ item.company }}</td>
+                            <td>{{ item.share }}</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+              </p-tabPanel>
+            </p-tabView>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

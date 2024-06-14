@@ -1,1 +1,1236 @@
-<p>management works!</p>
+<div class="container ms-2">
+  <div class="row mb-2">
+    <div class="col-md-3">
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <p-dropdown
+            [options]="markets"
+            placeholder="Select a Market"
+            optionLabel="name"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
+        </div>
+        <div class="col-md-12 mt-2">
+          <p-dropdown
+            [options]="markets"
+            placeholder="Select a Sector"
+            optionLabel="name"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h6>Companies</h6>
+          <div class="card">
+            <div class="card-body p-0">
+              <h6 class="selector p-1 mb-1 border-bottom">ACDB</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">AVD</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">HGFA</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">KJUYA</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">ADEF</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">DDEDW</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">SDAD</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">DFES</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body p-2">
+          <div class="row">
+            <div class="col-md-8">
+              <p-autoComplete
+                [suggestions]="filteredCountries"
+                field="name"
+                placeholder="Search the Companies and select"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+              >
+              </p-autoComplete>
+            </div>
+            <div class="col-md-4">
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <p-tabView>
+              <p-tabPanel header="Key Peoples">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">President</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="President"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="President (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Vice President</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Vice President"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Vice President (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">President</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="President"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="President (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Vice President</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Vice President"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Vice President (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Honoury President</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Honoury President"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Honoury President (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Chairman</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Chairman"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Chairman (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Vice Chairman</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Vice Chairman"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Vice Chairman (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Honoury Chairman</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Honoury Chairman"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Honoury Chairmant (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">CEO</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="CEO"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="CEO (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Managing Director</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Managing Director"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Managing Director (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Depty MD</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Depty MD"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Depty MD (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">General Manager</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="General Manager"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="General Manager (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Date</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Till</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Activation</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Activation"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <p-table
+                      #dt
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Key Peoples</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center">
+                            <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
+                          </th>
+                          <th>ChairMan</th>
+                          <th>Managing Director</th>
+                          <th>Since</th>
+                          <th>Till</th>
+                          <th>Active</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center">
+                            <!-- <p-tableCheckbox [value]="item"></p-tableCheckbox> -->
+                          </td>
+                          <td>{{ item.company }}</td>
+                          <td>{{ item.share }}</td>
+                          <td>{{ item.pa }}</td>
+                          <td>{{ item.order }}</td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Senior Management">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Title</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Title"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Title (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Senior Management</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Senior Management"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Senior Management (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Date</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Till</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Activation</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Activation"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <p-table
+                      #dt
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Senior Management</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center"></th>
+                          <th>Title</th>
+                          <th>Senior Management</th>
+                          <th>Since</th>
+                          <th>Till</th>
+                          <th>IsActive</th>
+                          <th>Gulf Base Update</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center"></td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Auditors">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Title</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Title"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Title (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Auditor</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Auditor"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Auditor (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Date</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Till</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Activation</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Activation"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <p-table
+                      #dt
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Auditors</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center"></th>
+                          <th>Title</th>
+                          <th>Auditor</th>
+                          <th>Since</th>
+                          <th>Till</th>
+                          <th>IsActive</th>
+                          <th>Gulf Base Update</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center"></td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Board Members">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Title</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Title"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Title (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Board Member</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Board Member"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Board Member (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Date</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Till</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Activation</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Activation"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Custom Order</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Custom Order"
+                    />
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <p-table
+                      #dt
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Board Members</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center"></th>
+                          <th>Title</th>
+                          <th>Board Member</th>
+                          <th>Since</th>
+                          <th>Till</th>
+                          <th>IsActive</th>
+                          <th>Gulf Base Update</th>
+                          <th>Custom Order</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center"></td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Branches">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Branch Name</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Branch Name"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="Branch Name (AR)"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">City</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="City"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="City (AR)"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Address</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Address"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="Address (AR)"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">P.O Box</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="P.O Box"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="P.O Box (AR)"
+                        />
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <label class="col-form-label col-4">Telex</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Telex"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="Telex (AR)"
+                        />
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Email</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Email"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Cell</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Cell"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Fax</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Fax"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Website</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Website"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Pin Code</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Website"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Tele Phone</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Tele Phone"
+                        />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                      <p-table
+                        #dt
+                        [tableStyle]="{ 'max-height': '20rem' }"
+                        responsiveLayout="stack"
+                        styleClass="p-datatable-gridlines"
+                      >
+                        <ng-template pTemplate="caption">
+                          <div class="d-flex flex-column flex-md-row justify-content-between">
+                            <div class="mr-auto p-2">
+                              <span>
+                                <h5>Branches</h5>
+                              </span>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th class="text-center"></th>
+                            <th>Branch Name</th>
+                            <th>City</th>
+                            <th>Tekephone</th>
+                            <th>Fax</th>
+                            <th>IsActive</th>
+                            <th>Gulf Base Update</th>
+                            <th>Region</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                          <tr>
+                            <td class="text-center"></td>
+                            <td>{{ item.company }}</td>
+                            <td>{{ item.share }}</td>
+                            <td>{{ item.order }}</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+              </p-tabPanel>
+              <p-tabPanel header="Overview">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Inital Capitol</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Inital Capitol"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Authorized Capitol</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Authorized Capitol"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Subscribed Capitol</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Subscribed Capitol"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">PaidUp Capitol</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="PaidUp Capitol"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Inital Capitol</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Inital Capitol"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Outstanding Shares</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Outstanding Shares"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Per value per share</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Per value per share"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Treasory Stock</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Treasory Stock"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Beta</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Beta"
+                        />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <p-table
+                      #dt
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Financial Overview</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center"></th>
+                          <th>Listed Date</th>
+                          <th>PaidUp Capiton</th>
+                          <th>Outstanding Shares</th>
+                          <th>Per value per share</th>
+                          <th>Is Active</th>
+                          <th>Gulf Base Update</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center"></td>
+                          <td>{{ item.company }}</td>
+                          <td>{{ item.share }}</td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Contacts">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Contact Name</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Branch Name"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="Branch Name (AR)"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">City</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="City"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="City (AR)"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Address</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Address"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="Address (AR)"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">P.O Box</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="P.O Box"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="P.O Box (AR)"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Email</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Email"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Cell</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Cell"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Fax</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Fax"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Website</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Website"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Pin Code</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Website"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Tele Phone</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Tele Phone"
+                        />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                      <p-table
+                        #dt
+                        [tableStyle]="{ 'max-height': '20rem' }"
+                        responsiveLayout="stack"
+                        styleClass="p-datatable-gridlines"
+                      >
+                        <ng-template pTemplate="caption">
+                          <div class="d-flex flex-column flex-md-row justify-content-between">
+                            <div class="mr-auto p-2">
+                              <span>
+                                <h5>Contacts</h5>
+                              </span>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th class="text-center"></th>
+                            <th>Contact Name</th>
+                            <th>City</th>
+                            <th>Tekephone</th>
+                            <th>Fax</th>
+                            <th>IsActive</th>
+                            <th>Gulf Base Update</th>
+                            <th>Region</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                          <tr>
+                            <td class="text-center"></td>
+                            <td>{{ item.company }}</td>
+                            <td>{{ item.share }}</td>
+                            <td>{{ item.order }}</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+              </p-tabPanel>
+              <p-tabPanel header="Projects">
+                <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Project Name</label>
+                      <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Project Name"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Status</label>
+                      <p-dropdown
+                        [options]="markets"
+                        placeholder="Select a Status"
+                        optionLabel="name"
+                        [style]="{ width: '100%' }"
+                        [showClear]="true"
+                      >
+                      </p-dropdown>
+                    </div>
+                  </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Start</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">End</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Description</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Description (AR)</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <p-table
+                      #dt
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Company Projects</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center"></th>
+                          <th>Project Name</th>
+                          <th>Status</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
+                          <th>Description</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center"></td>
+                          <td>{{ item.company }}</td>
+                          <td>{{ item.share }}</td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </p-tabPanel>
+            </p-tabView>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
