@@ -1,5 +1,19 @@
 <div class="row">
-    <div class="col-sm-11">
-        <p>its works</p>
+    <div class="col-sm-6">
+      <!-- Tree 1 -->
+      <p-tree [value]="tree" selectionMode="single"></p-tree>
     </div>
-</div>
+    <div class="col-sm-6">
+        <style>
+            /* Add custom CSS to change the background color */
+            .custom-tree {
+                background:red !important; 
+   color:rgb(182, 53, 53) !important; 
+   font-weight:bold !important
+            }
+          </style>
+      <!-- Tree 2 -->
+      <p-tree [value]="data" selectionMode="checkbox"  styleClass="custom-tree"></p-tree>
+    </div>
+  </div>
+  
