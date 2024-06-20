@@ -1,1 +1,844 @@
-<p>mutaul-funds works!</p>
+<div class="container ms-2">
+  <div class="row mb-2">
+    <div class="col-md-3">
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <p-dropdown
+            [options]="markets"
+            placeholder="Select a Market"
+            optionLabel="name"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
+        </div>
+        <div class="col-md-12 mt-2">
+          <p-dropdown
+            [options]="markets"
+            placeholder="Select a Ticket"
+            optionLabel="name"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h6>Mutual Funds</h6>
+          <div class="card">
+            <div class="card-body p-0">
+              <h6 class="selector p-1 mb-1 border-bottom">ADCBMAMI</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">ADCBMSC</h6>
+              <h6 class="selector p-1 mb-1 border-bottom">Al Nokithia</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body p-2">
+          <div class="row">
+            <div class="col-md-8">
+              <p-autoComplete
+                [suggestions]="filteredCountries"
+                field="name"
+                placeholder="Search the Companies and select"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+              >
+              </p-autoComplete>
+            </div>
+            <div class="col-md-4">
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
+            </div>
+          </div>
+          <div class="row mt-2">
+            <p-tabView>
+              <p-tabPanel header="General">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label class="col-form-label">Short Name</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Short Name"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Short Name (AR)"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Name</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Name"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Name (AR)"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Manager</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Manager"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Manager (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label class="col-form-label">Currency</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Currency"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Gory</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Gory"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Sub Category</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Sub Category"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Classification</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Classification"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Listing</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Listing"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Management Fees</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Management Fees" />
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label class="col-form-label">Mang Fee Type</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Mang Fee Type"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Mang Fee Type (AR)"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Fee Description</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Fee Description"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Fee Description (AR)"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Additional Subs</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Additional Subs"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Additional Subs (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label class="col-form-label">Announced On</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Announced On"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Announced On (AR)"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Investment Manage</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Investment Manage"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Investment Manage (AR)"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Administrator</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Administrator"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Administrator (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label class="col-form-label">Auditor</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Auditor"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Auditor (AR)"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Custodian</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Custodian"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Custodian (AR)"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Management Team</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Management Team"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Management Team (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label class="col-form-label">Subs Deadline</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Subs Deadline"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Subs Deadline (AR)"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Redem Deadline</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Redem Deadline"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Redem Deadline (AR)"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Valuation Date</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Valuation Date"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Valuation Date (AR)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label class="col-form-label">Inception Fee</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Inception Fee"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Risks</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Risk"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Fund Assets</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Fund Assets"
+                    />
+                  </div>
+                  <div class="col-md-8">
+                    <label class="col-form-label">Bench Marks</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Bench Mark"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <div class="form-check me-2">
+                      <input class="form-check-input" type="checkbox" />
+                      <label class="form-check-label" for="defaultCheck3">Active</label>
+                    </div>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Detail">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Fund Objective</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Fund Objective (AR)</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Investment Policy</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Investment Policy (AR)</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Risk Profile</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Risk Profile (AR)</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Funds Benefits</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Funds Benefits (AR)</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Funds Components</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Funds Components (AR)</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Funds Manager Comments</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Funds Manager Comments (AR)</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Unit Price Calculation</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Unit Price Calculation (AR)</label>
+                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Diversifications">
+                <div class="row mt-2">
+                  <div class="col-md-6 mt-3">
+                    <p-table
+                      #dt
+                      [value]="subsidiaries"
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Geo Diversifications</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center"></th>
+                          <th>Geo Diversifications</th>
+                          <th>Value</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center"></td>
+                          <td>{{ item.pa }}</td>
+                          <td>{{ item.share }}</td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                  <div class="col-md-6 mt-3">
+                    <p-table
+                      #dt
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Sector Diversifications</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center"></th>
+                          <th>Sector Diversifications</th>
+                          <th>Value</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center"></td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                  <div class="col-md-6 mt-3">
+                    <p-table
+                      #dt
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Major Investments</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center"></th>
+                          <th>Major Investments</th>
+                          <th>Value</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center"></td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                  <div class="col-md-6 mt-3">
+                    <p-table
+                      #dt
+                      [value]="subsidiaries"
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Assets Allocations</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center"></th>
+                          <th>Assets Allocations</th>
+                          <th>Value</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td class="text-center"></td>
+                          <td>{{ item.pa }}</td>
+                          <td>{{ item.share }}</td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Manage Address">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">City</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="City"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="City (AR)"
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label col-4">Address</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Address"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="Address (AR)"
+                        />
+                      </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Website</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Website"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Email</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Email"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Postal Code</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Postal Code"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Telephone</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Telephone"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Mobile</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Mobile"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">Fax</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Fax"
+                        />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label col-4">P.O Box</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="P.O Box"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="P.O Box (AR)"
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label col-4">Telex</label>
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Company"
+                          placeholder="Telex"
+                        />
+                        <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Company"
+                          placeholder="Telex (AR)"
+                        />
+                      </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="Generate HTML">
+                <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Search Tags</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Search Tags (AR)</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Page Descriptions</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Page Descriptions (AR)</label>
+                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      </textarea>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-md-12 text-end">
+                        <button class="btn btn-sm btn-primary me-2">Generate English Html</button>
+                        <button class="btn btn-sm btn-primary">Generate Arabic Html</button>
+                    </div>
+                  </div>
+              </p-tabPanel>
+            </p-tabView>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-md-1">
+      <label class="col-form-label">Ticker:</label>
+    </div>
+    <div class="col-md-3">
+      <input autofocus type="text" class="form-control" name="Company" placeholder="Ticker" />
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-sm btn-primary">Move Fund</button>
+    </div>
+  </div>
+</div>
