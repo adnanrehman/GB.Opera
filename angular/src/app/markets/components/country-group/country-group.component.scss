@@ -1,0 +1,9 @@
+.horizontal-card {
+    display: flex; /* Use flexbox to make the card horizontal */
+    flex-direction: row; /* Arrange items horizontally */
+  }
+  
+  .horizontal-tree {
+    flex: 1; /* This makes the tree component fill the available space horizontally */
+    /* You can add additional styling as needed */
+  }

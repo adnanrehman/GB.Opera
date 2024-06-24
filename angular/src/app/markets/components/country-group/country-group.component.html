@@ -1,4 +1,141 @@
-<p>country-group works!</p>
+<div class="container ms-2">
+    <div class="row mb-2">
+        <div class="col-md-3">
+            
+            <div class="row">
+              <div class="col-md-12">
+                 
+                 
+                <div class="card">
+                    <div class="card-body p-0">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <h6 class="selector p-1 mb-1 border-bottom">GCC</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Europe</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Asia</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Americas</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">The World</h6>
+                  </div>
+                </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-9">
+           
+            <div class="card">
+            
+              <div class="card-body p-2">
+                <div class="row">
+                  <div class="col-md-8">
+                    <p-autoComplete
+                    [suggestions]="filteredCountries"
+                      field="name"
+                      placeholder="Search the GCC"
+                      [style]="{ width: '100%' }"
+                      [inputStyle]="{ width: '100%' }"
+                    >
+                    </p-autoComplete>
+                  </div>
+                  <div class="col-md-4">
+               <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
+  
+           
+                  </div>
+                </div>
 
+          <div class="row mt-2">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="col-form-label col-4">GB Name </label>
+                <input
+                  autofocus
+                  type="text"
+                  class="form-control"
+                  name="Company"
+                  placeholder="GB Name"
+                />
+                
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Countries #</label>
+                <input
+                  autofocus
+                  type="number"
+                  class="form-control"
+                  name="Company"
+                  placeholder="Country"
+                />
+                
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Formation Date </label>
+                <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
+                
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Description</label>
+                <textarea rows="2" class="form-control" placeholder="Describe here...">
+                </textarea>
+                
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Active</label>
+                <p-dropdown
+                      [options]="active"
+                      placeholder="Select a Active Type"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">OverView</label>
+                <textarea rows="4" class="form-control" placeholder="OverView here...">
+                </textarea>
+                
+              </div>
+              <div class="col-md-6">
+              
+                 
+                <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add Sector</a>
+              
+                
+              </div>
+            </div>
+          </div>
+          </div>
+           </div>
+            <div class="card">
+              <div class="card-body p-2">
+                <h6>Add Caps</h6>
+                <p-tree [value]="Caps" selectionMode="checkbox"  ></p-tree>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body p-2">
+                <h6>GB Sector</h6>
+                 
+                  <p-tree [value]="GBSector" selectionMode="checkbox"></p-tree>
+                 
+              </div>
+            </div>
+            
+            
+            
+          </div>
+            
+    </div>
+</div>
 
 
