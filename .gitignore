@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/angular/src/app/markets/components/country-group/country-group.component.html
+/angular/src/app/markets/components/country-group/country-group.component.scss
+/angular/src/app/markets/components/country-group/country-group.component.ts
