@@ -1,1 +1,621 @@
-<p>countries works!</p>
+ 
+<div class="container ms-2">
+    <div class="row mb-2">
+        <div class="col-md-3">
+            
+            <div class="row">
+              <div class="col-md-12">
+                 
+                 
+                <div class="card">
+                    <div class="card-body p-0">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <h6 class="selector p-1 mb-1 border-bottom">Brazil</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Canada</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">China</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">France</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Germany</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Global Data</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Hong Kong</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">India</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Japan</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Maxico</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Spain</h6>
+                  </div>
+                </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-9">
+           
+            <div class="card">
+            
+              <div class="card-body p-2">
+                <div class="row">
+                  <div class="col-md-8">
+                    <p-autoComplete
+                    
+                      field="name"
+                      placeholder="Search the Country"
+                      [style]="{ width: '100%' }"
+                      [inputStyle]="{ width: '100%' }"
+                    >
+                    </p-autoComplete>
+                  </div>
+                  <div class="col-md-4">
+               <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
+  
+           
+                  </div>
+                </div>
+
+          <div class="row mt-2">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="col-form-label col-4">GB Country Group </label>
+                <p-dropdown
+                      [options]="GbName"
+                      placeholder="Select  GB Country Group"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Country Name</label>
+                <input
+                  autofocus
+                  type="text"
+                  class="form-control"
+                  name="Country"
+                  placeholder="Country Name"
+                />
+
+                 <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Country"
+                      placeholder="Country Name (AR)"
+                    />
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Profile Name </label>
+                 
+                <input
+                autofocus
+                type="text"
+                class="form-control"
+                name="ProfileName"
+                placeholder="Profile Name"
+              />
+              <input
+              autofocus
+              type="text"
+              class="form-control mt-2"
+              name="ProfileName"
+              placeholder="Profile Name (AR)"
+            />
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Country Description</label>
+                <textarea rows="2" class="form-control" placeholder="Describe here...">
+                </textarea>
+                
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Indicator Name </label>
+                <input
+                autofocus
+                type="text"
+                class="form-control"
+                name="IndicatorName"
+                placeholder="Indicator Name"
+              />
+
+              <input
+              autofocus
+              type="text"
+              class="form-control mt-2"
+              name="IndicatorName"
+              placeholder="Indicator Name (AR)"
+            />
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Profile Description</label>
+                <textarea rows="2" class="form-control" placeholder="Profile here...">
+                </textarea>
+                
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Code</label>
+                <input
+                autofocus
+                type="text"
+                class="form-control"
+                name="Code" 
+                placeholder="Code"
+              />
+                
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Country Activation</label>
+                <p-dropdown
+                [options]="active"
+                placeholder="Select   Activation"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+                
+              </div>
+               
+            </div>
+          </div>
+          </div>
+           </div>
+            <div class="card">
+              <div class="card-body p-2">
+                <h6>Add Country Profile</h6>
+                
+                
+                <p-tabView>
+                    <p-tabPanel header="Banks">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">Bank</label>
+                          <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="Bank"
+                            placeholder="Bank"
+                          />
+
+                          <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Bank"
+                          placeholder="Bank (AR)"
+                        />
+                       
+                        </div>
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">City</label>
+                          <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="City"
+                            placeholder="City"
+                          />
+                          <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="City"
+                          placeholder="City (AR)"
+                        />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">Address</label>
+                          <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="Address"
+                            placeholder="Address"
+                          />
+                          <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Address"
+                          placeholder="Address (AR)"
+                        />
+                          
+                        </div>
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">TelePhone</label>
+                          <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="TelePhone"
+                            placeholder="TelePhone"
+                          />
+                          
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">Fax</label>
+                          <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="Fax"
+                            placeholder="Fax"
+                          />
+                          
+                        </div>
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">Email</label>
+                          <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="Email"
+                            placeholder="Email"
+                          />
+                         
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">Website</label>
+                          <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="Website"
+                            placeholder="Website"
+                          />
+                           
+                        </div>
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">Description</label>
+                          <textarea rows="2" class="form-control" placeholder="Description here...">
+                        </textarea>
+                        </div>
+                      </div>
+                       
+                      <div class="row">
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add Bank</a>
+                            
+                            <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Cancel</a>
+                
+                           
+                        </div>
+                        
+                      </div>
+
+
+
+
+                      
+                     
+                      <div class="row mt-2">
+                        <div class="col-md-12">
+                          <p-table
+                            #dt
+                            [tableStyle]="{ 'max-height': '20rem' }"
+                            responsiveLayout="stack"
+                            styleClass="p-datatable-gridlines"
+                          >
+                            <ng-template pTemplate="caption">
+                              <div class="d-flex flex-column flex-md-row justify-content-between">
+                                <div class="mr-auto p-2">
+                                  <span>
+                                    <h5>Banks</h5>
+                                  </span>
+                                </div>
+                              </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                              <tr>
+                                <th class="text-center">
+                                  <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
+                                </th>
+                                <th>Bank</th>
+                                <th>City</th>
+                                <th>Address</th>
+                                <th>Tel</th>
+                                <th>Fax</th>
+                                <th>Email</th>
+                                <th>Website</th>
+                                <th>Description</th>
+                              </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item>
+                              <tr>
+                                <td class="text-center">
+                                  <!-- <p-tableCheckbox [value]="item"></p-tableCheckbox> -->
+                                </td>
+                                <td>{{ item.company }}</td>
+                                <td>{{ item.share }}</td>
+                                <td>{{ item.pa }}</td>
+                                <td>{{ item.order }}</td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
+                        </div>
+                      </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Broker">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">Broker</label>
+                          <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="Broker"
+                            placeholder="Broker"
+                          />
+                          <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="Broker"
+                          placeholder="Broker (AR)"
+                        />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">City</label>
+                          <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="City"
+                            placeholder="City"
+                          />
+                          <input
+                          autofocus
+                          type="text"
+                          class="form-control mt-2"
+                          name="City"
+                          placeholder="City (AR)"
+                        />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label class="col-form-label">Address</label>
+                          <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Address"
+                          placeholder="Address"
+                        />
+
+                        <input
+                        autofocus
+                        type="text"
+                        class="form-control mt-2"
+                        name="Address"
+                        placeholder="Address (AR)"
+                      />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-form-label">TelePhone</label>
+                            <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="TelePhone"
+                            placeholder="TelePhone"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="col-form-label">Fax</label>
+                            <input
+                          autofocus
+                          type="text"
+                          class="form-control"
+                          name="Fax"
+                          placeholder="Fax"
+                        />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-form-label">Email</label>
+                              <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="Email"
+                            placeholder="Email"
+                          />
+                          </div>
+                          <div class="col-md-6">
+                            <label class="col-form-label">Website</label>
+                              <input
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="Website"
+                            placeholder="Website"
+                          />
+                          </div>
+                          <div class="col-md-6">
+                            <label class="col-form-label">Description</label>
+                            <textarea rows="2" class="form-control" placeholder="Description here...">
+                            </textarea>
+                          </div>
+                          <div class="col-md-6">
+                            <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add Broker</a>
+                            
+                            <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Cancel</a>
+                
+                           
+                        </div>
+                      </div>
+                      <div class="row mt-2">
+                        <div class="col-md-12">
+                          <p-table
+                            #dt
+                            [tableStyle]="{ 'max-height': '20rem' }"
+                            responsiveLayout="stack"
+                            styleClass="p-datatable-gridlines"
+                          >
+                            <ng-template pTemplate="caption">
+                              <div class="d-flex flex-column flex-md-row justify-content-between">
+                                <div class="mr-auto p-2">
+                                  <span>
+                                    <h5>Broker</h5>
+                                  </span>
+                                </div>
+                              </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                              <tr>
+                                <th class="text-center"></th>
+                                <th>Broker</th>
+                                <th>City</th>
+                                <th>Address</th>
+                                <th>Tel</th>
+                                <th>Fax</th>
+                                <th>Email</th>
+                                <th>Website</th>
+                                <th>Description</th>
+                              </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item>
+                              <tr>
+                                <td class="text-center"></td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
+                        </div>
+                      </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Economic Indicator">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">Indicator Type</label>
+                          <p-dropdown
+                          [options]="IndicatorType"
+                          placeholder="Select Indicator Type"
+                          optionLabel="name"
+                          [style]="{ width: '100%' }"
+                          [showClear]="true"
+                        >
+                        </p-dropdown>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="col-form-label col-4">Year</label>
+                          <input
+                            autofocus
+                            type="number"
+                            class="form-control"
+                            name="Year"
+                            placeholder="Year"
+                          />
+                         
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label class="col-form-label">Value In</label>
+                          <p-dropdown
+                          [options]="ValueIn"
+                          placeholder="Select Value In"
+                          optionLabel="name"
+                          [style]="{ width: '100%' }"
+                          [showClear]="true"
+                        >
+                        </p-dropdown>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="col-form-label">Value</label>
+                          <input
+                            autofocus
+                            type="number"
+                            class="form-control"
+                            name="Value"
+                            placeholder="Value"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="col-form-label">Description</label>
+                          <textarea rows="2" class="form-control" placeholder="Description here...">
+                        </textarea>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="col-md-6">
+                        <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add Indicator Value</a>
+                        
+                        <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Cancel</a>
+            
+                       
+                    </div>
+                      <div class="row mt-2">
+                        <div class="col-md-12">
+                          <p-table
+                            #dt
+                            [tableStyle]="{ 'max-height': '20rem' }"
+                            responsiveLayout="stack"
+                            styleClass="p-datatable-gridlines"
+                          >
+                            <ng-template pTemplate="caption">
+                              <div class="d-flex flex-column flex-md-row justify-content-between">
+                                <div class="mr-auto p-2">
+                                  <span>
+                                    <h5>Indicator Value</h5>
+                                  </span>
+                                </div>
+                              </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                              <tr>
+                                <th class="text-center"></th>
+                                <th>Indicator Type</th>
+                                <th>Year</th>
+                                <th>ValueIn</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                                
+                              </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item>
+                              <tr>
+                                <td class="text-center"></td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
+                        </div>
+                      </div>
+                    </p-tabPanel>
+                    
+                     
+                    
+                     
+                     
+                  </p-tabView>
+
+
+
+
+              </div>
+            </div>
+             
+            
+            
+            
+          </div>
+            
+    </div>
+</div>
+
+

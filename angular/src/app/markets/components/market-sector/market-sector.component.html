@@ -1,1 +1,241 @@
-<p>market-sector works!</p>
+<div class="container ms-2">
+    <div class="row mb-2">
+        <div class="col-md-3">
+            
+            <div class="row">
+              <div class="col-md-12">
+                 
+                 
+                <div class="card">
+                    <div class="card-body p-0">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <h6 class="selector p-1 mb-1 border-bottom">Abu Dhabi Securities Exchange</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Bahrain Stock Exchange</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Bombay Stock Exchange</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">CBOE</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Deutscher Aktien IndeX</h6>
+
+                    <h6 class="selector p-1 mb-1 border-bottom">Dow Jones Industrial Average</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Dubai Financial Market</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Hong Kong Stock Market</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Kuala Lumpur Stock Exchange</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Kuwait Stock Exchange</h6>
+
+                    
+                    <h6 class="selector p-1 mb-1 border-bottom">London Stock Exchange</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Madrid Stock Market</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Mexico Stock Market</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Muscat Securities Market</h6>
+                    <h6 class="selector p-1 mb-1 border-bottom">Nomu - Parallel Market</h6>
+                  </div>
+                </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-9">
+           
+            <div class="card">
+            
+              <div class="card-body p-2">
+                <div class="row">
+                  <div class="col-md-8">
+                    <p-autoComplete
+                    [suggestions]="filteredCountries"
+                      field="name"
+                      placeholder="Search the Markets"
+                      [style]="{ width: '100%' }"
+                      [inputStyle]="{ width: '100%' }"
+                    >
+                    </p-autoComplete>
+                  </div>
+                  <div class="col-md-4">
+               <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              
+  
+           
+                  </div>
+                </div>
+
+          <div class="row mt-2">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="col-form-label col-4">GB Country Groups </label>
+                <p-dropdown
+                [options]="GbName"
+                placeholder="Select  GB Country Group"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+                
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Country</label>
+                <p-dropdown
+                [options]="Country"
+                placeholder="Select  Country Group"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+                
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Market Name </label>
+                <input
+                autofocus
+                type="text"
+                class="form-control"
+                name="MarketName"
+                placeholder="Market Name"
+              />
+
+               <input
+                    autofocus
+                    type="text"
+                    class="form-control mt-2"
+                    name="MarketName"
+                    placeholder="Market Name (AR)"
+                  />
+                
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Index Name</label>
+                <input
+                autofocus
+                type="text"
+                class="form-control"
+                name="IndexName"
+                placeholder="Index Name"
+              />
+
+               <input
+                    autofocus
+                    type="text"
+                    class="form-control mt-2"
+                    name="IndexName"
+                    placeholder="Index Name (AR)"
+                  />
+                
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Abbr</label>
+                <input
+                autofocus
+                type="text"
+                class="form-control"
+                name="Abbr"
+                placeholder="Abbr"
+              />
+
+               <input
+                    autofocus
+                    type="text"
+                    class="form-control mt-2"
+                    name="Abbr"
+                    placeholder="Abbr (AR)"
+                  />
+                
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Financial Currency</label>
+                <!-- <textarea rows="4" class="form-control" placeholder="OverView here...">
+                </textarea> -->
+                <p-dropdown
+                [options]="Currency"
+                placeholder="Select Currency"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Market Activation</label>
+                <p-dropdown
+                [options]="active"
+                placeholder="Select Currency"
+                optionLabel="name"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-6">
+                <label class="col-form-label col-4">Description</label>
+                   <textarea rows="2" class="form-control" placeholder="Description here...">
+                </textarea>  
+            </div>
+                
+              
+                
+             
+            </div>
+          </div>
+          </div>
+           </div>
+           <div class="row mt-2">
+            <div class="row">
+           <div class="col-md-6">
+             
+              
+                <h6>Add Caps</h6>
+                <p-tree [value]="Caps" selectionMode="checkbox"  ></p-tree>
+               
+            
+           </div>
+           <div class="col-md-6">
+             
+                 
+                  <h6>GB Caps</h6>
+                  <p-tree [value]="Caps" selectionMode="checkbox"  ></p-tree>
+                
+           </div>
+            </div>
+           </div>
+            <div class="card">
+              <div class="card-body p-2">
+                <h6>GB Sector</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                      <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Modify Sectors</a>
+                     </div>
+                </div>
+                <div class="row">
+                  <!-- <p-tree [value]="GBSector" selectionMode="checkbox"></p-tree> -->
+                  <div class="col-md-3">
+                    <p-checkbox name="groupname" value="val1" label="Agriculture & Food Industries"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Banking"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Banking & Financial"  ></p-checkbox>
+                  </div>
+                  <div class="col-md-3">
+                    <p-checkbox name="groupname" value="val1" label="Banking & Investment"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Banks"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Bank & Financial Service"  ></p-checkbox>
+                  </div>
+                  <div class="col-md-3">
+                    <p-checkbox name="groupname" value="val1" label="Basic Metrial"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Building & Construction"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Capital Goods"  ></p-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            
+          </div>
+            
+    </div>
+</div>
