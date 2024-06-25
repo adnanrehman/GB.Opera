@@ -61,6 +61,7 @@ import { BatchesReEntryComponent } from 'src/app/financials/components/batches-r
 import { BatchesAdminComponent } from 'src/app/financials/components/batches-admin/batches-admin.component';
 import { AccountsCustomOrderComponent } from 'src/app/companies/components/accounts-custom-order/accounts-custom-order.component';
 import { EstimatesAndForecastsComponent } from 'src/app/companies/components/estimates-and-forecasts/estimates-and-forecasts.component';
+import { GlobalIndicesComponent } from 'src/app/prices/components/global-indices/global-indices.component';
 
 class Menu {
   title: string;
@@ -147,6 +148,7 @@ constructor(){
       { href:"intra-day", title:"Intra Day", component:IntraDayComponent },
       { href:"official", title:"Official", component:OfficialComponent },      
       { href:"gulfbase-price", title:"Gulfbase (Price)", component:GulfbasePriceComponent },
+      { href:"global-indices", title:"Global Indices", component:GlobalIndicesComponent },
       { href:"fund-prices", title:"Fund Prices", component:FundPricesComponent },
        
     ]

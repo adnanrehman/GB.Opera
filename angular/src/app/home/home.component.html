@@ -1,5 +1,5 @@
 <div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar">
-  <p-accordion [activeIndex]="2">
+  <p-accordion [activeIndex]="4">
     <p-accordionTab header="{{menu.title}}" *ngFor="let menu of menus" >
       <ul class="nav flex-column bg-nav w-100">
         <li href="#" class="nav-link" (click)="addinTab(sub.href)" *ngFor="let sub of menu.menuItems">

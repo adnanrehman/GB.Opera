@@ -161,4 +161,13 @@ tbody, td, tfoot, th, thead, tr {
   color: rgba(255,255,255,1) !important;
   border: 1px solid #d2d3d3 !important;
 }
+
+p-accordion {
+  overflow-y:auto !important;
+}
+
+.p-radiobutton .p-radiobutton-box {
+  width: 15px !important;
+  height: 15px !important;
+}
   

@@ -1,1 +1,111 @@
-<p>fund-prices works!</p>
+<div class="container ms-2">
+  <div class="row mb-2">
+    <div class="card">
+      <div class="card-body p-2">
+        <div class="card">
+          <div class="card-body p-2">
+            <div class="row">
+              <div class="col-md-8">
+                <p-autoComplete
+                  [suggestions]="filteredCountries"
+                  field="name"
+                  placeholder="Search the Companies and select"
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                >
+                </p-autoComplete>
+              </div>
+              <div class="col-md-4">
+                <a href="#" class="btn btn-primary btn-sm me-1"
+                  ><i class="fa fa-plus"></i> Add New</a
+                >
+                <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+                <a href="#" class="btn btn-primary btn-sm me-1"
+                  ><i class="fa fa-edit"></i> Update</a
+                >
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <label class="col-form-label">Fund Manger</label>
+                <p-dropdown
+                  [options]="markets"
+                  placeholder="Select a Fund Manger"
+                  optionLabel="name"
+                  [style]="{ width: '100%' }"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Funds</label>
+                <p-dropdown
+                  [options]="markets"
+                  placeholder="Select a Funds"
+                  optionLabel="name"
+                  [style]="{ width: '100%' }"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+              <div class="col-md-4">
+                <label class="col-form-label">Date</label>
+                <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
+              </div>
+              <div class="col-md-4">
+                <p-checkbox value="Yes" inputId="ny" />
+                <label for="ny" class="col-form-label">Active</label>
+              </div>
+              <div class="col-md-4">
+                <label class="col-form-label col-4">Price</label>
+                <input
+                  autofocus
+                  type="text"
+                  disabled="true"
+                  class="form-control col-8"
+                  name="Company"
+                  placeholder="Company"
+                />
+              </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12 text-end">
+                    <button class="btn btn-sm btn-primary">Refresh Gulfbase</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                  <!-- <h6>Ratings:</h6> -->
+                  <div class="card">
+                    <div class="card-body p-0" style="height: 150px;background-color: darkgrey;">
+                      <p-table
+                        #dt
+                        [tableStyle]="{ 'max-height': '20rem' }"
+                        responsiveLayout="stack"
+                        styleClass="p-datatable-strip"
+                      >
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th>Fund Manager</th>
+                            <th>Funds</th>
+                            <th>Date</th>
+                            <th>Price</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
