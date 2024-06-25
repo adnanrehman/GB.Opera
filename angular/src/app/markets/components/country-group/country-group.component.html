@@ -92,7 +92,7 @@
                 <p-dropdown
                       [options]="active"
                       placeholder="Select a Active Type"
-                      optionLabel="name"
+                      optionLabel="Active"
                       [style]="{ width: '100%' }"
                       [showClear]="true"
                     >
@@ -126,7 +126,24 @@
               <div class="card-body p-2">
                 <h6>GB Sector</h6>
                  
-                  <p-tree [value]="GBSector" selectionMode="checkbox"></p-tree>
+                <div class="row">
+                  <!-- <p-tree [value]="GBSector" selectionMode="checkbox"></p-tree> -->
+                  <div class="col-md-3">
+                    <p-checkbox name="groupname" value="val1" label="Agriculture & Food Industries"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Banking"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Banking & Financial"  ></p-checkbox>
+                  </div>
+                  <div class="col-md-3">
+                    <p-checkbox name="groupname" value="val1" label="Banking & Investment"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Banks"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Bank & Financial Service"  ></p-checkbox>
+                  </div>
+                  <div class="col-md-3">
+                    <p-checkbox name="groupname" value="val1" label="Basic Metrial"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Building & Construction"  ></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" label="Capital Goods"  ></p-checkbox>
+                  </div>
+                </div>
                  
               </div>
             </div>
