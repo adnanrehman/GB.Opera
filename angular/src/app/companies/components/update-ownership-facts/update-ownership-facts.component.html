@@ -1,1 +1,100 @@
-<p>update-ownership-facts works!</p>
+<div class="container ms-2">
+    <div class="row mb-2">
+      <div class="col-md-3">
+        <div class="row mb-2">
+          <div class="col-md-12">
+            <p-dropdown
+              [options]="markets"
+              placeholder="Select a Market"
+              optionLabel="name"
+              [style]="{ width: '100%' }"
+              [showClear]="true"
+            >
+            </p-dropdown>
+          </div>
+          <div class="col-md-12 mt-2">
+            <p-dropdown
+              [options]="markets"
+              placeholder="Select a Sector"
+              optionLabel="name"
+              [style]="{ width: '100%' }"
+              [showClear]="true"
+            >
+            </p-dropdown>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h6>Companies</h6>
+            <div class="card">
+              <div class="card-body p-0">
+                <h6 class="selector p-1 mb-1 border-bottom">ACDB</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">AVD</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">HGFA</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">KJUYA</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">ADEF</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">DDEDW</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">SDAD</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">DFES</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-body p-2">
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body p-1">
+                            <p-tree [value]="tree" selectionMode="single"></p-tree>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body p-1">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    Facts:
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Percentage">
+                                        <span class="input-group-text">%</span>
+                                      </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-sm btn-primary btn-block">Insert / Update</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h6>Preview:</h6>
+                                    <div class="card">
+                                        <div class="card-body" style="height: 400px; background-color: darkgrey;">
+    
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+

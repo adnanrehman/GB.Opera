@@ -59,6 +59,8 @@ import { UploadIndicatorsBatchComponent } from 'src/app/financials/components/up
 import { BatchesEntryComponent } from 'src/app/financials/components/batches-entry/batches-entry.component';
 import { BatchesReEntryComponent } from 'src/app/financials/components/batches-re-entry/batches-re-entry.component';
 import { BatchesAdminComponent } from 'src/app/financials/components/batches-admin/batches-admin.component';
+import { AccountsCustomOrderComponent } from 'src/app/companies/components/accounts-custom-order/accounts-custom-order.component';
+import { EstimatesAndForecastsComponent } from 'src/app/companies/components/estimates-and-forecasts/estimates-and-forecasts.component';
 
 class Menu {
   title: string;
@@ -118,10 +120,10 @@ constructor(){
       { href:"mutaul-funds-settings", title:"Mutual Funds Settings", component:MutaulFundsSettingsComponent },
       { href:"ipos", title:"IPOs", component:IposComponent },
       { href:"accounts", title:"Accounts", component:AccountsComponent },
-      { href:"accounts-custom-order", title:"Accounts Custom Order", component:AccountsComponent },
-      { href:"segment-accounts", title:"Segment Accounts", component:SegmentAccountsComponent },
+      { href:"accounts-custom-order", title:"Accounts Custom Order", component:AccountsCustomOrderComponent },
+      // { href:"segment-accounts", title:"Segment Accounts", component:SegmentAccountsComponent },
       { href:"update-ownership-facts", title:"Update Ownership Facts", component:UpdateOwnershipFactsComponent },
-      { href:"estimates-and-forecasts", title:"Estimates and Forecasts", component:UpdateOwnershipFactsComponent },
+      { href:"estimates-and-forecasts", title:"Estimates and Forecasts", component:EstimatesAndForecastsComponent },
       { href:"companies-products-services-raw-materials-updates", title:"Companies Products Services Raw Materials Updates", component:CompaniesProductsServicesRawMaterialsUpdatesComponent },
       { href:"country-accounts", title:"Country Accounts", component:CountryAccountsComponent },
       { href:"country-accounts-facts-order", title:"Country Accounts Facts Order", component:CountryAccountsFactsOrderComponent },

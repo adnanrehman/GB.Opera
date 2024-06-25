@@ -1,1 +1,224 @@
-<p>estimates-and-forecasts works!</p>
+<div class="container ms-2">
+    <div class="row mb-2">
+      <div class="col-md-3">
+        <div class="row mb-2">
+          <div class="col-md-12">
+            <p-dropdown
+              [options]="markets"
+              placeholder="Select a Market"
+              optionLabel="name"
+              [style]="{ width: '100%' }"
+              [showClear]="true"
+            >
+            </p-dropdown>
+          </div>
+          <div class="col-md-12 mt-2">
+            <p-dropdown
+              [options]="markets"
+              placeholder="Select a Sector"
+              optionLabel="name"
+              [style]="{ width: '100%' }"
+              [showClear]="true"
+            >
+            </p-dropdown>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h6>Companies</h6>
+            <div class="card">
+              <div class="card-body p-0">
+                <h6 class="selector p-1 mb-1 border-bottom">ACDB</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">AVD</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">HGFA</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">KJUYA</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">ADEF</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">DDEDW</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">SDAD</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">DFES</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-body p-2">
+            <div class="row">
+                <div class="col-md-12">
+                  <!-- <p-autoComplete
+                    [suggestions]="filteredCountries"
+                    field="name"
+                    placeholder="Search the Companies and select"
+                    [style]="{ width: '100%' }"
+                    [inputStyle]="{ width: '100%' }"
+                  >
+                  </p-autoComplete> -->
+                </div>
+                <div class="col-md-4 text-end">
+                  <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+                  <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+                  <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
+                </div>
+              </div>
+            <div class="row mt-2">
+                <div class="col-md-3">
+                    <label class="col-form-label">Sources</label>
+                    <p-dropdown
+                      [options]="markets"
+                      placeholder="Select a Source"
+                      optionLabel="name"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                </div>
+                <div class="col-md-3">
+                    <label class="col-form-label">Year</label>
+                    <p-calendar [style]="{ width: '100%' }" view="year" placeholder="Select a Year" />
+                </div>
+                <div class="col-md-3">
+                    <label class="col-form-label">As of Date</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a As of Date" />
+                </div>
+                <div class="col-md-3">
+                    <label class="col-form-label">Report Date</label>
+                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Report Date" />
+                </div>
+                <div class="col-md-6">
+                    <label class="col-form-label">Remarks</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                    </textarea>
+                </div>
+                <div class="col-md-6">
+                    <label class="col-form-label">Remarks (AR)</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                    </textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>Finacial Data</h6>
+                    <div class="card">
+                        <div class="card-body p-2">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="col-form-label">Revenue</label>
+                                    <input
+                                      autofocus
+                                      type="text"
+                                      class="form-control"
+                                      name="Company"
+                                      placeholder="Revenue"
+                                    />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label">Total Liabilities</label>
+                                    <input
+                                      autofocus
+                                      type="text"
+                                      class="form-control"
+                                      name="Company"
+                                      placeholder="Total Liabilities"
+                                    />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label">EPS</label>
+                                    <input
+                                      autofocus
+                                      type="text"
+                                      class="form-control"
+                                      name="Company"
+                                      placeholder="EPS"
+                                    />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label">Net Profit</label>
+                                    <input
+                                      autofocus
+                                      type="text"
+                                      class="form-control"
+                                      name="Company"
+                                      placeholder="Net Profit"
+                                    />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label">P/E</label>
+                                    <input
+                                      autofocus
+                                      type="text"
+                                      class="form-control"
+                                      name="Company"
+                                      placeholder="P/E"
+                                    />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label">Total Assets</label>
+                                    <input
+                                      autofocus
+                                      type="text"
+                                      class="form-control"
+                                      name="Company"
+                                      placeholder="Total Assets"
+                                    />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label">Fair Value</label>
+                                    <input
+                                      autofocus
+                                      type="text"
+                                      class="form-control"
+                                      name="Company"
+                                      placeholder="Fair Value"
+                                    />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label">P/B</label>
+                                    <input
+                                      autofocus
+                                      type="text"
+                                      class="form-control"
+                                      name="Company"
+                                      placeholder="P/B"
+                                    />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="col-form-label">Recomendation</label>
+                                    <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                                    </textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-form-label">Recomendation (AR)</label>
+                                    <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>Research Companies Info:</h6>
+                    <div class="card">
+                        <div class="card-body" style="height: 400px; background-color: darkgrey;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+

@@ -1,1 +1,89 @@
-<p>mutaul-funds-settings works!</p>
+<div class="container ms-2">
+    <div class="row mb-2">
+      <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-12">
+            <h6>Settings</h6>
+            <div class="card">
+              <div class="card-body p-0">
+                <h6 class="selector p-1 mb-1 border-bottom">Assets Allocations </h6>
+                <h6 class="selector p-1 mb-1 border-bottom">Benchmarks</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">Categories</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">Classifications</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">Geo Dirversifications</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">Listings</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">Major Invetsments</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">Portfolio Types</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">Risks</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">Sector Dirversifications</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">Sub Categories</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-body p-2">
+            <div class="row">
+              <div class="col-md-8">
+                <!-- <p-autoComplete
+                  [suggestions]="filteredCountries"
+                  field="name"
+                  placeholder="Search the Companies and select"
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                >
+                </p-autoComplete> -->
+              </div>
+              <div class="col-md-4 text-end">
+                <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a> -->
+                <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+                <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
+              </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <p-table
+                    #dt
+                    [value]="subsidiaries"
+                    [tableStyle]="{ 'max-height': '20rem' }"
+                    responsiveLayout="stack"
+                    styleClass="p-datatable-gridlines"
+                  >
+                    <ng-template pTemplate="caption">
+                      <div class="d-flex flex-column flex-md-row justify-content-between">
+                        <div class="mr-auto p-2">
+                          <span>
+                            <h5>Assets Allocations</h5>
+                          </span>
+                        </div>
+                      </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th class="text-center"></th>
+                        <th>Assets Allocation</th>
+                        <th>Assets Allocation (AR)</th>
+                        <th>IsActive</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                      <tr>
+                        <td class="text-center"></td>
+                        <td>{{ item.company }}</td>
+                        <td>{{ item.order }}</td>
+                        <td class="text-center">
+                            <p> <p-tableCheckbox [value]="item"></p-tableCheckbox></p>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
