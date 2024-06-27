@@ -1,1 +1,266 @@
-<p>re-entry works!</p>
+<div class="container ps-2">
+    <div class="row mb-2">
+      <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-md-4">
+                    <h6>FINEBOX</h6>
+                  </div>
+                  <div class="col-md-4 ps-1 pe-1 text-end">
+                    <a class="btn btn-sm btn-link">Report (P)</a>
+                  </div>
+                  <div class="col-md-4 ps-1 pe-1 text-end">
+                    <a class="btn btn-sm btn-link">Report (S)</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body p-0" style="height: 820px;">
+                      <!-- <a class="btn btn-sm btn-link"
+                        ><h6 class="selector p-1 mb-1 border-bottom">SARCO Q4 Dec 31 2023</h6></a
+                      > -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                  <div class="col-md-4">
+                      <p-radioButton
+                      name="ingredient"
+                      value="All"
+                      [(ngModel)]="ingredient"
+                      inputId="All"
+                    />
+                    <label for="All" class="ms-2 col-form-label"> All </label>
+                  </div>
+                  <div class="col-md-4">
+                      <p-radioButton
+                      name="ingredient"
+                      value="New"
+                      [(ngModel)]="ingredient"
+                      inputId="New"
+                    />
+                    <label for="New" class="ms-2 col-form-label"> New </label>
+                  </div>
+                  <div class="col-md-4">
+                      <p-radioButton
+                      name="ingredient"
+                      value="Review"
+                      [(ngModel)]="ingredient"
+                      inputId="Review"
+                    />
+                    <label for="Review" class="ms-2 col-form-label"> Review </label>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-body p-2">
+            <div class="row mb-2">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label class="col-form-label"><b>Company:</b></label>
+                  </div>
+                  <div class="col-md-9">
+                    <label class="col-form-label">--Select--</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label class="col-form-label"><b>As Of Date:</b></label>
+                  </div>
+                  <div class="col-md-9">
+                    <label class="col-form-label">--Select--</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label class="col-form-label"><b>Uploaded By:</b></label>
+                  </div>
+                  <div class="col-md-9">
+                    <label class="col-form-label">--Select--</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label class="col-form-label"><b>Uploaded Date:</b></label>
+                  </div>
+                  <div class="col-md-9">
+                    <label class="col-form-label">--Select--</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    <label class="col-form-label">Remarks</label>
+                    <textarea rows="1" class="form-control" placeholder="Describe Overview here...">
+                    </textarea>
+                  </div>
+                  <div class="col-md-12">
+                    <label class="col-form-label">Remarks (AR)</label>
+                    <textarea rows="1" class="form-control" placeholder="Describe Overview here...">
+                    </textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6>Uploaded Financial:</h6>
+                  </div>
+                  <div class="col-md-6">
+                    <h6>As Of Date: 31-12-2023</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12" style="height: 720px;">
+                    <p-table
+                      #dt
+                      [value]="data"
+                      [tableStyle]="{ 'max-height': '20rem' }"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-strip"
+                    >
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>Accounts</th>
+                          <th>Values</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr>
+                          <td>{{ item.company }}</td>
+                          <td>
+                            <input
+                              autofocus
+                              [(ngModel)]="item.value"
+                              type="text"
+                              class="form-control"
+                            />
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-4">
+                      <button class="btn btn-sm btn-block btn-primary">Send Back</button>
+                  </div>
+                  <div class="col-md-4">
+                    <button class="btn btn-sm btn-block btn-primary">Save(Pending)</button>
+                </div>
+                  <div class="col-md-2 text-end">
+                      <button class="btn btn-sm btn-block btn-primary">Forward</button>
+                  </div>
+                  <div class="col-md-2 text-end">
+                      <button class="btn btn-sm btn-block btn-primary">Review</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="card">
+                      <div class="card-header p-2">
+                          <h6>Review Dates</h6>
+                      </div>
+                      <div class="card-body p-1 text-center" style="height: 720px;">
+                          <!-- <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">30-03-2023</a>
+                          <a class="btn btn-sm btn-link">29-03-2023</a>
+                          <a class="btn btn-sm btn-link">31-03-2023</a>
+                          <a class="btn btn-sm btn-link">26-03-2023</a>
+                          <a class="btn btn-sm btn-link">31-03-2023</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a>
+                          <a class="btn btn-sm btn-link">31-03-2024</a> -->
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-5">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h6>Review Financial:</h6>
+                    </div>
+                    <div class="col-md-6">
+                      <h6>As Of Date: 30-09-2023</h6>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12" style="height: 720px;">
+                      <p-table
+                        #dt
+                        [value]="data"
+                        [tableStyle]="{ 'max-height': '20rem' }"
+                        responsiveLayout="stack"
+                        styleClass="p-datatable-strip"
+                      >
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th>Accounts</th>
+                            <th>Values</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                          <tr>
+                            <td>{{ item.company }}</td>
+                            <td>
+                              <input
+                                autofocus
+                                [(ngModel)]="item.value"
+                                type="text"
+                                class="form-control"
+                              />
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                      <div class="col-md-6">
+                          <button class="btn btn-sm btn-block btn-primary">Commit Changes</button>
+                      </div>
+                      <div class="col-md-3">
+                          <!-- <button class="btn btn-sm btn-block btn-primary">Forward</button> -->
+                      </div>
+                      <div class="col-md-3 text-end">
+                          <button class="btn btn-sm btn-block btn-primary">Review</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

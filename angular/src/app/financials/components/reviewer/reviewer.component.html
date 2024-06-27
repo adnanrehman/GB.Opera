@@ -1,1 +1,216 @@
-<p>reviewer works!</p>
+<div class="container ps-2">
+  <div class="row mb-2">
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-4">
+                  <h6>FINEBOX</h6>
+                </div>
+                <div class="col-md-4 ps-1 pe-1 text-end">
+                  <a class="btn btn-sm btn-link">Report (Prim)</a>
+                </div>
+                <div class="col-md-4 ps-1 pe-1 text-end">
+                  <a class="btn btn-sm btn-link">Report (Sec)</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body p-0" style="height: 820px">
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(ARAMCO Q4)</h6></a
+                    ><br />
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(ONBK Q1)</h6></a
+                    ><br />
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(QISI Q4)</h6></a
+                    ><br />
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(BASREC Q1)</h6></a
+                    ><br />
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(AUB Q4)</h6></a
+                    ><br />
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(PETRORABIGH Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(BAHRI Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(ALDREES Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(TAKWEEN Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(MEPCO Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(BCI Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(ASLAK Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(YAMAMAHSTEEL Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(SSP Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(CHEMANOL Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(SABIC Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(SSP Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(ZOUJAJ Q4)</h6></a
+                    ><br>
+                    <a class="btn btn-sm btn-link">
+                      <h6 class="selector p-1 mb-1 border-bottom">(FIPCO Q4)</h6></a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton
+                  name="ingredient"
+                  value="All"
+                  [(ngModel)]="ingredient"
+                  inputId="All"
+                />
+                <label for="All" class="ms-2 col-form-label"> All </label>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton
+                  name="ingredient"
+                  value="New"
+                  [(ngModel)]="ingredient"
+                  inputId="New"
+                />
+                <label for="New" class="ms-2 col-form-label"> New </label>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton
+                  name="ingredient"
+                  value="Review"
+                  [(ngModel)]="ingredient"
+                  inputId="Review"
+                />
+                <label for="Review" class="ms-2 col-form-label"> Review </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body p-2">
+          <div class="row mb-2">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="col-form-label"><b>Company:</b></label>
+                </div>
+                <div class="col-md-9">
+                  <label class="col-form-label">Suadi Arabian Refineries Oil Co. (ARAMCO)</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="col-form-label"><b>As Of Date:</b></label>
+                </div>
+                <div class="col-md-9">
+                  <label class="col-form-label">31-12-2023</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="col-form-label"><b>Uploaded By:</b></label>
+                </div>
+                <div class="col-md-9">
+                  <label class="col-form-label">Kashif and Amina</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="col-form-label"><b>Uploaded Date:</b></label>
+                </div>
+                <div class="col-md-9">
+                  <label class="col-form-label">04-05-2024 11:24 AM</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <p-radioButton
+                    name="ingredient"
+                    value="Credit"
+                    [(ngModel)]="ingredient"
+                    inputId="credit1"
+                  />
+                  <label for="credit1" class="ms-2 col-form-label"> Quarterly </label>
+                </div>
+                <div class="col-md-2">
+                  <p-radioButton
+                    name="ingredient"
+                    value="awards"
+                    [(ngModel)]="ingredient"
+                    inputId="awards1"
+                  />
+                  <label for="awards1" class="ms-2 col-form-label"> Yearly </label>
+                </div>
+                <div class="col-md-3 p-0">
+                    <button class="btn btn-sm btn-primary">Generate Report</button>
+                </div>
+                <div class="col-md-2 p-0 text-end">
+                    <button class="btn btn-sm btn-link">View Excel</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-sm btn-primary">Upload</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="col-form-label">Remarks</label>
+                  <textarea rows="1" class="form-control" placeholder="Describe Overview here...">
+                  </textarea>
+                </div>
+                <div class="col-md-12">
+                  <label class="col-form-label">Remarks (AR)</label>
+                  <textarea rows="1" class="form-control" placeholder="Describe Overview here...">
+                  </textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-sm btn-primary">Send Back</button>
+                </div>
+                <div class="col-md-6 text-end">
+                    <button class="btn btn-sm btn-primary">Done</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
