@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Dapper;
+using System;
+using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -22,7 +22,6 @@ namespace GB.Opera.Books
         public BookAppService(IRepository<Book, Guid> repository)
             : base(repository)
         {
-
         }
     }
 }
