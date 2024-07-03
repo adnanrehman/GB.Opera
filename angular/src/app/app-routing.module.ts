@@ -11,6 +11,7 @@ import { ProductsServicesAndRawMaterialsComponent } from './application/componen
 import { EconomicAndStatisticalDataComponent } from './application/components/economic-and-statistical-data/economic-and-statistical-data.component';
 import { ApplicationComponent } from './application/components/application/application.component';
 import { GbUniversalFactsViewComponent } from './application/components/gb-universal-facts-view/gb-universal-facts-view.component';
+
 const routes: Routes = [
   {
     path: '',
