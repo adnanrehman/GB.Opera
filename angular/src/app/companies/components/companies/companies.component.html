@@ -4,9 +4,12 @@
       <div class="row mb-2">
         <div class="col-md-12">
           <p-dropdown
+          [(ngModel)]="marketID"
             [options]="markets"
+            (ngModelChange)="fillCompByMarketId()" 
             placeholder="Select a Market"
-            optionLabel="name"
+            optionLabel="abbr"
+            optionValue="stockMarketID"
             [style]="{ width: '100%' }"
             [showClear]="true"
           >
@@ -15,29 +18,10 @@
       </div>
       <div class="row">
         <div class="col-md-12">
+          <h6 class="p-1 mb-1 border-bottom">Sectors</h6>
           <div class="card">
             <div class="card-body p-0">
-              <h6 class="selector p-1 mb-1 border-bottom">Sectors</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Banks</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Capital Goods</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Commercial & Professional</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Consumer Durables & Appar</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Consumer Services</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Diversified Financials</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Energy</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Food & Beverages</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Food & Staples Retailing</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Health Care Equipment & S、</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Insurance</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Materials</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Media</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Not Listed</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Pharma, Biotech & Life Scie</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">REITS</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Real Estate Mgmt & Dev</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Retailing</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Software & Services</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Telecommunication Services</h6>
+              <h6 *ngFor="let ms of compDropdown.marketSectors" class="selector p-1 mb-1 border-bottom">{{ms.sector}}</h6>
             </div>
           </div>
         </div>
@@ -150,9 +134,9 @@
             <div class="col-md-6">
               <label class="col-form-label">GB Sector</label>
               <p-dropdown
-                [options]="markets"
+                [options]="compDropdown.sectors"
                 placeholder="Select a Gb Sector"
-                optionLabel="name"
+                optionLabel="sector"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
               >
@@ -161,9 +145,9 @@
             <div class="col-md-6">
               <label class="col-form-label">GB Indusrial Group</label>
               <p-dropdown
-                [options]="markets"
+                [options]="compDropdown.gbIndustrialGroups"
                 placeholder="Select a Gb Group"
-                optionLabel="name"
+                optionLabel="gbIndustrialGroup"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
               >
@@ -172,9 +156,9 @@
             <div class="col-md-6">
               <label class="col-form-label">Official Sector</label>
               <p-dropdown
-                [options]="markets"
+                [options]="compDropdown.sectors"
                 placeholder="Select a Official Sector"
-                optionLabel="name"
+                optionLabel="sector"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
               >
@@ -183,9 +167,9 @@
             <div class="col-md-6">
               <label class="col-form-label">Internal Category</label>
               <p-dropdown
-                [options]="markets"
+                [options]="compDropdown.internalCategories"
                 placeholder="Select a Internal Category"
-                optionLabel="name"
+                optionLabel="internalCategory"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
               >
@@ -194,9 +178,9 @@
             <div class="col-md-6">
               <label class="col-form-label">Financial Currency</label>
               <p-dropdown
-                [options]="markets"
+                [options]="compDropdown.currencies"
                 placeholder="Select a Financial Currency"
-                optionLabel="name"
+                optionLabel="currency"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
               >
@@ -205,9 +189,9 @@
             <div class="col-md-6">
               <label class="col-form-label">Trading Main</label>
               <p-dropdown
-                [options]="markets"
+                [options]="compDropdown.currencies"
                 placeholder="Select a Trading Main"
-                optionLabel="name"
+                optionLabel="currency"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
               >
@@ -216,9 +200,9 @@
             <div class="col-md-6">
               <label class="col-form-label">Trading Sub</label>
               <p-dropdown
-                [options]="markets"
+                [options]="compDropdown.subCurrencies"
                 placeholder="Select a Trading Sub"
-                optionLabel="name"
+                optionLabel="subCurrency"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
               >
@@ -227,9 +211,9 @@
             <div class="col-md-6">
               <label class="col-form-label">Cap Size</label>
               <p-dropdown
-                [options]="markets"
+                [options]="compDropdown.capSizes"
                 placeholder="Select a Cap Size"
-                optionLabel="name"
+                optionLabel="capSize"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
               >

@@ -8,7 +8,7 @@ namespace GbFacts
     public class GbFactListDto
     {
         public int GBFactID { get; set; }
-        public string GBFact { get; set; }
+        public string? GBFact { get; set; }
         public int ParentId { get; set; }
     }
 }
