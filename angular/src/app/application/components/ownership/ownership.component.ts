@@ -1,6 +1,5 @@
 
 import { Component } from '@angular/core';
-import { TabService } from '@proxy/tab/tab.service';
 import { TreeNode } from 'primeng/api';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { TreeModule } from 'primeng/tree';

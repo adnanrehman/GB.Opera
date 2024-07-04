@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TabService } from '@proxy/tab/tab.service';
 @Component({
   selector: 'app-gb-universal-facts-view',
   standalone: true,

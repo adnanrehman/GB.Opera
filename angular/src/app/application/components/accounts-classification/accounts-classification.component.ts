@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { TabService } from '@proxy/tab/tab.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 //import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeModule } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
+import { TabService } from 'src/app/tab/tab.service';
 @Component({
   selector: 'app-accounts-classification',
   standalone: true,

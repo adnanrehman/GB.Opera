@@ -2,7 +2,7 @@ import { AuthService } from '@abp/ng.core';
 import { NgFor, NgIf } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ElementRef } from '@angular/core';
-import { TabService } from '@proxy/tab/tab.service';
+import { TabService } from 'src/app/tab/tab.service';
 
 @Component({
   selector: 'app-application',

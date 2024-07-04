@@ -1,6 +1,5 @@
 
 import { Component } from '@angular/core';
-import { TabService } from '@proxy/tab/tab.service';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { TreeModule } from 'primeng/tree';
 import { EconomicAndStatisticalDataAccountDetailComponent } from './economic-and-statistical-data-account-detail/economic-and-statistical-data-account-detail.component';

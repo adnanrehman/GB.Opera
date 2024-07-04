@@ -1,6 +1,5 @@
 import { AuthService } from '@abp/ng.core';
 import { Component, ComponentFactoryResolver, ElementRef, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
-import { TabService } from '@proxy/tab/tab.service';
 import { GbFactsComponent } from '../application/components/gb-facts/gb-facts.component';
 import { AccountsClassificationComponent } from '../application/components/accounts-classification/accounts-classification.component';
 import { EconomicAndStatisticalDataComponent } from '../application/components/economic-and-statistical-data/economic-and-statistical-data.component';
@@ -12,7 +11,8 @@ import { OwnershipComponent } from '../application/components/ownership/ownershi
 import { ProductsServicesAndRawMaterialsComponent } from '../application/components/products-services-and-raw-materials/products-services-and-raw-materials.component';
 import { ReportsComponent } from '../application/components/reports/reports.component';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MenuService } from '@proxy/menu/menu.service';
+import { TabService } from '../tab/tab.service';
+import { MenuService } from '../menu/menu.service';
 
 @Component({
   selector: 'app-home',
