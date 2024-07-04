@@ -1,2 +1,3 @@
 import * as Books from './books';
-export { Books };
+import * as GbFacts from './gb-facts';
+export { Books, GbFacts };

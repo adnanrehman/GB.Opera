@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Gb.Opera.GbFacts
+namespace GbFacts
 {
-    public class CreateUpdateGbFactsDto
+    public class GbFactDto
     {
         [Required]
         [StringLength(128)]

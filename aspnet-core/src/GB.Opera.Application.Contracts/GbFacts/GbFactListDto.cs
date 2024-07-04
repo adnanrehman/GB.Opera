@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace Gb.Opera.GbFacts
+namespace GbFacts
 {
-    public class GbFactsDto
+    public class GbFactListDto
     {
         public int GBFactID { get; set; }
         public string GBFact { get; set; }
-        public string AGBFact { get; set; }
-        public bool IsGBAccount { get; set; }
-        public bool IsTitle { get; set; }
+        public int ParentId { get; set; }
     }
 }

@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
-namespace Gb.Opera.GbFacts
+namespace GbFacts
 {
     public interface IGbFactAppService : IApplicationService
     {
-        Task<List<GbFactsDto>> GetGbFacts();
-        Task<List<GbFactsDto>> GetGbFactsDataFromProcedure();
+        Task<List<GbFactDto>> GetGbFacts();
+        Task<List<GbFactListDto>> GetGbFactsDataFromProcedure();
 
     }
 }

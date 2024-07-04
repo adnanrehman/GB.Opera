@@ -1212,6 +1212,70 @@
               "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<GB.Opera.Books.BookDto,GB.Opera.Books.BookDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
             }
           }
+        },
+        "GbFacts.GbFactAppService": {
+          "controllerName": "GbFact",
+          "controllerGroupName": "GbFact",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "GbFacts.GbFactAppService",
+          "interfaces": [
+            {
+              "type": "GbFacts.IGbFactAppService",
+              "name": "IGbFactAppService",
+              "methods": [
+                {
+                  "name": "GetGbFacts",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GbFacts.GbFactDto>",
+                    "typeSimple": "[GbFacts.GbFactDto]"
+                  }
+                },
+                {
+                  "name": "GetGbFactsDataFromProcedure",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GbFacts.GbFactListDto>",
+                    "typeSimple": "[GbFacts.GbFactListDto]"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetGbFacts": {
+              "uniqueName": "GetGbFacts",
+              "name": "GetGbFacts",
+              "httpMethod": "GET",
+              "url": "api/app/gb-fact/gb-facts",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GbFacts.GbFactDto>",
+                "typeSimple": "[GbFacts.GbFactDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GbFacts.IGbFactAppService"
+            },
+            "GetGbFactsDataFromProcedure": {
+              "uniqueName": "GetGbFactsDataFromProcedure",
+              "name": "GetGbFactsDataFromProcedure",
+              "httpMethod": "GET",
+              "url": "api/app/gb-fact/gb-facts-data-from-procedure",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GbFacts.GbFactListDto>",
+                "typeSimple": "[GbFacts.GbFactListDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GbFacts.IGbFactAppService"
+            }
+          }
         }
       }
     },
@@ -3904,6 +3968,96 @@
           "type": "System.Single",
           "typeSimple": "number",
           "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "GbFacts.GbFactDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": true,
+          "minLength": 0,
+          "maxLength": 128,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PublishDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Price",
+          "jsonName": null,
+          "type": "System.Single",
+          "typeSimple": "number",
+          "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "GbFacts.GbFactListDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "GBFactID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GBFact",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ParentId",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
           "minLength": null,
           "maxLength": null,
           "minimum": null,
