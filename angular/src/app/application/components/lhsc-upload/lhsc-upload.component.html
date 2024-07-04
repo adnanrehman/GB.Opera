@@ -1,1 +1,85 @@
-<p>lhsc-upload works!</p>
+<div class="container ms-2">
+    <div class="row mb-2">
+      <div class="col-md-3">
+        <div class="row mb-2">
+          <div class="col-md-12">
+             
+
+
+          </div>
+          <div class="col-md-12 mt-2">
+             
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h6>Stock Markets</h6>
+            <div class="card">
+              <div class="card-body p-0">
+                <h6 class="selector p-1 mb-1 border-bottom">TASI</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">DFM</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">ADX</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">KSE</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">BSE</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">MSM</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">QE</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">IPC</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
+                <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-body p-2">
+            <div class="row">
+              <div class="col-md-12">
+                <p-autoComplete
+                  [suggestions]="filteredCountries"
+                  field="name"
+                  placeholder="Search the Companies and select"
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                >
+                </p-autoComplete>
+              </div>
+              <!-- <div class="col-md-4">
+                <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+                <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+                <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
+              </div> -->
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <div class="card">
+                        <h4>TASI Companies</h4>
+                        <div class="card-body p-1">
+                         
+                            <p-tree [value]="data" selectionMode="checkbox"  ></p-tree>
+                        </div>
+                        <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-save"></i> Generate Financial Variable</a>
+                    </div>
+                    
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <h4>Generating  Companies</h4>
+                        <div class="card-body p-1">
+                            <p-tree [value]="tree" selectionMode="single"></p-tree>
+                        </div>
+                      
+                    </div>
+                    <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-save"></i>Upload Key Ratios For Long Horn</a>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
