@@ -8,6 +8,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { CommonService, CompDropdownDto } from '@proxy/commons';
 import { NgFor } from '@angular/common';
+import { CompanyDto, CompanyService } from '@proxy/companies';
 
 @Component({
   selector: 'app-companies',
@@ -19,21 +20,36 @@ import { NgFor } from '@angular/common';
 export class CompaniesComponent {
   filteredCountries: any[];
   compDropdown!:CompDropdownDto;
-  companies: any[] = [ 
-    { company: "Riyadh",ticker:"IBL",ye:"DEC",est:"18-2-2024",order:"4501",alternate:"",st:"6565",eng:"Riyadd" }, 
-    { company: "Riyadh",ticker:"IBL",ye:"DEC",est:"18-2-2024",order:"4501",alternate:"",st:"6565",eng:"Riyadd" }, 
-    { company: "Riyadh",ticker:"IBL",ye:"DEC",est:"18-2-2024",order:"4501",alternate:"",st:"6565",eng:"Riyadd" }, 
-    { company: "Riyadh",ticker:"IBL",ye:"DEC",est:"18-2-2024",order:"4501",alternate:"",st:"6565",eng:"Riyadd" }, 
-  ];
+  company: CompanyDto = {
+    companyID: 0,
+    stockMarketID: 0,
+    sectorID: 0,
+    capSizeID: 0,
+    gbSectorID: 0,
+    gbIndustrialGroupsID: 0,
+    gbIndustryID: 0,
+    internalCategoryID: 0,
+    mainCompany: false,
+    hasFunds: false,
+    activeIndices: false,
+    financialCurrencyID: 0,
+    tradingMainCurrencyID: 0,
+    tradingSubCurrencyID: 0,
+    isActive: false,
+    orderID: 0,
+    logo: []
+  };
+  companies: any[] = [];
   markets = []; 
   marketID:number;
   constructor(private commonService: CommonService,
+    private companyService:CompanyService
   ) {
-
   }
 
   ngOnInit() { 
     this.getCompStockMarkets();
+    this.company.stockMarketID = 0;
     this.filteredCountries = [
       {name: "RIBL",code:'rible'},
       {name: "Suadia Arabia",code:'KSA'},
@@ -49,10 +65,27 @@ export class CompaniesComponent {
   }
 
   fillCompByMarketId(){
-    this.commonService.getCompMSectorsByMarketID(this.marketID).subscribe((res => {
+    this.commonService.getCompMSectorsByMarketID(this.company.stockMarketID).subscribe((res => {
       debugger;
       this.compDropdown = res;
+      if(this.compDropdown)
+      this.getCompanies(this.compDropdown.marketSectors[0].sectorID);
+
   }));
+  }
+
+  getCompanies(sectorID: number){
+    this.companyService.getCompaniesBySectorIDAndStockMarketID(sectorID,this.company.stockMarketID).subscribe((res => {
+      debugger;
+      this.companies = res;
+      if(this.companies.length > 0)
+        this.handleCompany(this.companies[0]);
+  }));
+  }
+
+  handleCompany(company:CompanyDto){
+    debugger;
+    this.company = company;
   }
   
 }

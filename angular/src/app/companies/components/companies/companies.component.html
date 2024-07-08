@@ -4,7 +4,7 @@
       <div class="row mb-2">
         <div class="col-md-12">
           <p-dropdown
-          [(ngModel)]="marketID"
+          [(ngModel)]="company.stockMarketID"
             [options]="markets"
             (ngModelChange)="fillCompByMarketId()" 
             placeholder="Select a Market"
@@ -21,7 +21,7 @@
           <h6 class="p-1 mb-1 border-bottom">Sectors</h6>
           <div class="card">
             <div class="card-body p-0">
-              <h6 *ngFor="let ms of compDropdown.marketSectors" class="selector p-1 mb-1 border-bottom">{{ms.sector}}</h6>
+              <h6 *ngFor="let ms of compDropdown.marketSectors" (click)="getCompanies(ms.sectorID)" class="selector p-1 mb-1 border-bottom">{{ms.sector}}</h6>
             </div>
           </div>
         </div>
@@ -65,6 +65,7 @@
                 <div class="col-md-12">
                   <label class="col-form-label col-4">Company</label>
                   <input
+                  [(ngModel)]="company.company"
                     autofocus
                     type="text"
                     class="form-control col-8"
@@ -76,9 +77,10 @@
                   <!-- <label class="col-form-label">Company (AR)</label> -->
                   <input
                     autofocus
+                    [(ngModel)]="company.aCompany"
                     type="text"
                     class="form-control"
-                    name="Company"
+                    name="aCompany"
                     placeholder="Company (AR)"
                   />
                 </div>
@@ -86,9 +88,10 @@
                   <label class="col-form-label">Ticker</label>
                   <input
                     autofocus
+                    [(ngModel)]="company.ticker"
                     type="text"
                     class="form-control"
-                    name="Company"
+                    name="ticker"
                     placeholder="Ticker"
                   />
                 </div>
@@ -96,17 +99,19 @@
                   <!-- <label class="col-form-label">Ticker (AR)</label> -->
                   <input
                     autofocus
+                    [(ngModel)]="company.aTicker"
                     type="text"
                     class="form-control"
-                    name="Company"
+                    name="aTicker"
                     placeholder="Ticker (AR)"
                   />
                 </div>
               </div>
             </div>
             <div class="col-md-6 text-center mt-2">
+              <!-- src="https://salogos.org/wp-content/uploads/2021/12/%D8%A8%D9%86%D9%83-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF.png" -->
               <p-image
-                src="https://salogos.org/wp-content/uploads/2021/12/%D8%A8%D9%86%D9%83-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF.png"
+                src="data:image/jpeg;base64,{{company.logo}}"
                 imageClass="d-block rounded"
                 height=""
                 width="80%"
@@ -134,6 +139,7 @@
             <div class="col-md-6">
               <label class="col-form-label">GB Sector</label>
               <p-dropdown
+              [(ngModel)]="company.gbSectorID"
                 [options]="compDropdown.sectors"
                 placeholder="Select a Gb Sector"
                 optionLabel="sector"
@@ -145,6 +151,7 @@
             <div class="col-md-6">
               <label class="col-form-label">GB Indusrial Group</label>
               <p-dropdown
+              [(ngModel)]="company.gbIndustrialGroupsID"
                 [options]="compDropdown.gbIndustrialGroups"
                 placeholder="Select a Gb Group"
                 optionLabel="gbIndustrialGroup"
@@ -156,6 +163,7 @@
             <div class="col-md-6">
               <label class="col-form-label">Official Sector</label>
               <p-dropdown
+              [(ngModel)]="company.sectorID"
                 [options]="compDropdown.sectors"
                 placeholder="Select a Official Sector"
                 optionLabel="sector"
@@ -167,6 +175,7 @@
             <div class="col-md-6">
               <label class="col-form-label">Internal Category</label>
               <p-dropdown
+              [(ngModel)]="company.internalCategoryID"
                 [options]="compDropdown.internalCategories"
                 placeholder="Select a Internal Category"
                 optionLabel="internalCategory"
@@ -178,6 +187,7 @@
             <div class="col-md-6">
               <label class="col-form-label">Financial Currency</label>
               <p-dropdown
+              [(ngModel)]="company.financialCurrencyID"
                 [options]="compDropdown.currencies"
                 placeholder="Select a Financial Currency"
                 optionLabel="currency"
@@ -189,6 +199,7 @@
             <div class="col-md-6">
               <label class="col-form-label">Trading Main</label>
               <p-dropdown
+              [(ngModel)]="company.tradingMainCurrencyID"
                 [options]="compDropdown.currencies"
                 placeholder="Select a Trading Main"
                 optionLabel="currency"
@@ -200,6 +211,7 @@
             <div class="col-md-6">
               <label class="col-form-label">Trading Sub</label>
               <p-dropdown
+              [(ngModel)]="company.tradingSubCurrencyID"
                 [options]="compDropdown.subCurrencies"
                 placeholder="Select a Trading Sub"
                 optionLabel="subCurrency"
@@ -211,6 +223,7 @@
             <div class="col-md-6">
               <label class="col-form-label">Cap Size</label>
               <p-dropdown
+              [(ngModel)]="company.capSizeID"
                 [options]="compDropdown.capSizes"
                 placeholder="Select a Cap Size"
                 optionLabel="capSize"
@@ -221,11 +234,12 @@
             </div>
             <div class="col-md-6">
               <label class="col-form-label">Establishment</label>
-              <p-calendar [style]="{ width: '100%' }" placeholder="Select a Establishment Date" />
+              <p-calendar [style]="{ width: '100%' }" [(ngModel)]="company.establishmentDate" placeholder="Select a Establishment Date" />
             </div>
             <div class="col-md-6">
               <label class="col-form-label">Company Activation</label>
               <p-dropdown
+              [(ngModel)]="company.stockMarketID"
                 [options]="markets"
                 placeholder="Select a Company Activation"
                 optionLabel="name"
@@ -236,21 +250,22 @@
             </div>
             <div class="col-md-4 d-flex flex-row bd-highlight mt-2">
               <div class="form-check me-2">
-                <input class="form-check-input" type="checkbox" />
+                <input class="form-check-input" [(ngModel)]="company.stockMarketID" type="checkbox" />
                 <label class="form-check-label" for="defaultCheck3">Attributes</label>
               </div>
               <div class="form-check me-2">
-                <input class="form-check-input" type="checkbox" />
+                <input class="form-check-input" [(ngModel)]="company.mainCompany" type="checkbox" />
                 <label class="form-check-label" for="defaultCheck2">Main</label>
               </div>
               <div class="form-check me-2">
-                <input class="form-check-input" type="checkbox" />
+                <input class="form-check-input" [(ngModel)]="company.hasFunds" type="checkbox" />
                 <label class="form-check-label" for="defaultCheck1">Has Funds</label>
               </div>
             </div>
             <div class="col-md-4 mt-2">
               <input
                 autofocus
+                [(ngModel)]="company.stockMarketID"
                 type="text"
                 class="form-control"
                 name="Company"
@@ -259,35 +274,38 @@
             </div>
             <div class="col-md-2 mt-2">
               <input
+              [(ngModel)]="company.stockTicker"
                 autofocus
                 type="text"
                 class="form-control"
-                name="Company"
+                name="stockTicker"
                 placeholder="Stock Ticker"
               />
             </div>
             <div class="col-md-2 mt-2">
               <input
+              [(ngModel)]="company.orderID"
                 autofocus
                 type="text"
                 class="form-control"
-                name="Company"
+                name="orderID"
                 placeholder="Order No"
               />
             </div>
             <div class="col-md-6">
               <label class="col-form-label">Overview</label>
-              <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+              <textarea rows="3" [(ngModel)]="company.overview" class="form-control" placeholder="Describe Overview here...">
               </textarea>
             </div>
             <div class="col-md-6">
               <label class="col-form-label">Overview (AR)</label>
-              <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+              <textarea rows="3" [(ngModel)]="company.aOverview" class="form-control" placeholder="Describe Overview here...">
               </textarea>
             </div>
             <div class="col-md-6">
               <label class="col-form-label">Bussiness Activity</label>
               <textarea
+              [(ngModel)]="company.businessActivity"
                 rows="3"
                 class="form-control"
                 placeholder="Describe Bussiness Activity here..."
@@ -297,6 +315,7 @@
             <div class="col-md-6">
               <label class="col-form-label">Bussiness Activity (AR)</label>
               <textarea
+              [(ngModel)]="company.aBusinessActivity"
                 rows="3"
                 class="form-control"
                 placeholder="Describe Bussiness Activity here..."
@@ -319,7 +338,7 @@
                 <ng-template pTemplate="header">
                   <tr>
                     <th>
-                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
                     </th>
                     <th>Company</th>
                     <th>Ticker</th>
@@ -332,18 +351,18 @@
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item>
-                  <tr>
+                  <tr (click)="handleCompany(item)">
                     <td>
-                        <p> <p-tableCheckbox [value]="item"></p-tableCheckbox></p>
+                        <!-- <p> <p-tableCheckbox [value]="item"></p-tableCheckbox></p> -->
                     </td>
                     <td>{{item.company}}</td>
                     <td>{{item.ticker}}</td>
-                    <td>{{item.ye}}</td>
-                    <td>{{item.est}}</td>
-                    <td>{{item.order}}</td>
-                    <td>{{item.alternate}}</td>
-                    <td>{{item.st}}</td>
-                    <td>{{item.eng}}</td>
+                    <td>{{item.establishmentDate }}</td>
+                    <td>{{item.establishmentDate}}</td>
+                    <td>{{item.orderID}}</td>
+                    <td>{{item.alternativeTicker}}</td>
+                    <td>{{item.stockTicker}}</td>
+                    <td>{{item.englishShortName}}</td>
                   </tr>
                 </ng-template>
               </p-table>
