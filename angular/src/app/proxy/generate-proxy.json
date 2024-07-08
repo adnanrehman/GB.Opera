@@ -1321,15 +1321,15 @@
               "name": "IGbFactAppService",
               "methods": [
                 {
-                  "name": "GetGbFacts",
+                  "name": "GetGbFactsDataFromProcedure",
                   "parametersOnMethod": [],
                   "returnValue": {
-                    "type": "System.Collections.Generic.List<GbFacts.GbFactDto>",
-                    "typeSimple": "[GbFacts.GbFactDto]"
+                    "type": "System.Collections.Generic.List<GbFacts.GbFactListDto>",
+                    "typeSimple": "[GbFacts.GbFactListDto]"
                   }
                 },
                 {
-                  "name": "GetGbFactsDataFromProcedure",
+                  "name": "GetAllFactsMappings",
                   "parametersOnMethod": [],
                   "returnValue": {
                     "type": "System.Collections.Generic.List<GbFacts.GbFactListDto>",
@@ -1340,26 +1340,26 @@
             }
           ],
           "actions": {
-            "GetGbFacts": {
-              "uniqueName": "GetGbFacts",
-              "name": "GetGbFacts",
-              "httpMethod": "GET",
-              "url": "api/app/gb-fact/gb-facts",
-              "supportedVersions": [],
-              "parametersOnMethod": [],
-              "parameters": [],
-              "returnValue": {
-                "type": "System.Collections.Generic.List<GbFacts.GbFactDto>",
-                "typeSimple": "[GbFacts.GbFactDto]"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "GbFacts.IGbFactAppService"
-            },
             "GetGbFactsDataFromProcedure": {
               "uniqueName": "GetGbFactsDataFromProcedure",
               "name": "GetGbFactsDataFromProcedure",
               "httpMethod": "GET",
               "url": "api/app/gb-fact/gb-facts-data-from-procedure",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GbFacts.GbFactListDto>",
+                "typeSimple": "[GbFacts.GbFactListDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GbFacts.IGbFactAppService"
+            },
+            "GetAllFactsMappings": {
+              "uniqueName": "GetAllFactsMappings",
+              "name": "GetAllFactsMappings",
+              "httpMethod": "GET",
+              "url": "api/app/gb-fact/facts-mappings",
               "supportedVersions": [],
               "parametersOnMethod": [],
               "parameters": [],
@@ -4501,51 +4501,6 @@
       ]
     },
     "GB.Opera.Books.CreateUpdateBookDto": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": true,
-          "minLength": 0,
-          "maxLength": 128,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "PublishDate",
-          "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
-          "isRequired": true,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Price",
-          "jsonName": null,
-          "type": "System.Single",
-          "typeSimple": "number",
-          "isRequired": true,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "GbFacts.GbFactDto": {
       "baseType": null,
       "isEnum": false,
       "enumNames": null,

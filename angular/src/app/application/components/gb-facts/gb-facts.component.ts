@@ -5,6 +5,8 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GbFactsAccountDetailComponent } from './gb-facts-account-detail/gb-facts-account-detail.component';
 import { TreeModule } from 'primeng/tree';
 import { Myinterface } from 'src/app/myinterface';
+import { GbFactService } from '@proxy/gb-facts/gb-fact.service';
+import { GbFactListDto } from '@proxy/gb-facts/models';
  
 
 @Component({
@@ -22,146 +24,102 @@ export class GbFactsComponent {
   treeData = [];
  
   myinterface: Myinterface[];
-  constructor(private dialogService: DialogService) {}
+  gbFactListDto: GbFactListDto[]
+  constructor(private dialogService: DialogService,private gnfactservice: GbFactService) {}
+ 
+
+  /*fetchTreeData(): void {
+    debugger; // For debugging purposes
+    this.gnfactservice.getAllFactsMappings().subscribe((res => {
+      console.log('Tree res:',  res);
+      this.gbFactListDto = res;
+      let idMap = {};
+      this.gbFactListDto.forEach(item => {
+        // Ensure each item has a valid gbFact property
+        if (!item.gbFact) {
+          item.label = ''; // Provide a default value or handle missing gbFact appropriately
+        } else {
+          item.label = item.gbFact || ''; // Assign gbFact to label or provide a default value
+        item.parent = null; // Assign gbFact to label
+        }
+      });
+      this.gbFactListDto.forEach(item => {
+        idMap[item.gbFactID] = { ...item, children: [] };
+      });
+
+      let treeData = [];
+      this.gbFactListDto.forEach(item => {
+        if (item.parentId === 0) {
+          treeData.push(idMap[item.gbFactID]); 
+        } else {
+
+          if (idMap[item.parentId]) {
+            idMap[item.parentId].children.push(idMap[item.gbFactID]);
+            idMap[item.gbFactID].parent = idMap[item.label];
+          } else {
+            console.error(`Parentid ${item.parentId} not found in idMap.`);
+          }
+        }
+      });
+ 
+      //this.gbFactListDto=this.treeData;
+      console.log('Tree Data:', this.gbFactListDto);
+       
+  }));
+  //this.treeData = this.gbFactListDto;
+  this.gbFactListDto=this.treeData;
+  console.log('1Tree Data:', this.data);
+        
+  }*/
+  
+  fetchTreeData(): void {
+    debugger; // For debugging purposes
+    this.gnfactservice.getAllFactsMappings().subscribe(res => {
+      console.log('Tree res:', res);
+      
+      // Initialize idMap and gbFactListDto
+      let idMap = {};
+      this.gbFactListDto = res.map(item => {
+        let newItem = {
+          ...item,
+          label: item.gbFact || '', // Assign gbFact to label or default to empty string
+          parent: null,
+          children: []
+        };
+        idMap[newItem.gbFactID] = newItem;
+        return newItem;
+      });
+  
+      // Build the tree structure
+      let treeData = [];
+      this.gbFactListDto.forEach(item => {
+        if (item.parentId === 0) {
+          treeData.push(item);
+        } else {
+          let parentItem = idMap[item.parentId];
+          if (parentItem) {
+            parentItem.children.push(item);
+            item.parent = parentItem;
+          } else {
+            console.error(`Parent id ${item.parentId} not found in idMap.`);
+          }
+        }
+      });
+  
+      // Assign the final tree data to gbFactListDto
+      this.gbFactListDto = treeData;
+      console.log('Tree Data:', this.gbFactListDto);
+    });
+  }
+  
 
   ngOnInit() { 
+    this.fetchTreeData();
     this.cols = [ 
         { field: 'name', header: 'First Name' }, 
         { field: 'age', header: 'Age' }, 
-    ]; 
-/*this.data = [ 
-        { 
-            label: 'Gb Accounts', 
-            children: [ 
-                { 
-                    label: 'Income Statement', 
-                    children: [ 
-                        { 
-                            label: 'Singly List', 
-                        }, 
-                        { 
-                            label: 'Doubly List', 
-                        }, 
-                        { 
-                            label: 'Circularly List', 
-                        }, 
-                    ], 
-                }, 
-                { 
-                    label: 'Balance Sheet', 
-                    children: [ 
-                        { 
-                            label: 'Assets', 
-                            children: [ 
-                              { 
-                                  label: 'Singly List', 
-                              }, 
-                              { 
-                                  label: 'Doubly List', 
-                              }, 
-                              { 
-                                  label: 'Circularly List', 
-                              }, 
-                          ], 
-                        }, 
-                        { 
-                            label: 'Liabilities & ShareHolders Equility', 
-                            children: [ 
-                              { 
-                                  label: 'Singly List', 
-                              }, 
-                              { 
-                                  label: 'Doubly List', 
-                              }, 
-                              { 
-                                  label: 'Circularly List', 
-                              }, 
-                          ], 
-                        }, 
-                        {
-                          label: 'Working Capitol', 
-                        },
-                        {
-                          label: 'Net Unrealized gains on invenstement securities', 
-                        },
-                        {
-                          label: 'Deffered Revenues (BS)', 
-                        },
-                        {
-                          label: 'Fair Values reserve (BS)', 
-                        },
-                        {
-                          label: 'Foreign exchange translation (BS)', 
-                        },
-                        {
-                          label: 'Tier 1 sukuk', 
-                        },
-                        {
-                          label: 'Sukuk eligible as additional capitol (SE) ', 
-                        },
-                    ], 
-                }, 
-            ], 
-        }, 
-        { 
-            label: 'Cash Flow', 
-            children: [ 
-                { 
-                    label: 'Greedy ', 
-                }, 
-                { 
-                    label: 'BFS ', 
-                }, 
-                { 
-                    label: 'Dynamic Programming', 
-                }, 
-            ], 
-        }, 
-        { 
-          label: 'MISC', 
-          children: [ 
-              { 
-                  label: 'Greedy ', 
-              }, 
-              { 
-                  label: 'BFS ', 
-              }, 
-              { 
-                  label: 'Dynamic Programming', 
-              }, 
-          ], 
-        }, 
-        { 
-          label: 'Capitol Adequacy', 
-          children: [ 
-              { 
-                  label: 'Greedy ', 
-              }, 
-              { 
-                  label: 'BFS ', 
-              }, 
-              { 
-                  label: 'Dynamic Programming',
-              }, 
-          ], 
-        }, 
-        { 
-          label: 'General Ratios', 
-          children: [ 
-              { 
-                  label: 'Greedy ', 
-              }, 
-              { 
-                  label: 'BFS ', 
-              }, 
-              { 
-                  label: 'Dynamic Programming',
-              }, 
-          ], 
-        }, 
-    ]; */
-   
-     let data1 = [
+    ];
+ /*    let data1 = [
       { GBFactID: 1, Parentid: null, GbFact: 'Animal', label: 'Animal' },
       { GBFactID: 2, Parentid: 1, GbFact: 'Mammal', label: 'Mammal' },
       { GBFactID: 3, Parentid: 1, GbFact: 'Bird', label: 'Bird' },
@@ -207,7 +165,7 @@ console.log('treeData:', treeData);
 this.myinterface=treeData;
 
     // Now you have treeData ready to be used in your component
-
+*/
 
   }
 

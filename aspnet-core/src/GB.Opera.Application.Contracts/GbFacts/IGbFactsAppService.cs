@@ -9,8 +9,11 @@ namespace GbFacts
 {
     public interface IGbFactAppService : IApplicationService
     {
-        Task<List<GbFactDto>> GetGbFacts();
-        Task<List<GbFactListDto>> GetGbFactsDataFromProcedure();
+        public   Task<List<GbFactListDto>> GetGbFactsDataFromProcedure();
+
+        public   Task<List<GbFactListDto>> GetAllFactsMappings();
+
+
 
     }
 }

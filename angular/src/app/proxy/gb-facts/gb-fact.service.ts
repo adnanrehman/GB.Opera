@@ -1,4 +1,4 @@
-import type { GbFactDto, GbFactListDto } from './models';
+import type { GbFactListDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 
@@ -9,10 +9,10 @@ export class GbFactService {
   apiName = 'Default';
   
 
-  getGbFacts = (config?: Partial<Rest.Config>) =>
-    this.restService.request<any, GbFactDto[]>({
+  getAllFactsMappings = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, GbFactListDto[]>({
       method: 'GET',
-      url: '/api/app/gb-fact/gb-facts',
+      url: '/api/app/gb-fact/facts-mappings',
     },
     { apiName: this.apiName,...config });
   
