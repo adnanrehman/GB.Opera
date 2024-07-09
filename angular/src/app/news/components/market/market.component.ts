@@ -34,13 +34,7 @@ export class MarketComponent {
     { company:  "IBL",ye:"DEC",est:"18-2-2024",order:"Sub DEC"  }, 
     { company:  "IBL",ye:"DEC",est:"18-2-2024",order:"Sub DEC"  }, 
   ];
-  markets = [ 
-    { name: "TASI" }, 
-    { name: "ReactJS" }, 
-    { name: "Angular" }, 
-    { name: "Bootstrap" }, 
-    { name: "PrimeNG" }, 
-  ]; 
+ 
   ngOnInit() { 
      
   }

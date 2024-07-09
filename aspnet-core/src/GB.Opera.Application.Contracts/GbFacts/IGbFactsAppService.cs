@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GB.Opera.GbFacts;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,9 @@ namespace GbFacts
 
         public   Task<List<GbFactListDto>> GetAllFactsMappings();
 
+        public GbFactsAccount SaveUpdate(GbFactsAccount gbFact);
+
+        public Task<List<GbFactsAccount>> GetgbfactByid(short GBFactID);
 
 
     }

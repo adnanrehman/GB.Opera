@@ -1435,6 +1435,40 @@
                     "type": "System.Collections.Generic.List<GbFacts.GbFactListDto>",
                     "typeSimple": "[GbFacts.GbFactListDto]"
                   }
+                },
+                {
+                  "name": "SaveUpdate",
+                  "parametersOnMethod": [
+                    {
+                      "name": "gbFact",
+                      "typeAsString": "GB.Opera.GbFacts.GbFactsAccount, GB.Opera.Application.Contracts",
+                      "type": "GB.Opera.GbFacts.GbFactsAccount",
+                      "typeSimple": "GB.Opera.GbFacts.GbFactsAccount",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "GB.Opera.GbFacts.GbFactsAccount",
+                    "typeSimple": "GB.Opera.GbFacts.GbFactsAccount"
+                  }
+                },
+                {
+                  "name": "GetgbfactByid",
+                  "parametersOnMethod": [
+                    {
+                      "name": "GBFactID",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GB.Opera.GbFacts.GbFactsAccount>",
+                    "typeSimple": "[GB.Opera.GbFacts.GbFactsAccount]"
+                  }
                 }
               ]
             }
@@ -1466,6 +1500,80 @@
               "returnValue": {
                 "type": "System.Collections.Generic.List<GbFacts.GbFactListDto>",
                 "typeSimple": "[GbFacts.GbFactListDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GbFacts.IGbFactAppService"
+            },
+            "SaveUpdateByGbFact": {
+              "uniqueName": "SaveUpdateByGbFact",
+              "name": "SaveUpdate",
+              "httpMethod": "POST",
+              "url": "api/app/gb-fact/save-update",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "gbFact",
+                  "typeAsString": "GB.Opera.GbFacts.GbFactsAccount, GB.Opera.Application.Contracts",
+                  "type": "GB.Opera.GbFacts.GbFactsAccount",
+                  "typeSimple": "GB.Opera.GbFacts.GbFactsAccount",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "gbFact",
+                  "name": "gbFact",
+                  "jsonName": null,
+                  "type": "GB.Opera.GbFacts.GbFactsAccount",
+                  "typeSimple": "GB.Opera.GbFacts.GbFactsAccount",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "GB.Opera.GbFacts.GbFactsAccount",
+                "typeSimple": "GB.Opera.GbFacts.GbFactsAccount"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GbFacts.IGbFactAppService"
+            },
+            "GetgbfactByidByGBFactID": {
+              "uniqueName": "GetgbfactByidByGBFactID",
+              "name": "GetgbfactByid",
+              "httpMethod": "GET",
+              "url": "api/app/gb-fact/gbfact-byid",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "GBFactID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "GBFactID",
+                  "name": "GBFactID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.GbFacts.GbFactsAccount>",
+                "typeSimple": "[GB.Opera.GbFacts.GbFactsAccount]"
               },
               "allowAnonymous": null,
               "implementFrom": "GbFacts.IGbFactAppService"
@@ -5066,6 +5174,87 @@
           "type": "System.Single",
           "typeSimple": "number",
           "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "GB.Opera.GbFacts.GbFactsAccount": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "GBFactID",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GBFact",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": true,
+          "minLength": 0,
+          "maxLength": 100,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ParentID",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AGBFact",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsGBAccount",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsTitle",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
           "minLength": null,
           "maxLength": null,
           "minimum": null,

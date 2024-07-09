@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { GbFactsAccount } from '@proxy/gb-facts/models';
+import { GbFactService } from '@proxy/gb-facts/gb-fact.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gb-facts-account-detail',
@@ -8,20 +11,48 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
   imports: [FormsModule],
   templateUrl: './gb-facts-account-detail.component.html',
   styleUrl: './gb-facts-account-detail.component.scss'
+  
 })
 export class GbFactsAccountDetailComponent {
-  account!: any;
+ 
   ref!: DynamicDialogRef;
+
+  account : GbFactsAccount ={
+    gbFactID :0,
+    gbFact :'',
+    parentID : 0,
+    agbFact :'',
+    isGBAccount:false,
+    isTitle:false
+    
+   }
+
   constructor(
     private modalref: DynamicDialogRef,
-    public config: DynamicDialogConfig,) {
-    this.account = {};
+    public config: DynamicDialogConfig,private gnfactservice: GbFactService) {
+ 
   }
 
   ngOnInit() {
-    if (this.config.data.obj) {
+    debugger;
+    if (this.config.data.obj,this.config.data.text) {
       var data = this.config.data.obj;
-      this.account.accountName = data.node.label;
+       
+      if (this.config.data.text=="Edit Account")
+        {
+        
+          this.account.gbFactID= data.node.gbFactID;
+          
+           
+           this.getgbfactByid(data.node.gbFactID);
+        }
+        else
+        {
+          this.account.parentID= data.node.gbFactID;
+           
+        }  
+          
+      
     }
   }
 
@@ -32,4 +63,43 @@ export class GbFactsAccountDetailComponent {
   Cancel() {
     this.closeModal();
   }
+  getgbfactByid(gbFactID: number) {
+    this.gnfactservice.getgbfactByidByGBFactID(gbFactID).subscribe({
+      next: (response) => {
+        this.account = response.find(item => item.gbFactID === gbFactID);
+  
+      },
+      error: (err) => {
+        console.error('Error fetching GbFactsAccount:', err);
+      }
+    });
+  }
+  
+  addAccounts() {
+    this.gnfactservice.saveUpdateByGbFact(this.account).subscribe({
+      next: (res) => {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);
+        this.closeModal();
+      },
+      error: (err) => {
+        
+        console.error("Error While Saveing", err);
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          title: 'Error!',
+          text: "Error While Saveing",
+          icon: 'error'
+        });
+        this.closeModal();
+       // alert("Save error: " + err.message); // Display error message to user
+      }
+    });
+  }
+
+
+  
 }

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
 using Volo.Abp.Data;
+using GB.Opera.GbFacts;
 
 namespace GbFacts
 {
@@ -34,27 +35,58 @@ namespace GbFacts
         }
         public async Task<List<GbFactListDto>> GetAllFactsMappings()
         {
-            // Step 1: Execute the stored procedure and retrieve results using QueryMultipleAsync
+             
             var results = await _connection.QueryMultipleAsync(
                 sql: "usp_getAllFactsMappings",
                 commandType: CommandType.StoredProcedure
             );
 
-            // Step 2: Initialize a list to hold the final result
+      
             var gbFactList = new List<GbFactListDto>();
 
-            // Step 3: Read each result set and add to the final list
-            // In this example, assuming there are two result sets of the same type
+           
             while (!results.IsConsumed)
             {
                 var resultSet = await results.ReadAsync<GbFactListDto>();
                 gbFactList.AddRange(resultSet);
             }
 
-            // Step 4: Return the combined list of results
+           
             return gbFactList;
         }
+        public GbFactsAccount SaveUpdate(GbFactsAccount gbFact)
+        {
 
+            var parameters = new
+            {
+                GBFactID = gbFact.GBFactID,
+                ParentID = gbFact.ParentID,
+                GBFact = gbFact.GBFact,
+                AGBFact = gbFact.AGBFact,
+                IsGBAccount = gbFact.IsGBAccount,
+                IsTitle = gbFact.IsTitle
+            };
+
+            _connection.Execute("usp_AddUpdateGBFact", parameters, commandType: CommandType.StoredProcedure);
+
+            return gbFact;
+        }
+
+        public async Task<List<GbFactsAccount>> GetgbfactByid(short GBFactID)
+        {
+            // Define the parameters for the stored procedure
+            var parameters = new DynamicParameters();
+            parameters.Add("@GBFactID", GBFactID, DbType.Int16);
+
+            // Execute the stored procedure and retrieve data using Dapper
+            var data = await _connection.QueryAsync<GbFactsAccount>(
+                sql: "getGBAccounts",
+                param: parameters,
+                commandType: CommandType.StoredProcedure
+            );
+
+            return data.ToList();
+        }
 
 
     }

@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.Text;
 using Volo.Abp.Data;
 using Commons;
+using GB.Opera.GbFacts;
 
 namespace Companies
 {
@@ -41,6 +42,7 @@ namespace Companies
             }
 
         }
+       
 
 
 
