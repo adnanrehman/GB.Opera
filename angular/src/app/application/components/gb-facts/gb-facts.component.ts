@@ -7,6 +7,7 @@ import { TreeModule } from 'primeng/tree';
 import { Myinterface } from 'src/app/myinterface';
 import { GbFactService } from '@proxy/gb-facts/gb-fact.service';
 import { GbFactListDto } from '@proxy/gb-facts/models';
+import { SignalNode } from '@angular/core/primitives/signals';
  
 
 @Component({
@@ -119,78 +120,34 @@ export class GbFactsComponent {
         { field: 'name', header: 'First Name' }, 
         { field: 'age', header: 'Age' }, 
     ];
- /*    let data1 = [
-      { GBFactID: 1, Parentid: null, GbFact: 'Animal', label: 'Animal' },
-      { GBFactID: 2, Parentid: 1, GbFact: 'Mammal', label: 'Mammal' },
-      { GBFactID: 3, Parentid: 1, GbFact: 'Bird', label: 'Bird' },
-      { GBFactID: 4, Parentid: 2, GbFact: 'Cat', label: 'Cat' },
-      { GBFactID: 5, Parentid: 2, GbFact: 'Dog', label: 'Dog' },
-      { GBFactID: 6, Parentid: 3, GbFact: 'Eagle', label: 'Eagle' },
-      { GBFactID: 7, Parentid: 3, GbFact: 'Parrot', label: 'Parrot' },
-      { GBFactID: 8, Parentid: 4, GbFact: 'Persian Cat', label: 'Persian Cat' },
-      { GBFactID: 9, Parentid: 4, GbFact: 'Siamese Cat', label: 'Siamese Cat' },
-
-      { GBFactID: 10, Parentid: null, GbFact: 'Animal 2', label: 'Animal 2' },
-      { GBFactID: 11, Parentid: 10, GbFact: 'Mammal', label: 'Mammal' },
-      { GBFactID: 12, Parentid: 10, GbFact: 'Bird', label: 'Bird' },
-      { GBFactID: 13, Parentid: 11, GbFact: 'Cat', label: 'Cat' },
-      { GBFactID: 14, Parentid: 11, GbFact: 'Dog', label: 'Dog' },
-      { GBFactID: 15, Parentid: 12, GbFact: 'Eagle', label: 'Eagle' },
-      { GBFactID: 16, Parentid: 12, GbFact: 'Parrot', label: 'Parrot' },
-      { GBFactID: 17, Parentid: 13, GbFact: 'Persian Cat', label: 'Persian Cat' },
-      { GBFactID: 18, Parentid: 13, GbFact: 'Siamese Cat', label: 'Siamese Cat' },
-    ]; 
  
-    let idMap = {};
-data1.forEach(item => {
-  idMap[item.GBFactID] = { ...item, children: [] };
-});
-debugger;
-// Step 2: Build treeData based on Parentid relationships
-let treeData = [];
-data1.forEach(item => {
-  if (item.Parentid === null) {
-    treeData.push(idMap[item.GBFactID]); // Add root nodes directly to treeData
-  } else {
-    if (idMap[item.Parentid]) {
-      idMap[item.Parentid].children.push(idMap[item.GBFactID]); // Add child nodes to parent's children array
-    } else {
-      console.error(`Parentid ${item.Parentid} not found in idMap.`);
-    }
-  }
-});
-
-console.log('idMap:', idMap); // Check idMap in console
-console.log('treeData:', treeData);
-this.myinterface=treeData;
-
-    // Now you have treeData ready to be used in your component
-*/
-
   }
 
-  addAccount() {
+  addAccount( obj: any) {
+    debugger;
     this.ref = this.dialogService.open(GbFactsAccountDetailComponent, {
       header: 'Add Account',
       data: {
-        obj: null
+        obj: obj,
+        text:"Add Account",
       },
       width: '40%',
       contentStyle: { "max-height": "1000px", "overflow": "auto" },
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
-      // this.getAll({});
+       //this.fetchTreeData();
     });
 
   }
 
   editHeader(obj: any) {
-    debugger
+    debugger;
     this.ref = this.dialogService.open(GbFactsAccountDetailComponent, {
       header: 'Edit Account',
       data: {
         obj: obj,
+        text:"Edit Account",
       },
       width: '40%',
       contentStyle: { "max-height": "1000px", "overflow": "auto" },
@@ -198,7 +155,22 @@ this.myinterface=treeData;
     });
     this.ref.onClose.subscribe((template: any) => {
       // this.getAll({});
+      //this.fetchTreeData();
     });
+  }
+
+  onNodeClick(event: any) {
+    // Handle single click logic here
+    console.log('Node clicked:', event.node);
+    if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
+     
+      console.log('Ctrl or Command + Click');
+      this.addAccount(event);
+    } else {
+      
+     
+      this.editHeader(event);
+    }
   }
 
  

@@ -18,10 +18,10 @@ import { TreeModule } from 'primeng/tree';
 })
 export class EnhancedRatiosComponent {
   dividends: any[] = [ 
-    { company:  "AABR",ye:"25000",est:"AABR",order:"Ending December 2017  ..."  }, 
-    { company:  "AABR",ye:"65478",est:"EAABR",order:"Ending December 2017  ..."  }, 
-    { company:  "ADIB",ye:"36477",est:"AABR",order:"Ending December 2017  ..."  }, 
-    { company:  "AFNIC",ye:"3654",est:"AABR",order:"Ending December 2017  ..."  }, 
+    { company:  "AABR",ye:"P/E",est:"AABR",order:"Ending December 2017  ..."  }, 
+    { company:  "AABR",ye:"Price/Revenue",est:"EAABR",order:"Ending December 2017  ..."  }, 
+    { company:  "ADIB",ye:"Price/BookValue",est:"AABR",order:"Ending December 2017  ..."  }, 
+    { company:  "AFNIC",ye:"Price/CashFlow",est:"AABR",order:"Ending December 2017  ..."  }, 
   ];
   markets = [ 
     { name: "Sector" }, 
