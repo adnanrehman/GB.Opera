@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
 using Volo.Abp.Data;
+using Companies;
 
 namespace Commons
 {
@@ -29,6 +30,14 @@ namespace Commons
             var data = (await _connection.QueryAsync<CompStockMarketDto>(sql: "usp_getCompStockMarkets", commandType: CommandType.StoredProcedure)).ToList();
 
             return data;
+        }
+
+        public async Task<List<CompanyDto>> SearchCompanies(string param)
+        {
+            var sql = $@"SELECT * FROM Companies where Company like '%{param}%' or Ticker like '%{param}%'";
+
+            var data = await _connection.QueryAsync<CompanyDto>(sql);
+            return data.ToList();
         }
 
         public async Task<CompDropdownDto> GetCompMSectors(int marketID)

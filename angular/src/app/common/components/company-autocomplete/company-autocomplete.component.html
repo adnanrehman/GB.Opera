@@ -1,0 +1,13 @@
+<div [abpLoading]="loading">
+    <p-autoComplete
+    [(ngModel)]="selectedItem"
+    [ngModelOptions]="{ standalone: true }"
+    (onSelect)="onSelect($event)"
+    [suggestions]="suggestions"
+    (completeMethod)="search($event)"
+    [style]="{ width: '100%' }"
+    field="company"
+    [inputStyle]="{ width: '100%' }"
+  >
+  </p-autoComplete>
+</div>

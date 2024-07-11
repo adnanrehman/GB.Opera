@@ -99,7 +99,7 @@ export class GbFactsComponent {
           let parentItem = idMap[item.parentId];
           if (parentItem) {
             parentItem.children.push(item);
-            item.parent = parentItem;
+            // item.parent = parentItem;
           } else {
             console.error(`Parent id ${item.parentId} not found in idMap.`);
           }

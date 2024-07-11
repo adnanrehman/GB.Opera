@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Companies;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace Commons
     {
         Task<List<CompStockMarketDto>> GetCompStockMarkets();
         Task<CompDropdownDto> GetCompMSectors(int marketID);
+        Task<List<CompanyDto>> SearchCompanies(string param);
+
 
     }
 }

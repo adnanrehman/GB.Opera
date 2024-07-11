@@ -909,6 +909,23 @@
                     "type": "Commons.CompDropdownDto",
                     "typeSimple": "Commons.CompDropdownDto"
                   }
+                },
+                {
+                  "name": "SearchCompanies",
+                  "parametersOnMethod": [
+                    {
+                      "name": "param",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Companies.CompanyDto>",
+                    "typeSimple": "[Companies.CompanyDto]"
+                  }
                 }
               ]
             }
@@ -925,6 +942,43 @@
               "returnValue": {
                 "type": "System.Collections.Generic.List<Commons.CompStockMarketDto>",
                 "typeSimple": "[Commons.CompStockMarketDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.ICommonAppService"
+            },
+            "SearchCompaniesByParam": {
+              "uniqueName": "SearchCompaniesByParam",
+              "name": "SearchCompanies",
+              "httpMethod": "POST",
+              "url": "api/app/common/search-companies",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "param",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "param",
+                  "name": "param",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Companies.CompanyDto>",
+                "typeSimple": "[Companies.CompanyDto]"
               },
               "allowAnonymous": null,
               "implementFrom": "Commons.ICommonAppService"
@@ -1004,6 +1058,23 @@
                     "type": "System.Collections.Generic.List<Companies.CompanyDto>",
                     "typeSimple": "[Companies.CompanyDto]"
                   }
+                },
+                {
+                  "name": "CreateOrUpdateCompany",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "Companies.CompanyDto, GB.Opera.Application.Contracts",
+                      "type": "Companies.CompanyDto",
+                      "typeSimple": "Companies.CompanyDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Companies.CompanyDto",
+                    "typeSimple": "Companies.CompanyDto"
+                  }
                 }
               ]
             }
@@ -1062,6 +1133,43 @@
               "returnValue": {
                 "type": "System.Collections.Generic.List<Companies.CompanyDto>",
                 "typeSimple": "[Companies.CompanyDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Companies.ICompanyAppService"
+            },
+            "CreateOrUpdateCompanyByModel": {
+              "uniqueName": "CreateOrUpdateCompanyByModel",
+              "name": "CreateOrUpdateCompany",
+              "httpMethod": "POST",
+              "url": "api/app/company/or-update-company",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "Companies.CompanyDto, GB.Opera.Application.Contracts",
+                  "type": "Companies.CompanyDto",
+                  "typeSimple": "Companies.CompanyDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "Companies.CompanyDto",
+                  "typeSimple": "Companies.CompanyDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Companies.CompanyDto",
+                "typeSimple": "Companies.CompanyDto"
               },
               "allowAnonymous": null,
               "implementFrom": "Companies.ICompanyAppService"
@@ -4828,6 +4936,18 @@
         },
         {
           "name": "HasFunds",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Attributes",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
