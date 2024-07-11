@@ -22,6 +22,11 @@ export interface CompStockMarketDto {
   abbr?: string;
 }
 
+export interface CompaniesTickerDto {
+  companyID: number;
+  ticker?: string;
+}
+
 export interface CurrencyDto {
   currencyID: number;
   currency?: string;
@@ -41,6 +46,11 @@ export interface IndustryDto {
 export interface InternalCategoryDto {
   internalCategoryID: number;
   internalCategory?: string;
+}
+
+export interface MarketLangAnnouncementDto {
+  stockMarketID: number;
+  abbr?: string;
 }
 
 export interface MarketSectorDto {

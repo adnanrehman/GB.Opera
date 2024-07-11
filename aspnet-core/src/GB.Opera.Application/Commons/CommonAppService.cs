@@ -57,6 +57,27 @@ namespace Commons
 
             return output;
         }
+        public async Task<List<MarketLangAnnouncementDto>> GetMarketLangAnnouncements()
+        {
+            var data = (await _connection.QueryAsync<MarketLangAnnouncementDto>(sql: "usp_getMarket_LangT_AnnouncementT ", commandType: CommandType.StoredProcedure)).ToList();
+
+            return data;
+        }
+
+        public async Task<List<SectorDto>> GetCompMarketSectors(int marketID)
+        {
+            var data = (await _connection.QueryAsync<SectorDto>(sql: "usp_getCompMarketSectors", param: new { marketID = marketID }, commandType: CommandType.StoredProcedure)).ToList();
+
+            return data;
+        }
+
+        public async Task<List<CompaniesTickerDto>> GetCompaniesTickers(int sectorID,int marketID)
+        {
+            var data = (await _connection.QueryAsync<CompaniesTickerDto>(sql: "[usp_getCompaniesTickers]", param: new { MarketID = marketID, SectorID = sectorID }, commandType: CommandType.StoredProcedure)).ToList();
+
+            return data;
+        }
+
 
 
 
