@@ -1,4 +1,4 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
   <div class="row mb-2">
     <div class="col-md-3">
       <div class="row mb-2">
@@ -63,28 +63,32 @@
             </div>
             <div class="col-md-4">
               <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
-              <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              <a href="#" class="btn btn-success btn-sm me-1" (click)="saveManagement()"><i class="fa fa-save"></i> Save</a>
               <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
             </div>
           </div>
           <div class="row mt-2">
-            <p-tabView>
+            <p-tabView #tabView (onChange)="tabViewChange($event, tabView)">
               <p-tabPanel header="Key Peoples">
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label col-4">President</label>
                     <input
                       autofocus
+                      [(ngModel)]="management.president"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="president"
                       placeholder="President"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="management.aPresident"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aPresident"
                       placeholder="President (AR)"
                     />
                   </div>
@@ -92,52 +96,20 @@
                     <label class="col-form-label col-4">Vice President</label>
                     <input
                       autofocus
+                      [(ngModel)]="management.vicePresident"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="vicePresident"
                       placeholder="Vice President"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="management.aVicePresident"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
-                      placeholder="Vice President (AR)"
-                    />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <label class="col-form-label col-4">President</label>
-                    <input
-                      autofocus
-                      type="text"
-                      class="form-control"
-                      name="Company"
-                      placeholder="President"
-                    />
-                    <input
-                      autofocus
-                      type="text"
-                      class="form-control mt-2"
-                      name="Company"
-                      placeholder="President (AR)"
-                    />
-                  </div>
-                  <div class="col-md-6">
-                    <label class="col-form-label col-4">Vice President</label>
-                    <input
-                      autofocus
-                      type="text"
-                      class="form-control"
-                      name="Company"
-                      placeholder="Vice President"
-                    />
-                    <input
-                      autofocus
-                      type="text"
-                      class="form-control mt-2"
-                      name="Company"
+                      name="aVicePresident"
                       placeholder="Vice President (AR)"
                     />
                   </div>
@@ -147,16 +119,20 @@
                     <label class="col-form-label col-4">Honoury President</label>
                     <input
                       autofocus
+                      [(ngModel)]="management.honoraryPresident"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="honoraryPresident"
                       placeholder="Honoury President"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="management.aHonoraryPresident"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aHonoraryPresident"
                       placeholder="Honoury President (AR)"
                     />
                   </div>
@@ -164,16 +140,20 @@
                     <label class="col-form-label col-4">Chairman</label>
                     <input
                       autofocus
+                      [(ngModel)]="management.chairman"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="chairman"
                       placeholder="Chairman"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="management.aChairman"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aChairman"
                       placeholder="Chairman (AR)"
                     />
                   </div>
@@ -183,16 +163,20 @@
                     <label class="col-form-label col-4">Vice Chairman</label>
                     <input
                       autofocus
+                      [(ngModel)]="management.viceChairman"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="viceChairman"
                       placeholder="Vice Chairman"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="management.aViceChairman"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aViceChairman"
                       placeholder="Vice Chairman (AR)"
                     />
                   </div>
@@ -200,16 +184,20 @@
                     <label class="col-form-label col-4">Honoury Chairman</label>
                     <input
                       autofocus
+                      [(ngModel)]="management.honoraryChairman"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="honoraryChairman"
                       placeholder="Honoury Chairman"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="management.aHonoraryChairman"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aHonoraryChairman"
                       placeholder="Honoury Chairmant (AR)"
                     />
                   </div>
@@ -219,16 +207,20 @@
                     <label class="col-form-label col-4">CEO</label>
                     <input
                       autofocus
+                      [(ngModel)]="management.ceo"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="ceo"
                       placeholder="CEO"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="management.aceo"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aceo"
                       placeholder="CEO (AR)"
                     />
                   </div>
@@ -236,16 +228,20 @@
                     <label class="col-form-label col-4">Managing Director</label>
                     <input
                       autofocus
+                      [(ngModel)]="management.managingDirector"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="managingDirector"
                       placeholder="Managing Director"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="management.aManagingDirector"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aManagingDirector"
                       placeholder="Managing Director (AR)"
                     />
                   </div>
@@ -255,16 +251,20 @@
                     <label class="col-form-label col-4">Depty MD</label>
                     <input
                       autofocus
+                      [(ngModel)]="management.deputyManagingDirector"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="deputyManagingDirector"
                       placeholder="Depty MD"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="management.aDeputyManagingDirector"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aDeputyManagingDirector"
                       placeholder="Depty MD (AR)"
                     />
                   </div>
@@ -272,16 +272,20 @@
                     <label class="col-form-label col-4">General Manager</label>
                     <input
                       autofocus
+                      [(ngModel)]="management.generalManager"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="generalManager"
                       placeholder="General Manager"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="management.aGeneralManager"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aGeneralManager"
                       placeholder="General Manager (AR)"
                     />
                   </div>
@@ -289,20 +293,23 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Date</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                    <p-calendar [style]="{ width: '100%' }" [(ngModel)]="management.since" name="since" placeholder="Select a Date" />
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Till</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                    <p-calendar [style]="{ width: '100%' }" [(ngModel)]="management.till" name="till" placeholder="Select a Till Date" />
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Activation</label>
                     <p-dropdown
-                      [options]="markets"
-                      placeholder="Select a Activation"
-                      optionLabel="name"
-                      [style]="{ width: '100%' }"
-                      [showClear]="true"
+                    [(ngModel)]="managementActivation"
+                    [ngModelOptions]="{ standalone: true }"
+                    [options]="activationDropdown"
+                    placeholder="Select a Company Activation"
+                    optionLabel="displayText"
+                    optionValue="value"
+                    [style]="{ width: '100%' }"
+                    [showClear]="true"
                     >
                     </p-dropdown>
                   </div>
@@ -327,21 +334,22 @@
                       </ng-template>
                       <ng-template pTemplate="header">
                         <tr>
-                          <th>ChairMan</th>
+                          <th>Chair Man</th>
                           <th>Managing Director</th>
                           <th>Since</th>
                           <th>Till</th>
                           <th>Active</th>
+                          <th>Gulf Update</th>
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-                        <tr>
+                        <tr (click)="handleManagement(item)">
                           <td>{{ item.chairman }}</td>
                           <td>{{ item.managingDirector }}</td>
-                          <td>{{ item.since }}</td>
-                          <td>{{ item.till }}</td>
+                          <td>{{ item.since | date: 'dd/MM/yyyy' }}</td>
+                          <td>{{ item.till | date: 'dd/MM/yyyy' }}</td>
                           <td>{{ item.isActive }}</td>
-                          <td>{{ item.gulfbaseUpdateDate }}</td>
+                          <td>{{ item.gulfbaseUpdateDate | date: 'dd/MM/yyyy' }}</td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -354,16 +362,20 @@
                     <label class="col-form-label col-4">Title</label>
                     <input
                       autofocus
+                      [(ngModel)]="seniorManagement.title"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="title"
                       placeholder="Title"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="seniorManagement.aTitle"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aTitle"
                       placeholder="Title (AR)"
                     />
                   </div>
@@ -371,16 +383,20 @@
                     <label class="col-form-label col-4">Senior Management</label>
                     <input
                       autofocus
+                      [(ngModel)]="seniorManagement.seniorManagement"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="seniorManagement"
                       placeholder="Senior Management"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="seniorManagement.aSeniorManagement"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aSeniorManagement"
                       placeholder="Senior Management (AR)"
                     />
                   </div>
@@ -388,20 +404,25 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Date</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                    <p-calendar [style]="{ width: '100%' }" [(ngModel)]="seniorManagement.since" name="since"
+                    [ngModelOptions]="{ standalone: true }" placeholder="Select a Launch Date" />
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Till</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                    <p-calendar [style]="{ width: '100%' }"[(ngModel)]="seniorManagement.till" name="till"
+                    [ngModelOptions]="{ standalone: true }" placeholder="Select a Launch Date" />
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Activation</label>
                     <p-dropdown
-                      [options]="markets"
-                      placeholder="Select a Activation"
-                      optionLabel="name"
-                      [style]="{ width: '100%' }"
-                      [showClear]="true"
+                    [(ngModel)]="seniorManagementActivation"
+                    [ngModelOptions]="{ standalone: true }"
+                    [options]="activationDropdown"
+                    placeholder="Select a Company Activation"
+                    optionLabel="displayText"
+                    optionValue="value"
+                    [style]="{ width: '100%' }"
+                    [showClear]="true"
                     >
                     </p-dropdown>
                   </div>
@@ -425,7 +446,7 @@
                         </div>
                       </ng-template>
                       <ng-template pTemplate="header">
-                        <tr>
+                        <tr >
                           <th>Title</th>
                           <th>Senior Management</th>
                           <th>Since</th>
@@ -435,13 +456,13 @@
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-                        <tr>
+                        <tr (click)="handleseniorManagement(item)">
                           <td>{{item.title}}</td>
                           <td>{{item.seniorManagement}}</td>
-                          <td>{{item.since}}</td>
-                          <td>{{item.till}}</td>
+                          <td>{{item.since | date: 'dd/MM/yyyy'}}</td>
+                          <td>{{item.till | date: 'dd/MM/yyyy'}}</td>
                           <td>{{item.isActive}}</td>
-                          <td>{{item.gulfbaseUpdateDate}}</td>
+                          <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -454,16 +475,20 @@
                     <label class="col-form-label col-4">Title</label>
                     <input
                       autofocus
+                      [(ngModel)]="auditor.title"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="title"
                       placeholder="Title"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="auditor.aTitle"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aTitle"
                       placeholder="Title (AR)"
                     />
                   </div>
@@ -471,16 +496,20 @@
                     <label class="col-form-label col-4">Auditor</label>
                     <input
                       autofocus
+                      [(ngModel)]="auditor.auditor"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="auditor"
                       placeholder="Auditor"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="auditor.aAuditor"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aAuditor"
                       placeholder="Auditor (AR)"
                     />
                   </div>
@@ -488,20 +517,25 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Date</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                    <p-calendar [style]="{ width: '100%' }" [(ngModel)]="auditor.since" name="since"
+                    [ngModelOptions]="{ standalone: true }" placeholder="Select a Launch Date" />
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Till</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                    <p-calendar [style]="{ width: '100%' }"[(ngModel)]="auditor.till" name="till"
+                    [ngModelOptions]="{ standalone: true }" placeholder="Select a Launch Date" />
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Activation</label>
                     <p-dropdown
-                      [options]="markets"
-                      placeholder="Select a Activation"
-                      optionLabel="name"
-                      [style]="{ width: '100%' }"
-                      [showClear]="true"
+                    [(ngModel)]="auditorActivation"
+                    [ngModelOptions]="{ standalone: true }"
+                    [options]="activationDropdown"
+                    placeholder="Select a Company Activation"
+                    optionLabel="displayText"
+                    optionValue="value"
+                    [style]="{ width: '100%' }"
+                    [showClear]="true"
                     >
                     </p-dropdown>
                   </div>
@@ -510,6 +544,7 @@
                   <div class="col-md-12">
                     <p-table
                       #dt
+                      [value]="auditors"
                       [tableStyle]="{ 'max-height': '20rem' }"
                       responsiveLayout="stack"
                       styleClass="p-datatable-gridlines"
@@ -524,8 +559,7 @@
                         </div>
                       </ng-template>
                       <ng-template pTemplate="header">
-                        <tr>
-                          <th class="text-center"></th>
+                        <tr >
                           <th>Title</th>
                           <th>Auditor</th>
                           <th>Since</th>
@@ -535,8 +569,13 @@
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-                        <tr>
-                          <td class="text-center"></td>
+                        <tr (click)="handleauditor(item)">
+                          <td>{{item.title}}</td>
+                          <td>{{item.auditor}}</td>
+                          <td>{{item.since | date: 'dd/MM/yyyy'}}</td>
+                          <td>{{item.till | date: 'dd/MM/yyyy'}}</td>
+                          <td>{{item.isActive}}</td>
+                          <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -549,16 +588,20 @@
                     <label class="col-form-label col-4">Title</label>
                     <input
                       autofocus
+                      [(ngModel)]="boardMember.title"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="title"
                       placeholder="Title"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="boardMember.aTitle"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aTitle"
                       placeholder="Title (AR)"
                     />
                   </div>
@@ -566,16 +609,20 @@
                     <label class="col-form-label col-4">Board Member</label>
                     <input
                       autofocus
+                      [(ngModel)]="boardMember.boardMember"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="boardMember"
                       placeholder="Board Member"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="boardMember.aBoardMember"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aBoardMember"
                       placeholder="Board Member (AR)"
                     />
                   </div>
@@ -583,20 +630,25 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Date</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                    <p-calendar [style]="{ width: '100%' }" [(ngModel)]="boardMember.since" name="since"
+                    [ngModelOptions]="{ standalone: true }" placeholder="Select a Launch Date" />
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Till</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                    <p-calendar [style]="{ width: '100%' }" [(ngModel)]="boardMember.till" name="till"
+                    [ngModelOptions]="{ standalone: true }" placeholder="Select a Launch Date" />
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Activation</label>
                     <p-dropdown
-                      [options]="markets"
-                      placeholder="Select a Activation"
-                      optionLabel="name"
-                      [style]="{ width: '100%' }"
-                      [showClear]="true"
+                    [(ngModel)]="boardMemberActivation"
+                    [ngModelOptions]="{ standalone: true }"
+                    [options]="activationDropdown"
+                    placeholder="Select a Company Activation"
+                    optionLabel="displayText"
+                    optionValue="value"
+                    [style]="{ width: '100%' }"
+                    [showClear]="true"
                     >
                     </p-dropdown>
                   </div>
@@ -604,9 +656,11 @@
                     <label class="col-form-label">Custom Order</label>
                     <input
                       autofocus
+                      [(ngModel)]="boardMember.customOrder"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="customOrder"
                       placeholder="Custom Order"
                     />
                   </div>
@@ -615,6 +669,7 @@
                   <div class="col-md-12">
                     <p-table
                       #dt
+                      [value]="boardMembers"
                       [tableStyle]="{ 'max-height': '20rem' }"
                       responsiveLayout="stack"
                       styleClass="p-datatable-gridlines"
@@ -630,7 +685,6 @@
                       </ng-template>
                       <ng-template pTemplate="header">
                         <tr>
-                          <th class="text-center"></th>
                           <th>Title</th>
                           <th>Board Member</th>
                           <th>Since</th>
@@ -641,8 +695,14 @@
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-                        <tr>
-                          <td class="text-center"></td>
+                        <tr (click)="handleboardMember(item)">
+                          <td>{{item.title}}</td>
+                          <td>{{item.boardMember}}</td>
+                          <td>{{item.since | date: 'dd/MM/yyyy'}}</td>
+                          <td>{{item.till | date: 'dd/MM/yyyy'}}</td>
+                          <td>{{item.isActive}}</td>
+                          <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
+                          <td>{{item.customOrder}}</td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -655,16 +715,20 @@
                         <label class="col-form-label col-4">Branch Name</label>
                         <input
                           autofocus
+                          [(ngModel)]="branch.branchName"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="branchName"
                           placeholder="Branch Name"
                         />
                         <input
                           autofocus
+                          [(ngModel)]="branch.aBranchName"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control mt-2"
-                          name="Company"
+                          name="aBranchName"
                           placeholder="Branch Name (AR)"
                         />
                     </div>
@@ -672,16 +736,20 @@
                         <label class="col-form-label col-4">City</label>
                         <input
                           autofocus
+                          [(ngModel)]="branch.city"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="city"
                           placeholder="City"
                         />
                         <input
                           autofocus
+                          [(ngModel)]="branch.aCity"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control mt-2"
-                          name="Company"
+                          name="aCity"
                           placeholder="City (AR)"
                         />
                     </div>
@@ -689,16 +757,20 @@
                         <label class="col-form-label col-4">Address</label>
                         <input
                           autofocus
+                          [(ngModel)]="branch.streetAddress"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="streetAddress"
                           placeholder="Address"
                         />
                         <input
                           autofocus
+                          [(ngModel)]="branch.aStreetAddress"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control mt-2"
-                          name="Company"
+                          name="aStreetAddress"
                           placeholder="Address (AR)"
                         />
                     </div>
@@ -706,16 +778,20 @@
                         <label class="col-form-label col-4">P.O Box</label>
                         <input
                           autofocus
+                          [(ngModel)]="branch.poBox"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="poBox"
                           placeholder="P.O Box"
                         />
                         <input
                           autofocus
+                          [(ngModel)]="branch.apoBox"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control mt-2"
-                          name="Company"
+                          name="apoBox"
                           placeholder="P.O Box (AR)"
                         />
                     </div>
@@ -742,9 +818,11 @@
                         <label class="col-form-label col-4">Email</label>
                         <input
                           autofocus
+                          [(ngModel)]="branch.email"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="email"
                           placeholder="Email"
                         />
                     </div>
@@ -752,9 +830,11 @@
                         <label class="col-form-label col-4">Cell</label>
                         <input
                           autofocus
+                          [(ngModel)]="branch.cell"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="cell"
                           placeholder="Cell"
                         />
                     </div>
@@ -762,9 +842,11 @@
                         <label class="col-form-label col-4">Fax</label>
                         <input
                           autofocus
+                          [(ngModel)]="branch.fax"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="fax"
                           placeholder="Fax"
                         />
                     </div>
@@ -772,9 +854,11 @@
                         <label class="col-form-label col-4">Website</label>
                         <input
                           autofocus
+                          [(ngModel)]="branch.website"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="website"
                           placeholder="Website"
                         />
                     </div>
@@ -782,9 +866,11 @@
                         <label class="col-form-label col-4">Pin Code</label>
                         <input
                           autofocus
+                          [(ngModel)]="branch.pinCode"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="pinCode"
                           placeholder="Website"
                         />
                     </div>
@@ -792,9 +878,11 @@
                         <label class="col-form-label col-4">Tele Phone</label>
                         <input
                           autofocus
+                          [(ngModel)]="branch.telephone"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="telephone"
                           placeholder="Tele Phone"
                         />
                     </div>
@@ -803,6 +891,7 @@
                     <div class="col-md-12">
                       <p-table
                         #dt
+                        [value]="branches"
                         [tableStyle]="{ 'max-height': '20rem' }"
                         responsiveLayout="stack"
                         styleClass="p-datatable-gridlines"
@@ -818,10 +907,9 @@
                         </ng-template>
                         <ng-template pTemplate="header">
                           <tr>
-                            <th class="text-center"></th>
                             <th>Branch Name</th>
                             <th>City</th>
-                            <th>Tekephone</th>
+                            <th>Telephone</th>
                             <th>Fax</th>
                             <th>IsActive</th>
                             <th>Gulf Base Update</th>
@@ -829,11 +917,14 @@
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
-                          <tr>
-                            <td class="text-center"></td>
-                            <td>{{ item.company }}</td>
-                            <td>{{ item.share }}</td>
-                            <td>{{ item.order }}</td>
+                          <tr (click)="handleBranch(item)">
+                            <td>{{item.branchName}}</td>
+                            <td>{{item.city}}</td>
+                            <td>{{item.telephone}}</td>
+                            <td>{{item.fax}}</td>
+                            <td>{{item.isActive}}</td>
+                            <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
+                            <td>{{item.region}}</td>
                           </tr>
                         </ng-template>
                       </p-table>
@@ -846,9 +937,11 @@
                         <label class="col-form-label col-4">Inital Capitol</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyFinancialOverview.initialCapital"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="initialCapital"
                           placeholder="Inital Capitol"
                         />
                     </div>
@@ -856,9 +949,11 @@
                         <label class="col-form-label col-4">Authorized Capitol</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyFinancialOverview.authorizedCapital"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="authorizedCapital"
                           placeholder="Authorized Capitol"
                         />
                     </div>
@@ -866,9 +961,11 @@
                         <label class="col-form-label col-4">Subscribed Capitol</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyFinancialOverview.subscribedCapital"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="subscribedCapital"
                           placeholder="Subscribed Capitol"
                         />
                     </div>
@@ -876,29 +973,23 @@
                         <label class="col-form-label col-4">PaidUp Capitol</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyFinancialOverview.paidupCapital"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="paidupCapital"
                           placeholder="PaidUp Capitol"
                         />
-                    </div>
-                    <div class="col-md-6">
-                        <label class="col-form-label col-4">Inital Capitol</label>
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control"
-                          name="Company"
-                          placeholder="Inital Capitol"
-                        />
-                    </div>
+                    </div>                    
                     <div class="col-md-6">
                         <label class="col-form-label col-4">Outstanding Shares</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyFinancialOverview.outstandingShares"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="outstandingShares"
                           placeholder="Outstanding Shares"
                         />
                     </div>
@@ -906,9 +997,11 @@
                         <label class="col-form-label col-4">Per value per share</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyFinancialOverview.parValuePerShare"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="parValuePerShare"
                           placeholder="Per value per share"
                         />
                     </div>
@@ -916,9 +1009,11 @@
                         <label class="col-form-label col-4">Treasory Stock</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyFinancialOverview.treasuryStocks"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="treasuryStocks"
                           placeholder="Treasory Stock"
                         />
                     </div>
@@ -926,9 +1021,11 @@
                         <label class="col-form-label col-4">Beta</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyFinancialOverview.beta"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="beta"
                           placeholder="Beta"
                         />
                     </div>
@@ -937,6 +1034,7 @@
                   <div class="col-md-12">
                     <p-table
                       #dt
+                      [value]="companyFinancialOverviews"
                       [tableStyle]="{ 'max-height': '20rem' }"
                       responsiveLayout="stack"
                       styleClass="p-datatable-gridlines"
@@ -952,7 +1050,6 @@
                       </ng-template>
                       <ng-template pTemplate="header">
                         <tr>
-                          <th class="text-center"></th>
                           <th>Listed Date</th>
                           <th>PaidUp Capiton</th>
                           <th>Outstanding Shares</th>
@@ -962,10 +1059,13 @@
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-                        <tr>
-                          <td class="text-center"></td>
-                          <td>{{ item.company }}</td>
-                          <td>{{ item.share }}</td>
+                        <tr (click)="handlecompanyFinancialOverview(item)">
+                          <td>{{item.listedDate | date: 'dd/MM/yyyy'}}</td>
+                          <td>{{item.paidupCapital}}</td>
+                          <td>{{item.outstandingShares}}</td>
+                          <td>{{item.parValuePerShare}}</td>
+                          <td>{{item.isActive}}</td>
+                          <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -978,16 +1078,20 @@
                         <label class="col-form-label col-4">Contact Name</label>
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.branchName"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="branchName"
                           placeholder="Branch Name"
                         />
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.aBranchName"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control mt-2"
-                          name="Company"
+                          name="aBranchName"
                           placeholder="Branch Name (AR)"
                         />
                     </div>
@@ -995,16 +1099,20 @@
                         <label class="col-form-label col-4">City</label>
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.city"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="city"
                           placeholder="City"
                         />
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.aCity"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control mt-2"
-                          name="Company"
+                          name="aCity"
                           placeholder="City (AR)"
                         />
                     </div>
@@ -1012,16 +1120,20 @@
                         <label class="col-form-label col-4">Address</label>
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.streetAddress"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="streetAddress"
                           placeholder="Address"
                         />
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.aStreetAddress"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control mt-2"
-                          name="Company"
+                          name="aStreetAddress"
                           placeholder="Address (AR)"
                         />
                     </div>
@@ -1029,16 +1141,20 @@
                         <label class="col-form-label col-4">P.O Box</label>
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.poBox"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="poBox"
                           placeholder="P.O Box"
                         />
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.apoBox"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control mt-2"
-                          name="Company"
+                          name="apoBox"
                           placeholder="P.O Box (AR)"
                         />
                     </div>
@@ -1048,9 +1164,11 @@
                         <label class="col-form-label col-4">Email</label>
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.email"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="email"
                           placeholder="Email"
                         />
                     </div>
@@ -1058,9 +1176,11 @@
                         <label class="col-form-label col-4">Cell</label>
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.cell"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="cell"
                           placeholder="Cell"
                         />
                     </div>
@@ -1068,9 +1188,11 @@
                         <label class="col-form-label col-4">Fax</label>
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.fax"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="fax"
                           placeholder="Fax"
                         />
                     </div>
@@ -1078,9 +1200,11 @@
                         <label class="col-form-label col-4">Website</label>
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.website"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="website"
                           placeholder="Website"
                         />
                     </div>
@@ -1088,9 +1212,11 @@
                         <label class="col-form-label col-4">Pin Code</label>
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.pinCode"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="pinCode"
                           placeholder="Website"
                         />
                     </div>
@@ -1098,9 +1224,11 @@
                         <label class="col-form-label col-4">Tele Phone</label>
                         <input
                           autofocus
+                          [(ngModel)]="contactInfo.telephone"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="telephone"
                           placeholder="Tele Phone"
                         />
                     </div>
@@ -1109,6 +1237,7 @@
                     <div class="col-md-12">
                       <p-table
                         #dt
+                        [value]="contactInformations"
                         [tableStyle]="{ 'max-height': '20rem' }"
                         responsiveLayout="stack"
                         styleClass="p-datatable-gridlines"
@@ -1124,10 +1253,9 @@
                         </ng-template>
                         <ng-template pTemplate="header">
                           <tr>
-                            <th class="text-center"></th>
                             <th>Contact Name</th>
                             <th>City</th>
-                            <th>Tekephone</th>
+                            <th>Telephone</th>
                             <th>Fax</th>
                             <th>IsActive</th>
                             <th>Gulf Base Update</th>
@@ -1135,11 +1263,14 @@
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
-                          <tr>
-                            <td class="text-center"></td>
-                            <td>{{ item.company }}</td>
-                            <td>{{ item.share }}</td>
-                            <td>{{ item.order }}</td>
+                          <tr (click)="handlecontactInfo(item)">
+                            <td>{{item.branchName}}</td>
+                            <td>{{item.city}}</td>
+                            <td>{{item.telephone}}</td>
+                            <td>{{item.fax}}</td>
+                            <td>{{item.isActive}}</td>
+                            <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
+                            <td>{{item.region}}</td>
                           </tr>
                         </ng-template>
                       </p-table>
@@ -1152,18 +1283,32 @@
                       <label class="col-form-label">Project Name</label>
                       <input
                           autofocus
+                          [(ngModel)]="companyProject.name"
+                          [ngModelOptions]="{ standalone: true }"
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="name"
                           placeholder="Project Name"
                         />
+                        <input
+                        autofocus
+                        [(ngModel)]="companyProject.aName"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        class="form-control"
+                        name="aName"
+                        placeholder="Project Name"
+                      />
                     </div>
                     <div class="col-md-6">
                       <label class="col-form-label">Status</label>
                       <p-dropdown
-                        [options]="markets"
+                        [options]="projectStatuses"
+                        [(ngModel)]="companyProject.projectStatusID"
+                        [ngModelOptions]="{ standalone: true }"
                         placeholder="Select a Status"
-                        optionLabel="name"
+                        optionLabel="projectStatus"
+                        optionValue="projectStatusID"
                         [style]="{ width: '100%' }"
                         [showClear]="true"
                       >
@@ -1173,22 +1318,26 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Start</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
+                    <p-calendar [style]="{ width: '100%' }" [(ngModel)]="companyProject.startDate" name="startDate"
+                    [ngModelOptions]="{ standalone: true }" placeholder="Select a Date" />
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">End</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
+                    <p-calendar [style]="{ width: '100%' }" [(ngModel)]="companyProject.endDate" name="endDate"
+                    [ngModelOptions]="{ standalone: true }" placeholder="Select a Date" />
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Description</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3" [(ngModel)]="companyProject.description" name="description"
+                    [ngModelOptions]="{ standalone: true }" class="form-control" placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Description (AR)</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3"  [(ngModel)]="companyProject.aDescription" name="aDescription"
+                    [ngModelOptions]="{ standalone: true }" class="form-control" placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
@@ -1196,6 +1345,7 @@
                   <div class="col-md-12">
                     <p-table
                       #dt
+                      [value]="companyProjects"
                       [tableStyle]="{ 'max-height': '20rem' }"
                       responsiveLayout="stack"
                       styleClass="p-datatable-gridlines"
@@ -1211,7 +1361,6 @@
                       </ng-template>
                       <ng-template pTemplate="header">
                         <tr>
-                          <th class="text-center"></th>
                           <th>Project Name</th>
                           <th>Status</th>
                           <th>Start Date</th>
@@ -1220,10 +1369,12 @@
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-                        <tr>
-                          <td class="text-center"></td>
-                          <td>{{ item.company }}</td>
-                          <td>{{ item.share }}</td>
+                        <tr (click)="handlecontactInfo(item)">
+                          <td>{{item.name}}</td>
+                          <td>{{item.status}}</td>
+                          <td>{{item.startDate  | date: 'dd/MM/yyyy'}}</td>
+                          <td>{{item.endDate  | date: 'dd/MM/yyyy'}}</td>
+                          <td>{{item.Description}}</td>
                         </tr>
                       </ng-template>
                     </p-table>

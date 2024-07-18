@@ -1360,8 +1360,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "System.Collections.Generic.List<CompanyManagements.CompanyManagementDto>",
-                    "typeSimple": "[CompanyManagements.CompanyManagementDto]"
+                    "type": "CompanyManagements.CompanyManagementDto",
+                    "typeSimple": "CompanyManagements.CompanyManagementDto"
                   }
                 },
                 {
@@ -1379,6 +1379,125 @@
                   "returnValue": {
                     "type": "CompanyManagements.ManagementDto",
                     "typeSimple": "CompanyManagements.ManagementDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateSeniorManagement",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyManagements.SeniorManagementDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyManagements.SeniorManagementDto",
+                      "typeSimple": "CompanyManagements.SeniorManagementDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyManagements.SeniorManagementDto",
+                    "typeSimple": "CompanyManagements.SeniorManagementDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateAuditors",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyManagements.AuditorDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyManagements.AuditorDto",
+                      "typeSimple": "CompanyManagements.AuditorDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyManagements.AuditorDto",
+                    "typeSimple": "CompanyManagements.AuditorDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateBMembers",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyManagements.BoardMemberDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyManagements.BoardMemberDto",
+                      "typeSimple": "CompanyManagements.BoardMemberDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyManagements.BoardMemberDto",
+                    "typeSimple": "CompanyManagements.BoardMemberDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateBranches",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyManagements.BranchDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyManagements.BranchDto",
+                      "typeSimple": "CompanyManagements.BranchDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyManagements.BranchDto",
+                    "typeSimple": "CompanyManagements.BranchDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateOverview",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyManagements.CompanyFinancialOverviewDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyManagements.CompanyFinancialOverviewDto",
+                      "typeSimple": "CompanyManagements.CompanyFinancialOverviewDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyManagements.CompanyFinancialOverviewDto",
+                    "typeSimple": "CompanyManagements.CompanyFinancialOverviewDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateContacts",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyManagements.ContactInformationDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyManagements.ContactInformationDto",
+                      "typeSimple": "CompanyManagements.ContactInformationDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyManagements.ContactInformationDto",
+                    "typeSimple": "CompanyManagements.ContactInformationDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateCompanyProjects",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyManagements.CompanyProjectDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyManagements.CompanyProjectDto",
+                      "typeSimple": "CompanyManagements.CompanyProjectDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyManagements.CompanyProjectDto",
+                    "typeSimple": "CompanyManagements.CompanyProjectDto"
                   }
                 }
               ]
@@ -1416,8 +1535,8 @@
                 }
               ],
               "returnValue": {
-                "type": "System.Collections.Generic.List<CompanyManagements.CompanyManagementDto>",
-                "typeSimple": "[CompanyManagements.CompanyManagementDto]"
+                "type": "CompanyManagements.CompanyManagementDto",
+                "typeSimple": "CompanyManagements.CompanyManagementDto"
               },
               "allowAnonymous": null,
               "implementFrom": "CompanyManagements.ICompanyManagementAppService"
@@ -1455,6 +1574,265 @@
               "returnValue": {
                 "type": "CompanyManagements.ManagementDto",
                 "typeSimple": "CompanyManagements.ManagementDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyManagements.ICompanyManagementAppService"
+            },
+            "CreateOrUpdateSeniorManagementByModel": {
+              "uniqueName": "CreateOrUpdateSeniorManagementByModel",
+              "name": "CreateOrUpdateSeniorManagement",
+              "httpMethod": "POST",
+              "url": "api/app/company-managment/or-update-senior-management",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyManagements.SeniorManagementDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyManagements.SeniorManagementDto",
+                  "typeSimple": "CompanyManagements.SeniorManagementDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyManagements.SeniorManagementDto",
+                  "typeSimple": "CompanyManagements.SeniorManagementDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyManagements.SeniorManagementDto",
+                "typeSimple": "CompanyManagements.SeniorManagementDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyManagements.ICompanyManagementAppService"
+            },
+            "CreateOrUpdateAuditorsByModel": {
+              "uniqueName": "CreateOrUpdateAuditorsByModel",
+              "name": "CreateOrUpdateAuditors",
+              "httpMethod": "POST",
+              "url": "api/app/company-managment/or-update-auditors",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyManagements.AuditorDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyManagements.AuditorDto",
+                  "typeSimple": "CompanyManagements.AuditorDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyManagements.AuditorDto",
+                  "typeSimple": "CompanyManagements.AuditorDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyManagements.AuditorDto",
+                "typeSimple": "CompanyManagements.AuditorDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyManagements.ICompanyManagementAppService"
+            },
+            "CreateOrUpdateBMembersByModel": {
+              "uniqueName": "CreateOrUpdateBMembersByModel",
+              "name": "CreateOrUpdateBMembers",
+              "httpMethod": "POST",
+              "url": "api/app/company-managment/or-update-bMembers",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyManagements.BoardMemberDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyManagements.BoardMemberDto",
+                  "typeSimple": "CompanyManagements.BoardMemberDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyManagements.BoardMemberDto",
+                  "typeSimple": "CompanyManagements.BoardMemberDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyManagements.BoardMemberDto",
+                "typeSimple": "CompanyManagements.BoardMemberDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyManagements.ICompanyManagementAppService"
+            },
+            "CreateOrUpdateBranchesByModel": {
+              "uniqueName": "CreateOrUpdateBranchesByModel",
+              "name": "CreateOrUpdateBranches",
+              "httpMethod": "POST",
+              "url": "api/app/company-managment/or-update-branches",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyManagements.BranchDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyManagements.BranchDto",
+                  "typeSimple": "CompanyManagements.BranchDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyManagements.BranchDto",
+                  "typeSimple": "CompanyManagements.BranchDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyManagements.BranchDto",
+                "typeSimple": "CompanyManagements.BranchDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyManagements.ICompanyManagementAppService"
+            },
+            "CreateOrUpdateOverviewByModel": {
+              "uniqueName": "CreateOrUpdateOverviewByModel",
+              "name": "CreateOrUpdateOverview",
+              "httpMethod": "POST",
+              "url": "api/app/company-managment/or-update-overview",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyManagements.CompanyFinancialOverviewDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyManagements.CompanyFinancialOverviewDto",
+                  "typeSimple": "CompanyManagements.CompanyFinancialOverviewDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyManagements.CompanyFinancialOverviewDto",
+                  "typeSimple": "CompanyManagements.CompanyFinancialOverviewDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyManagements.CompanyFinancialOverviewDto",
+                "typeSimple": "CompanyManagements.CompanyFinancialOverviewDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyManagements.ICompanyManagementAppService"
+            },
+            "CreateOrUpdateContactsByModel": {
+              "uniqueName": "CreateOrUpdateContactsByModel",
+              "name": "CreateOrUpdateContacts",
+              "httpMethod": "POST",
+              "url": "api/app/company-managment/or-update-contacts",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyManagements.ContactInformationDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyManagements.ContactInformationDto",
+                  "typeSimple": "CompanyManagements.ContactInformationDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyManagements.ContactInformationDto",
+                  "typeSimple": "CompanyManagements.ContactInformationDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyManagements.ContactInformationDto",
+                "typeSimple": "CompanyManagements.ContactInformationDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyManagements.ICompanyManagementAppService"
+            },
+            "CreateOrUpdateCompanyProjectsByModel": {
+              "uniqueName": "CreateOrUpdateCompanyProjectsByModel",
+              "name": "CreateOrUpdateCompanyProjects",
+              "httpMethod": "POST",
+              "url": "api/app/company-managment/or-update-company-projects",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyManagements.CompanyProjectDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyManagements.CompanyProjectDto",
+                  "typeSimple": "CompanyManagements.CompanyProjectDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyManagements.CompanyProjectDto",
+                  "typeSimple": "CompanyManagements.CompanyProjectDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyManagements.CompanyProjectDto",
+                "typeSimple": "CompanyManagements.CompanyProjectDto"
               },
               "allowAnonymous": null,
               "implementFrom": "CompanyManagements.ICompanyManagementAppService"

@@ -17,6 +17,7 @@ namespace CompanyManagements
         public string? AName { get; set; }
         public string Description { get; set; }
         public string ADescription { get; set; }
+        public string ProjectStatus { get; set; }
         public bool Active { get; set; }
 
     }
