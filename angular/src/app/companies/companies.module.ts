@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CompaniesRoutingModule } from './companies-routing.module';
 import { TableModule } from 'primeng/table';
+import { CompanySectorComponent } from '../common/components/company-sector/company-sector.component';
 
 
 @NgModule({
@@ -10,6 +11,8 @@ import { TableModule } from 'primeng/table';
   imports: [
     CommonModule,
     TableModule,
+    NgModule,
+    CompanySectorComponent,
     CompaniesRoutingModule
   ]
 })

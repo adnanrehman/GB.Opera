@@ -30,6 +30,7 @@ namespace Companies
         public string? YearEnd { get; set; }
         public bool MainCompany { get; set; }
         public bool HasFunds { get; set; }
+        public bool Attributes { get; set; }
         public bool ActiveIndices { get; set; }
         public int FinancialCurrencyID { get; set; }
         public int TradingMainCurrencyID { get; set; }
@@ -42,5 +43,6 @@ namespace Companies
         public string? AlternativeTicker { get; set; }
         public string? StockTicker { get; set; }
         public string? EnglishShortName { get; set; }
+
     }
 }

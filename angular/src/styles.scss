@@ -129,6 +129,10 @@ cursor: pointer;
   padding: 0.275rem .45rem !important;
 }
 
+.p-dropdown-panel .p-dropdown-items{
+  padding-left: 0px !important;
+}
+
 .form-check-input {
   width: 0.8rem !important; 
   height: 0.8rem !important; 
@@ -170,5 +174,36 @@ p-accordion {
 .p-radiobutton .p-radiobutton-box {
   width: 15px !important;
   height: 15px !important;
+}
+
+.p-listbox .p-listbox-list  {
+  font-size: 0.8rem !important;
+  padding-left: 0px !important;
+}
+
+.nav-link{
+  cursor:  pointer !important;
+}
+
+.p-autocomplete-panel .p-autocomplete-items {
+  font-size: 0.8rem !important;
+  padding-left: 0px !important;
+}
+
+.abp-loading .abp-spinner {
+  font-size: 50px !important;
+}
+
+.abp-loading {
+  background-color: #00000038 !important; 
+}
+
+.p-icon {
+  width: 0.8rem !important;
+  height: 0.8rem !important;
+}
+
+.p-datepicker-trigger{
+  font-size: 0rem !important;
 }
   

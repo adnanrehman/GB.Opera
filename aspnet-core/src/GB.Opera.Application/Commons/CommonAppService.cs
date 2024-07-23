@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
 using Volo.Abp.Data;
+using Companies;
 
 namespace Commons
 {
@@ -31,6 +32,14 @@ namespace Commons
             return data;
         }
 
+        public async Task<List<CompanyDto>> SearchCompanies(string param)
+        {
+            var sql = $@"SELECT * FROM Companies where Company like '%{param}%' or Ticker like '%{param}%'";
+
+            var data = await _connection.QueryAsync<CompanyDto>(sql);
+            return data.ToList();
+        }
+
         public async Task<CompDropdownDto> GetCompMSectors(int marketID)
         {
             var reader = await _connection.QueryMultipleAsync("usp_getCompMSectors",
@@ -48,6 +57,27 @@ namespace Commons
 
             return output;
         }
+        public async Task<List<MarketLangAnnouncementDto>> GetMarketLangAnnouncements()
+        {
+            var data = (await _connection.QueryAsync<MarketLangAnnouncementDto>(sql: "usp_getMarket_LangT_AnnouncementT ", commandType: CommandType.StoredProcedure)).ToList();
+
+            return data;
+        }
+
+        public async Task<List<SectorDto>> GetCompMarketSectors(int marketID)
+        {
+            var data = (await _connection.QueryAsync<SectorDto>(sql: "usp_getCompMarketSectors", param: new { marketID = marketID }, commandType: CommandType.StoredProcedure)).ToList();
+
+            return data;
+        }
+
+        public async Task<List<CompaniesTickerDto>> GetCompaniesTickers(int sectorID,int marketID)
+        {
+            var data = (await _connection.QueryAsync<CompaniesTickerDto>(sql: "[usp_getCompaniesTickers]", param: new { MarketID = marketID, SectorID = sectorID }, commandType: CommandType.StoredProcedure)).ToList();
+
+            return data;
+        }
+
 
 
 

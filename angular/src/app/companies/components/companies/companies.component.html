@@ -1,12 +1,15 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
   <div class="row mb-2">
     <div class="col-md-3">
-      <div class="row mb-2">
+      <app-company-sector #companysectorRef
+      (dataEvent)="handleDataFromChild($event)">
+      </app-company-sector>
+      <!-- <div class="row mb-2">
         <div class="col-md-12">
           <p-dropdown
-          [(ngModel)]="company.stockMarketID"
+            [(ngModel)]="company.stockMarketID"
             [options]="markets"
-            (ngModelChange)="fillCompByMarketId()" 
+            (ngModelChange)="fillCompByMarketId()"
             placeholder="Select a Market"
             optionLabel="abbr"
             optionValue="stockMarketID"
@@ -18,113 +21,50 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <h6 class="p-1 mb-1 border-bottom">Sectors</h6>
-          <div class="card">
-            <div class="card-body p-0">
-              <h6 *ngFor="let ms of compDropdown.marketSectors" (click)="getCompanies(ms.sectorID)" class="selector p-1 mb-1 border-bottom">{{ms.sector}}</h6>
-            </div>
-          </div>
+          <h6 class="p-1 mb-1">Sectors</h6>
+          <p-listbox
+            [options]="marketSectors"
+            [(ngModel)]="sectorID"
+            optionLabel="sector"
+            (click)="getCompanies()"
+            optionValue="sectorID"
+            [style]="{ width: '100%' }"
+            [listStyle]="{ 'max-height': '200rem' }"
+          />
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="col-md-9">
       <div class="card">
         <div class="card-body p-2">
-          <div class="row">
-            <div class="col-md-8">
-              <p-autoComplete
-                [suggestions]="filteredCountries"
-                field="name"
-                placeholder="Search the companies"
-                [style]="{ width: '100%' }"
-                [inputStyle]="{ width: '100%' }"
-              >
-              </p-autoComplete>
-            </div>
-            <div class="col-md-4">
-              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
-              <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
-              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
-              <!-- <p-fileUpload
-              chooseLabel="Upload Beta"
-              styleClass="p-button-sm text-end"
-              mode="basic"
-              [showUploadButton]="false"
-              [showCancelButton]="false"
-              [maxFileSize]="1000000"
-              [customUpload]="true"
-              [auto]="true"
-              accept="image/*"
-            >
-            </p-fileUpload> -->
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="row">
-                <div class="col-md-12">
-                  <label class="col-form-label col-4">Company</label>
-                  <input
-                  [(ngModel)]="company.company"
-                    autofocus
-                    type="text"
-                    class="form-control col-8"
-                    name="Company"
-                    placeholder="Company"
-                  />
-                </div>
-                <div class="col-md-12 mt-2">
-                  <!-- <label class="col-form-label">Company (AR)</label> -->
-                  <input
-                    autofocus
-                    [(ngModel)]="company.aCompany"
-                    type="text"
-                    class="form-control"
-                    name="aCompany"
-                    placeholder="Company (AR)"
-                  />
-                </div>
-                <div class="col-md-12">
-                  <label class="col-form-label">Ticker</label>
-                  <input
-                    autofocus
-                    [(ngModel)]="company.ticker"
-                    type="text"
-                    class="form-control"
-                    name="ticker"
-                    placeholder="Ticker"
-                  />
-                </div>
-                <div class="col-md-12 mt-2">
-                  <!-- <label class="col-form-label">Ticker (AR)</label> -->
-                  <input
-                    autofocus
-                    [(ngModel)]="company.aTicker"
-                    type="text"
-                    class="form-control"
-                    name="aTicker"
-                    placeholder="Ticker (AR)"
-                  />
-                </div>
+          
+          <form #companyForm="ngForm" (ngSubmit)="createOrUpdateCompany()">
+            <div class="row">
+              <div class="col-md-8">
+                <app-company-autocomplete (dataEventAutoComplete)="handleDataFromAutoCompelete($event)"></app-company-autocomplete>
+                <!-- <p-autoComplete
+                  [(ngModel)]="selectedItem"
+                  [ngModelOptions]="{ standalone: true }"
+                  (onSelect)="onSelect($event)"
+                  [suggestions]="suggestions"
+                  (completeMethod)="search($event)"
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                >
+                </p-autoComplete> -->
               </div>
-            </div>
-            <div class="col-md-6 text-center mt-2">
-              <!-- src="https://salogos.org/wp-content/uploads/2021/12/%D8%A8%D9%86%D9%83-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF.png" -->
-              <p-image
-                src="data:image/jpeg;base64,{{company.logo}}"
-                imageClass="d-block rounded"
-                height=""
-                width="80%"
-              ></p-image>
-
-              <span class="text-muted py-2">Allowed JPG, GIF or PNG. Max size of 1 MB</span>
-              <p-fileUpload
-                name="imgContactAvatar"
-                #imgContactAvatar
-                chooseLabel="Upload Logo"
-                styleClass="p-button-sm"
+              <div class="col-md-4">
+                <a (click)="addNewCompany()" class="btn btn-primary btn-sm me-1"
+                  ><i class="fa fa-plus"></i> Add New</a
+                >
+                <button type="submit" [attr.disabled]="!companyForm.valid ? true : null" class="btn btn-success btn-sm me-1"
+                  ><i class="fa fa-save"></i> Save</button
+                >
+                <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
+                <!-- <p-fileUpload
+                chooseLabel="Upload Beta"
+                styleClass="p-button-sm text-end"
                 mode="basic"
-                chooseIcon="pi pi-user"
                 [showUploadButton]="false"
                 [showCancelButton]="false"
                 [maxFileSize]="1000000"
@@ -132,200 +72,343 @@
                 [auto]="true"
                 accept="image/*"
               >
-              </p-fileUpload>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <label class="col-form-label">GB Sector</label>
-              <p-dropdown
-              [(ngModel)]="company.gbSectorID"
-                [options]="compDropdown.sectors"
-                placeholder="Select a Gb Sector"
-                optionLabel="sector"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
-              >
-              </p-dropdown>
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">GB Indusrial Group</label>
-              <p-dropdown
-              [(ngModel)]="company.gbIndustrialGroupsID"
-                [options]="compDropdown.gbIndustrialGroups"
-                placeholder="Select a Gb Group"
-                optionLabel="gbIndustrialGroup"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
-              >
-              </p-dropdown>
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Official Sector</label>
-              <p-dropdown
-              [(ngModel)]="company.sectorID"
-                [options]="compDropdown.sectors"
-                placeholder="Select a Official Sector"
-                optionLabel="sector"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
-              >
-              </p-dropdown>
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Internal Category</label>
-              <p-dropdown
-              [(ngModel)]="company.internalCategoryID"
-                [options]="compDropdown.internalCategories"
-                placeholder="Select a Internal Category"
-                optionLabel="internalCategory"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
-              >
-              </p-dropdown>
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Financial Currency</label>
-              <p-dropdown
-              [(ngModel)]="company.financialCurrencyID"
-                [options]="compDropdown.currencies"
-                placeholder="Select a Financial Currency"
-                optionLabel="currency"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
-              >
-              </p-dropdown>
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Trading Main</label>
-              <p-dropdown
-              [(ngModel)]="company.tradingMainCurrencyID"
-                [options]="compDropdown.currencies"
-                placeholder="Select a Trading Main"
-                optionLabel="currency"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
-              >
-              </p-dropdown>
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Trading Sub</label>
-              <p-dropdown
-              [(ngModel)]="company.tradingSubCurrencyID"
-                [options]="compDropdown.subCurrencies"
-                placeholder="Select a Trading Sub"
-                optionLabel="subCurrency"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
-              >
-              </p-dropdown>
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Cap Size</label>
-              <p-dropdown
-              [(ngModel)]="company.capSizeID"
-                [options]="compDropdown.capSizes"
-                placeholder="Select a Cap Size"
-                optionLabel="capSize"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
-              >
-              </p-dropdown>
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Establishment</label>
-              <p-calendar [style]="{ width: '100%' }" [(ngModel)]="company.establishmentDate" placeholder="Select a Establishment Date" />
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Company Activation</label>
-              <p-dropdown
-              [(ngModel)]="company.stockMarketID"
-                [options]="markets"
-                placeholder="Select a Company Activation"
-                optionLabel="name"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
-              >
-              </p-dropdown>
-            </div>
-            <div class="col-md-4 d-flex flex-row bd-highlight mt-2">
-              <div class="form-check me-2">
-                <input class="form-check-input" [(ngModel)]="company.stockMarketID" type="checkbox" />
-                <label class="form-check-label" for="defaultCheck3">Attributes</label>
-              </div>
-              <div class="form-check me-2">
-                <input class="form-check-input" [(ngModel)]="company.mainCompany" type="checkbox" />
-                <label class="form-check-label" for="defaultCheck2">Main</label>
-              </div>
-              <div class="form-check me-2">
-                <input class="form-check-input" [(ngModel)]="company.hasFunds" type="checkbox" />
-                <label class="form-check-label" for="defaultCheck1">Has Funds</label>
+              </p-fileUpload> -->
               </div>
             </div>
-            <div class="col-md-4 mt-2">
-              <input
-                autofocus
-                [(ngModel)]="company.stockMarketID"
-                type="text"
-                class="form-control"
-                name="Company"
-                placeholder="Active Index Alt Ticker"
-              />
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    <label class="col-form-label col-4">Company</label>
+                    <input
+                      [(ngModel)]="company.company"
+                      autofocus
+                      type="text"
+                      required="true"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
+                      class="form-control ng-invalid ng-dirty"
+                      name="company"
+                      placeholder="Company"
+                    />
+                  </div>
+                  <div class="col-md-12 mt-2">
+                    <!-- <label class="col-form-label">Company (AR)</label> -->
+                    <input
+                      autofocus
+                      [(ngModel)]="company.aCompany"
+                      type="text"
+                      required="true"
+                      class="form-control"
+                      [ngModelOptions]="{ standalone: true }"
+                      name="aCompany"
+                      placeholder="Company (AR)"
+                    />
+                  </div>
+                  <div class="col-md-12">
+                    <label class="col-form-label">Ticker</label>
+                    <input
+                      autofocus
+                      [(ngModel)]="company.ticker"
+                      type="text"
+                      required="true"
+                      class="form-control"
+                      [ngModelOptions]="{ standalone: true }"
+                      name="ticker"
+                      placeholder="Ticker"
+                    />
+                  </div>
+                  <div class="col-md-12 mt-2">
+                    <!-- <label class="col-form-label">Ticker (AR)</label> -->
+                    <input
+                      autofocus
+                      [(ngModel)]="company.aTicker"
+                      name="aTicker"
+                      type="text"
+                      required="true"
+                      class="form-control"
+                      placeholder="Ticker (AR)"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 text-center mt-2">
+                <!-- src="https://salogos.org/wp-content/uploads/2021/12/%D8%A8%D9%86%D9%83-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF.png" -->
+                <p-image
+                  src="data:image/jpeg;base64,{{ company.logo }}"
+                  imageClass="d-block rounded"
+                  height=""
+                  width="80%"
+                ></p-image>
+
+                <span class="text-muted py-2">Allowed JPG, GIF or PNG. Max size of 1 MB</span>
+                <p-fileUpload
+                  name="imgContactAvatar"
+                  #imgContactAvatar
+                  chooseLabel="Upload Photo"
+                  styleClass="p-button-sm"
+                  mode="basic"
+                  chooseIcon="pi pi-user"
+                  [showUploadButton]="false"
+                  [showCancelButton]="false"
+                  [maxFileSize]="1000000"
+                  [customUpload]="true"
+                  (uploadHandler)="uploadLogo()"
+                  [auto]="true"
+                  accept="image/*"
+                >
+                </p-fileUpload>
+              </div>
             </div>
-            <div class="col-md-2 mt-2">
-              <input
-              [(ngModel)]="company.stockTicker"
-                autofocus
-                type="text"
-                class="form-control"
-                name="stockTicker"
-                placeholder="Stock Ticker"
-              />
+            <div class="row">
+              <div class="col-md-6">
+                <label class="col-form-label">GB Sector</label>
+                <p-dropdown
+                  [(ngModel)]="company.gbSectorID"
+                  required="true"
+                  name="gbSectorID"
+                  [options]="gbIndustrialGroups"
+                  placeholder="Select a Gb Sector"
+                  optionLabel="gbIndustrialGroup"
+                  optionValue="gbSectorID"
+                  [style]="{ width: '100%' }"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">GB Indusrial Group</label>
+                <p-dropdown
+                  [(ngModel)]="company.gbIndustrialGroupsID"
+                  name="gbIndustrialGroupsID"
+                  required="true"
+                  [ngModelOptions]="{ standalone: true }"
+                  [options]="gbIndustrialGroups"
+                  placeholder="Select a Gb Group"
+                  optionLabel="gbIndustrialGroup"
+                  optionValue="gbIndustrialGroupID"
+                  [style]="{ width: '100%' }"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Official Sector</label>
+                <p-dropdown
+                  [(ngModel)]="company.sectorID"
+                  [ngModelOptions]="{ standalone: true }"
+                  [options]="sectors"
+                  placeholder="Select a Official Sector"
+                  optionLabel="sector"
+                  optionValue="sectorID"
+                  [style]="{ width: '100%' }"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Internal Category</label>
+                <p-dropdown
+                  [(ngModel)]="company.internalCategoryID"
+                  [ngModelOptions]="{ standalone: true }"
+                  [options]="internalCategories"
+                  placeholder="Select a Internal Category"
+                  optionLabel="internalCategory"
+                  optionValue="internalCategoryID"
+                  [style]="{ width: '100%' }"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Financial Currency</label>
+                <p-dropdown
+                  [(ngModel)]="company.financialCurrencyID"
+                  [ngModelOptions]="{ standalone: true }"
+                  [options]="currencies"
+                  placeholder="Select a Financial Currency"
+                  optionLabel="currency"
+                  optionValue="currencyID"
+                  [style]="{ width: '100%' }"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Trading Main</label>
+                <p-dropdown
+                  [(ngModel)]="company.tradingMainCurrencyID"
+                  [ngModelOptions]="{ standalone: true }"
+                  [options]="currencies"
+                  placeholder="Select a Trading Main"
+                  optionLabel="currency"
+                  optionValue="currencyID"
+                  [style]="{ width: '100%' }"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Trading Sub</label>
+                <p-dropdown
+                  [(ngModel)]="company.tradingSubCurrencyID"
+                  [ngModelOptions]="{ standalone: true }"
+                  [options]="subCurrencies"
+                  placeholder="Select a Trading Sub"
+                  optionLabel="subCurrency"
+                  optionValue="subCurrencyID"
+                  [style]="{ width: '100%' }"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Cap Size</label>
+                <p-dropdown
+                  [(ngModel)]="company.capSizeID"
+                  [ngModelOptions]="{ standalone: true }"
+                  [options]="capSizes"
+                  placeholder="Select a Cap Size"
+                  optionLabel="capSize"
+                  optionValue="capSizeID"
+                  [style]="{ width: '100%' }"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Establishment</label>
+                <p-calendar
+                  [style]="{ width: '100%' }"
+                  [(ngModel)]="company.establishmentDate"
+                  name="establishmentDate"
+                  placeholder="Select a Establishment Date"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Company Activation</label>
+                <p-dropdown
+                  [(ngModel)]="companyActivation"
+                  [ngModelOptions]="{ standalone: true }"
+                  [options]="activationDropdown"
+                  placeholder="Select a Company Activation"
+                  optionLabel="displayText"
+                  optionValue="value"
+                  [style]="{ width: '100%' }"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+              <div class="col-md-4 d-flex flex-row bd-highlight mt-2">
+                <div class="form-check me-2">
+                  <input
+                    class="form-check-input"
+                    [(ngModel)]="company.activeIndices"
+                    name="activeIndices"
+                    type="checkbox"
+                  />
+                  <label class="form-check-label" for="defaultCheck3">Active Indices</label>
+                </div>
+                <div class="form-check me-2">
+                  <input
+                    class="form-check-input"
+                    [(ngModel)]="company.mainCompany"
+                    name="mainCompany"
+                    type="checkbox"
+                  />
+                  <label class="form-check-label" for="defaultCheck2">Main</label>
+                </div>
+                <div class="form-check me-2">
+                  <input class="form-check-input" [(ngModel)]="company.hasFunds" name="hasFunds" type="checkbox" />
+                  <label class="form-check-label" for="defaultCheck1">Has Funds</label>
+                </div>
+              </div>
+              <div class="col-md-4 mt-2">
+                <input
+                  autofocus
+                  [(ngModel)]="company.alternativeTicker"
+                  name="alternativeTicker"
+                  type="text"
+                  class="form-control"
+                  name="activeIndices"
+                  placeholder="Alternative Ticker"
+                />
+              </div>
+              <div class="col-md-2 mt-2">
+                <input
+                  [(ngModel)]="company.stockTicker"
+                  autofocus
+                  type="text"
+                  class="form-control"
+                  name="stockTicker"
+                  placeholder="Stock Ticker"
+                />
+              </div>
+              <div class="col-md-2 mt-2">
+                <input
+                  [(ngModel)]="company.orderID"
+                  autofocus
+                  type="text"
+                  class="form-control"
+                  name="orderID"
+                  placeholder="Order No"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Overview</label>
+                <textarea
+                  rows="3"
+                  [(ngModel)]="company.overview"
+                  name="overview"
+                  class="form-control"
+                  placeholder="Describe Overview here..."
+                >
+                </textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Overview (AR)</label>
+                <textarea
+                  rows="3"
+                  [(ngModel)]="company.aOverview"
+                  name="aOverview"
+                  class="form-control"
+                  placeholder="Describe Overview here..."
+                >
+                </textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Bussiness Activity</label>
+                <textarea
+                  [(ngModel)]="company.businessActivity"
+                  name="businessActivity"
+                  rows="3"
+                  class="form-control"
+                  placeholder="Describe Bussiness Activity here..."
+                >
+                </textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Bussiness Activity (AR)</label>
+                <textarea
+                  [(ngModel)]="company.aBusinessActivity"
+                  name="aBusinessActivity"
+                  rows="3"
+                  class="form-control"
+                  placeholder="Describe Bussiness Activity here..."
+                >
+                </textarea>
+              </div>
             </div>
-            <div class="col-md-2 mt-2">
-              <input
-              [(ngModel)]="company.orderID"
-                autofocus
-                type="text"
-                class="form-control"
-                name="orderID"
-                placeholder="Order No"
-              />
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Overview</label>
-              <textarea rows="3" [(ngModel)]="company.overview" class="form-control" placeholder="Describe Overview here...">
-              </textarea>
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Overview (AR)</label>
-              <textarea rows="3" [(ngModel)]="company.aOverview" class="form-control" placeholder="Describe Overview here...">
-              </textarea>
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Bussiness Activity</label>
-              <textarea
-              [(ngModel)]="company.businessActivity"
-                rows="3"
-                class="form-control"
-                placeholder="Describe Bussiness Activity here..."
-              >
-              </textarea>
-            </div>
-            <div class="col-md-6">
-              <label class="col-form-label">Bussiness Activity (AR)</label>
-              <textarea
-              [(ngModel)]="company.aBusinessActivity"
-                rows="3"
-                class="form-control"
-                placeholder="Describe Bussiness Activity here..."
-              >
-              </textarea>
-            </div>
-          </div>
+          </form>
           <div class="row">
             <div class="col-md-12">
-                <p-table #dt [value]="companies" [tableStyle]="{ 'max-height': '20rem' }" responsiveLayout="stack" styleClass="p-datatable-strip">
+              <p-table
+                #dt
+                [value]="companies"
+                [tableStyle]="{ 'max-height': '20rem' }"
+                responsiveLayout="stack"
+                styleClass="p-datatable-strip"
+              >
                 <ng-template pTemplate="caption">
                   <div class="d-flex flex-column flex-md-row justify-content-between">
                     <div class="mr-auto p-2">
@@ -337,9 +420,6 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                   <tr>
-                    <th>
-                        <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
-                    </th>
                     <th>Company</th>
                     <th>Ticker</th>
                     <th>Year Established</th>
@@ -352,17 +432,14 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item>
                   <tr (click)="handleCompany(item)">
-                    <td>
-                        <!-- <p> <p-tableCheckbox [value]="item"></p-tableCheckbox></p> -->
-                    </td>
-                    <td>{{item.company}}</td>
-                    <td>{{item.ticker}}</td>
-                    <td>{{item.establishmentDate }}</td>
-                    <td>{{item.establishmentDate}}</td>
-                    <td>{{item.orderID}}</td>
-                    <td>{{item.alternativeTicker}}</td>
-                    <td>{{item.stockTicker}}</td>
-                    <td>{{item.englishShortName}}</td>
+                    <td>{{ item.company }}</td>
+                    <td>{{ item.ticker }}</td>
+                    <td>{{ item.establishmentDate }}</td>
+                    <td>{{ item.establishmentDate }}</td>
+                    <td>{{ item.orderID }}</td>
+                    <td>{{ item.alternativeTicker }}</td>
+                    <td>{{ item.stockTicker }}</td>
+                    <td>{{ item.englishShortName }}</td>
                   </tr>
                 </ng-template>
               </p-table>

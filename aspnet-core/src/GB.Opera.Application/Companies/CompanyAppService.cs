@@ -12,7 +12,8 @@ using System.Data.SqlClient;
 using System.Text;
 using Volo.Abp.Data;
 using Commons;
-using GB.Opera.GbFacts;
+using System.Reflection;
+using System.ComponentModel.Design;
 
 namespace Companies
 {
@@ -42,8 +43,56 @@ namespace Companies
             }
 
         }
-       
 
+        public async Task<CompanyDto> CreateOrUpdateCompany(CompanyDto model)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@CompanyID", model.CompanyID);
+                parameters.Add("@Company", model.Company);
+                parameters.Add("@ACompany", model.ACompany);
+                parameters.Add("@Ticker", model.Ticker);
+                parameters.Add("@ATicker", model.ATicker);
+                parameters.Add("@StockMarketID", model.StockMarketID);
+                parameters.Add("@SectorID", model.SectorID);
+                parameters.Add("@CapSizeID", model.CapSizeID);
+                parameters.Add("@GBSectorID", model.CompanyID);
+                parameters.Add("@GBIndustrialGroupsID", model.GBIndustrialGroupsID);
+                parameters.Add("@GBIndustryID", model.GBIndustryID);
+                parameters.Add("@InternalCategoryID", model.InternalCategoryID);
+                parameters.Add("@Overview", model.Overview);
+                parameters.Add("@AOverview", model.AOverview);
+                parameters.Add("@BusinessActivity", model.BusinessActivity);
+                parameters.Add("@ABusinessActivity", model.ABusinessActivity);
+                parameters.Add("@Ownership", model.Ownership);
+                parameters.Add("@AOwnership", model.AOwnership);
+                parameters.Add("@Branches", model.Branches);
+                parameters.Add("@ABranches", model.ABranches);
+                parameters.Add("@YearEnd", model.YearEnd);
+                parameters.Add("@MainCompany", model.MainCompany);
+                parameters.Add("@HasFunds", model.HasFunds);
+                parameters.Add("@ActiveIndices", model.ActiveIndices);
+                parameters.Add("@FinancialCurrencyID", model.FinancialCurrencyID);
+                parameters.Add("@TradingMainCurrencyID", model.TradingMainCurrencyID);
+                parameters.Add("@TradingSubCurrencyID", model.TradingSubCurrencyID);
+                parameters.Add("@Logo", model.Logo);
+                parameters.Add("@EstablishmentDate", model.EstablishmentDate);
+                parameters.Add("@CreationDate", DateTime.Now);
+                parameters.Add("@IsActive", model.IsActive);
+                parameters.Add("@OrderID", model.OrderID);
+                parameters.Add("@AlternativeTicker", model.AlternativeTicker);
+                parameters.Add("@StockTicker", model.StockTicker);
+                parameters.Add("@EnglishShortName", model.EnglishShortName);
+
+                await _connection.ExecuteAsync("usp_InsertCompanies", parameters, commandType: CommandType.StoredProcedure);
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
     }

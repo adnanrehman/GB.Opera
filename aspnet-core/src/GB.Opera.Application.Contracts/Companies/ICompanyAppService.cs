@@ -10,6 +10,7 @@ namespace Companies
     public interface ICompanyAppService : IApplicationService
     {
         Task<List<CompanyDto>> GetCompanies(int sectorID, int stockMarketID);
+        Task<CompanyDto> CreateOrUpdateCompany(CompanyDto model);
 
     }
 }

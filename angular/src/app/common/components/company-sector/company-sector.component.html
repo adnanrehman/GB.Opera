@@ -1,0 +1,29 @@
+<div class="row mb-2">
+    <div class="col-md-12">
+      <p-dropdown
+        [(ngModel)]="stockMarketID"
+        [options]="markets"
+        (ngModelChange)="fillCompByMarketId()"
+        placeholder="Select a Market"
+        optionLabel="abbr"
+        optionValue="stockMarketID"
+        [style]="{ width: '100%' }"
+        [showClear]="true"
+      >
+      </p-dropdown>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h6 class="p-1 mb-1">Sectors</h6>
+      <p-listbox
+        [options]="marketSectors"
+        [(ngModel)]="sectorID"
+        optionLabel="sector"
+        (click)="getCompanies()"
+        optionValue="sectorID"
+        [style]="{ width: '100%' }"
+        [listStyle]="{ 'max-height': '200rem' }"
+      />
+    </div>
+  </div>
