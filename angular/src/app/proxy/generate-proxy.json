@@ -1068,6 +1068,246 @@
             }
           }
         },
+        "GB.Opera.AccountsClassifications.AccountClassificationAppService": {
+          "controllerName": "AccountClassification",
+          "controllerGroupName": "AccountClassification",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "GB.Opera.AccountsClassifications.AccountClassificationAppService",
+          "interfaces": [
+            {
+              "type": "GB.Opera.AccountsClassifications.IAccountClassificationAppService",
+              "name": "IAccountClassificationAppService",
+              "methods": [
+                {
+                  "name": "GetAllACFactsMappings",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GB.Opera.AccountsClassifications.ACFactsDtos>",
+                    "typeSimple": "[GB.Opera.AccountsClassifications.ACFactsDtos]"
+                  }
+                },
+                {
+                  "name": "SaveUpdateAacFact",
+                  "parametersOnMethod": [
+                    {
+                      "name": "gbAcFactsAccount",
+                      "typeAsString": "GB.Opera.AccountsClassifications.GbAcFactsAccount, GB.Opera.Application.Contracts",
+                      "type": "GB.Opera.AccountsClassifications.GbAcFactsAccount",
+                      "typeSimple": "GB.Opera.AccountsClassifications.GbAcFactsAccount",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "GB.Opera.AccountsClassifications.GbAcFactsAccount",
+                    "typeSimple": "GB.Opera.AccountsClassifications.GbAcFactsAccount"
+                  }
+                },
+                {
+                  "name": "GetAacfactByid",
+                  "parametersOnMethod": [
+                    {
+                      "name": "ACFactId",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GB.Opera.AccountsClassifications.GbAcFactsAccount>",
+                    "typeSimple": "[GB.Opera.AccountsClassifications.GbAcFactsAccount]"
+                  }
+                },
+                {
+                  "name": "DeleteAacfactById",
+                  "parametersOnMethod": [
+                    {
+                      "name": "ACFactId",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Int32",
+                    "typeSimple": "number"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetAllACFactsMappings": {
+              "uniqueName": "GetAllACFactsMappings",
+              "name": "GetAllACFactsMappings",
+              "httpMethod": "GET",
+              "url": "api/app/account-classification/a-cFacts-mappings",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.AccountsClassifications.ACFactsDtos>",
+                "typeSimple": "[GB.Opera.AccountsClassifications.ACFactsDtos]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.AccountsClassifications.IAccountClassificationAppService"
+            },
+            "SaveUpdateAacFactByGbAcFactsAccount": {
+              "uniqueName": "SaveUpdateAacFactByGbAcFactsAccount",
+              "name": "SaveUpdateAacFact",
+              "httpMethod": "POST",
+              "url": "api/app/account-classification/save-update-aac-fact",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "gbAcFactsAccount",
+                  "typeAsString": "GB.Opera.AccountsClassifications.GbAcFactsAccount, GB.Opera.Application.Contracts",
+                  "type": "GB.Opera.AccountsClassifications.GbAcFactsAccount",
+                  "typeSimple": "GB.Opera.AccountsClassifications.GbAcFactsAccount",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "gbAcFactsAccount",
+                  "name": "gbAcFactsAccount",
+                  "jsonName": null,
+                  "type": "GB.Opera.AccountsClassifications.GbAcFactsAccount",
+                  "typeSimple": "GB.Opera.AccountsClassifications.GbAcFactsAccount",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "GB.Opera.AccountsClassifications.GbAcFactsAccount",
+                "typeSimple": "GB.Opera.AccountsClassifications.GbAcFactsAccount"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.AccountsClassifications.IAccountClassificationAppService"
+            },
+            "GetAacfactByidByACFactId": {
+              "uniqueName": "GetAacfactByidByACFactId",
+              "name": "GetAacfactByid",
+              "httpMethod": "GET",
+              "url": "api/app/account-classification/aacfact-byid/{ACFactId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "ACFactId",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "ACFactId",
+                  "name": "ACFactId",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.AccountsClassifications.GbAcFactsAccount>",
+                "typeSimple": "[GB.Opera.AccountsClassifications.GbAcFactsAccount]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.AccountsClassifications.IAccountClassificationAppService"
+            },
+            "DeleteAacfactByIdByACFactId": {
+              "uniqueName": "DeleteAacfactByIdByACFactId",
+              "name": "DeleteAacfactById",
+              "httpMethod": "DELETE",
+              "url": "api/app/account-classification/aacfact-by-id/{ACFactId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "ACFactId",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "ACFactId",
+                  "name": "ACFactId",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Int32",
+                "typeSimple": "number"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.AccountsClassifications.IAccountClassificationAppService"
+            },
+            "SaveUpdateAacFactsByGbAcFactsAccounts": {
+              "uniqueName": "SaveUpdateAacFactsByGbAcFactsAccounts",
+              "name": "SaveUpdateAacFacts",
+              "httpMethod": "POST",
+              "url": "api/app/account-classification/save-update-aac-facts",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "gbAcFactsAccounts",
+                  "typeAsString": "System.Collections.Generic.IEnumerable`1[[GB.Opera.AccountsClassifications.GbAcFactsAccount, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.IEnumerable<GB.Opera.AccountsClassifications.GbAcFactsAccount>",
+                  "typeSimple": "[GB.Opera.AccountsClassifications.GbAcFactsAccount]",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "gbAcFactsAccounts",
+                  "name": "gbAcFactsAccounts",
+                  "jsonName": null,
+                  "type": "System.Collections.Generic.IEnumerable<GB.Opera.AccountsClassifications.GbAcFactsAccount>",
+                  "typeSimple": "[GB.Opera.AccountsClassifications.GbAcFactsAccount]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.IEnumerable<GB.Opera.AccountsClassifications.GbAcFactsAccount>",
+                "typeSimple": "[GB.Opera.AccountsClassifications.GbAcFactsAccount]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.AccountsClassifications.AccountClassificationAppService"
+            }
+          }
+        },
         "GB.Opera.Books.BookAppService": {
           "controllerName": "Book",
           "controllerGroupName": "Book",
@@ -5092,6 +5332,168 @@
         }
       ]
     },
+    "GB.Opera.AccountsClassifications.ACFactsDtos": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "AcFactId",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ParentId",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AcFact",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Parent",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AAcFact",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "GB.Opera.AccountsClassifications.GbAcFactsAccount": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "AcFactID",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AcFact",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": true,
+          "minLength": 0,
+          "maxLength": 100,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ParentID",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AacFact",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsACAccount",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsTitle",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GBFactID",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "GB.Opera.Books.BookDto": {
       "baseType": "Volo.Abp.Application.Dtos.AuditedEntityDto<System.Guid>",
       "isEnum": false,
@@ -5299,6 +5701,18 @@
           "jsonName": null,
           "type": "System.Int32",
           "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AGBFact",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
