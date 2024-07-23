@@ -1,7 +1,6 @@
 import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, MarketLangAnnouncementDto, SectorDto, StockMarketDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import type { CompanyDto } from '../companies/models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,15 +13,6 @@ export class CommonService {
     this.restService.request<any, CompDropdownDto>({
       method: 'GET',
       url: '/api/app/common/comp-mSectors',
-      params: { marketID },
-    },
-    { apiName: this.apiName,...config });
-  
-
-  getCompMarketSectorsByMarketID = (marketID: number, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, SectorDto[]>({
-      method: 'GET',
-      url: '/api/app/common/comp-market-sectors',
       params: { marketID },
     },
     { apiName: this.apiName,...config });

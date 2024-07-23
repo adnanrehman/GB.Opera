@@ -23,7 +23,6 @@ export interface CompanyDto {
   yearEnd?: string;
   mainCompany: boolean;
   hasFunds: boolean;
-  attributes: boolean;
   activeIndices: boolean;
   financialCurrencyID: number;
   tradingMainCurrencyID: number;

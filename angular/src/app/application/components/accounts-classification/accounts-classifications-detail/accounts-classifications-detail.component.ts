@@ -15,14 +15,15 @@ export class AccountsClassificationsDetailComponent {
   ref!: DynamicDialogRef;
   aacfactid :number
   account : GbAcFactsAccount ={
-    acFactID: 0,
-    acFact: '',
-    parentID: 0,
-    aacFact: '',
-    isACAccount: false,
-    isTitle: false,
-    gbFactID: 0
-  }
+    acFactID :0,
+    acFact :'',
+    parentID : 0,
+    aacFact :'',
+    isACAccount :false,
+    isTitle :false,
+    gbFactID:0
+    
+   }
    constructor(
     private modalref: DynamicDialogRef,
     public config: DynamicDialogConfig,private accountClassificationService : AccountClassificationService) {
