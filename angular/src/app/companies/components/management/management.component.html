@@ -53,13 +53,16 @@
           <div class="row">
             <div class="col-md-8">
               <p-autoComplete
-                [suggestions]="filteredCountries"
-                field="name"
-                placeholder="Search the Companies and select"
-                [style]="{ width: '100%' }"
-                [inputStyle]="{ width: '100%' }"
-              >
-              </p-autoComplete>
+              [(ngModel)]="selectedItem"
+              [ngModelOptions]="{ standalone: true }"
+              (onSelect)="onSelect($event)"
+              [suggestions]="suggestions"
+              (completeMethod)="search($event)"
+              [style]="{ width: '100%' }"
+              field="company"
+              [inputStyle]="{ width: '100%' }"
+            >
+            </p-autoComplete>
             </div>
             <div class="col-md-4">
               <a href="#" class="btn btn-primary btn-sm me-1" (click)="addNewManagement()"><i class="fa fa-plus"></i> Add New</a>

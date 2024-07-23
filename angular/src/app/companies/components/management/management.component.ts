@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
@@ -53,6 +53,8 @@ import { FinancialsAdminComponent } from 'src/app/financials/components/financia
 export class ManagementComponent {
   loading: boolean = false;
   headerValue: any;
+  selectedItem: any;
+  suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
   companyID: number;
@@ -152,6 +154,25 @@ export class ManagementComponent {
   ngOnInit() {
     this.getMarketLangAnnouncements();
     this.stockMarketID = 0;
+  }
+
+  search(event: AutoCompleteCompleteEvent) {
+    this.loading =true;
+    this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
+      this.suggestions = res;
+      this.loading =false;
+    });
+  }
+
+  onSelect(event: any) {
+    debugger;
+    this.loading =true;
+    debugger;
+    this.stockMarketID = event.value.stockMarketID;
+    this.sectorID = event.value.sectorID;
+    this.companyID = event.value.companyID
+    this.getCompMarketSectorsByMarketID();
+    this.loading =false;
   }
 
   getMarketLangAnnouncements() {
