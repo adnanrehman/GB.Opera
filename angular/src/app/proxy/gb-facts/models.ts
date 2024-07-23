@@ -3,6 +3,7 @@ export interface GbFactListDto {
   gbFactID: number;
   gbFact?: string;
   parentId: number;
+  agbFact?: string;
 }
 
 export interface GbFactsAccount {

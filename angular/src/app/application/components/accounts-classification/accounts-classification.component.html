@@ -1,12 +1,39 @@
+<form #template="ngForm"> 
 <div class="row">
+  
     <div class="col-sm-6">
       <!-- Tree 1 -->
-      <p-tree [value]="tree" selectionMode="single"></p-tree>
+      <p-tree [value]="acFactsDtos" selectionMode="single" (onNodeSelect)="onNodeClick($event)">
+        <ng-template let-node pTemplate="default">
+          <span pTooltip="{{ node.aAcFact }}" tooltipPosition="top">
+            
+            {{ node.label }}
+          </span>
+        </ng-template>
+      </p-tree>
     </div>
     <div class="col-sm-6">
-        
-      <!-- Tree 2 -->
-      <p-tree [value]="data" selectionMode="checkbox"  ></p-tree>
+      <div class="col-sm-1 mt-1">
+        <button type="button" class="btn btn-success"  (click)="addSelectedNodeToFacts( )"  ><span class="text-white">Add</span></button>
     </div>
+      <!-- Tree 2 -->
+       
+      <p-tree [value]="gbFactListDto" selectionMode="checkbox" [(selection)]="selectedNodes" (onNodeSelect)="onNodeSelect($event)">
+        <ng-template let-node pTemplate="default">
+          <span pTooltip="{{ node.agbFact }}" tooltipPosition="top">
+            <p-checkbox [value]="node"></p-checkbox>
+            {{ node.label }}
+          </span>
+        </ng-template>
+      </p-tree>
+      <!-- <div *ngIf="selectedNode">
+        <p>Selected ID: {{ selectedNode.gbFactID }}</p>
+        <p>Selected Title: {{ selectedNode.gbFact }}</p>
+        <p>Selected Tooltip Name: {{ selectedNode.agbFact }}</p>
+      </div> -->
+      
+    </div>
+  
   </div>
+</form> 
   

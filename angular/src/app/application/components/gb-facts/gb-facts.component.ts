@@ -29,49 +29,6 @@ export class GbFactsComponent {
   constructor(private dialogService: DialogService,private gnfactservice: GbFactService) {}
  
 
-  /*fetchTreeData(): void {
-    debugger; // For debugging purposes
-    this.gnfactservice.getAllFactsMappings().subscribe((res => {
-      console.log('Tree res:',  res);
-      this.gbFactListDto = res;
-      let idMap = {};
-      this.gbFactListDto.forEach(item => {
-        // Ensure each item has a valid gbFact property
-        if (!item.gbFact) {
-          item.label = ''; // Provide a default value or handle missing gbFact appropriately
-        } else {
-          item.label = item.gbFact || ''; // Assign gbFact to label or provide a default value
-        item.parent = null; // Assign gbFact to label
-        }
-      });
-      this.gbFactListDto.forEach(item => {
-        idMap[item.gbFactID] = { ...item, children: [] };
-      });
-
-      let treeData = [];
-      this.gbFactListDto.forEach(item => {
-        if (item.parentId === 0) {
-          treeData.push(idMap[item.gbFactID]); 
-        } else {
-
-          if (idMap[item.parentId]) {
-            idMap[item.parentId].children.push(idMap[item.gbFactID]);
-            idMap[item.gbFactID].parent = idMap[item.label];
-          } else {
-            console.error(`Parentid ${item.parentId} not found in idMap.`);
-          }
-        }
-      });
- 
-      //this.gbFactListDto=this.treeData;
-      console.log('Tree Data:', this.gbFactListDto);
-       
-  }));
-  //this.treeData = this.gbFactListDto;
-  this.gbFactListDto=this.treeData;
-  console.log('1Tree Data:', this.data);
-        
-  }*/
   
   fetchTreeData(): void {
     debugger; // For debugging purposes
@@ -100,7 +57,7 @@ export class GbFactsComponent {
           let parentItem = idMap[item.parentId];
           if (parentItem) {
             parentItem.children.push(item);
-            // item.parent = parentItem;
+            item = parentItem;
           } else {
             console.error(`Parent id ${item.parentId} not found in idMap.`);
           }
@@ -136,7 +93,7 @@ export class GbFactsComponent {
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
-       //this.fetchTreeData();
+       this.fetchTreeData();
     });
 
   }

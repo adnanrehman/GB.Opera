@@ -10,5 +10,7 @@ namespace GbFacts
         public int GBFactID { get; set; }
         public string? GBFact { get; set; }
         public int ParentId { get; set; }
+
+        public string? AGBFact { get; set; }
     }
 }

@@ -1,0 +1,9 @@
+Create procedure [usp_GetAccFactbyId]
+@ACFactId smallint
+as
+
+begin 
+
+Select f.*,ParentID from ACFacts f inner join  ACFactsMapping m on f.ACFactID=m.ACFactID
+Where f.ACFactID=@ACFactId
+End
