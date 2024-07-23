@@ -95,6 +95,7 @@ export interface CompanyProjectDto {
   aName?: string;
   description?: string;
   aDescription?: string;
+  projectStatus?: string;
   active: boolean;
 }
 
