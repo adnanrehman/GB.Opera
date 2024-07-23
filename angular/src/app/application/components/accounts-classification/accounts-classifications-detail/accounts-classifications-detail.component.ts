@@ -21,7 +21,7 @@ export class AccountsClassificationsDetailComponent {
     aacFact :'',
     isACAccount :false,
     isTitle :false,
-    
+    gbFactID:0
     
    }
    constructor(

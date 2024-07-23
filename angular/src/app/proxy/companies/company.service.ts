@@ -9,15 +9,6 @@ export class CompanyService {
   apiName = 'Default';
   
 
-  createOrUpdateCompanyByModel = (model: CompanyDto, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, CompanyDto>({
-      method: 'POST',
-      url: '/api/app/company/or-update-company',
-      body: model,
-    },
-    { apiName: this.apiName,...config });
-  
-
   getCompaniesBySectorIDAndStockMarketID = (sectorID: number, stockMarketID: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, CompanyDto[]>({
       method: 'GET',

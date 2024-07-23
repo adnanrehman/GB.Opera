@@ -9,10 +9,10 @@ export interface ACFactsDtos {
 
 export interface GbAcFactsAccount {
   acFactID: number;
-  acFact: string;
+  acFact?: string;
   parentID: number;
   aacFact?: string;
   isACAccount: boolean;
   isTitle: boolean;
-  gbFactID?: number;
+  gbFactID: number;
 }
