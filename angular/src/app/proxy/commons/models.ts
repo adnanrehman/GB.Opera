@@ -62,6 +62,15 @@ export interface MarketSectorDto {
 export interface SectorDto {
   sectorID: number;
   sector?: string;
+  aSector?: string;
+}
+
+export interface StockMarketDto {
+  stockMarketID: number;
+  stockMarket?: string;
+  aStockMarket?: string;
+  abbr?: string;
+  aAbbr?: string;
 }
 
 export interface SubCurrencyDto {
