@@ -179,14 +179,14 @@ onNodeClick(event: any) {
     this.editHeader(event);
   }
 }
- umar:string='';
+ 
 onNodeSelect(event: { originalEvent: Event, node: TreeNode }): void {
    
   this.selectedNode = event.node;
   console.log('Selected Node:', this.selectedNode.label);
   //alert(this.selectedNode.leaf);
   var gbFactID = (this.selectedNode as any).agbFact;
-  this.umar=gbFactID
+   
  // alert(  this.umar);
    
 }
@@ -208,13 +208,31 @@ addSelectedNodeToFacts() {
   } else {
     // Optionally notify the user or log that the node is already added
     console.log('Node already exists in addfacts.');
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1000,
+      title: 'Error!',
+      text: "Node already exists in addfacts.",
+      icon: 'error'
+    });
   }
   debugger;
   const gbAcFactsAccounts: GbAcFactsAccount[] = this.mapGbFactListDtoToGbAcFactsAccount(this.addfacts);
+  if (gbAcFactsAccounts.length>0)
+    {
+
+   
   this.accountClassificationService.saveUpdateAacFactsByGbAcFactsAccounts(gbAcFactsAccounts).subscribe({
     next: (res) => {
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
       console.log('Save response:', res);
+      this.fetchAccountsTreeData();
+      this.fetchTreeData();
+      this.addfacts=null;
+     
+       
        
     },
     error: (err) => {
@@ -233,6 +251,19 @@ addSelectedNodeToFacts() {
      // alert("Save error: " + err.message); // Display error message to user
     }
   });
+}
+else{
+  Swal.fire({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1000,
+    title: 'Error!',
+    text: "Select at least one record.",
+    icon: 'error'
+  });
+
+}
 }
   mapGbFactListDtoToGbAcFactsAccount(acFactsDtos: GbFactListDto[]): GbAcFactsAccount[] {
     return acFactsDtos.map(dto => ({

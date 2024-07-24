@@ -118,7 +118,7 @@ namespace GB.Opera.AccountsClassifications
                     GBFactID = gbAcFactsAccount.GBFactID // Assuming GBFactID needs to be passed
                 };
 
-                _connection.Execute("usp_AddUpdateACFact", parameters, commandType: CommandType.StoredProcedure);
+                _connection.Execute("usp_AddACFactFromGBFact", parameters, commandType: CommandType.StoredProcedure);
             }
 
             return gbAcFactsAccounts;
