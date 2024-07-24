@@ -238,7 +238,8 @@ export class ManagementComponent {
   handleManagement(management: ManagementDto) {
     this.management = management;
     this.managementActivation = this.management.isActive ? 1 : 0;
-    this.headerValue = 'Key Peoples';
+    if(this.headerValue == undefined)
+      this.headerValue = 'Key Peoples';
   }
   handleseniorManagement(seniorManagement: SeniorManagementDto) {
     this.seniorManagement = seniorManagement;

@@ -65,13 +65,13 @@
             </p-autoComplete>
             </div>
             <div class="col-md-4">
-              <a href="#" class="btn btn-primary btn-sm me-1" (click)="addNewCompanySubsidiary()"><i class="fa fa-plus"></i> Add New</a>
-              <a href="#" class="btn btn-success btn-sm me-1" (click)="saveSubsidiary()"><i class="fa fa-save"></i> Save</a>
+              <a href="#" class="btn btn-primary btn-sm me-1" (click)="addNewOwnership()"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" class="btn btn-success btn-sm me-1" (click)="saveOwnership()"><i class="fa fa-save"></i> Save</a>
               <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
             </div>
           </div>
           <div class="row mt-2">
-            <p-tabView>
+            <p-tabView #tabView (onChange)="tabViewChange($event, tabView)">
               <p-tabPanel header="Subsidiaries">
                 <div class="row">
                   <div class="col-md-6">
@@ -120,7 +120,35 @@
                     />
                   </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Share</label>
+                    <input
+                      autofocus
+                      [(ngModel)]="subsidiary.share"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
+                      type="text"
+                      class="form-control"
+                      name="share"
+                      placeholder="Share"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Order</label>
+                    <input
+                      autofocus
+                      [(ngModel)]="subsidiary.customOrder"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
+                      type="text"
+                      class="form-control"
+                      name="customOrder"
+                      placeholder="Order"
+                    />
+                  </div>
+                </div>
+                <!-- <div class="row mt-2">
                   <div class="col-md-6">
                     <label class="col-form-label">Priciple Activity</label>
                     <input
@@ -181,15 +209,15 @@
                       placeholder="Order"
                     />
                   </div>
-                </div>
-                <div class="row">
+                </div> -->
+                <div class="row mt-2">
                   <div class="col-md-6">
-                    <label class="col-form-label">Description</label>
+                    <label class="col-form-label">Priciple Activity</label>
                     <textarea rows="3" class="form-control" [(ngModel)]="subsidiary.principalActivity" name="principalActivity" placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
-                    <label class="col-form-label">Description (AR)</label>
+                    <label class="col-form-label">Priciple Activity (AR)</label>
                     <textarea rows="3" class="form-control" [(ngModel)]="subsidiary.aPrincipalActivity" name="aPrincipalActivity" placeholder="Describe here...">
                     </textarea>
                   </div>
@@ -214,9 +242,6 @@
                       </ng-template>
                       <ng-template pTemplate="header">
                         <tr>
-                          <th class="text-center">
-                            <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
-                          </th>
                           <th>Subsidiary Company</th>
                           <th>Share</th>
                           <th>Priciple Activity</th>
@@ -224,10 +249,7 @@
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-                        <tr>
-                          <td class="text-center">
-                            <!-- <p-tableCheckbox [value]="item"></p-tableCheckbox> -->
-                          </td>
+                        <tr (click)="handleSubsidiary(item)">
                           <td>{{ item.subsidiaryCompany }}</td>
                           <td>{{ item.share }}</td>
                           <td>{{ item.principalActivity }}</td>
@@ -244,16 +266,22 @@
                     <label class="col-form-label col-4">Company Name</label>
                     <input
                       autofocus
+                      [(ngModel)]="siterCompany.sisterCompany"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="sisterCompany"
                       placeholder="Company"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="siterCompany.aSisterCompany"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aSisterCompany"
                       placeholder="Company Name (AR)"
                     />
                   </div>
@@ -261,16 +289,22 @@
                     <label class="col-form-label col-4">Relation</label>
                     <input
                       autofocus
+                      [(ngModel)]="siterCompany.relation"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="relation"
                       placeholder="Relation"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="siterCompany.aRelation"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aRelation"
                       placeholder="Relation (AR)"
                     />
                   </div>
@@ -278,12 +312,16 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Description</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3" [(ngModel)]="siterCompany.description" name="description"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText class="form-control" placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Description (AR)</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3" [(ngModel)]="siterCompany.aDescription" name="aDescription"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText class="form-control" placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
@@ -307,14 +345,12 @@
                       </ng-template>
                       <ng-template pTemplate="header">
                         <tr>
-                          <th class="text-center"></th>
                           <th>Siter Company</th>
                           <th>Relation</th>
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-                        <tr>
-                          <td class="text-center"></td>
+                        <tr (click)="handlesiterCompany(item)">
                           <td>{{ item.sisterCompany }}</td>
                           <td>{{ item.relation }}</td>
                         </tr>
@@ -329,16 +365,22 @@
                     <label class="col-form-label col-4">Product Name</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyproduct.companyProduct"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="companyProduct"
                       placeholder="Product Name"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyproduct.aCompanyProduct"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aCompanyProduct"
                       placeholder="Product Name (AR)"
                     />
                   </div>
@@ -346,16 +388,22 @@
                     <label class="col-form-label col-4">Last Product</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyproduct.lastProduct"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="lastProduct"
                       placeholder="Last Product"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyproduct.aLastProduct"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aLastProduct"
                       placeholder="Last Product (AR)"
                     />
                   </div>
@@ -363,28 +411,35 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Description</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3" [(ngModel)]="companyproduct.description" name="description"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText class="form-control" placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Description (AR)</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3" [(ngModel)]="companyproduct.aDescription" name="aDescription"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText class="form-control" placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Launch Date</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                    <p-calendar [style]="{ width: '100%' }" [style]="{ width: '100%' }" [(ngModel)]="companyproduct.launchDate" name="launchDate" dataType="string" [showIcon]="true" placeholder="Select a Launch Date" />
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Activation</label>
                     <p-dropdown
-                      [options]="markets"
-                      placeholder="Select a Activation"
-                      optionLabel="name"
-                      [style]="{ width: '100%' }"
-                      [showClear]="true"
+                    [(ngModel)]="companyproductActivation"
+                    [ngModelOptions]="{ standalone: true }"
+                    [options]="activationDropdown"
+                    placeholder="Select a Company Activation"
+                    optionLabel="displayText"
+                    optionValue="value"
+                    [style]="{ width: '100%' }"
+                    [showClear]="true"
                     >
                     </p-dropdown>
                   </div>
@@ -409,17 +464,15 @@
                       </ng-template>
                       <ng-template pTemplate="header">
                         <tr>
-                          <th class="text-center"></th>
                           <th>Company Product</th>
                           <th>Launch Date</th>
                           <th>Last Product</th>
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-                        <tr>
-                          <td class="text-center"></td>
+                        <tr (click)="handlecompanyproduct(item)">
                           <td>{{ item.companyProduct }}</td>
-                          <td>{{ item.launchDate }}</td>
+                          <td>{{ item.launchDate | date: 'dd/MM/yyyy' }}</td>
                           <td>{{ item.lastProduct }}</td>
                         </tr>
                       </ng-template>
@@ -433,16 +486,22 @@
                       <label class="col-form-label col-4">Material Name</label>
                       <input
                         autofocus
+                        [(ngModel)]="companyrawmaterial.rawMaterial"
+                        [ngModelOptions]="{ standalone: true }"
+                        pInputText
                         type="text"
                         class="form-control"
-                        name="Company"
+                        name="rawMaterial"
                         placeholder="Material Name"
                       />
                       <input
                         autofocus
+                        [(ngModel)]="companyrawmaterial.aRawMaterial"
+                        [ngModelOptions]="{ standalone: true }"
+                        pInputText
                         type="text"
                         class="form-control mt-2"
-                        name="Company"
+                        name="aRawMaterial"
                         placeholder="Material Name (AR)"
                       />
                     </div>
@@ -450,16 +509,22 @@
                       <label class="col-form-label col-4">Current Provider</label>
                       <input
                         autofocus
+                        [(ngModel)]="companyrawmaterial.currentProvider"
+                        [ngModelOptions]="{ standalone: true }"
+                        pInputText
                         type="text"
                         class="form-control"
-                        name="Company"
+                        name="currentProvider"
                         placeholder="Current Provider"
                       />
                       <input
                         autofocus
+                        [(ngModel)]="companyrawmaterial.aCurrentProvider"
+                        [ngModelOptions]="{ standalone: true }"
+                        pInputText
                         type="text"
                         class="form-control mt-2"
-                        name="Company"
+                        name="aCurrentProvider"
                         placeholder="Current Provider (AR)"
                       />
                     </div>
@@ -467,16 +532,22 @@
                         <label class="col-form-label col-4">Last Provider</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyrawmaterial.lastProvider"
+                          [ngModelOptions]="{ standalone: true }"
+                          pInputText
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="lastProvider"
                           placeholder="Last Provider"
                         />
                         <input
                           autofocus
+                          [(ngModel)]="companyrawmaterial.aLastProvider"
+                          [ngModelOptions]="{ standalone: true }"
+                          pInputText
                           type="text"
                           class="form-control mt-2"
-                          name="Company"
+                          name="aLastProvider"
                           placeholder="Last Provider (AR)"
                         />
                       </div>
@@ -484,16 +555,22 @@
                         <label class="col-form-label col-4">Reason</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyrawmaterial.reason"
+                          [ngModelOptions]="{ standalone: true }"
+                          pInputText
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="reason"
                           placeholder="Reason"
                         />
                         <input
                           autofocus
+                          [(ngModel)]="companyrawmaterial.aReason"
+                          [ngModelOptions]="{ standalone: true }"
+                          pInputText
                           type="text"
                           class="form-control mt-2"
-                          name="Company"
+                          name="aReason"
                           placeholder="Reason (AR)"
                         />
                       </div>
@@ -501,12 +578,16 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label class="col-form-label">Description</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      <textarea rows="3" class="form-control" [(ngModel)]="companyrawmaterial.description" name="description"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText placeholder="Describe here...">
                       </textarea>
                     </div>
                     <div class="col-md-6">
                       <label class="col-form-label">Description (AR)</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      <textarea rows="3" class="form-control" [(ngModel)]="companyrawmaterial.aDescription" name="aDescription"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText placeholder="Describe here...">
                       </textarea>
                     </div>
                   </div>
@@ -514,11 +595,14 @@
                     <div class="col-md-6">
                       <label class="col-form-label">Activation</label>
                       <p-dropdown
-                        [options]="activationDropdown"
-                        placeholder="Select a Activation"
-                        optionLabel="name"
-                        [style]="{ width: '100%' }"
-                        [showClear]="true"
+                      [(ngModel)]="companyrawmaterialActivation"
+                      [ngModelOptions]="{ standalone: true }"
+                      [options]="activationDropdown"
+                      placeholder="Select a Company Activation"
+                      optionLabel="displayText"
+                      optionValue="value"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
                       >
                       </p-dropdown>
                     </div>
@@ -542,16 +626,14 @@
                           </div>
                         </ng-template>
                         <ng-template pTemplate="header">
-                          <tr>
-                            <th class="text-center"></th>
+                          <tr >
                             <th>Raw Material</th>
                             <th>Current Provider</th>
                             <th>Last Provider</th>
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
-                          <tr>
-                            <td class="text-center"></td>
+                          <tr (click)="handleCompanyRawMaterial(item)">
                             <td>{{ item.rawMaterial }}</td>
                             <td>{{ item.currentProvider }}</td>
                             <td>{{ item.lastProvider }}</td>
@@ -567,9 +649,12 @@
                         <label class="col-form-label">Permitted Share to Foreigners</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyFIP.permittedSharesToForeigners"
+                          [ngModelOptions]="{ standalone: true }"
+                          pInputText
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="permittedSharesToForeigners"
                           placeholder="Permitted Share to Foreigners"
                         />
                     </div>
@@ -577,9 +662,12 @@
                         <label class="col-form-label">Permitted Share to GCC Nationals</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyFIP.permittedSharesToGCCNationals"
+                          [ngModelOptions]="{ standalone: true }"
+                          pInputText
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="permittedSharesToGCCNationals"
                           placeholder="Permitted Share to GCC Nationals"
                         />
                     </div>
@@ -587,9 +675,12 @@
                         <label class="col-form-label">Permitted Share to Arab Nationals</label>
                         <input
                           autofocus
+                          [(ngModel)]="companyFIP.permittedSharesToArabNationals"
+                          [ngModelOptions]="{ standalone: true }"
+                          pInputText
                           type="text"
                           class="form-control"
-                          name="Company"
+                          name="permittedSharesToArabNationals"
                           placeholder="Permitted Share to Arab Nationals"
                         />
                     </div>
@@ -597,16 +688,19 @@
                 <div class="row">
                     <div class="col-md-6">
                       <label class="col-form-label">Permited Date</label>
-                      <p-calendar [style]="{ width: '100%' }" placeholder="Select a Launch Date" />
+                      <p-calendar [style]="{ width: '100%' }" dataType="string" [showIcon]="true" [(ngModel)]="companyFIP.permittedDate" name="permittedDate" placeholder="Select a Launch Date" />
                     </div>
                     <div class="col-md-6">
                       <label class="col-form-label">Activation</label>
                       <p-dropdown
-                        [options]="activationDropdown"
-                        placeholder="Select a Activation"
-                        optionLabel="name"
-                        [style]="{ width: '100%' }"
-                        [showClear]="true"
+                      [(ngModel)]="companyFIPActivation"
+                      [ngModelOptions]="{ standalone: true }"
+                      [options]="activationDropdown"
+                      placeholder="Select a Company Activation"
+                      optionLabel="displayText"
+                      optionValue="value"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
                       >
                       </p-dropdown>
                     </div>
@@ -614,12 +708,16 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label class="col-form-label">Description</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      <textarea rows="3" class="form-control" [(ngModel)]="companyFIP.description" name="description"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText placeholder="Describe here...">
                       </textarea>
                     </div>
                     <div class="col-md-6">
                       <label class="col-form-label">Description (AR)</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      <textarea rows="3" class="form-control" [(ngModel)]="companyFIP.aDescription" name="aDescription"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText placeholder="Describe here...">
                       </textarea>
                     </div>
                   </div>
@@ -643,15 +741,13 @@
                         </ng-template>
                         <ng-template pTemplate="header">
                           <tr>
-                            <th class="text-center"></th>
                             <th>Permitted Share to Foreigners</th>
                             <th>Permitted Share to GCC Nationals</th>
                             <th>Permitted Share to Arab Nationals</th>
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
-                          <tr>
-                            <td class="text-center"></td>
+                          <tr (click)="handlecompanyFIP(item)">
                             <td>{{ item.permittedSharesToForeigners }}</td>
                             <td>{{ item.permittedSharesToGCCNationals }}</td>
                             <td>{{ item.permittedSharesToArabNationals }}</td>
@@ -665,16 +761,19 @@
                 <div class="row">
                     <div class="col-md-6">
                       <label class="col-form-label">Date</label>
-                      <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
+                      <p-calendar [style]="{ width: '100%' }" dataType="string" [showIcon]="true" [(ngModel)]="miscNote.date" name="date" placeholder="Select a Date" />
                     </div>
                     <div class="col-md-6">
                       <label class="col-form-label">Activation</label>
                       <p-dropdown
-                        [options]="markets"
-                        placeholder="Select a Activation"
-                        optionLabel="name"
-                        [style]="{ width: '100%' }"
-                        [showClear]="true"
+                      [(ngModel)]="miscNotermationActivation"
+                      [ngModelOptions]="{ standalone: true }"
+                      [options]="activationDropdown"
+                      placeholder="Select a Company Activation"
+                      optionLabel="displayText"
+                      optionValue="value"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
                       >
                       </p-dropdown>
                     </div>
@@ -682,24 +781,24 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label class="col-form-label">Description</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      <textarea rows="3" class="form-control" [(ngModel)]="miscNote.description" name="description" placeholder="Describe here...">
                       </textarea>
                     </div>
                     <div class="col-md-6">
                       <label class="col-form-label">Description (AR)</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      <textarea rows="3" class="form-control" [(ngModel)]="miscNote.aDescription" name="aDescription" placeholder="Describe here...">
                       </textarea>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6">
                       <label class="col-form-label">Note</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      <textarea rows="3" class="form-control" [(ngModel)]="miscNote.note" name="note" placeholder="Describe here...">
                       </textarea>
                     </div>
                     <div class="col-md-6">
                       <label class="col-form-label">Note (AR)</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
+                      <textarea rows="3" class="form-control" [(ngModel)]="miscNote.aNote" name="aNote" placeholder="Describe here...">
                       </textarea>
                     </div>
                   </div>
@@ -723,15 +822,13 @@
                         </ng-template>
                         <ng-template pTemplate="header">
                           <tr>
-                            <th class="text-center"></th>
                             <th>Date</th>
                             <th>Note</th>
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
-                          <tr>
-                            <td class="text-center"></td>
-                            <td>{{ item.date }}</td>
+                          <tr (click)="handlemiscNote(item)">
+                            <td>{{ item.date | date: 'dd/MM/yyyy' }}</td>
                             <td>{{ item.note }}</td>
                           </tr>
                         </ng-template>

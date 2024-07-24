@@ -213,7 +213,8 @@ export class OwnershipCompaniesComponent {
   handleSubsidiary(subsidiary: SubsidiaryDto) {
     debugger;
     this.subsidiary = subsidiary;
-    this.headerValue = 'Subsidiaries';
+    if(this.headerValue == undefined)
+      this.headerValue = 'Subsidiaries';
   }
   handlesubsCompUpd(subsCompUpd: SubsCompUpdDto) {
     this.subsCompUpd = subsCompUpd;
@@ -256,7 +257,7 @@ export class OwnershipCompaniesComponent {
     };
   }
 
-  saveSubsidiary() {
+  saveOwnership() {
     if (this.companyID == undefined) {
       Swal.fire({
         toast: true,
@@ -277,7 +278,7 @@ export class OwnershipCompaniesComponent {
     if (this.headerValue == 'MiscNotes') this.createOrUpdateMiscNote();
   }
 
-  addNewSubsidiary() {
+  addNewOwnership() {
     if (this.headerValue == 'Subsidiaries') {
       this.subsidiary = {
         subsidiaryID: 0,
