@@ -976,6 +976,64 @@
                     "type": "System.Collections.Generic.List<Commons.CompaniesTickerDto>",
                     "typeSimple": "[Commons.CompaniesTickerDto]"
                   }
+                },
+                {
+                  "name": "GetStockMarkets",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Commons.StockMarketDto>",
+                    "typeSimple": "[Commons.StockMarketDto]"
+                  }
+                },
+                {
+                  "name": "GetStockMarketSectors",
+                  "parametersOnMethod": [
+                    {
+                      "name": "stockMarketID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Commons.SectorDto>",
+                    "typeSimple": "[Commons.SectorDto]"
+                  }
+                },
+                {
+                  "name": "GetSectorCompanies",
+                  "parametersOnMethod": [
+                    {
+                      "name": "sectorID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "stockMarketID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Commons.CompaniesTickerDto>",
+                    "typeSimple": "[Commons.CompaniesTickerDto]"
+                  }
+                },
+                {
+                  "name": "GetLangAnnouceTypes",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Commons.LangAnnounceTypeDto",
+                    "typeSimple": "Commons.LangAnnounceTypeDto"
+                  }
                 }
               ]
             }
@@ -1192,7 +1250,7 @@
                 "typeSimple": "[Commons.StockMarketDto]"
               },
               "allowAnonymous": null,
-              "implementFrom": "Commons.CommonAppService"
+              "implementFrom": "Commons.ICommonAppService"
             },
             "GetStockMarketSectorsByStockMarketID": {
               "uniqueName": "GetStockMarketSectorsByStockMarketID",
@@ -1229,7 +1287,7 @@
                 "typeSimple": "[Commons.SectorDto]"
               },
               "allowAnonymous": null,
-              "implementFrom": "Commons.CommonAppService"
+              "implementFrom": "Commons.ICommonAppService"
             },
             "GetSectorCompaniesBySectorIDAndStockMarketID": {
               "uniqueName": "GetSectorCompaniesBySectorIDAndStockMarketID",
@@ -1286,7 +1344,22 @@
                 "typeSimple": "[Commons.CompaniesTickerDto]"
               },
               "allowAnonymous": null,
-              "implementFrom": "Commons.CommonAppService"
+              "implementFrom": "Commons.ICommonAppService"
+            },
+            "GetLangAnnouceTypes": {
+              "uniqueName": "GetLangAnnouceTypes",
+              "name": "GetLangAnnouceTypes",
+              "httpMethod": "GET",
+              "url": "api/app/common/lang-annouce-types",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Commons.LangAnnounceTypeDto",
+                "typeSimple": "Commons.LangAnnounceTypeDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.ICommonAppService"
             }
           }
         },
@@ -2395,6 +2468,186 @@
               },
               "allowAnonymous": null,
               "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            }
+          }
+        },
+        "CorporateAnnouncements.CorporateAnnouncementAppService": {
+          "controllerName": "CorporateAnnouncement",
+          "controllerGroupName": "CorporateAnnouncement",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "CorporateAnnouncements.CorporateAnnouncementAppService",
+          "interfaces": [
+            {
+              "type": "CorporateAnnouncements.ICorporateAnnouncementAppService",
+              "name": "ICorporateAnnouncementAppService",
+              "methods": [
+                {
+                  "name": "GetCorporateAnnouncements",
+                  "parametersOnMethod": [
+                    {
+                      "name": "companyID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<CorporateAnnouncements.CorporateAnnouncementDto>",
+                    "typeSimple": "[CorporateAnnouncements.CorporateAnnouncementDto]"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateCorporateAnnouncement",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CorporateAnnouncements.CorporateAnnouncementDto, GB.Opera.Application.Contracts",
+                      "type": "CorporateAnnouncements.CorporateAnnouncementDto",
+                      "typeSimple": "CorporateAnnouncements.CorporateAnnouncementDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CorporateAnnouncements.CorporateAnnouncementDto",
+                    "typeSimple": "CorporateAnnouncements.CorporateAnnouncementDto"
+                  }
+                },
+                {
+                  "name": "DeleteCorporateAnnouncement",
+                  "parametersOnMethod": [
+                    {
+                      "name": "corporateAnnouncementID",
+                      "typeAsString": "System.Int64, System.Private.CoreLib",
+                      "type": "System.Int64",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetCorporateAnnouncementsByCompanyID": {
+              "uniqueName": "GetCorporateAnnouncementsByCompanyID",
+              "name": "GetCorporateAnnouncements",
+              "httpMethod": "GET",
+              "url": "api/app/corporate-announcement/corporate-announcements",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyID",
+                  "name": "companyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<CorporateAnnouncements.CorporateAnnouncementDto>",
+                "typeSimple": "[CorporateAnnouncements.CorporateAnnouncementDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CorporateAnnouncements.ICorporateAnnouncementAppService"
+            },
+            "CreateOrUpdateCorporateAnnouncementByModel": {
+              "uniqueName": "CreateOrUpdateCorporateAnnouncementByModel",
+              "name": "CreateOrUpdateCorporateAnnouncement",
+              "httpMethod": "POST",
+              "url": "api/app/corporate-announcement/or-update-corporate-announcement",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CorporateAnnouncements.CorporateAnnouncementDto, GB.Opera.Application.Contracts",
+                  "type": "CorporateAnnouncements.CorporateAnnouncementDto",
+                  "typeSimple": "CorporateAnnouncements.CorporateAnnouncementDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CorporateAnnouncements.CorporateAnnouncementDto",
+                  "typeSimple": "CorporateAnnouncements.CorporateAnnouncementDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CorporateAnnouncements.CorporateAnnouncementDto",
+                "typeSimple": "CorporateAnnouncements.CorporateAnnouncementDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CorporateAnnouncements.ICorporateAnnouncementAppService"
+            },
+            "DeleteCorporateAnnouncementByCorporateAnnouncementID": {
+              "uniqueName": "DeleteCorporateAnnouncementByCorporateAnnouncementID",
+              "name": "DeleteCorporateAnnouncement",
+              "httpMethod": "DELETE",
+              "url": "api/app/corporate-announcement/corporate-announcement",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "corporateAnnouncementID",
+                  "typeAsString": "System.Int64, System.Private.CoreLib",
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "corporateAnnouncementID",
+                  "name": "corporateAnnouncementID",
+                  "jsonName": null,
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CorporateAnnouncements.ICorporateAnnouncementAppService"
             }
           }
         },
@@ -5759,6 +6012,39 @@
     }
   },
   "types": {
+    "Commons.AnnouncementTypeDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "AnnouncementTypeID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AnnouncementType",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "Commons.CapSizeDto": {
       "baseType": null,
       "isEnum": false,
@@ -6155,6 +6441,72 @@
         },
         {
           "name": "InternalCategory",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Commons.LangAnnounceTypeDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "LanguageTypes",
+          "jsonName": null,
+          "type": "[Commons.LanguageTypeDto]",
+          "typeSimple": "[Commons.LanguageTypeDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AnnouncementTypes",
+          "jsonName": null,
+          "type": "[Commons.AnnouncementTypeDto]",
+          "typeSimple": "[Commons.AnnouncementTypeDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Commons.LanguageTypeDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "LanguageTypeID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LanguageType",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -9650,6 +10002,159 @@
           "jsonName": null,
           "type": "System.Int32?",
           "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CorporateAnnouncements.CorporateAnnouncementDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CorporateAnnouncementID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AnnouncementTypeID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AnnouncedDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Ticker",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Announcement",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AAnnouncement",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GulfbaseID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CreationDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AnnouncedDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AnnouncedDateTime",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

@@ -99,6 +99,26 @@ namespace Commons
             return data;
         }
 
+        public async Task<LangAnnounceTypeDto> GetLangAnnouceTypes()
+        {
+            try
+            {
+                var reader = await _connection.QueryMultipleAsync("[usp_getLangAnnouceTypes]",
+                commandType: CommandType.StoredProcedure);
+                var output = new LangAnnounceTypeDto();
+                output.LanguageTypes = reader.Read<LanguageTypeDto>().ToList();
+                output.AnnouncementTypes = reader.Read<AnnouncementTypeDto>().ToList();
+                return output;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
 
 
 

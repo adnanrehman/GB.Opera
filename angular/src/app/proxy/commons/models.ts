@@ -1,4 +1,9 @@
 
+export interface AnnouncementTypeDto {
+  announcementTypeID: number;
+  announcementType?: string;
+}
+
 export interface CapSizeDto {
   capSizeID: number;
   capSize?: string;
@@ -49,6 +54,16 @@ export interface IndustryDto {
 export interface InternalCategoryDto {
   internalCategoryID: number;
   internalCategory?: string;
+}
+
+export interface LangAnnounceTypeDto {
+  languageTypes: LanguageTypeDto[];
+  announcementTypes: AnnouncementTypeDto[];
+}
+
+export interface LanguageTypeDto {
+  languageTypeID: number;
+  languageType?: string;
 }
 
 export interface MarketLangAnnouncementDto {
