@@ -56,6 +56,21 @@ export interface InternalCategoryDto {
   internalCategory?: string;
 }
 
+export interface LangAnnounceTypeDto {
+  languageTypes: LanguageTypeDto[];
+  announcementTypes: AnnouncementTypeDto[];
+}
+
+export interface LanguageTypeDto {
+  languageTypeID: number;
+  languageType?: string;
+}
+
+export interface MarketLangAnnouncementDto {
+  stockMarketID: number;
+  abbr?: string;
+}
+
 export interface MarketSectorDto {
   marketSectorID: number;
   sectorID: number;
