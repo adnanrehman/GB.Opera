@@ -170,6 +170,7 @@ export class AnnouncementsComponent {
     this.loading = true;
     this.corporateAnnouncement.isActive = this.corporateAnnouncementActivation == 1 ? true : false;
     // this.corporateAnnouncement.announcedDate = this.corporateAnnouncement.announcedDateTime;
+    this.corporateAnnouncement.ticker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker
     this.corporateAnnouncementService.createOrUpdateCorporateAnnouncementByModel(this.corporateAnnouncement).subscribe(res => {
       debugger;
       if(this.corporateAnnouncement.corporateAnnouncementID > 0){

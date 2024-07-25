@@ -1,7 +1,4 @@
-
- 
 import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, SectorDto, StockMarketDto } from './models';
-
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { CompanyDto } from '../companies/models';
@@ -48,8 +45,6 @@ export class CommonService {
     { apiName: this.apiName,...config });
   
 
- HEAD
-
   getLangAnnouceTypes = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, LangAnnounceTypeDto>({
       method: 'GET',
@@ -57,6 +52,7 @@ export class CommonService {
     },
     { apiName: this.apiName,...config });
   
+
   getMarketLangAnnouncements = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, MarketLangAnnouncementDto[]>({
       method: 'GET',
