@@ -119,6 +119,36 @@ namespace Commons
 
         }
 
+        public async Task<CompanyWithHasFundDto> GetCompaniesWithHasFund(int stockMarketID)
+        {
+            try
+            {
+                var reader = await _connection.QueryMultipleAsync("[usp_getCompaniesWithHasFund]",
+                    param: new { StockMarketID = stockMarketID },
+                    commandType: CommandType.StoredProcedure);
+
+                var output = new CompanyWithHasFundDto();
+                output.Companies = reader.Read<CompanyDto>().ToList();
+                output.AssetsAllocations = reader.Read<AssetsAllocationDto>().ToList();
+                output.GeoDiversifications = reader.Read<GeoDiversificationDto>().ToList();
+                output.SectorDiversifications = reader.Read<SectorDiversificationDto>().ToList();
+                output.MajorInvestments = reader.Read<MajorInvestmentDto>().ToList();
+                output.Benchmarks = reader.Read<BenchmarkDto>().ToList();
+                output.PortfolioTypes = reader.Read<PortfolioTypeDto>().ToList();
+                output.MFListings = reader.Read<MFListingDto>().ToList();
+                output.MFRisks = reader.Read<MFRiskDto>().ToList();
+                output.MFClassifications = reader.Read<MFClassificationDto>().ToList();
+                output.MFCategories = reader.Read<MFCategoryDto>().ToList();
+                output.MFSubCategories = reader.Read<MFSubCategoryDto>().ToList();
+                return output;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
 
 
 

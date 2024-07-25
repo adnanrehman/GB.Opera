@@ -1,4 +1,4 @@
-import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, SectorDto, StockMarketDto } from './models';
+import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, CompanyWithHasFundDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, SectorDto, StockMarketDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { CompanyDto } from '../companies/models';
@@ -41,6 +41,15 @@ export class CommonService {
       method: 'GET',
       url: '/api/app/common/companies-tickers',
       params: { sectorID, marketID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getCompaniesWithHasFundByStockMarketID = (stockMarketID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, CompanyWithHasFundDto>({
+      method: 'GET',
+      url: '/api/app/common/companies-with-has-fund',
+      params: { stockMarketID },
     },
     { apiName: this.apiName,...config });
   

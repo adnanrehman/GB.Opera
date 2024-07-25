@@ -1,12 +1,16 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
   <div class="row mb-2">
     <div class="col-md-3">
       <div class="row mb-2">
         <div class="col-md-12">
           <p-dropdown
-            [options]="markets"
+            [options]="stockMarkets"
+            [(ngModel)]="stockMarketID"
+            name="stockMarketID"
             placeholder="Select a Market"
-            optionLabel="name"
+            optionLabel="abbr"
+            optionValue="stockMarketID"
+            (ngModelChange)="getCompaniesWithHasFundByStockMarketID()"
             [style]="{ width: '100%' }"
             [showClear]="true"
           >
@@ -14,9 +18,13 @@
         </div>
         <div class="col-md-12 mt-2">
           <p-dropdown
-            [options]="markets"
-            placeholder="Select a Ticket"
-            optionLabel="name"
+            [options]="companies"
+            [(ngModel)]="companyID"
+            name="sectorID"
+            placeholder="Select a Ticker"
+            optionLabel="ticker"
+            optionValue="companyID"
+            (ngModelChange)="getCompanyMutualFundsByCompanyID()"
             [style]="{ width: '100%' }"
             [showClear]="true"
           >
@@ -25,14 +33,17 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <h6>Mutual Funds</h6>
-          <div class="card">
-            <div class="card-body p-0">
-              <h6 class="selector p-1 mb-1 border-bottom">ADCBMAMI</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">ADCBMSC</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">Al Nokithia</h6>
-            </div>
-          </div>
+          <h6 class="p-1 mb-1">Mutual Funds</h6>
+          <p-listbox
+            [options]="companyMutualFunds"
+            [(ngModel)]="mFundID"
+            name="mFundID"
+            optionLabel="shortName"
+            (click)="handleCompanyMutualFund(mFundID)"
+            optionValue="mFundID"
+            [style]="{ width: '100%' }"
+            [listStyle]="{ 'max-height': '200rem' }"
+          />
         </div>
       </div>
     </div>
@@ -42,10 +53,13 @@
           <div class="row">
             <div class="col-md-8">
               <p-autoComplete
-                [suggestions]="filteredCountries"
-                field="name"
-                placeholder="Search the Companies and select"
+                [(ngModel)]="selectedItem"
+                [ngModelOptions]="{ standalone: true }"
+                (onSelect)="onSelect($event)"
+                [suggestions]="suggestions"
+                (completeMethod)="search($event)"
                 [style]="{ width: '100%' }"
+                field="company"
                 [inputStyle]="{ width: '100%' }"
               >
               </p-autoComplete>
@@ -531,8 +545,10 @@
                   <div class="col-md-6 mt-3">
                     <p-table
                       #dt
-                      [value]="subsidiaries"
+                      [value]="mFundGeoDiversPercents"
                       [tableStyle]="{ 'max-height': '20rem' }"
+                      [scrollable]="true" 
+                      scrollHeight="20rem"
                       responsiveLayout="stack"
                       styleClass="p-datatable-gridlines"
                     >
@@ -547,26 +563,50 @@
                       </ng-template>
                       <ng-template pTemplate="header">
                         <tr>
-                          <th class="text-center"></th>
                           <th>Geo Diversifications</th>
                           <th>Value</th>
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
                         <tr>
-                          <td class="text-center"></td>
-                          <td>{{ item.pa }}</td>
-                          <td>{{ item.share }}</td>
+                          <td>
+                            <p-dropdown
+                              [options]="geoDiversifications"
+                              [(ngModel)]="item.geoDiversificationID"
+                              [ngModelOptions]="{ standalone: true }"
+                              required="true"
+                              placeholder="Select a Geo"
+                              optionLabel="geoDiversification"
+                              optionValue="geoDiversificationID"
+                              [style]="{ width: '100%' }"
+                              [showClear]="true"
+                            >
+                            </p-dropdown>
+                          </td>
+                          <td>
+                            <input
+                              autofocus
+                              [(ngModel)]="item.value"
+                              [ngModelOptions]="{ standalone: true }"
+                              pInputText
+                              type="text"
+                              class="form-control"
+                              name="value"
+                              placeholder="Value"
+                            />
+                          </td>
                         </tr>
                       </ng-template>
                     </p-table>
                   </div>
                   <div class="col-md-6 mt-3">
                     <p-table
-                      #dt
-                      [tableStyle]="{ 'max-height': '20rem' }"
-                      responsiveLayout="stack"
-                      styleClass="p-datatable-gridlines"
+                    [value]="mFundSectorDiversPercents"
+                    [tableStyle]="{ 'max-height': '20rem' }"
+                    [scrollable]="true" 
+                    scrollHeight="20rem"
+                    responsiveLayout="stack"
+                    styleClass="p-datatable-gridlines"
                     >
                       <ng-template pTemplate="caption">
                         <div class="d-flex flex-column flex-md-row justify-content-between">
@@ -579,14 +619,38 @@
                       </ng-template>
                       <ng-template pTemplate="header">
                         <tr>
-                          <th class="text-center"></th>
                           <th>Sector Diversifications</th>
                           <th>Value</th>
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
                         <tr>
-                          <td class="text-center"></td>
+                          <td>
+                            <p-dropdown
+                              [options]="sectorDiversifications"
+                              [(ngModel)]="item.sectorDiversificationID"
+                              [ngModelOptions]="{ standalone: true }"
+                              required="true"
+                              placeholder="Select a Sector"
+                              optionLabel="sectorDiversification"
+                              optionValue="sectorDiversificationID"
+                              [style]="{ width: '100%' }"
+                              [showClear]="true"
+                            >
+                            </p-dropdown>
+                          </td>
+                          <td>
+                            <input
+                              autofocus
+                              [(ngModel)]="item.value"
+                              [ngModelOptions]="{ standalone: true }"
+                              pInputText
+                              type="text"
+                              class="form-control"
+                              name="value"
+                              placeholder="Value"
+                            />
+                          </td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -594,9 +658,12 @@
                   <div class="col-md-6 mt-3">
                     <p-table
                       #dt
-                      [tableStyle]="{ 'max-height': '20rem' }"
-                      responsiveLayout="stack"
-                      styleClass="p-datatable-gridlines"
+                      [value]="mFundMajorInvestPercents"
+                    [tableStyle]="{ 'max-height': '20rem' }"
+                    [scrollable]="true" 
+                    scrollHeight="20rem"
+                    responsiveLayout="stack"
+                    styleClass="p-datatable-gridlines"
                     >
                       <ng-template pTemplate="caption">
                         <div class="d-flex flex-column flex-md-row justify-content-between">
@@ -609,14 +676,38 @@
                       </ng-template>
                       <ng-template pTemplate="header">
                         <tr>
-                          <th class="text-center"></th>
                           <th>Major Investments</th>
                           <th>Value</th>
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
                         <tr>
-                          <td class="text-center"></td>
+                          <td>
+                            <p-dropdown
+                              [options]="majorInvestments"
+                              [(ngModel)]="item.majorInvestmentID"
+                              [ngModelOptions]="{ standalone: true }"
+                              required="true"
+                              placeholder="Select a Major"
+                              optionLabel="majorInvestment"
+                              optionValue="majorInvestmentID"
+                              [style]="{ width: '100%' }"
+                              [showClear]="true"
+                            >
+                            </p-dropdown>
+                          </td>
+                          <td>
+                            <input
+                              autofocus
+                              [(ngModel)]="item.value"
+                              [ngModelOptions]="{ standalone: true }"
+                              pInputText
+                              type="text"
+                              class="form-control"
+                              name="value"
+                              placeholder="Value"
+                            />
+                          </td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -624,10 +715,12 @@
                   <div class="col-md-6 mt-3">
                     <p-table
                       #dt
-                      [value]="subsidiaries"
-                      [tableStyle]="{ 'max-height': '20rem' }"
-                      responsiveLayout="stack"
-                      styleClass="p-datatable-gridlines"
+                      [value]="mFundAssestAllocsPercents"
+                    [tableStyle]="{ 'max-height': '20rem' }"
+                    [scrollable]="true" 
+                    scrollHeight="20rem"
+                    responsiveLayout="stack"
+                    styleClass="p-datatable-gridlines"
                     >
                       <ng-template pTemplate="caption">
                         <div class="d-flex flex-column flex-md-row justify-content-between">
@@ -640,16 +733,38 @@
                       </ng-template>
                       <ng-template pTemplate="header">
                         <tr>
-                          <th class="text-center"></th>
                           <th>Assets Allocations</th>
                           <th>Value</th>
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
                         <tr>
-                          <td class="text-center"></td>
-                          <td>{{ item.pa }}</td>
-                          <td>{{ item.share }}</td>
+                          <td>
+                            <p-dropdown
+                              [options]="assetsAllocations"
+                              [(ngModel)]="item.assetsAllocationID"
+                              [ngModelOptions]="{ standalone: true }"
+                              required="true"
+                              placeholder="Select a Asset"
+                              optionLabel="assetsAllocation"
+                              optionValue="assetsAllocationID"
+                              [style]="{ width: '100%' }"
+                              [showClear]="true"
+                            >
+                            </p-dropdown>
+                          </td>
+                          <td>
+                            <input
+                              autofocus
+                              [(ngModel)]="item.value"
+                              [ngModelOptions]="{ standalone: true }"
+                              pInputText
+                              type="text"
+                              class="form-control"
+                              name="value"
+                              placeholder="Value"
+                            />
+                          </td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -658,171 +773,171 @@
               </p-tabPanel>
               <p-tabPanel header="Manage Address">
                 <div class="row">
-                    <div class="col-md-6">
-                        <label class="col-form-label col-4">City</label>
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control"
-                          name="Company"
-                          placeholder="City"
-                        />
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control mt-2"
-                          name="Company"
-                          placeholder="City (AR)"
-                        />
-                      </div>
-                      <div class="col-md-6">
-                        <label class="col-form-label col-4">Address</label>
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control"
-                          name="Company"
-                          placeholder="Address"
-                        />
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control mt-2"
-                          name="Company"
-                          placeholder="Address (AR)"
-                        />
-                      </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">City</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="City"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="City (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Address</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Address"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Address (AR)"
+                    />
+                  </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <label class="col-form-label col-4">Website</label>
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control"
-                          name="Company"
-                          placeholder="Website"
-                        />
-                    </div>
-                    <div class="col-md-6">
-                        <label class="col-form-label col-4">Email</label>
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control"
-                          name="Company"
-                          placeholder="Email"
-                        />
-                    </div>
-                    <div class="col-md-6">
-                        <label class="col-form-label col-4">Postal Code</label>
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control"
-                          name="Company"
-                          placeholder="Postal Code"
-                        />
-                    </div>
-                    <div class="col-md-6">
-                        <label class="col-form-label col-4">Telephone</label>
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control"
-                          name="Company"
-                          placeholder="Telephone"
-                        />
-                    </div>
-                    <div class="col-md-6">
-                        <label class="col-form-label col-4">Mobile</label>
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control"
-                          name="Company"
-                          placeholder="Mobile"
-                        />
-                    </div>
-                    <div class="col-md-6">
-                        <label class="col-form-label col-4">Fax</label>
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control"
-                          name="Company"
-                          placeholder="Fax"
-                        />
-                    </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Website</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Website"
+                    />
                   </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                        <label class="col-form-label col-4">P.O Box</label>
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control"
-                          name="Company"
-                          placeholder="P.O Box"
-                        />
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control mt-2"
-                          name="Company"
-                          placeholder="P.O Box (AR)"
-                        />
-                      </div>
-                      <div class="col-md-6">
-                        <label class="col-form-label col-4">Telex</label>
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control"
-                          name="Company"
-                          placeholder="Telex"
-                        />
-                        <input
-                          autofocus
-                          type="text"
-                          class="form-control mt-2"
-                          name="Company"
-                          placeholder="Telex (AR)"
-                        />
-                      </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Email</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Email"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Postal Code</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Postal Code"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Telephone</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Telephone"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Mobile</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Mobile"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Fax</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Fax"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">P.O Box</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="P.O Box"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="P.O Box (AR)"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label col-4">Telex</label>
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control"
+                      name="Company"
+                      placeholder="Telex"
+                    />
+                    <input
+                      autofocus
+                      type="text"
+                      class="form-control mt-2"
+                      name="Company"
+                      placeholder="Telex (AR)"
+                    />
+                  </div>
                 </div>
               </p-tabPanel>
               <p-tabPanel header="Generate HTML">
                 <div class="row">
-                    <div class="col-md-6">
-                      <label class="col-form-label">Search Tags</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
-                      </textarea>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="col-form-label">Search Tags (AR)</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
-                      </textarea>
-                    </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Search Tags</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
                   </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label class="col-form-label">Page Descriptions</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
-                      </textarea>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="col-form-label">Page Descriptions (AR)</label>
-                      <textarea rows="3" class="form-control" placeholder="Describe here...">
-                      </textarea>
-                    </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Search Tags (AR)</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
                   </div>
-                  <div class="row mt-4">
-                    <div class="col-md-12 text-end">
-                        <button class="btn btn-sm btn-primary me-2">Generate English Html</button>
-                        <button class="btn btn-sm btn-primary">Generate Arabic Html</button>
-                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Page Descriptions</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
                   </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Page Descriptions (AR)</label>
+                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-md-12 text-end">
+                    <button class="btn btn-sm btn-primary me-2">Generate English Html</button>
+                    <button class="btn btn-sm btn-primary">Generate Arabic Html</button>
+                  </div>
+                </div>
               </p-tabPanel>
             </p-tabView>
           </div>
