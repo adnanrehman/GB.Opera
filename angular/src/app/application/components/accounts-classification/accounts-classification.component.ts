@@ -79,11 +79,7 @@ export class AccountsClassificationComponent {
 
    ngOnInit() {
     this.fetchAccountsTreeData();
-  this.fetchTreeData();
-
-
-
-
+    this.fetchTreeData();
 
 } 
 

@@ -1,22 +1,43 @@
 <div>
-    <form #template="ngForm">
-      <div class="row mb-1">
-        <div class="col-sm-12">
-          <label class="col-form-label">Account</label>
-          <input autofocus type="text" class="form-control" [(ngModel)]="account.accountName" name="accountName"
-            placeholder="Account" />
-        </div>
+  <form #template="ngForm">
+    <div class="row mb-1">
+      <div class="col-sm-12">
+        <label class="col-form-label">Ownership</label>
+        <input autofocus type="text" class="form-control" [(ngModel)]="gbOwnerShip.gbOwnership" name="accountName"
+          placeholder="Ownership" />
       </div>
-      <div class="p-dialog-footer app-dialog-footer">
-        <div class="col-sm-12 text-center">
-          <button type="submit" [disabled]="template.form.invalid" class="btn btn-success ps-4 pe-4"><span class="text-white">SAVE</span></button>
-          &nbsp;&nbsp;
-          <button type="button" class="btn btn-primary" (click)="Cancel()"><span class="text-white">CANCEL</span></button>
-          &nbsp;&nbsp;
-          <button type="button" class="btn btn-danger" (click)="deleteAccount()"><span class="text-white">Delete</span></button>
-        </div>
+      <div class="col-sm-12">
+          <label class="col-form-label">Ownership (AR)</label>
+          <input autofocus type="text" class="form-control" [(ngModel)]="gbOwnerShip.agbOwnership" name="accountAr"
+            placeholder="Ownership AR" />
       </div>
-    </form>
-  </div>
-
+      <div class="col-sm-6"> 
+        <label class="form-check-label" for="defaultCheck3"></label>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="gbOwnerShip.isGBOwnership"
+          name="gbAccount" />
+          <label class="form-check-label" for="defaultCheck3">GBOwnership</label>
+        </div>
+    </div>
+    <div class="col-sm-6"> 
+        <label class="form-check-label" for="defaultCheck4"></label>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="gbOwnerShip.isTitle"
+          name="title" />
+          <label class="form-check-label" for="defaultCheck4">Title</label>
+        </div>
+    </div>
+       
+    </div>
+    <div class="p-dialog-footer app-dialog-footer">
+      <div class="col-sm-12 text-center">
+        <button type="submit"  (click)="addAccounts()"  [disabled]="template.form.invalid" class="btn btn-success ps-4 pe-4"><span class="text-white">SAVE</span></button>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-primary"  (click)=" Cancel()" ><span class="text-white">CANCEL</span></button>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-danger" (click)="deletegbOwnerShipByid()"    ><span class="text-white">Delete</span></button>
+      </div>
+    </div>
+  </form>
+</div>
 

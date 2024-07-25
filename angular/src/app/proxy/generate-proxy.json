@@ -1178,6 +1178,115 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Commons.ICommonAppService"
+            },
+            "GetStockMarkets": {
+              "uniqueName": "GetStockMarkets",
+              "name": "GetStockMarkets",
+              "httpMethod": "GET",
+              "url": "api/app/common/stock-markets",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Commons.StockMarketDto>",
+                "typeSimple": "[Commons.StockMarketDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.CommonAppService"
+            },
+            "GetStockMarketSectorsByStockMarketID": {
+              "uniqueName": "GetStockMarketSectorsByStockMarketID",
+              "name": "GetStockMarketSectors",
+              "httpMethod": "GET",
+              "url": "api/app/common/stock-market-sectors",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "stockMarketID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "stockMarketID",
+                  "name": "stockMarketID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Commons.SectorDto>",
+                "typeSimple": "[Commons.SectorDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.CommonAppService"
+            },
+            "GetSectorCompaniesBySectorIDAndStockMarketID": {
+              "uniqueName": "GetSectorCompaniesBySectorIDAndStockMarketID",
+              "name": "GetSectorCompanies",
+              "httpMethod": "GET",
+              "url": "api/app/common/sector-companies",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "sectorID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "stockMarketID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "sectorID",
+                  "name": "sectorID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "stockMarketID",
+                  "name": "stockMarketID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Commons.CompaniesTickerDto>",
+                "typeSimple": "[Commons.CompaniesTickerDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.CommonAppService"
             }
           }
         },
@@ -1839,6 +1948,456 @@
             }
           }
         },
+        "CompanyOwnerships.CompanyOwnershipAppService": {
+          "controllerName": "CompanyOwnership",
+          "controllerGroupName": "CompanyOwnership",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "CompanyOwnerships.CompanyOwnershipAppService",
+          "interfaces": [
+            {
+              "type": "CompanyOwnerships.ICompanyOwnershipAppService",
+              "name": "ICompanyOwnershipAppService",
+              "methods": [
+                {
+                  "name": "GetRelatedInformations",
+                  "parametersOnMethod": [
+                    {
+                      "name": "companyID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyOwnerships.CompanyOwnershipDto",
+                    "typeSimple": "CompanyOwnerships.CompanyOwnershipDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateSubsidiary",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyOwnerships.SubsidiaryDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyOwnerships.SubsidiaryDto",
+                      "typeSimple": "CompanyOwnerships.SubsidiaryDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyOwnerships.SubsidiaryDto",
+                    "typeSimple": "CompanyOwnerships.SubsidiaryDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateSubsCompUpdate",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyOwnerships.SubsCompUpdDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyOwnerships.SubsCompUpdDto",
+                      "typeSimple": "CompanyOwnerships.SubsCompUpdDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyOwnerships.SubsCompUpdDto",
+                    "typeSimple": "CompanyOwnerships.SubsCompUpdDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateSisterCompany",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyOwnerships.SisterCompanyDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyOwnerships.SisterCompanyDto",
+                      "typeSimple": "CompanyOwnerships.SisterCompanyDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyOwnerships.SisterCompanyDto",
+                    "typeSimple": "CompanyOwnerships.SisterCompanyDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateCompanyProduct",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyOwnerships.CompanyProductDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyOwnerships.CompanyProductDto",
+                      "typeSimple": "CompanyOwnerships.CompanyProductDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyOwnerships.CompanyProductDto",
+                    "typeSimple": "CompanyOwnerships.CompanyProductDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateRawMaterial",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyOwnerships.CompanyRawMaterialDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyOwnerships.CompanyRawMaterialDto",
+                      "typeSimple": "CompanyOwnerships.CompanyRawMaterialDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyOwnerships.CompanyRawMaterialDto",
+                    "typeSimple": "CompanyOwnerships.CompanyRawMaterialDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateCompanyFIP",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyOwnerships.CompanyFIPDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyOwnerships.CompanyFIPDto",
+                      "typeSimple": "CompanyOwnerships.CompanyFIPDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyOwnerships.CompanyFIPDto",
+                    "typeSimple": "CompanyOwnerships.CompanyFIPDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateMiscNote",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CompanyOwnerships.MiscNotesDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyOwnerships.MiscNotesDto",
+                      "typeSimple": "CompanyOwnerships.MiscNotesDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyOwnerships.MiscNotesDto",
+                    "typeSimple": "CompanyOwnerships.MiscNotesDto"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetRelatedInformationsByCompanyID": {
+              "uniqueName": "GetRelatedInformationsByCompanyID",
+              "name": "GetRelatedInformations",
+              "httpMethod": "GET",
+              "url": "api/app/company-ownership/related-informations",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyID",
+                  "name": "companyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyOwnerships.CompanyOwnershipDto",
+                "typeSimple": "CompanyOwnerships.CompanyOwnershipDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "CreateOrUpdateSubsidiaryByModel": {
+              "uniqueName": "CreateOrUpdateSubsidiaryByModel",
+              "name": "CreateOrUpdateSubsidiary",
+              "httpMethod": "POST",
+              "url": "api/app/company-ownership/or-update-subsidiary",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyOwnerships.SubsidiaryDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyOwnerships.SubsidiaryDto",
+                  "typeSimple": "CompanyOwnerships.SubsidiaryDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyOwnerships.SubsidiaryDto",
+                  "typeSimple": "CompanyOwnerships.SubsidiaryDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyOwnerships.SubsidiaryDto",
+                "typeSimple": "CompanyOwnerships.SubsidiaryDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "CreateOrUpdateSubsCompUpdateByModel": {
+              "uniqueName": "CreateOrUpdateSubsCompUpdateByModel",
+              "name": "CreateOrUpdateSubsCompUpdate",
+              "httpMethod": "POST",
+              "url": "api/app/company-ownership/or-update-subs-comp-update",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyOwnerships.SubsCompUpdDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyOwnerships.SubsCompUpdDto",
+                  "typeSimple": "CompanyOwnerships.SubsCompUpdDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyOwnerships.SubsCompUpdDto",
+                  "typeSimple": "CompanyOwnerships.SubsCompUpdDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyOwnerships.SubsCompUpdDto",
+                "typeSimple": "CompanyOwnerships.SubsCompUpdDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "CreateOrUpdateSisterCompanyByModel": {
+              "uniqueName": "CreateOrUpdateSisterCompanyByModel",
+              "name": "CreateOrUpdateSisterCompany",
+              "httpMethod": "POST",
+              "url": "api/app/company-ownership/or-update-sister-company",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyOwnerships.SisterCompanyDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyOwnerships.SisterCompanyDto",
+                  "typeSimple": "CompanyOwnerships.SisterCompanyDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyOwnerships.SisterCompanyDto",
+                  "typeSimple": "CompanyOwnerships.SisterCompanyDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyOwnerships.SisterCompanyDto",
+                "typeSimple": "CompanyOwnerships.SisterCompanyDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "CreateOrUpdateCompanyProductByModel": {
+              "uniqueName": "CreateOrUpdateCompanyProductByModel",
+              "name": "CreateOrUpdateCompanyProduct",
+              "httpMethod": "POST",
+              "url": "api/app/company-ownership/or-update-company-product",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyOwnerships.CompanyProductDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyOwnerships.CompanyProductDto",
+                  "typeSimple": "CompanyOwnerships.CompanyProductDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyOwnerships.CompanyProductDto",
+                  "typeSimple": "CompanyOwnerships.CompanyProductDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyOwnerships.CompanyProductDto",
+                "typeSimple": "CompanyOwnerships.CompanyProductDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "CreateOrUpdateRawMaterialByModel": {
+              "uniqueName": "CreateOrUpdateRawMaterialByModel",
+              "name": "CreateOrUpdateRawMaterial",
+              "httpMethod": "POST",
+              "url": "api/app/company-ownership/or-update-raw-material",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyOwnerships.CompanyRawMaterialDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyOwnerships.CompanyRawMaterialDto",
+                  "typeSimple": "CompanyOwnerships.CompanyRawMaterialDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyOwnerships.CompanyRawMaterialDto",
+                  "typeSimple": "CompanyOwnerships.CompanyRawMaterialDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyOwnerships.CompanyRawMaterialDto",
+                "typeSimple": "CompanyOwnerships.CompanyRawMaterialDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "CreateOrUpdateCompanyFIPByModel": {
+              "uniqueName": "CreateOrUpdateCompanyFIPByModel",
+              "name": "CreateOrUpdateCompanyFIP",
+              "httpMethod": "POST",
+              "url": "api/app/company-ownership/or-update-company-fIP",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyOwnerships.CompanyFIPDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyOwnerships.CompanyFIPDto",
+                  "typeSimple": "CompanyOwnerships.CompanyFIPDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyOwnerships.CompanyFIPDto",
+                  "typeSimple": "CompanyOwnerships.CompanyFIPDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyOwnerships.CompanyFIPDto",
+                "typeSimple": "CompanyOwnerships.CompanyFIPDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "CreateOrUpdateMiscNoteByModel": {
+              "uniqueName": "CreateOrUpdateMiscNoteByModel",
+              "name": "CreateOrUpdateMiscNote",
+              "httpMethod": "POST",
+              "url": "api/app/company-ownership/or-update-misc-note",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CompanyOwnerships.MiscNotesDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyOwnerships.MiscNotesDto",
+                  "typeSimple": "CompanyOwnerships.MiscNotesDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CompanyOwnerships.MiscNotesDto",
+                  "typeSimple": "CompanyOwnerships.MiscNotesDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyOwnerships.MiscNotesDto",
+                "typeSimple": "CompanyOwnerships.MiscNotesDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            }
+          }
+        },
         "GB.Opera.AccountsClassifications.AccountClassificationAppService": {
           "controllerName": "AccountClassification",
           "controllerGroupName": "AccountClassification",
@@ -2433,6 +2992,209 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<GB.Opera.Books.BookDto,GB.Opera.Books.BookDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
+            }
+          }
+        },
+        "GB.Opera.GbOwnerShips.GbOwnerShipAppService": {
+          "controllerName": "GbOwnerShip",
+          "controllerGroupName": "GbOwnerShip",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "GB.Opera.GbOwnerShips.GbOwnerShipAppService",
+          "interfaces": [
+            {
+              "type": "GB.Opera.GbOwnerShips.IGbOwnerShipAppService",
+              "name": "IGbOwnerShipAppService",
+              "methods": [
+                {
+                  "name": "GetAllFactsOwnershipMappings",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GB.Opera.GbOwnerShips.GbOwnerShip>",
+                    "typeSimple": "[GB.Opera.GbOwnerShips.GbOwnerShip]"
+                  }
+                },
+                {
+                  "name": "SaveUpdateGbOwnerShip",
+                  "parametersOnMethod": [
+                    {
+                      "name": "gbOwnerShip",
+                      "typeAsString": "GB.Opera.GbOwnerShips.GbOwnerShip, GB.Opera.Application.Contracts",
+                      "type": "GB.Opera.GbOwnerShips.GbOwnerShip",
+                      "typeSimple": "GB.Opera.GbOwnerShips.GbOwnerShip",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "GB.Opera.GbOwnerShips.GbOwnerShip",
+                    "typeSimple": "GB.Opera.GbOwnerShips.GbOwnerShip"
+                  }
+                },
+                {
+                  "name": "GetGBOwnershipbyId",
+                  "parametersOnMethod": [
+                    {
+                      "name": "GBOwnershipID",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GB.Opera.GbOwnerShips.GbOwnerShip>",
+                    "typeSimple": "[GB.Opera.GbOwnerShips.GbOwnerShip]"
+                  }
+                },
+                {
+                  "name": "DeletGBOwnershipById",
+                  "parametersOnMethod": [
+                    {
+                      "name": "GBOwnershipID",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Int32",
+                    "typeSimple": "number"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetAllFactsOwnershipMappings": {
+              "uniqueName": "GetAllFactsOwnershipMappings",
+              "name": "GetAllFactsOwnershipMappings",
+              "httpMethod": "GET",
+              "url": "api/app/gb-owner-ship/facts-ownership-mappings",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.GbOwnerShips.GbOwnerShip>",
+                "typeSimple": "[GB.Opera.GbOwnerShips.GbOwnerShip]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.GbOwnerShips.IGbOwnerShipAppService"
+            },
+            "SaveUpdateGbOwnerShipByGbOwnerShip": {
+              "uniqueName": "SaveUpdateGbOwnerShipByGbOwnerShip",
+              "name": "SaveUpdateGbOwnerShip",
+              "httpMethod": "POST",
+              "url": "api/app/gb-owner-ship/save-update-gb-owner-ship",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "gbOwnerShip",
+                  "typeAsString": "GB.Opera.GbOwnerShips.GbOwnerShip, GB.Opera.Application.Contracts",
+                  "type": "GB.Opera.GbOwnerShips.GbOwnerShip",
+                  "typeSimple": "GB.Opera.GbOwnerShips.GbOwnerShip",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "gbOwnerShip",
+                  "name": "gbOwnerShip",
+                  "jsonName": null,
+                  "type": "GB.Opera.GbOwnerShips.GbOwnerShip",
+                  "typeSimple": "GB.Opera.GbOwnerShips.GbOwnerShip",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "GB.Opera.GbOwnerShips.GbOwnerShip",
+                "typeSimple": "GB.Opera.GbOwnerShips.GbOwnerShip"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.GbOwnerShips.IGbOwnerShipAppService"
+            },
+            "GetGBOwnershipbyIdByGBOwnershipID": {
+              "uniqueName": "GetGBOwnershipbyIdByGBOwnershipID",
+              "name": "GetGBOwnershipbyId",
+              "httpMethod": "GET",
+              "url": "api/app/gb-owner-ship/g-bOwnershipby-id",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "GBOwnershipID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "GBOwnershipID",
+                  "name": "GBOwnershipID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.GbOwnerShips.GbOwnerShip>",
+                "typeSimple": "[GB.Opera.GbOwnerShips.GbOwnerShip]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.GbOwnerShips.IGbOwnerShipAppService"
+            },
+            "DeletGBOwnershipByIdByGBOwnershipID": {
+              "uniqueName": "DeletGBOwnershipByIdByGBOwnershipID",
+              "name": "DeletGBOwnershipById",
+              "httpMethod": "POST",
+              "url": "api/app/gb-owner-ship/delet-gBOwnership-by-id",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "GBOwnershipID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "GBOwnershipID",
+                  "name": "GBOwnershipID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Int32",
+                "typeSimple": "number"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.GbOwnerShips.IGbOwnerShipAppService"
             }
           }
         },
@@ -5280,6 +6042,42 @@
           "minimum": null,
           "maximum": null,
           "regex": null
+        },
+        {
+          "name": "ATicker",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Company",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ACompany",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
         }
       ]
     },
@@ -5688,6 +6486,87 @@
         },
         {
           "name": "Sector",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ASector",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Commons.StockMarketDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "StockMarketID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "StockMarket",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AStockMarket",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Abbr",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AAbbr",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -8004,6 +8883,1002 @@
         }
       ]
     },
+    "CompanyOwnerships.CompanyFIPDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "FIPID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PermittedSharesToForeigners",
+          "jsonName": null,
+          "type": "System.Single?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PermittedSharesToGCCNationals",
+          "jsonName": null,
+          "type": "System.Single?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PermittedSharesToArabNationals",
+          "jsonName": null,
+          "type": "System.Single?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PermittedDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Description",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ADescription",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CreationDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompanyOwnerships.CompanyOwnershipDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Subsidiaries",
+          "jsonName": null,
+          "type": "[CompanyOwnerships.SubsidiaryDto]",
+          "typeSimple": "[CompanyOwnerships.SubsidiaryDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SubsCompUpds",
+          "jsonName": null,
+          "type": "[CompanyOwnerships.SubsCompUpdDto]",
+          "typeSimple": "[CompanyOwnerships.SubsCompUpdDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SisterCompanies",
+          "jsonName": null,
+          "type": "[CompanyOwnerships.SisterCompanyDto]",
+          "typeSimple": "[CompanyOwnerships.SisterCompanyDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyProducts",
+          "jsonName": null,
+          "type": "[CompanyOwnerships.CompanyProductDto]",
+          "typeSimple": "[CompanyOwnerships.CompanyProductDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyRawMaterials",
+          "jsonName": null,
+          "type": "[CompanyOwnerships.CompanyRawMaterialDto]",
+          "typeSimple": "[CompanyOwnerships.CompanyRawMaterialDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyFIPs",
+          "jsonName": null,
+          "type": "[CompanyOwnerships.CompanyFIPDto]",
+          "typeSimple": "[CompanyOwnerships.CompanyFIPDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "MiscNotes",
+          "jsonName": null,
+          "type": "[CompanyOwnerships.MiscNotesDto]",
+          "typeSimple": "[CompanyOwnerships.MiscNotesDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompanyOwnerships.CompanyProductDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CompanyProductID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyProduct",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ACompanyProduct",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LaunchDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LastProduct",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ALastProduct",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Description",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ADescription",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CreationDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompanyOwnerships.CompanyRawMaterialDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "RawMaterialID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "RawMaterial",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ARawMaterial",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CurrentProvider",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ACurrentProvider",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LastProvider",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ALastProvider",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Reason",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AReason",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Description",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ADescription",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CreationDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompanyOwnerships.MiscNotesDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "MiscNotesID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Date",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Note",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ANote",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Description",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ADescription",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CreationDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompanyOwnerships.SisterCompanyDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "SisterCompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SisterCompany",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ASisterCompany",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Relation",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ARelation",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Description",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ADescription",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CreationDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompanyOwnerships.SubsCompUpdDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "SubsCompUpdID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Remarks",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ARemarks",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "UploadDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompanyOwnerships.SubsidiaryDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "SubsidiaryID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ACountry",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SubsidiaryCompany",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ASubsidiaryCompany",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Share",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PrincipalActivity",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "APrincipalActivity",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CustomOrder",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyTypeID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "GB.Opera.AccountsClassifications.ACFactsDtos": {
       "baseType": null,
       "isEnum": false,
@@ -8313,6 +10188,87 @@
         },
         {
           "name": "IsGBAccount",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsTitle",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "GB.Opera.GbOwnerShips.GbOwnerShip": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "GBOwnershipID",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ParentID",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GBOwnership",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AGBOwnership",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsGBOwnership",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",

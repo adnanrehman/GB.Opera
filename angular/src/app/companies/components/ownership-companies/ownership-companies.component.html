@@ -1,12 +1,16 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
   <div class="row mb-2">
     <div class="col-md-3">
       <div class="row mb-2">
         <div class="col-md-12">
           <p-dropdown
-            [options]="markets"
+            [options]="stockMarkets"
+            [(ngModel)]="stockMarketID"
+            name="stockMarketID"
             placeholder="Select a Market"
-            optionLabel="name"
+            optionLabel="abbr"
+            optionValue="stockMarketID"
+            (ngModelChange)="getStockMarketSectorsByStockMarketID()"
             [style]="{ width: '100%' }"
             [showClear]="true"
           >
@@ -14,9 +18,13 @@
         </div>
         <div class="col-md-12 mt-2">
           <p-dropdown
-            [options]="markets"
+            [options]="companyMarketSectors"
+            [(ngModel)]="sectorID"
+            name="sectorID"
             placeholder="Select a Sector"
-            optionLabel="name"
+            optionLabel="sector"
+            optionValue="sectorID"
+            (ngModelChange)="getSectorCompaniesBySectorIDAndStockMarketID()"
             [style]="{ width: '100%' }"
             [showClear]="true"
           >
@@ -25,24 +33,17 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <h6>Companies</h6>
-          <div class="card">
-            <div class="card-body p-0">
-              <h6 class="selector p-1 mb-1 border-bottom">MIS</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">RJHI</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">ALAWWAL</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">ALINMA</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">ARNB</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">ALBILAD</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">BJAZ</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">BSFR</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">RIBL</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SAMBA</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SAB</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SAIB</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SNB</h6>
-            </div>
-          </div>
+          <h6 class="p-1 mb-1">Companies</h6>
+          <p-listbox
+            [options]="companiesTickers"
+            [(ngModel)]="companyID"
+            name="companyID"
+            optionLabel="ticker"
+            (click)="getCompanySubsidiaries()"
+            optionValue="companyID"
+            [style]="{ width: '100%' }"
+            [listStyle]="{ 'max-height': '200rem' }"
+          />
         </div>
       </div>
     </div>
@@ -52,18 +53,21 @@
           <div class="row">
             <div class="col-md-8">
               <p-autoComplete
-                [suggestions]="filteredCountries"
-                field="name"
-                placeholder="Search the RIBL"
-                [style]="{ width: '100%' }"
-                [inputStyle]="{ width: '100%' }"
-              >
-              </p-autoComplete>
+              [(ngModel)]="selectedItem"
+              [ngModelOptions]="{ standalone: true }"
+              (onSelect)="onSelect($event)"
+              [suggestions]="suggestions"
+              (completeMethod)="search($event)"
+              [style]="{ width: '100%' }"
+              field="company"
+              [inputStyle]="{ width: '100%' }"
+            >
+            </p-autoComplete>
             </div>
             <div class="col-md-4">
-              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
-              <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
-              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
+              <a href="#" class="btn btn-primary btn-sm me-1" (click)="addNewCompanySubsidiary()"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" class="btn btn-success btn-sm me-1" (click)="saveSubsidiary()"><i class="fa fa-save"></i> Save</a>
+              <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
             </div>
           </div>
           <div class="row mt-2">
@@ -73,17 +77,22 @@
                   <div class="col-md-6">
                     <label class="col-form-label col-4">Company</label>
                     <input
-                      autofocus
+                      [(ngModel)]="subsidiary.subsidiaryCompany"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
+                      pInputText
                       class="form-control"
-                      name="Company"
+                      name="country"
                       placeholder="Company"
                     />
                     <input
                       autofocus
-                      type="text"
+                      [(ngModel)]="subsidiary.aSubsidiaryCompany"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
+                      type="text"                      
                       class="form-control mt-2"
-                      name="Company"
+                      name="aCountry"
                       placeholder="Company (AR)"
                     />
                   </div>
@@ -91,16 +100,22 @@
                     <label class="col-form-label col-4">Country</label>
                     <input
                       autofocus
+                      [(ngModel)]="subsidiary.country"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="country"
                       placeholder="Country"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="subsidiary.aCountry"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aCountry"
                       placeholder="Country (AR)"
                     />
                   </div>
@@ -110,23 +125,29 @@
                     <label class="col-form-label">Priciple Activity</label>
                     <input
                       autofocus
+                      [(ngModel)]="subsidiary.principalActivity"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="principalActivity"
                       placeholder="Priciple Activity"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="subsidiary.aPrincipalActivity"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aPrincipalActivity"
                       placeholder="Priciple Activity (AR)"
                     />
                   </div>
                   <div class="col-md-3">
                     <label class="col-form-label">Company Type</label>
                     <p-dropdown
-                      [options]="markets"
+                      [options]="stockMarkets"
                       placeholder="Select a Company Type"
                       optionLabel="name"
                       [style]="{ width: '100%' }"
@@ -136,9 +157,12 @@
                     <label class="col-form-label">Share</label>
                     <input
                       autofocus
+                      [(ngModel)]="subsidiary.share"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="share"
                       placeholder="Priciple Activity (AR)"
                     />
                   </div>
@@ -148,9 +172,12 @@
                     <label class="col-form-label">Order</label>
                     <input
                       autofocus
+                      [(ngModel)]="subsidiary.customOrder"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="customOrder"
                       placeholder="Order"
                     />
                   </div>
@@ -158,12 +185,12 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Description</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3" class="form-control" [(ngModel)]="subsidiary.principalActivity" name="principalActivity" placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Description (AR)</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3" class="form-control" [(ngModel)]="subsidiary.aPrincipalActivity" name="aPrincipalActivity" placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
@@ -201,10 +228,10 @@
                           <td class="text-center">
                             <!-- <p-tableCheckbox [value]="item"></p-tableCheckbox> -->
                           </td>
-                          <td>{{ item.company }}</td>
+                          <td>{{ item.subsidiaryCompany }}</td>
                           <td>{{ item.share }}</td>
-                          <td>{{ item.pa }}</td>
-                          <td>{{ item.order }}</td>
+                          <td>{{ item.principalActivity }}</td>
+                          <td>{{ item.customOrder }}</td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -264,7 +291,7 @@
                   <div class="col-md-12">
                     <p-table
                       #dt
-                      [value]="subsidiaries"
+                      [value]="sisterCompanies"
                       [tableStyle]="{ 'max-height': '20rem' }"
                       responsiveLayout="stack"
                       styleClass="p-datatable-gridlines"
@@ -288,8 +315,8 @@
                       <ng-template pTemplate="body" let-item>
                         <tr>
                           <td class="text-center"></td>
-                          <td>{{ item.company }}</td>
-                          <td>{{ item.share }}</td>
+                          <td>{{ item.sisterCompany }}</td>
+                          <td>{{ item.relation }}</td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -366,6 +393,7 @@
                   <div class="col-md-12">
                     <p-table
                       #dt
+                      [value]="companyproducts"
                       [tableStyle]="{ 'max-height': '20rem' }"
                       responsiveLayout="stack"
                       styleClass="p-datatable-gridlines"
@@ -390,9 +418,9 @@
                       <ng-template pTemplate="body" let-item>
                         <tr>
                           <td class="text-center"></td>
-                          <td>{{ item.company }}</td>
-                          <td>{{ item.share }}</td>
-                          <td>{{ item.order }}</td>
+                          <td>{{ item.companyProduct }}</td>
+                          <td>{{ item.launchDate }}</td>
+                          <td>{{ item.lastProduct }}</td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -486,7 +514,7 @@
                     <div class="col-md-6">
                       <label class="col-form-label">Activation</label>
                       <p-dropdown
-                        [options]="markets"
+                        [options]="activationDropdown"
                         placeholder="Select a Activation"
                         optionLabel="name"
                         [style]="{ width: '100%' }"
@@ -499,6 +527,7 @@
                     <div class="col-md-12">
                       <p-table
                         #dt
+                        [value]="companyrawmaterials"
                         [tableStyle]="{ 'max-height': '20rem' }"
                         responsiveLayout="stack"
                         styleClass="p-datatable-gridlines"
@@ -523,9 +552,9 @@
                         <ng-template pTemplate="body" let-item>
                           <tr>
                             <td class="text-center"></td>
-                            <td>{{ item.company }}</td>
-                            <td>{{ item.share }}</td>
-                            <td>{{ item.order }}</td>
+                            <td>{{ item.rawMaterial }}</td>
+                            <td>{{ item.currentProvider }}</td>
+                            <td>{{ item.lastProvider }}</td>
                           </tr>
                         </ng-template>
                       </p-table>
@@ -573,7 +602,7 @@
                     <div class="col-md-6">
                       <label class="col-form-label">Activation</label>
                       <p-dropdown
-                        [options]="markets"
+                        [options]="activationDropdown"
                         placeholder="Select a Activation"
                         optionLabel="name"
                         [style]="{ width: '100%' }"
@@ -598,6 +627,7 @@
                     <div class="col-md-12">
                       <p-table
                         #dt
+                        [value]="companyFIPs"
                         [tableStyle]="{ 'max-height': '20rem' }"
                         responsiveLayout="stack"
                         styleClass="p-datatable-gridlines"
@@ -622,9 +652,9 @@
                         <ng-template pTemplate="body" let-item>
                           <tr>
                             <td class="text-center"></td>
-                            <td>{{ item.company }}</td>
-                            <td>{{ item.share }}</td>
-                            <td>{{ item.order }}</td>
+                            <td>{{ item.permittedSharesToForeigners }}</td>
+                            <td>{{ item.permittedSharesToGCCNationals }}</td>
+                            <td>{{ item.permittedSharesToArabNationals }}</td>
                           </tr>
                         </ng-template>
                       </p-table>
@@ -677,6 +707,7 @@
                     <div class="col-md-12">
                       <p-table
                         #dt
+                        [value]="miscNotes"
                         [tableStyle]="{ 'max-height': '20rem' }"
                         responsiveLayout="stack"
                         styleClass="p-datatable-gridlines"
@@ -700,8 +731,8 @@
                         <ng-template pTemplate="body" let-item>
                           <tr>
                             <td class="text-center"></td>
-                            <td>{{ item.company }}</td>
-                            <td>{{ item.share }}</td>
+                            <td>{{ item.date }}</td>
+                            <td>{{ item.note }}</td>
                           </tr>
                         </ng-template>
                       </p-table>

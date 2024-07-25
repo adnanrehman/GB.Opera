@@ -54,7 +54,7 @@ namespace GB.Opera.AccountsClassifications
                 ACFact = gbAcFactsAccount.AcFact,
                 ParentID = gbAcFactsAccount.ParentID,
                 AACFact = gbAcFactsAccount.AacFact,
-                 GBFactID=155
+                GBFactID=155
             };
 
             _connection.Execute("usp_AddUpdateACFact", parameters, commandType: CommandType.StoredProcedure);

@@ -1,4 +1,4 @@
-import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, MarketLangAnnouncementDto, SectorDto } from './models';
+import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, MarketLangAnnouncementDto, SectorDto, StockMarketDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { CompanyDto } from '../companies/models';
@@ -49,6 +49,32 @@ export class CommonService {
     this.restService.request<any, MarketLangAnnouncementDto[]>({
       method: 'GET',
       url: '/api/app/common/market-lang-announcements',
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getSectorCompaniesBySectorIDAndStockMarketID = (sectorID: number, stockMarketID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, CompaniesTickerDto[]>({
+      method: 'GET',
+      url: '/api/app/common/sector-companies',
+      params: { sectorID, stockMarketID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getStockMarketSectorsByStockMarketID = (stockMarketID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, SectorDto[]>({
+      method: 'GET',
+      url: '/api/app/common/stock-market-sectors',
+      params: { stockMarketID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getStockMarkets = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, StockMarketDto[]>({
+      method: 'GET',
+      url: '/api/app/common/stock-markets',
     },
     { apiName: this.apiName,...config });
   

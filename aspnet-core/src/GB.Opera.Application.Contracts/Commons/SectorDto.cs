@@ -9,5 +9,6 @@ namespace Commons
     {
         public int SectorID { get; set; }
         public string? Sector { get; set; }
+        public string? ASector { get; set; }
     }
 }

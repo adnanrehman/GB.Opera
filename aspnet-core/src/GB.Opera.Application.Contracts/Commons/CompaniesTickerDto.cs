@@ -9,5 +9,8 @@ namespace Commons
     {
         public int CompanyID { get; set; }
         public string? Ticker { get; set; }
+        public string? ATicker { get; set; }
+        public string? Company { get; set; }
+        public string? ACompany { get; set; }
     }
 }
