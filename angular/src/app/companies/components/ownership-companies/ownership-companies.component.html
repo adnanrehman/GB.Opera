@@ -65,13 +65,8 @@
             </p-autoComplete>
             </div>
             <div class="col-md-4">
- 
-              <a href="#" class="btn btn-primary btn-sm me-1" (click)="addNewCompanySubsidiary()"><i class="fa fa-plus"></i> Add New</a>
-              
- 
               <a href="#" class="btn btn-primary btn-sm me-1" (click)="addNewOwnership()"><i class="fa fa-plus"></i> Add New</a>
               <a href="#" class="btn btn-success btn-sm me-1" (click)="saveOwnership()"><i class="fa fa-save"></i> Save</a>
- 
               <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
             </div>
           </div>
@@ -217,20 +212,12 @@
                 </div> -->
                 <div class="row mt-2">
                   <div class="col-md-6">
-<<<<<<< HEAD
-                    <label class="col-form-label">Description</label>
-=======
                     <label class="col-form-label">Priciple Activity</label>
->>>>>>> 5034ee416a7c3a5aa114e5c872f8ba4c3af9a99e
                     <textarea rows="3" class="form-control" [(ngModel)]="subsidiary.principalActivity" name="principalActivity" placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
-<<<<<<< HEAD
-                    <label class="col-form-label">Description (AR)</label>
-=======
                     <label class="col-form-label">Priciple Activity (AR)</label>
->>>>>>> 5034ee416a7c3a5aa114e5c872f8ba4c3af9a99e
                     <textarea rows="3" class="form-control" [(ngModel)]="subsidiary.aPrincipalActivity" name="aPrincipalActivity" placeholder="Describe here...">
                     </textarea>
                   </div>
@@ -262,14 +249,7 @@
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-<<<<<<< HEAD
-                        <tr>
-                          <td class="text-center">
-                            <!-- <p-tableCheckbox [value]="item"></p-tableCheckbox> -->
-                          </td>
-=======
                         <tr (click)="handleSubsidiary(item)">
->>>>>>> 5034ee416a7c3a5aa114e5c872f8ba4c3af9a99e
                           <td>{{ item.subsidiaryCompany }}</td>
                           <td>{{ item.share }}</td>
                           <td>{{ item.principalActivity }}</td>
@@ -370,12 +350,7 @@
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-<<<<<<< HEAD
-                        <tr>
-                          <td class="text-center"></td>
-=======
                         <tr (click)="handlesiterCompany(item)">
->>>>>>> 5034ee416a7c3a5aa114e5c872f8ba4c3af9a99e
                           <td>{{ item.sisterCompany }}</td>
                           <td>{{ item.relation }}</td>
                         </tr>
@@ -495,16 +470,9 @@
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-<<<<<<< HEAD
-                        <tr>
-                          <td class="text-center"></td>
-                          <td>{{ item.companyProduct }}</td>
-                          <td>{{ item.launchDate }}</td>
-=======
                         <tr (click)="handlecompanyproduct(item)">
                           <td>{{ item.companyProduct }}</td>
                           <td>{{ item.launchDate | date: 'dd/MM/yyyy' }}</td>
->>>>>>> 5034ee416a7c3a5aa114e5c872f8ba4c3af9a99e
                           <td>{{ item.lastProduct }}</td>
                         </tr>
                       </ng-template>
@@ -627,13 +595,6 @@
                     <div class="col-md-6">
                       <label class="col-form-label">Activation</label>
                       <p-dropdown
- 
-                        [options]="activationDropdown"
-                        placeholder="Select a Activation"
-                        optionLabel="name"
-                        [style]="{ width: '100%' }"
-                        [showClear]="true"
- 
                       [(ngModel)]="companyrawmaterialActivation"
                       [ngModelOptions]="{ standalone: true }"
                       [options]="activationDropdown"
@@ -642,7 +603,6 @@
                       optionValue="value"
                       [style]="{ width: '100%' }"
                       [showClear]="true"
->>>>>>> 5034ee416a7c3a5aa114e5c872f8ba4c3af9a99e
                       >
                       </p-dropdown>
                     </div>
@@ -673,12 +633,7 @@
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
-<<<<<<< HEAD
-                          <tr>
-                            <td class="text-center"></td>
-=======
                           <tr (click)="handleCompanyRawMaterial(item)">
->>>>>>> 5034ee416a7c3a5aa114e5c872f8ba4c3af9a99e
                             <td>{{ item.rawMaterial }}</td>
                             <td>{{ item.currentProvider }}</td>
                             <td>{{ item.lastProvider }}</td>
@@ -738,13 +693,6 @@
                     <div class="col-md-6">
                       <label class="col-form-label">Activation</label>
                       <p-dropdown
- 
-                        [options]="activationDropdown"
-                        placeholder="Select a Activation"
-                        optionLabel="name"
-                        [style]="{ width: '100%' }"
-                        [showClear]="true"
- 
                       [(ngModel)]="companyFIPActivation"
                       [ngModelOptions]="{ standalone: true }"
                       [options]="activationDropdown"
@@ -753,7 +701,6 @@
                       optionValue="value"
                       [style]="{ width: '100%' }"
                       [showClear]="true"
- 
                       >
                       </p-dropdown>
                     </div>
@@ -800,12 +747,7 @@
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
-<<<<<<< HEAD
-                          <tr>
-                            <td class="text-center"></td>
-=======
                           <tr (click)="handlecompanyFIP(item)">
->>>>>>> 5034ee416a7c3a5aa114e5c872f8ba4c3af9a99e
                             <td>{{ item.permittedSharesToForeigners }}</td>
                             <td>{{ item.permittedSharesToGCCNationals }}</td>
                             <td>{{ item.permittedSharesToArabNationals }}</td>
@@ -885,14 +827,8 @@
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
-<<<<<<< HEAD
-                          <tr>
-                            <td class="text-center"></td>
-                            <td>{{ item.date }}</td>
-=======
                           <tr (click)="handlemiscNote(item)">
                             <td>{{ item.date | date: 'dd/MM/yyyy' }}</td>
->>>>>>> 5034ee416a7c3a5aa114e5c872f8ba4c3af9a99e
                             <td>{{ item.note }}</td>
                           </tr>
                         </ng-template>
