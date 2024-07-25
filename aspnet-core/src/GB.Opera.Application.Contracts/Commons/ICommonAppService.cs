@@ -16,6 +16,10 @@ namespace Commons
         Task<List<MarketLangAnnouncementDto>> GetMarketLangAnnouncements();
         Task<List<SectorDto>> GetCompMarketSectors(int marketID);
         Task<List<CompaniesTickerDto>> GetCompaniesTickers(int sectorID, int marketID);
+        Task<List<StockMarketDto>> GetStockMarkets();
+        Task<List<SectorDto>> GetStockMarketSectors(int stockMarketID);
+        Task<List<CompaniesTickerDto>> GetSectorCompanies(int sectorID, int stockMarketID);
+        Task<LangAnnounceTypeDto> GetLangAnnouceTypes();
 
 
     }

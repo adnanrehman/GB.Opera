@@ -68,6 +68,7 @@ namespace CompanyOwnerships
                 parameters.Add("@ASubsidiaryCompany", model.ASubsidiaryCompany);
                 parameters.Add("@Share", model.Share);
                 parameters.Add("@PrincipalActivity", model.PrincipalActivity);
+                parameters.Add("@APrincipalActivity", model.APrincipalActivity);
                 parameters.Add("@CustomOrder", model.CustomOrder);
                 parameters.Add("@CompanyTypeID", model.CompanyTypeID);
 
@@ -140,7 +141,7 @@ namespace CompanyOwnerships
                 parameters.Add("@IsActive", true);
                 parameters.Add("@CreationDate", DateTime.Now);
 
-                await _connection.ExecuteAsync("usp_InsertUpdateCompaniesProducts ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync("usp_InsertUpdateCompaniesProducts", parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
