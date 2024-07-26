@@ -14,6 +14,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { CompanyMutualFundDto, CompanyMutualFundService } from '@proxy/company-mutual-funds';
 import { CommonService } from '@proxy/commons';
 import Swal from 'sweetalert2';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-mutaul-funds',
@@ -32,6 +33,7 @@ import Swal from 'sweetalert2';
     ThemeSharedModule,
     ReactiveFormsModule,
     ListboxModule,
+    InputNumberModule,
     InputTextModule,
   ],
   templateUrl: './mutaul-funds.component.html',
@@ -61,6 +63,7 @@ export class MutaulFundsComponent {
   sectorDiversifications = [];
   majorInvestments = [];
   benchmarks = [];
+  currencies = [];
   portfolioTypes = [];
   mfListings = [];
   mfRisks = [];
@@ -123,6 +126,7 @@ export class MutaulFundsComponent {
       this.sectorDiversifications = res.sectorDiversifications;
       this.majorInvestments = res.majorInvestments;
       this.benchmarks = res.benchmarks;
+      this.currencies = res.currencies;
       this.portfolioTypes = res.portfolioTypes;
       this.mfListings = res.mfListings;
       this.mfRisks = res.mfRisks;
@@ -157,10 +161,16 @@ export class MutaulFundsComponent {
 
   handleCompanyMutualFund(mFundID:number) {
     debugger;
-    if(mFundID)
+    if(mFundID){
       this.companyMutualFund = this.companyMutualFunds.find(f => f.mFundID == mFundID);
-    else
+      this.mFundID = mFundID;
+    }
+      
+    else{
       this.companyMutualFund = this.companyMutualFunds[0];
+      this.mFundID = this.companyMutualFund.mFundID;
+    }
+      
     this.companyMutualFundActivation = this.companyMutualFund.isActive ? 1 : 0;
     this.mFundGeoDiversPercents = this.mFundGeoDiversPercentsList.filter(f => f.mFundID == mFundID);
     this.mFundAssestAllocsPercents = this.mFundAssestAllocsPercentsList.filter(f => f.mFundID == mFundID);
@@ -179,14 +189,16 @@ export class MutaulFundsComponent {
     debugger;
     this.loading = true;
     this.companyMutualFund.isActive = this.companyMutualFundActivation == 1 ? true : false;
+    this.companyMutualFund.companyID = this.companyID;
     this.companyMutualFundService.createOrUpdateCompanyMutualFundByModel(this.companyMutualFund).subscribe(res => {
       debugger;
       if(this.companyMutualFund.mFundID > 0){
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.companyMutualFund.name + ' updated successfully', icon: 'success', });
+        this.getCompanyMutualFundsByCompanyID();
       }
       else{
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.companyMutualFund.name + ' created successfully', icon: 'success', });
-
+        this.getCompanyMutualFundsByCompanyID();
       }
       this.handleCompanyMutualFund(this.companyMutualFund.mFundID);
 

@@ -108,7 +108,7 @@ export interface MFundMajorInvestPercentDto {
   mFundMajorInvestPercentID: number;
   mFundID: number;
   majorInvestmentID: number;
-  value?: number;
+  value?: string;
 }
 
 export interface MFundSectorDiversPercentDto {

@@ -134,12 +134,14 @@ namespace Commons
                 output.SectorDiversifications = reader.Read<SectorDiversificationDto>().ToList();
                 output.MajorInvestments = reader.Read<MajorInvestmentDto>().ToList();
                 output.Benchmarks = reader.Read<BenchmarkDto>().ToList();
+                output.Currencies = reader.Read<CurrencyDto>().ToList();
                 output.PortfolioTypes = reader.Read<PortfolioTypeDto>().ToList();
                 output.MFListings = reader.Read<MFListingDto>().ToList();
                 output.MFRisks = reader.Read<MFRiskDto>().ToList();
                 output.MFClassifications = reader.Read<MFClassificationDto>().ToList();
-                output.MFCategories = reader.Read<MFCategoryDto>().ToList();
                 output.MFSubCategories = reader.Read<MFSubCategoryDto>().ToList();
+                output.MFCategories = reader.Read<MFCategoryDto>().ToList();
+                
                 return output;
             }
             catch (Exception ex)

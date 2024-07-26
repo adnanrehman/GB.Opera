@@ -16,6 +16,7 @@ namespace Commons
             SectorDiversifications = new List<SectorDiversificationDto>();
             MajorInvestments = new List<MajorInvestmentDto>();
             Benchmarks = new List<BenchmarkDto>();
+            Currencies = new List<CurrencyDto>();
             PortfolioTypes = new List<PortfolioTypeDto>();
             MFListings = new List<MFListingDto>();
             MFRisks = new List<MFRiskDto>();
@@ -29,6 +30,7 @@ namespace Commons
         public List<SectorDiversificationDto> SectorDiversifications { get; set; }
         public List<MajorInvestmentDto> MajorInvestments { get; set; }
         public List<BenchmarkDto> Benchmarks { get; set; }
+        public List<CurrencyDto> Currencies { get; set; }
         public List<PortfolioTypeDto> PortfolioTypes { get; set; }
         public List<MFListingDto> MFListings { get; set; }
         public List<MFRiskDto> MFRisks { get; set; }

@@ -49,6 +49,7 @@
     </div>
     <div class="col-md-9">
       <div class="card">
+        <form #mutualFundForm="ngForm" (ngSubmit)="createOrUpdateCompanyMutualFund()">
         <div class="card-body p-2">
           <div class="row">
             <div class="col-md-8">
@@ -65,8 +66,10 @@
               </p-autoComplete>
             </div>
             <div class="col-md-4">
-              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
-              <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              <a href="#" class="btn btn-primary btn-sm me-1" (click)="addNewCompanyMutualFund()"><i class="fa fa-plus"></i> Add New</a>
+                <button type="submit" [attr.disabled]="!mutualFundForm.valid ? true : null" class="btn btn-success btn-sm me-1"
+                  ><i class="fa fa-save"></i> Save</button
+                >
               <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
             </div>
           </div>
@@ -78,16 +81,23 @@
                     <label class="col-form-label">Short Name</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.shortName"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
+                      required="true"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="shortName"
                       placeholder="Short Name"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aShortName"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aShortName"
                       placeholder="Short Name (AR)"
                     />
                   </div>
@@ -95,16 +105,23 @@
                     <label class="col-form-label">Name</label>
                     <input
                       autofocus
+                      required="true"
+                      [(ngModel)]="companyMutualFund.name"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="name"
                       placeholder="Name"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aName"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aName"
                       placeholder="Name (AR)"
                     />
                   </div>
@@ -112,16 +129,22 @@
                     <label class="col-form-label">Manager</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.manager"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="manager"
                       placeholder="Manager"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aManager"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aManager"
                       placeholder="Manager (AR)"
                     />
                   </div>
@@ -130,20 +153,26 @@
                   <div class="col-md-4">
                     <label class="col-form-label">Currency</label>
                     <p-dropdown
-                      [options]="markets"
+                      [options]="currencies"
+                      [(ngModel)]="companyMutualFund.currencyID"
                       placeholder="Select a Currency"
-                      optionLabel="name"
+                      optionLabel="currency"
+                      optionValue="currencyID"
                       [style]="{ width: '100%' }"
                       [showClear]="true"
                     >
                     </p-dropdown>
                   </div>
                   <div class="col-md-4">
-                    <label class="col-form-label">Gory</label>
+                    <label class="col-form-label">Category</label>
                     <p-dropdown
-                      [options]="markets"
-                      placeholder="Select a Gory"
-                      optionLabel="name"
+                      [options]="mfCategories"
+                      required="true"
+                      [(ngModel)]="companyMutualFund.categoryID"
+                      [ngModelOptions]="{ standalone: true }"
+                      placeholder="Select a Category"
+                      optionLabel="category"
+                      optionValue="categoryID"
                       [style]="{ width: '100%' }"
                       [showClear]="true"
                     >
@@ -152,9 +181,13 @@
                   <div class="col-md-4">
                     <label class="col-form-label">Sub Category</label>
                     <p-dropdown
-                      [options]="markets"
+                      [options]="mfSubCategories"
+                      required="true"
+                      [(ngModel)]="companyMutualFund.subCategoryID"
+                      [ngModelOptions]="{ standalone: true }"
                       placeholder="Select a Sub Category"
-                      optionLabel="name"
+                      optionLabel="subCategory"
+                      optionValue="subCategoryID"
                       [style]="{ width: '100%' }"
                       [showClear]="true"
                     >
@@ -163,9 +196,12 @@
                   <div class="col-md-4">
                     <label class="col-form-label">Classification</label>
                     <p-dropdown
-                      [options]="markets"
+                      [options]="mfClassifications"
+                      [(ngModel)]="companyMutualFund.classificationID"
+                      [ngModelOptions]="{ standalone: true }"
                       placeholder="Select a Classification"
-                      optionLabel="name"
+                      optionLabel="classification"
+                      optionValue="classificationID"
                       [style]="{ width: '100%' }"
                       [showClear]="true"
                     >
@@ -174,9 +210,12 @@
                   <div class="col-md-4">
                     <label class="col-form-label">Listing</label>
                     <p-dropdown
-                      [options]="markets"
+                      [options]="mfListings"
+                      [(ngModel)]="companyMutualFund.listingID"
+                      [ngModelOptions]="{ standalone: true }"
                       placeholder="Select a Listing"
-                      optionLabel="name"
+                      optionLabel="listing"
+                      optionValue="listingID"
                       [style]="{ width: '100%' }"
                       [showClear]="true"
                     >
@@ -185,8 +224,12 @@
                   <div class="col-md-4">
                     <label class="col-form-label">Management Fees</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Management Fees" />
+                      <p-inputNumber type="text" [minFractionDigits]="2" class="form-control" mode="decimal" [(ngModel)]="companyMutualFund.managementFee" name="managementFee"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText placeholder="Management Fees" >
+                    </p-inputNumber>
                       <span class="input-group-text">%</span>
+                    
                     </div>
                   </div>
                 </div>
@@ -195,16 +238,22 @@
                     <label class="col-form-label">Mang Fee Type</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.managementFeeType"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="managementFeeType"
                       placeholder="Mang Fee Type"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aManagementFeeType"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aManagementFeeType"
                       placeholder="Mang Fee Type (AR)"
                     />
                   </div>
@@ -212,35 +261,47 @@
                     <label class="col-form-label">Fee Description</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.feeDescription"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="feeDescription"
                       placeholder="Fee Description"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aFeeDescription"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aFeeDescription"
                       placeholder="Fee Description (AR)"
                     />
                   </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Additional Subs</label>
-                    <input
+                    <p-inputNumber
                       autofocus
-                      type="text"
+                      [(ngModel)]="companyMutualFund.additionalSubscription"
+                      [ngModelOptions]="{ standalone: true }"
+                      [minFractionDigits]="2"
+                      mode="decimal"
                       class="form-control"
-                      name="Company"
+                      name="additionalSubscription"
                       placeholder="Additional Subs"
-                    />
-                    <input
+                    ></p-inputNumber>
+                    <!-- <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.additionalSubscription"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="additionalSubscription"
                       placeholder="Additional Subs (AR)"
-                    />
+                    /> -->
                   </div>
                 </div>
                 <div class="row">
@@ -248,16 +309,22 @@
                     <label class="col-form-label">Announced On</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.announceOn"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="announceOn"
                       placeholder="Announced On"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aAnnounceOn"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aAnnounceOn"
                       placeholder="Announced On (AR)"
                     />
                   </div>
@@ -265,16 +332,22 @@
                     <label class="col-form-label">Investment Manage</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.investmentManager"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="investmentManager"
                       placeholder="Investment Manage"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aInvestmentManager"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aInvestmentManager"
                       placeholder="Investment Manage (AR)"
                     />
                   </div>
@@ -282,16 +355,22 @@
                     <label class="col-form-label">Administrator</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.administrator"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="administrator"
                       placeholder="Administrator"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aAdministrator"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aAdministrator"
                       placeholder="Administrator (AR)"
                     />
                   </div>
@@ -301,16 +380,22 @@
                     <label class="col-form-label">Auditor</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.auditor"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="auditor"
                       placeholder="Auditor"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aAuditor"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aAuditor"
                       placeholder="Auditor (AR)"
                     />
                   </div>
@@ -318,16 +403,22 @@
                     <label class="col-form-label">Custodian</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.custodian"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="custodian"
                       placeholder="Custodian"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aCustodian"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aCustodian"
                       placeholder="Custodian (AR)"
                     />
                   </div>
@@ -335,16 +426,22 @@
                     <label class="col-form-label">Management Team</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.managementTeam"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="managementTeam"
                       placeholder="Management Team"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aManagementTeam"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aManagementTeam"
                       placeholder="Management Team (AR)"
                     />
                   </div>
@@ -354,16 +451,22 @@
                     <label class="col-form-label">Subs Deadline</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.subscriptionDeadLine"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="subscriptionDeadLine"
                       placeholder="Subs Deadline"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aSubscriptionDeadLine"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aSubscriptionDeadLine"
                       placeholder="Subs Deadline (AR)"
                     />
                   </div>
@@ -371,16 +474,22 @@
                     <label class="col-form-label">Redem Deadline</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.redemptionDeadLine"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="redemptionDeadLine"
                       placeholder="Redem Deadline"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aRedemptionDeadLine"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aRedemptionDeadLine"
                       placeholder="Redem Deadline (AR)"
                     />
                   </div>
@@ -388,16 +497,22 @@
                     <label class="col-form-label">Valuation Date</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.valuationDate"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="valuationDate"
                       placeholder="Valuation Date"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aValuationDate"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aValuationDate"
                       placeholder="Valuation Date (AR)"
                     />
                   </div>
@@ -405,20 +520,25 @@
                 <div class="row">
                   <div class="col-md-4">
                     <label class="col-form-label">Inception Fee</label>
-                    <input
+                    <p-inputNumber
                       autofocus
-                      type="text"
+                      [(ngModel)]="companyMutualFund.priceAtInception"
+                      [ngModelOptions]="{ standalone: true }"                      
+                      mode="decimal"
                       class="form-control"
-                      name="Company"
+                      name="priceAtInception"
                       placeholder="Inception Fee"
-                    />
+                      ></p-inputNumber>
                   </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Risks</label>
                     <p-dropdown
-                      [options]="markets"
+                      [options]="mfRisks"
+                      [(ngModel)]="companyMutualFund.riskID"
+                      [ngModelOptions]="{ standalone: true }"
                       placeholder="Select a Risk"
-                      optionLabel="name"
+                      optionLabel="risk"
+                      optionValue="riskID"
                       [style]="{ width: '100%' }"
                       [showClear]="true"
                     >
@@ -426,20 +546,26 @@
                   </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Fund Assets</label>
-                    <input
+                    <p-inputNumber
                       autofocus
-                      type="text"
+                      [(ngModel)]="companyMutualFund.fundAssets"
+                      [ngModelOptions]="{ standalone: true }"
+                      
+                      mode="decimal"
                       class="form-control"
-                      name="Company"
+                      name="fundAssets"
                       placeholder="Fund Assets"
-                    />
+                      ></p-inputNumber>
                   </div>
                   <div class="col-md-8">
                     <label class="col-form-label">Bench Marks</label>
                     <p-dropdown
-                      [options]="markets"
+                      [options]="benchmarks"
+                      [(ngModel)]="companyMutualFund.benchmarkID"
+                      [ngModelOptions]="{ standalone: true }"
                       placeholder="Select a Bench Mark"
-                      optionLabel="name"
+                      optionLabel="benchmark"
+                      optionValue="benchmarkID"
                       [style]="{ width: '100%' }"
                       [showClear]="true"
                     >
@@ -448,7 +574,9 @@
                   <div class="col-md-4">
                     <label class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <div class="form-check me-2">
-                      <input class="form-check-input" type="checkbox" />
+                      <input class="form-check-input" [(ngModel)]="companyMutualFund.isActive" name="isActive"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText type="checkbox" />
                       <label class="form-check-label" for="defaultCheck3">Active</label>
                     </div>
                   </div>
@@ -458,84 +586,112 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Fund Objective</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.fundObjective" name="fundObjective"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Fund Objective (AR)</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.aFundObjective" name="aFundObjective"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Investment Policy</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.investmentPolicy" name="investmentPolicy"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Investment Policy (AR)</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.aInvestmentPolicy" name="aInvestmentPolicy"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Risk Profile</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.riskProfile" name="riskProfile"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Risk Profile (AR)</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.aRiskProfile" name="aRiskProfile"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Funds Benefits</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.fundsBenefits" name="fundsBenefits"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Funds Benefits (AR)</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.aFundsBenefits" name="aFundsBenefits"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Funds Components</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.fundsComponents" name="fundsComponents"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Funds Components (AR)</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.aFundsComponents" name="aFundsComponents"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Funds Manager Comments</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.fundManagerComments" name="fundManagerComments"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Funds Manager Comments (AR)</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.aFundManagerComments" name="aFundManagerComments"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Unit Price Calculation</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.unitPriceCalculation" name="unitPriceCalculation"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Unit Price Calculation (AR)</label>
-                    <textarea rows="5" class="form-control" placeholder="Describe here...">
+                    <textarea rows="5" class="form-control" [(ngModel)]="companyMutualFund.aUnitPriceCalculation" name="aUnitPriceCalculation"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
@@ -777,16 +933,21 @@
                     <label class="col-form-label col-4">City</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.city"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="city"
                       placeholder="City"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aCity"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aCity"
                       placeholder="City (AR)"
                     />
                   </div>
@@ -794,16 +955,22 @@
                     <label class="col-form-label col-4">Address</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.streetAddress"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="streetAddress"
                       placeholder="Address"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aStreetAddress"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aStreetAddress"
                       placeholder="Address (AR)"
                     />
                   </div>
@@ -813,9 +980,12 @@
                     <label class="col-form-label col-4">Website</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.website"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="website"
                       placeholder="Website"
                     />
                   </div>
@@ -823,9 +993,12 @@
                     <label class="col-form-label col-4">Email</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.email"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="email"
                       placeholder="Email"
                     />
                   </div>
@@ -833,9 +1006,12 @@
                     <label class="col-form-label col-4">Postal Code</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.poBox"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="poBox"
                       placeholder="Postal Code"
                     />
                   </div>
@@ -843,9 +1019,12 @@
                     <label class="col-form-label col-4">Telephone</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.telephone"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="telephone"
                       placeholder="Telephone"
                     />
                   </div>
@@ -853,9 +1032,12 @@
                     <label class="col-form-label col-4">Mobile</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.cell"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="cell"
                       placeholder="Mobile"
                     />
                   </div>
@@ -863,9 +1045,12 @@
                     <label class="col-form-label col-4">Fax</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.fax"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="fax"
                       placeholder="Fax"
                     />
                   </div>
@@ -875,16 +1060,22 @@
                     <label class="col-form-label col-4">P.O Box</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.poBox"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="poBox"
                       placeholder="P.O Box"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.apoBox"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="apoBox"
                       placeholder="P.O Box (AR)"
                     />
                   </div>
@@ -892,16 +1083,22 @@
                     <label class="col-form-label col-4">Telex</label>
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.telex"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control"
-                      name="Company"
+                      name="telex"
                       placeholder="Telex"
                     />
                     <input
                       autofocus
+                      [(ngModel)]="companyMutualFund.aTelex"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
                       type="text"
                       class="form-control mt-2"
-                      name="Company"
+                      name="aTelex"
                       placeholder="Telex (AR)"
                     />
                   </div>
@@ -911,24 +1108,32 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Search Tags</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3" class="form-control" [(ngModel)]="companyMutualFund.searchTags" name="searchTags"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Search Tags (AR)</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3" class="form-control" [(ngModel)]="companyMutualFund.aSearchTags" name="aSearchTags"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <label class="col-form-label">Page Descriptions</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3" class="form-control" [(ngModel)]="companyMutualFund.pageDescription" name="pageDescription"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Page Descriptions (AR)</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe here...">
+                    <textarea rows="3" class="form-control" [(ngModel)]="companyMutualFund.aPageDescription" name="aPageDescription"
+                    [ngModelOptions]="{ standalone: true }"
+                    pInputText placeholder="Describe here...">
                     </textarea>
                   </div>
                 </div>
@@ -942,6 +1147,7 @@
             </p-tabView>
           </div>
         </div>
+      </form>
       </div>
     </div>
   </div>

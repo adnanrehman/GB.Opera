@@ -57,6 +57,7 @@ export interface CompanyWithHasFundDto {
   sectorDiversifications: SectorDiversificationDto[];
   majorInvestments: MajorInvestmentDto[];
   benchmarks: BenchmarkDto[];
+  currencies: CurrencyDto[];
   portfolioTypes: PortfolioTypeDto[];
   mfListings: MFListingDto[];
   mfRisks: MFRiskDto[];

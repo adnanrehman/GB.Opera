@@ -6741,6 +6741,18 @@
           "regex": null
         },
         {
+          "name": "Currencies",
+          "jsonName": null,
+          "type": "[Commons.CurrencyDto]",
+          "typeSimple": "[Commons.CurrencyDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "PortfolioTypes",
           "jsonName": null,
           "type": "[Commons.PortfolioTypeDto]",
@@ -11537,8 +11549,8 @@
         {
           "name": "Value",
           "jsonName": null,
-          "type": "System.Decimal?",
-          "typeSimple": "number?",
+          "type": "System.String",
+          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
