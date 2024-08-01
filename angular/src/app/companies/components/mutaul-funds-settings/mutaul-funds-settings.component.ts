@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from "primeng/dropdown"; 
 import { CalendarModule } from 'primeng/calendar';
@@ -7,47 +7,83 @@ import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
+import { CompanyMutualFundSettingService } from '@proxy/company-mutual-fund-settings';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { ListboxModule } from 'primeng/listbox';
 
 @Component({
   selector: 'app-mutaul-funds-settings',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule ],
+  imports: [    CommonModule,
+    TableModule,
+    TabViewModule,
+    AutoCompleteModule,
+    FormsModule,
+    DropdownModule,
+    CalendarModule,
+    ImageModule,
+    FileUploadModule,
+    NgFor,
+    NgIf,
+    ThemeSharedModule,
+    ReactiveFormsModule,
+    ListboxModule,
+    InputNumberModule,
+    InputTextModule, ],
   templateUrl: './mutaul-funds-settings.component.html',
   styleUrl: './mutaul-funds-settings.component.scss'
 })
 export class MutaulFundsSettingsComponent {
   filteredCountries: any[];
-  subsidiaries: any[] = [ 
-    { company: "Assets Allocation",share:"23.45",pa:"Traveler Cheques",order:"المرابحة و الودائع الثابتة الصكوك أسهم" }, 
-    { company: "Murabaha & Fixed Deposits",share:"25.25",pa:"Financial Services",order:"العقارات" }, 
-    { company: "Sukuk",share:"75.14",pa:"Real Estates",order:"صناديق سوق النقد" }, 
-    { company: "Equities",share:"25.69",pa:"Traveler Cheques",order:"النقد و ما يعادله" }, 
-    { company: "Real Estate",share:"56.56",pa:"Financial Services",order:"أدوات النقد الإسلامية |" }, 
-    { company: "Money Market Funds",share:"85.65",pa:"Real Estates",order:"السندات" }, 
-    { company: "Cash & Cash Equivalents",share:"85.65",pa:"Real Estates",order:"أسهم خليجية" }, 
-    { company: "Islamic Instruments",share:"85.65",pa:"Real Estates",order:"الدخل الثابت" }, 
-    { company: "Bonds",share:"85.65",pa:"Real Estates",order:"التحويلات" }, 
-    { company: "Bond Funds",share:"85.65",pa:"Real Estates",order:"الطرح المبدئي العام " }, 
-    { company: "UAE Equity",share:"85.65",pa:"Real Estates",order:"المرابحة" }, 
-    { company: "Non UAE Equity",share:"85.65",pa:"Real Estates",order:"الودائع الإسلامية والنقد" }, 
-    { company: "Cash",share:"85.65",pa:"Real Estates",order:"استراتيجيات بديلة" }, 
-    { company: "Fixed Income",share:"85.65",pa:"Real Estates",order:"استراتيجيات بديلة" }, 
-  ];
+  assetsAllocations = [];
+  geoDiversifications = [];
+  sectorDiversifications = [];
+  majorInvestments = [];
+  benchmarks = [];
+  portfolioTypes = [];
+  mfListings = [];
+  mfRisks = [];
+  mfClassifications = [];
+  mfCategories = [];
+  mfSubCategories = [];
+  settingID:number = 1;
+  companyMutualFundSettings: any[] =[
+    {settingID:1, settingName:"Assets Allocations"},
+    {settingID:2, settingName:"Benchmarks"},
+    {settingID:3, settingName:"Categories"},
+    {settingID:4, settingName:"Classifications"},
+    {settingID:5, settingName:"Geo Dirversifications"},
+    {settingID:6, settingName:"Listings"},
+    {settingID:7, settingName:"Major Invetsments"},
+    {settingID:8, settingName:"Portfolio Types"},
+    {settingID:9, settingName:"Risks"},
+    {settingID:10, settingName:"Sector Dirversifications"},
+    {settingID:11, settingName:"Sub Categories"},
+  ]
 
-
-  markets = [ 
-    { name: "TASI" }, 
-    { name: "ReactJS" }, 
-    { name: "Angular" }, 
-    { name: "Bootstrap" }, 
-    { name: "PrimeNG" }, 
-  ];
+  constructor(
+    private companyMutualFundSettingService: CompanyMutualFundSettingService
+  ) {}
   ngOnInit() { 
-    this.filteredCountries = [
-      {name: "RIBL",code:'rible'},
-      {name: "Suadia Arabia",code:'KSA'},
-      {name: "Dubai",code:'UAE'},
-      {name: "IRAN",code:'IR'},
-    ]
+    this.getCompanyMutualFundSettings();
+  }
+
+  getCompanyMutualFundSettings() {
+    this.companyMutualFundSettingService.getCompanyMutualFundSettings().subscribe(res => {
+      this.assetsAllocations = res.assetsAllocations;
+      this.geoDiversifications = res.geoDiversifications;
+      this.sectorDiversifications = res.sectorDiversifications;
+      this.majorInvestments = res.majorInvestments;
+      this.benchmarks = res.benchmarks;
+      this.portfolioTypes = res.portfolioTypes;
+      this.mfListings = res.mfListings;
+      this.mfRisks = res.mfRisks;
+      this.mfClassifications = res.mfClassifications;
+      this.mfCategories = res.mfCategories;
+      this.mfSubCategories = res.mfSubCategories;
+    });
   }
 }
