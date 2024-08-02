@@ -1,12 +1,16 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
     <div class="row mb-2">
       <div class="col-md-3">
         <div class="row mb-2">
           <div class="col-md-12">
             <p-dropdown
-              [options]="markets"
+              [options]="marketLangAnnouncement"
+              [(ngModel)]="stockMarketID"
+              name="stockMarketID"
               placeholder="Select a Market"
-              optionLabel="name"
+              optionLabel="abbr"
+              optionValue="stockMarketID"
+              (ngModelChange)="getCompMarketSectorsByMarketID()"
               [style]="{ width: '100%' }"
               [showClear]="true"
             >
@@ -14,9 +18,13 @@
           </div>
           <div class="col-md-12 mt-2">
             <p-dropdown
-              [options]="markets"
+              [options]="companyMarketSectors"
+              [(ngModel)]="sectorID"
+              name="sectorID"
               placeholder="Select a Sector"
-              optionLabel="name"
+              optionLabel="sector"
+              optionValue="sectorID"
+              (ngModelChange)="getCompaniesTickersBySectorIDAndMarketID()"
               [style]="{ width: '100%' }"
               [showClear]="true"
             >
@@ -25,35 +33,51 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <h6>Companies</h6>
-            <div class="card">
-              <div class="card-body p-0">
-                <h6 class="selector p-1 mb-1 border-bottom">ACDB</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">AVD</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">HGFA</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">KJUYA</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">ADEF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">DDEDW</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDAD</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">DFES</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
-              </div>
-            </div>
+            <h6 class="p-1 mb-1">Companies</h6>
+            <p-listbox
+              [options]="companiesTickers"
+              [(ngModel)]="companyID"
+              name="companyID"
+              (click)="getCompaniesFactsByCompanyID()"
+              optionLabel="ticker"
+              optionValue="companyID"
+              [style]="{ width: '100%' }"
+              [listStyle]="{ 'max-height': '30rem' }"
+            />
           </div>
         </div>
       </div>
       <div class="col-md-9">
         <div class="card">
           <div class="card-body p-2">
+            <div class="row">
+              <div class="col-md-12">
+                <p-autoComplete
+                [(ngModel)]="selectedItem"
+                [ngModelOptions]="{ standalone: true }"
+                (onSelect)="onSelect($event)"
+                [suggestions]="suggestions"
+                (completeMethod)="search($event)"
+                [style]="{ width: '100%' }"
+                field="company"
+                placeholder="Search by Companies or Tickers"
+                [inputStyle]="{ width: '100%' }"
+              >
+              </p-autoComplete>
+              </div>
+            </div>
             <div class="row mt-2">
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body p-1">
-                            <p-tree [value]="tree" selectionMode="single"></p-tree>
+                          <p-tree [value]="factsOwnershipMappings" selectionMode="single" (onNodeSelect)="onNodeClick($event)">
+                            <ng-template let-node pTemplate="default">
+                              <span pTooltip="{{ node.aGbOwnership }}" tooltipPosition="top">
+                                
+                                {{ node.label }}
+                              </span>
+                            </ng-template>
+                          </p-tree>
                         </div>
                     </div>
                     
@@ -63,11 +87,17 @@
                         <div class="card-body p-1">
                             <div class="row">
                                 <div class="col-md-4">
-                                    Facts:
+                                    {{companyOwnershipFact.facts}}:
                                 </div>
                                 <div class="col-md-5">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Percentage">
+                                        <input [(ngModel)]="companyOwnershipFact.value"
+                                        autofocus
+                                        name="value"
+                                        type="text"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        [ngModelOptions]="{ standalone: true }"
+                                        pInputText class="form-control" placeholder="Percentage">
                                         <span class="input-group-text">%</span>
                                       </div>
                                 </div>
@@ -76,14 +106,38 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <h6>Preview:</h6>
-                                    <div class="card">
-                                        <div class="card-body" style="height: 400px; background-color: darkgrey;">
-    
-                                        </div>
+                              <div class="col-md-12">
+                                <p-table
+                                  #dt
+                                  [value]="companyOwnerships"
+                                  [scrollable]="true" 
+                                  scrollHeight="25rem"
+                                  responsiveLayout="stack"
+                                  styleClass="p-datatable-gridlines"
+                                >
+                                  <ng-template pTemplate="caption">
+                                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                                      <div class="mr-auto p-2">
+                                        <span>
+                                          <h5>Preview</h5>
+                                        </span>
+                                      </div>
                                     </div>
-                                </div>
+                                  </ng-template>
+                                  <ng-template pTemplate="header">
+                                    <tr>
+                                      <th>Facts</th>
+                                      <th>Figures</th>
+                                    </tr>
+                                  </ng-template>
+                                  <ng-template pTemplate="body" let-item>
+                                    <tr (click)="handleCompanyOwnershipFact(item)"> 
+                                      <td>{{ item.facts }}</td>
+                                      <td>{{ item.figures }}</td>
+                                    </tr>
+                                  </ng-template>
+                                </p-table>
+                              </div>
                                 
                             </div>
                         </div>

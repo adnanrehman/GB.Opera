@@ -76,6 +76,13 @@ export interface CurrencyDto {
   isActive: boolean;
 }
 
+export interface FactsOwnershipMappingDto {
+  gbOwnershipID: number;
+  parentID: number;
+  gbOwnership?: string;
+  agbOwnership?: string;
+}
+
 export interface GBIndustrialGroupDto {
   gbIndustrialGroupID: number;
   gbSectorID: number;

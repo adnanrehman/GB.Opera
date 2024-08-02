@@ -1051,6 +1051,14 @@
                     "type": "Commons.CompanyWithHasFundDto",
                     "typeSimple": "Commons.CompanyWithHasFundDto"
                   }
+                },
+                {
+                  "name": "GetAllFactsOwnershipMappings",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Commons.FactsOwnershipMappingDto>",
+                    "typeSimple": "[Commons.FactsOwnershipMappingDto]"
+                  }
                 }
               ]
             }
@@ -1411,6 +1419,21 @@
               "returnValue": {
                 "type": "Commons.CompanyWithHasFundDto",
                 "typeSimple": "Commons.CompanyWithHasFundDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.ICommonAppService"
+            },
+            "GetAllFactsOwnershipMappings": {
+              "uniqueName": "GetAllFactsOwnershipMappings",
+              "name": "GetAllFactsOwnershipMappings",
+              "httpMethod": "GET",
+              "url": "api/app/common/facts-ownership-mappings",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Commons.FactsOwnershipMappingDto>",
+                "typeSimple": "[Commons.FactsOwnershipMappingDto]"
               },
               "allowAnonymous": null,
               "implementFrom": "Commons.ICommonAppService"
@@ -2491,6 +2514,132 @@
               },
               "allowAnonymous": null,
               "implementFrom": "CompanyMutualFundSettings.ICompanyMutualFundSettingAppService"
+            }
+          }
+        },
+        "CompanyOwnershipFacts.CompanyOwnershipFactAppService": {
+          "controllerName": "CompanyOwnershipFact",
+          "controllerGroupName": "CompanyOwnershipFact",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "CompanyOwnershipFacts.CompanyOwnershipFactAppService",
+          "interfaces": [
+            {
+              "type": "CompanyOwnershipFacts.ICompanyOwnershipFactAppService",
+              "name": "ICompanyOwnershipFactAppService",
+              "methods": [
+                {
+                  "name": "GetCompanyOwnershipPreview",
+                  "parametersOnMethod": [
+                    {
+                      "name": "companyID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<CompanyOwnershipFacts.CompanyOwnershipFactDto>",
+                    "typeSimple": "[CompanyOwnershipFacts.CompanyOwnershipFactDto]"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateCompanyOwnerships",
+                  "parametersOnMethod": [
+                    {
+                      "name": "dto",
+                      "typeAsString": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto, GB.Opera.Application.Contracts",
+                      "type": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto",
+                      "typeSimple": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto",
+                    "typeSimple": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetCompanyOwnershipPreviewByCompanyID": {
+              "uniqueName": "GetCompanyOwnershipPreviewByCompanyID",
+              "name": "GetCompanyOwnershipPreview",
+              "httpMethod": "GET",
+              "url": "api/app/company-ownership-fact/company-ownership-preview",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyID",
+                  "name": "companyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<CompanyOwnershipFacts.CompanyOwnershipFactDto>",
+                "typeSimple": "[CompanyOwnershipFacts.CompanyOwnershipFactDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnershipFacts.ICompanyOwnershipFactAppService"
+            },
+            "CreateOrUpdateCompanyOwnershipsByDto": {
+              "uniqueName": "CreateOrUpdateCompanyOwnershipsByDto",
+              "name": "CreateOrUpdateCompanyOwnerships",
+              "httpMethod": "POST",
+              "url": "api/app/company-ownership-fact/or-update-company-ownerships",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "dto",
+                  "typeAsString": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto, GB.Opera.Application.Contracts",
+                  "type": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto",
+                  "typeSimple": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "dto",
+                  "name": "dto",
+                  "jsonName": null,
+                  "type": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto",
+                  "typeSimple": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto",
+                "typeSimple": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnershipFacts.ICompanyOwnershipFactAppService"
             }
           }
         },
@@ -7374,6 +7523,63 @@
         }
       ]
     },
+    "Commons.FactsOwnershipMappingDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "GBOwnershipID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ParentID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GBOwnership",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AGBOwnership",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "Commons.GBIndustrialGroupDto": {
       "baseType": null,
       "isEnum": false,
@@ -12240,6 +12446,120 @@
           "jsonName": null,
           "type": "[Commons.MFSubCategoryDto]",
           "typeSimple": "[Commons.MFSubCategoryDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompanyOwnershipFacts.CompanyOwnershipFactDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CompOwnershipID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Facts",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "aFacts",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Figures",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompanyOwnershipFacts.CompanyOwnershipFactEditDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "GBOwnershipID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ParentID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Value",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

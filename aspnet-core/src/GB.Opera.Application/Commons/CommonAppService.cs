@@ -151,6 +151,22 @@ namespace Commons
 
         }
 
+        public async Task<List<FactsOwnershipMappingDto>> GetAllFactsOwnershipMappings()
+        {
+            try
+            {
+                var data = (await _connection.QueryAsync<FactsOwnershipMappingDto>(sql: "usp_getAllFactsOwnershipMappings",
+                                commandType: CommandType.StoredProcedure)).ToList();
+                return data;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
 
 
 
