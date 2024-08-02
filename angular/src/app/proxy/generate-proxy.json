@@ -1697,6 +1697,132 @@
             }
           }
         },
+        "CompanyFactOrders.CompanyFactOrderAppService": {
+          "controllerName": "CompanyFactOrder",
+          "controllerGroupName": "CompanyFactOrder",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "CompanyFactOrders.CompanyFactOrderAppService",
+          "interfaces": [
+            {
+              "type": "CompanyFactOrders.ICompanyFactOrderAppService",
+              "name": "ICompanyFactOrderAppService",
+              "methods": [
+                {
+                  "name": "GetCompaniesFactOrders",
+                  "parametersOnMethod": [
+                    {
+                      "name": "companyID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<CompanyFactOrders.CompanyFactOrderDto>",
+                    "typeSimple": "[CompanyFactOrders.CompanyFactOrderDto]"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateCompanyFactOrder",
+                  "parametersOnMethod": [
+                    {
+                      "name": "list",
+                      "typeAsString": "System.Collections.Generic.List`1[[CompanyFactOrders.CompanyFactOrderDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<CompanyFactOrders.CompanyFactOrderDto>",
+                      "typeSimple": "[CompanyFactOrders.CompanyFactOrderDto]",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<CompanyFactOrders.CompanyFactOrderDto>",
+                    "typeSimple": "[CompanyFactOrders.CompanyFactOrderDto]"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetCompaniesFactOrdersByCompanyID": {
+              "uniqueName": "GetCompaniesFactOrdersByCompanyID",
+              "name": "GetCompaniesFactOrders",
+              "httpMethod": "GET",
+              "url": "api/app/company-fact-order/companies-fact-orders",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyID",
+                  "name": "companyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<CompanyFactOrders.CompanyFactOrderDto>",
+                "typeSimple": "[CompanyFactOrders.CompanyFactOrderDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyFactOrders.ICompanyFactOrderAppService"
+            },
+            "CreateOrUpdateCompanyFactOrderByList": {
+              "uniqueName": "CreateOrUpdateCompanyFactOrderByList",
+              "name": "CreateOrUpdateCompanyFactOrder",
+              "httpMethod": "POST",
+              "url": "api/app/company-fact-order/or-update-company-fact-order",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "list",
+                  "typeAsString": "System.Collections.Generic.List`1[[CompanyFactOrders.CompanyFactOrderDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<CompanyFactOrders.CompanyFactOrderDto>",
+                  "typeSimple": "[CompanyFactOrders.CompanyFactOrderDto]",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "list",
+                  "name": "list",
+                  "jsonName": null,
+                  "type": "System.Collections.Generic.List<CompanyFactOrders.CompanyFactOrderDto>",
+                  "typeSimple": "[CompanyFactOrders.CompanyFactOrderDto]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<CompanyFactOrders.CompanyFactOrderDto>",
+                "typeSimple": "[CompanyFactOrders.CompanyFactOrderDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyFactOrders.ICompanyFactOrderAppService"
+            }
+          }
+        },
         "CompanyManagements.CompanyManagmentAppService": {
           "controllerName": "CompanyManagment",
           "controllerGroupName": "CompanyManagment",
@@ -8772,6 +8898,135 @@
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompanyFactOrders.CompanyFactOrderDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CompanyFactOrdrID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GBFactIDOrder",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "FactName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CustomOrder",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CheckMe",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsQuarterly",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IRy",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IRq",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

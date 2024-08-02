@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from "primeng/dropdown"; 
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
@@ -8,47 +8,144 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
+import { CommonModule, NgFor } from '@angular/common';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { InputTextModule } from 'primeng/inputtext';
+import { ListboxModule } from 'primeng/listbox';
+import { TreeModule } from 'primeng/tree';
+import { CompanyFactOrderService } from '@proxy/company-fact-orders';
+import { CommonService } from '@proxy/commons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-accounts-custom-order',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,CheckboxModule ],
+  imports: [
+    CommonModule,
+    TableModule,
+    TabViewModule,
+    AutoCompleteModule,
+    FormsModule,
+    DropdownModule,
+    CalendarModule,
+    ImageModule,
+    FileUploadModule,
+    NgFor,
+    ThemeSharedModule,
+    ReactiveFormsModule,
+    ListboxModule,
+    InputTextModule,
+    TabViewModule,TreeModule
+  ],
   templateUrl: './accounts-custom-order.component.html',
   styleUrl: './accounts-custom-order.component.scss'
 })
 export class AccountsCustomOrderComponent {
-  filteredCountries: any[];
-  subsidiaries: any[] = [ 
-    { company: "Income Statement (Title)",share:"25",pa:"Traveler Cheques",order:"1" }, 
-    { company: "Special Commission Income",share:"100",pa:"Financial Services",order:"2" }, 
-    { company: "Special Commission Expense",share:"300",pa:"Real Estates",order:"3" }, 
-    { company: "Net Commission Income",share:"25",pa:"Traveler Cheques",order:"4" }, 
-    { company: "Other Operating Income",share:"100",pa:"Financial Services",order:"5" }, 
-    { company: "Total Operating Income Gen",share:"300",pa:"Real Estates",order:"6" }, 
-    { company: "Admin Expenses",share:"300",pa:"Real Estates",order:"7" }, 
-    { company: "Other Expenses",share:"300",pa:"Real Estates",order:"8" }, 
-    { company: "Depreciation & Amortization",share:"300",pa:"Real Estates",order:"9" }, 
-    { company: "Pre-Tax Profit",share:"300",pa:"Real Estates",order:"10" }, 
-    { company: "Net Profit",share:"300",pa:"Real Estates",order:"11" }, 
-    { company: "Total Dividends",share:"300",pa:"Real Estates",order:"12" }, 
-    { company: "Balance Sheet (Title)",share:"300",pa:"Real Estates",order:"13" }, 
-    { company: "Assets (Title)",share:"300",pa:"Real Estates",order:"14" }, 
-    { company: "Cash & Balance",share:"300",pa:"Real Estates",order:"15" }, 
-    { company: "Total Assets",share:"300",pa:"Real Estates",order:"19" }, 
-  ];
-  markets = [ 
-    { name: "TASI" }, 
-    { name: "ReactJS" }, 
-    { name: "Angular" }, 
-    { name: "Bootstrap" }, 
-    { name: "PrimeNG" }, 
-  ];
-  ngOnInit() { 
-    this.filteredCountries = [
-      {name: "RIBL",code:'rible'},
-      {name: "Suadia Arabia",code:'KSA'},
-      {name: "Dubai",code:'UAE'},
-      {name: "IRAN",code:'IR'},
-    ]
+  loading: boolean = false;
+  headerValue: any;
+  selectedItem: any;
+  suggestions: any[] = [];
+  sectorID: number;
+  stockMarketID: number;
+  companyID: number;
+  stockMarkets = [];
+  companyMarketSectors = [];
+  companiesTickers = [];
+  companyFactOrders = [];
+
+  constructor(
+    private commonService: CommonService,
+    private companyFactOrderService:CompanyFactOrderService
+  ) {}
+
+  ngOnInit() {
+    this.getStockMarkets();
+    this.stockMarketID = 0;
+  }
+
+  search(event: AutoCompleteCompleteEvent) {
+    this.loading =true;
+    this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
+      this.suggestions = res;
+      this.loading =false;
+    });
+  }
+
+  onSelect(event: any) {
+    debugger;
+    this.loading =true;
+    debugger;
+    this.stockMarketID = event.value.stockMarketID;
+    this.sectorID = event.value.sectorID;
+    this.companyID = event.value.companyID
+    this.getStockMarketSectorsByStockMarketID();
+    this.loading =false;
+  }
+
+  getStockMarkets() {
+    this.commonService.getStockMarkets().subscribe(res => {
+      this.stockMarkets = res;
+    });
+  }
+
+  getStockMarketSectorsByStockMarketID() {
+    debugger;
+    this.loading = true;
+    this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
+      this.companyMarketSectors = res;
+      if (this.companyMarketSectors.length > 0) this.getSectorCompaniesBySectorIDAndStockMarketID();
+      else this.loading = false;
+    });
+  }
+
+  getSectorCompaniesBySectorIDAndStockMarketID() {
+    debugger;
+    if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
+      this.sectorID = this.companyMarketSectors[0].sectorID;
+    this.commonService
+      .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
+      .subscribe(res => {
+        this.companiesTickers = res;
+        if (this.companiesTickers.length > 0) this.getCompaniesFactOrdersByCompanyID();
+        else this.loading = false;
+      });
+  }
+
+  getCompaniesFactOrdersByCompanyID() {
+    debugger;
+    if (this.companyID == undefined && this.companiesTickers.length > 0)
+      this.companyID = this.companiesTickers[0].companyID;
+    this.companyFactOrderService
+      .getCompaniesFactOrdersByCompanyID(this.companyID)
+      .subscribe(res => {
+        debugger;
+        this.companyFactOrders = res;
+        this.loading = false;
+      });
+  }
+  save() {
+    debugger;
+    this.loading =true;
+    this.companyFactOrderService.createOrUpdateCompanyFactOrderByList(this.companyFactOrders).subscribe({
+      next: (res) => {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);    
+        this.loading =false;  
+      },
+      error: (err) => {
+        console.error("Error While Saveing", err);
+        this.loading =false;  
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          title: 'Error!',
+          text: "Error While Saveing",
+          icon: 'error'
+        });
+       
+      }
+    });
   }
 }
