@@ -9,7 +9,7 @@ namespace CompanyOwnershipFacts
 {
     public class CompanyOwnershipFactDto
     {
-        public Int64 CompOwnershipID { get; set; }
+        public Int64 GBOwnershipID { get; set; }
         public string? Facts { get; set; }
         public string? aFacts { get; set; }
         public decimal Figures { get; set; }

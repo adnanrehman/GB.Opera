@@ -70,8 +70,8 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body p-1">
-                          <p-tree [value]="factsOwnershipMappings" selectionMode="single" (onNodeSelect)="onNodeClick($event)">
-                            <ng-template let-node pTemplate="default">
+                          <p-tree [value]="factsOwnershipMappings" [(selection)] ="selectedNode" selectionMode="single" (onNodeSelect)="onNodeClick($event)">
+                            <ng-template let-node pTemplate="default" >
                               <span pTooltip="{{ node.aGbOwnership }}" tooltipPosition="top">
                                 
                                 {{ node.label }}
@@ -85,24 +85,24 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body p-1">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    {{companyOwnershipFact.facts}}:
+                            <div class="row mb-2">
+                                <div class="col-md-7">
+                                  <label class="col-form-label">{{companyOwnershipFact.facts}}:</label> 
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-3">
                                     <div class="input-group">
                                         <input [(ngModel)]="companyOwnershipFact.value"
                                         autofocus
                                         name="value"
                                         type="text"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        pattern="^\d*(\.\d{0,2})?$"
                                         [ngModelOptions]="{ standalone: true }"
                                         pInputText class="form-control" placeholder="Percentage">
                                         <span class="input-group-text">%</span>
                                       </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <button class="btn btn-sm btn-primary btn-block">Insert / Update</button>
+                                <div class="col-md-2">
+                                    <button type="button" (click)="save()" class="btn btn-sm btn-primary btn-block">Update</button>
                                 </div>
                             </div>
                             <div class="row">

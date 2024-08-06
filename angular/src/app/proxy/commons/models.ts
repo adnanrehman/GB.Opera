@@ -50,6 +50,12 @@ export interface CompaniesTickerDto {
   aCompany?: string;
 }
 
+export interface CompanyQNPDto {
+  companies: CompanyDto[];
+  periodTypes: PeriodTypeDto[];
+  qPeriods: QPeriodDto[];
+}
+
 export interface CompanyWithHasFundDto {
   companies: CompanyDto[];
   assetsAllocations: AssetsAllocationDto[];
@@ -171,6 +177,11 @@ export interface MarketSectorDto {
   sector?: string;
 }
 
+export interface PeriodTypeDto {
+  periodTypeID: number;
+  period?: string;
+}
+
 export interface PortfolioTypeDto {
   portfolioTypeID: number;
   portfolioType?: string;
@@ -179,6 +190,18 @@ export interface PortfolioTypeDto {
   aDescription?: string;
   creationDate?: string;
   isActive: boolean;
+}
+
+export interface ProductServiceRawDto {
+  productServiceRawID: number;
+  parentID: number;
+  name?: string;
+  aName?: string;
+}
+
+export interface QPeriodDto {
+  qPeriodID: number;
+  qPeriod?: string;
 }
 
 export interface SectorDiversificationDto {

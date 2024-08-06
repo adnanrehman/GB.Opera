@@ -1,68 +1,75 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
     <div class="row mb-2">
       <div class="col-md-3">
         <div class="row mb-2">
           <div class="col-md-12">
             <p-dropdown
-              [options]="markets"
-              placeholder="Select a Market"
-              optionLabel="name"
-              [style]="{ width: '100%' }"
-              [showClear]="true"
+            [options]="stockMarkets"
+            [(ngModel)]="stockMarketID"
+            name="stockMarketID"
+            placeholder="Select a Market"
+            optionLabel="abbr"
+            optionValue="stockMarketID"
+            (ngModelChange)="getStockMarketSectorsByStockMarketID()"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
             >
             </p-dropdown>
           </div>
           <div class="col-md-12 mt-2">
-            <p-dropdown
-              [options]="markets"
+              <p-dropdown
+              [options]="companyMarketSectors"
+              [(ngModel)]="sectorID"
+              name="sectorID"
               placeholder="Select a Sector"
-              optionLabel="name"
+              optionLabel="sector"
+              optionValue="sectorID"
+              (ngModelChange)="getSectorCompaniesBySectorIDAndStockMarketID()"
               [style]="{ width: '100%' }"
               [showClear]="true"
-            >
-            </p-dropdown>
+              >
+              </p-dropdown>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
-            <h6>Companies</h6>
-            <div class="card">
-              <div class="card-body p-0">
-                <h6 class="selector p-1 mb-1 border-bottom">ACDB</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">AVD</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">HGFA</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">KJUYA</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">ADEF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">DDEDW</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDAD</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">DFES</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
-              </div>
-            </div>
+            <h6 class="p-1 mb-1">Companies</h6>
+            <p-listbox
+              [options]="companiesTickers"
+              [(ngModel)]="companyID"
+              name="companyID"
+              optionLabel="ticker"
+              (click)="getEstimatesandForecastsByCompanyID()"
+              optionValue="companyID"
+              [style]="{ width: '100%' }"
+              [listStyle]="{ 'max-height': '30rem' }"
+            />
           </div>
         </div>
       </div>
       <div class="col-md-9">
         <div class="card">
+          <form #announementForm="ngForm" (ngSubmit)="createOrUpdateEstimatesandForecast()">
           <div class="card-body p-2">
             <div class="row">
-                <div class="col-md-12">
-                  <!-- <p-autoComplete
-                    [suggestions]="filteredCountries"
-                    field="name"
-                    placeholder="Search the Companies and select"
-                    [style]="{ width: '100%' }"
-                    [inputStyle]="{ width: '100%' }"
+                <div class="col-md-9">
+                  <p-autoComplete
+                  [(ngModel)]="selectedItem"
+                  [ngModelOptions]="{ standalone: true }"
+                  (onSelect)="onSelect($event)"
+                  [suggestions]="suggestions"
+                  (completeMethod)="search($event)"
+                  [style]="{ width: '100%' }"
+                  field="company"
+                  [inputStyle]="{ width: '100%' }"
                   >
-                  </p-autoComplete> -->
+                  </p-autoComplete>
                 </div>
-                <div class="col-md-4 text-end">
-                  <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
-                  <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+                <div class="col-md-3 text-end">
+                  <a href="#" (click)="addNewEstimatesandForecast()" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+                  <button type="submit" [attr.disabled]="!announementForm.valid ? true : null" class="btn btn-success btn-sm me-1"
+                  ><i class="fa fa-save"></i> Save</button
+                >
                   <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
                 </div>
               </div>
@@ -70,9 +77,14 @@
                 <div class="col-md-3">
                     <label class="col-form-label">Sources</label>
                     <p-dropdown
-                      [options]="markets"
-                      placeholder="Select a Source"
-                      optionLabel="name"
+                      [options]="reportSources"
+                      required="true"
+                      [(ngModel)]="estimatesandForecast.reportSourceID"
+                      [ngModelOptions]="{ standalone: true }"
+                      required="true"
+                      placeholder="Select a Report Source"
+                      optionLabel="source"
+                      optionValue="reportSourceID"
                       [style]="{ width: '100%' }"
                       [showClear]="true"
                     >
@@ -80,24 +92,24 @@
                 </div>
                 <div class="col-md-3">
                     <label class="col-form-label">Year</label>
-                    <p-calendar [style]="{ width: '100%' }" view="year" placeholder="Select a Year" />
+                    <p-calendar [style]="{ width: '100%' }" required="true" dataType="string" [showIcon]="true" dateFormat="yy" [(ngModel)]="estimatesandForecast.year" name="year" view="year" placeholder="Select a Year" />
                 </div>
                 <div class="col-md-3">
                     <label class="col-form-label">As of Date</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a As of Date" />
+                    <p-calendar [style]="{ width: '100%' }" required="true" dataType="string" [showIcon]="true" [(ngModel)]="estimatesandForecast.asofDate" name="asofDate" placeholder="Select a As of Date" />
                 </div>
                 <div class="col-md-3">
                     <label class="col-form-label">Report Date</label>
-                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Report Date" />
+                    <p-calendar [style]="{ width: '100%' }" required="true" dataType="string" [showIcon]="true" [(ngModel)]="estimatesandForecast.reportDate" name="reportDate" placeholder="Select a Report Date" />
                 </div>
                 <div class="col-md-6">
                     <label class="col-form-label">Remarks</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                    <textarea rows="3" class="form-control" [(ngModel)]="estimatesandForecast.remarks" name="remarks" placeholder="Describe Overview here...">
                     </textarea>
                 </div>
                 <div class="col-md-6">
                     <label class="col-form-label">Remarks (AR)</label>
-                    <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                    <textarea rows="3" class="form-control" [(ngModel)]="estimatesandForecast.aRemarks" name="aRemarks" placeholder="Describe Overview here...">
                     </textarea>
                 </div>
             </div>
@@ -106,54 +118,84 @@
                     <h6>Finacial Data</h6>
                     <div class="card">
                         <div class="card-body p-2">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label class="col-form-label">Revenue</label>
-                                    <input
-                                      autofocus
-                                      type="text"
-                                      class="form-control"
-                                      name="Company"
-                                      placeholder="Revenue"
-                                    />
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="col-form-label">Total Liabilities</label>
-                                    <input
-                                      autofocus
-                                      type="text"
-                                      class="form-control"
-                                      name="Company"
-                                      placeholder="Total Liabilities"
-                                    />
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="col-form-label">EPS</label>
-                                    <input
-                                      autofocus
-                                      type="text"
-                                      class="form-control"
-                                      name="Company"
-                                      placeholder="EPS"
-                                    />
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="col-form-label">Net Profit</label>
-                                    <input
-                                      autofocus
-                                      type="text"
-                                      class="form-control"
-                                      name="Company"
-                                      placeholder="Net Profit"
-                                    />
-                                </div>
+                          <div class="d-flex p-2">
+                            <div class="form-group me-2">
+                              <label class="col-form-label">Revenue</label>
+                              <input
+                                autofocus
+                                type="text"
+                                [(ngModel)]="estimatesandForecast.revenue"
+                                [ngModelOptions]="{ standalone: true }"
+                                pattern="^\d*(\.\d{0,2})?$"
+                                class="form-control"
+                                name="revenue"
+                                placeholder="Revenue"
+                              />
+                          </div>
+                          <div class="form-group me-2">
+                              <label class="col-form-label">Total Liabilities</label>
+                              <input
+                                autofocus
+                                [(ngModel)]="estimatesandForecast.totalLiabilities"
+                                [ngModelOptions]="{ standalone: true }"
+                                pattern="^\d*(\.\d{0,2})?$"
+                                type="text"
+                                class="form-control"
+                                name="totalLiabilities"
+                                placeholder="Total Liabilities"
+                              />
+                          </div>
+                          <div class="form-group me-2">
+                              <label class="col-form-label">EPS</label>
+                              <input
+                                autofocus
+                                [(ngModel)]="estimatesandForecast.eps"
+                                [ngModelOptions]="{ standalone: true }"
+                                pattern="^\d*(\.\d{0,2})?$"
+                                type="text"
+                                class="form-control"
+                                name="eps"
+                                placeholder="EPS"
+                              />
+                          </div>
+                          <div class="form-group me-2">
+                              <label class="col-form-label">Net Profit</label>
+                              <input
+                                autofocus
+                                [(ngModel)]="estimatesandForecast.netProfit"
+                                [ngModelOptions]="{ standalone: true }"
+                                pattern="^\d*(\.\d{0,2})?$"
+                                type="text"
+                                class="form-control"
+                                name="netProfit"
+                                placeholder="Net Profit"
+                              />
+                          </div>
+                          <div class="form-group me-2">
+                            <label class="col-form-label">Owners Equity</label>
+                            <input
+                              autofocus
+                              [(ngModel)]="estimatesandForecast.ownersEquity"
+                              [ngModelOptions]="{ standalone: true }"
+                              pattern="^\d*(\.\d{0,2})?$"
+                              type="text"
+                              class="form-control"
+                              name="ownersEquity"
+                              placeholder="Owners Equity"
+                            />
+                        </div>
+                          </div>
+                            <div class="row">                                
                                 <div class="col-md-3">
                                     <label class="col-form-label">P/E</label>
                                     <input
                                       autofocus
+                                      [(ngModel)]="estimatesandForecast.pe"
+                                      [ngModelOptions]="{ standalone: true }"
+                                      pattern="^\d*(\.\d{0,2})?$"
                                       type="text"
                                       class="form-control"
-                                      name="Company"
+                                      name="pe"
                                       placeholder="P/E"
                                     />
                                 </div>
@@ -161,9 +203,12 @@
                                     <label class="col-form-label">Total Assets</label>
                                     <input
                                       autofocus
+                                      [(ngModel)]="estimatesandForecast.totalAssets"
+                                      [ngModelOptions]="{ standalone: true }"
+                                      pattern="^\d*(\.\d{0,2})?$"
                                       type="text"
                                       class="form-control"
-                                      name="Company"
+                                      name="totalAssets"
                                       placeholder="Total Assets"
                                     />
                                 </div>
@@ -171,9 +216,12 @@
                                     <label class="col-form-label">Fair Value</label>
                                     <input
                                       autofocus
+                                      [(ngModel)]="estimatesandForecast.fairValue"
+                                      [ngModelOptions]="{ standalone: true }"
+                                      pattern="^\d*(\.\d{0,2})?$"
                                       type="text"
                                       class="form-control"
-                                      name="Company"
+                                      name="fairValue"
                                       placeholder="Fair Value"
                                     />
                                 </div>
@@ -181,9 +229,12 @@
                                     <label class="col-form-label">P/B</label>
                                     <input
                                       autofocus
+                                      [(ngModel)]="estimatesandForecast.pb"
+                                      [ngModelOptions]="{ standalone: true }"
+                                      pattern="^\d*(\.\d{0,2})?$"
                                       type="text"
                                       class="form-control"
-                                      name="Company"
+                                      name="pb"
                                       placeholder="P/B"
                                     />
                                 </div>
@@ -191,12 +242,12 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="col-form-label">Recomendation</label>
-                                    <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                                    <textarea rows="3" class="form-control"  [(ngModel)]="estimatesandForecast.recommendation" name="recommendation" placeholder="Describe Overview here...">
                                     </textarea>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="col-form-label">Recomendation (AR)</label>
-                                    <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                                    <textarea rows="3" class="form-control"  [(ngModel)]="estimatesandForecast.aRecommendation" name="aRecommendation" placeholder="Describe Overview here...">
                                     </textarea>
                                 </div>
                             </div>
@@ -206,15 +257,62 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h6>Research Companies Info:</h6>
-                    <div class="card">
-                        <div class="card-body" style="height: 400px; background-color: darkgrey;">
-
+                  <div class="col-md-12">
+                    <p-table
+                      #dt
+                      [value]="estimatesandForecasts"
+                      [scrollable]="true" 
+                      scrollHeight="20rem"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Research Companies Info</h5>
+                            </span>
+                          </div>
                         </div>
-                    </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>Year</th>
+                          <th>As of Date</th>
+                          <th>Report Date</th>
+                          <th>Revenue</th>
+                          <th>Net Profit</th>
+                          <th>Total Asset</th>
+                          <th>Total Liabilities</th>
+                          <th>Ownership Equity</th>
+                          <th>Fair Value</th>
+                          <th>EPS</th>
+                          <th>PE</th>
+                          <th>PB</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr (click)="handleEstimatesandForecast(item)"> 
+                          <td>{{ item.year }}</td>
+                          <td>{{ item.asofDate | date: 'dd/MM/yyyy' }}</td>
+                          <td>{{ item.reportDate | date: 'dd/MM/yyyy' }}</td>
+                          <td>{{ item.revenue }}</td>
+                          <td>{{ item.netProfit }}</td>
+                          <td>{{ item.totalAssets }}</td>
+                          <td>{{ item.totalLiabilities }}</td>
+                          <td>{{ item.ownersEquity }}</td>
+                          <td>{{ item.fairValue }}</td>
+                          <td>{{ item.eps }}</td>
+                          <td>{{ item.pe }}</td>
+                          <td>{{ item.pb }}</td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
                 </div>
             </div>
           </div>
+        </form>
         </div>
       </div>
     </div>

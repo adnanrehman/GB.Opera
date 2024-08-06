@@ -166,6 +166,43 @@ namespace Commons
             }
 
         }
+        public async Task<CompanyQNPDto> GetCompaniesForQNP(int sectorID, int marketID)
+        {
+            try
+            {
+                var reader = await _connection.QueryMultipleAsync("[usp_getCompaniesForQNP]",
+                    param: new { @SectorID = sectorID, @MarketID = marketID },
+                commandType: CommandType.StoredProcedure);
+                var output = new CompanyQNPDto();
+                output.Companies = reader.Read<CompanyDto>().ToList();
+                output.PeriodTypes = reader.Read<PeriodTypeDto>().ToList();
+                output.QPeriods = reader.Read<QPeriodDto>().ToList();
+                return output;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        public async Task<List<ProductServiceRawDto>> GetAllPSRMappings()
+        {
+            var results = await _connection.QueryMultipleAsync(
+                sql: "[usp_getAllPSRMappings]",
+                commandType: CommandType.StoredProcedure
+            );
+            var productServiceRawList = new List<ProductServiceRawDto>();
+            while (!results.IsConsumed)
+            {
+                var resultSet = await results.ReadAsync<ProductServiceRawDto>();
+                productServiceRawList.AddRange(resultSet);
+            }
+            return productServiceRawList;
+        }
+
 
 
 

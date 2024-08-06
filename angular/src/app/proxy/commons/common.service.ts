@@ -1,4 +1,4 @@
-import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, CompanyWithHasFundDto, FactsOwnershipMappingDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, SectorDto, StockMarketDto } from './models';
+import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, CompanyQNPDto, CompanyWithHasFundDto, FactsOwnershipMappingDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, ProductServiceRawDto, SectorDto, StockMarketDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { CompanyDto } from '../companies/models';
@@ -14,6 +14,14 @@ export class CommonService {
     this.restService.request<any, FactsOwnershipMappingDto[]>({
       method: 'GET',
       url: '/api/app/common/facts-ownership-mappings',
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getAllPSRMappings = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ProductServiceRawDto[]>({
+      method: 'GET',
+      url: '/api/app/common/p-sRMappings',
     },
     { apiName: this.apiName,...config });
   
@@ -40,6 +48,15 @@ export class CommonService {
     this.restService.request<any, CompStockMarketDto[]>({
       method: 'GET',
       url: '/api/app/common/comp-stock-markets',
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getCompaniesForQNPBySectorIDAndMarketID = (sectorID: number, marketID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, CompanyQNPDto>({
+      method: 'GET',
+      url: '/api/app/common/companies-for-qNP',
+      params: { sectorID, marketID },
     },
     { apiName: this.apiName,...config });
   

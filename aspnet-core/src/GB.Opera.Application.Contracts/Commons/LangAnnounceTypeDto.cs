@@ -1,30 +1,33 @@
-﻿using System;
+﻿using Companies;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Commons
 {
-    public class LangAnnounceTypeDto
+    public class CompanyQNPDto
     {
-        public LangAnnounceTypeDto()
+        public CompanyQNPDto()
         {
-            LanguageTypes = new List<LanguageTypeDto>();
-            AnnouncementTypes = new List<AnnouncementTypeDto>();
+            Companies = new List<CompanyDto>();
+            PeriodTypes = new List<PeriodTypeDto>();
+            QPeriods = new List<QPeriodDto>();
         }
-        public List<LanguageTypeDto> LanguageTypes { get; set; }
-        public List<AnnouncementTypeDto> AnnouncementTypes { get; set; }
+        public List<CompanyDto> Companies { get; set; }
+        public List<PeriodTypeDto> PeriodTypes { get; set; }
+        public List<QPeriodDto> QPeriods { get; set; }
     }
 
-    public class LanguageTypeDto
+    public class PeriodTypeDto
     {
-        public int LanguageTypeID { get; set; }
-        public string? LanguageType { get; set; }
+        public int PeriodTypeID { get; set; }
+        public string? Period { get; set; }
     }
-    public class AnnouncementTypeDto
+    public class QPeriodDto
     {
-        public int AnnouncementTypeID { get; set; }
-        public string? AnnouncementType { get; set; }
+        public int QPeriodID { get; set; }
+        public string? QPeriod { get; set; }
     }
 
 }

@@ -55,7 +55,7 @@ export class UpdateOwnershipFactsComponent {
   companyOwnerships = [];
   tree:TreeNode[];
   data:TreeNode[];
-  factsOwnershipMappings: FactsOwnershipMappingDto[];
+  factsOwnershipMappings: any[];
   selectedNode: TreeNode;
   selectedNodes: any[] = [];
   companyOwnershipFact: CompanyOwnershipFactEditDto = {
@@ -196,17 +196,51 @@ export class UpdateOwnershipFactsComponent {
 
 
   handleCompanyOwnershipFact(obj: any) {
-    this.companyOwnershipFact.gbOwnershipID = obj.compOwnershipID;
+    debugger;
+    this.companyOwnershipFact.gbOwnershipID = obj.gbOwnershipID;
     this.companyOwnershipFact.facts = obj.facts;
+    if(obj.gbOwnership)
+      this.companyOwnershipFact.facts = obj.gbOwnership;
     this.companyOwnershipFact.parentID = obj.parentID;
     this.companyOwnershipFact.companyID = this.companyID;
     this.companyOwnershipFact.value = obj.figures;
+    this.NodeSelection(this.factsOwnershipMappings,this.companyOwnershipFact.gbOwnershipID);
     this.loading = false;
   }
 
   onNodeClick(event: any) {
     debugger;
     this.handleCompanyOwnershipFact(event.node);
+  }
+
+  NodeSelection(list: any[],gbOwnershipID: number) {    
+    for (let x of list) {
+        if(x.gbOwnershipID == gbOwnershipID){
+          let newItem: TreeNode = {
+            ...x,
+            label: x.gbOwnership || '', // Assign gbFact to label or default to empty string
+            parent: null,
+            expanded: true,
+            selectable: true,
+            data:x.gbOwnership,
+            partialSelected: true,
+            children: []
+          };
+          this.selectedNode = newItem;
+          this.loading =false;
+          return true;
+        }
+      if (x.children.length !== 0) {
+        var result = this.NodeSelection(x.children,gbOwnershipID);
+        if(result){ 
+          return true;
+        }
+      } 
+  
+    }
+  
+    return false;
+  
   }
 
   onNodeSelect(event: { originalEvent: Event, node: TreeNode }): void {

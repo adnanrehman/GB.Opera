@@ -22,6 +22,8 @@ namespace Commons
         Task<LangAnnounceTypeDto> GetLangAnnouceTypes();
         Task<CompanyWithHasFundDto> GetCompaniesWithHasFund(int stockMarketID);
         Task<List<FactsOwnershipMappingDto>> GetAllFactsOwnershipMappings();
+        Task<CompanyQNPDto> GetCompaniesForQNP(int sectorID, int marketID);
+        Task<List<ProductServiceRawDto>> GetAllPSRMappings();
 
 
     }
