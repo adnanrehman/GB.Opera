@@ -10,12 +10,12 @@ import { TabViewModule } from 'primeng/tabview';
 import { TreeModule } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
-import { CompanyPSRawDto, CompanyPSRawService } from '@proxy/company-psraws';
 import { CommonService } from '@proxy/commons';
 import Swal from 'sweetalert2';
+import { CompanyPSRawService, PSRCompanyProductDto, PSRCompanyRawMaterialDto, PSRCompanyServiceDto } from '@proxy/company-psraws';
 
 @Component({
   selector: 'app-companies-products-services-raw-materials-updates',
@@ -31,6 +31,7 @@ import Swal from 'sweetalert2';
     ImageModule,
     FileUploadModule,
     NgFor,
+    NgIf,
     ThemeSharedModule,
     ReactiveFormsModule,
     ListboxModule,
@@ -52,15 +53,33 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
   marketLangAnnouncement = [];
   companyMarketSectors = [];
   companiesTickers = [];
-  companyPSRaws = [];
+  psrCompanyServices = [];
+  psrCompanyProducts = [];
+  psrCompanyRawMaterials = [];
   tree:TreeNode[];
   data:TreeNode[];
   psrMappings: any[];
   selectedNode: TreeNode;
   selectedNodes: any[] = [];
-  companyPSRawActivation!: number;
-  companyPSRaw: CompanyPSRawDto = {
+  psrCompanyServiceActivation!: number;
+  psrCompanyProductActivation!: number;
+  psrCompanyRawMaterialActivation!: number;
+  psrCompanyService: PSRCompanyServiceDto = {
     compServiceID: 0,
+    companyID: 0,
+    productServiceRawID: 0,
+    parentID: 0,
+    isActive: false
+  }
+  psrCompanyProduct: PSRCompanyProductDto = {
+    compProductID: 0,
+    companyID: 0,
+    productServiceRawID: 0,
+    parentID: 0,
+    isActive: false
+  }
+  psrCompanyRawMaterial: PSRCompanyRawMaterialDto = {
+    compRawID: 0,
     companyID: 0,
     productServiceRawID: 0,
     parentID: 0,
@@ -178,43 +197,85 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
     if (this.productServiceRawID == undefined && this.psrMappings.length > 0)
       this.productServiceRawID = this.psrMappings[0].productServiceRawID;
     this.companyPSRawService.getCompanyPSRawsByProductServiceRawIDAndCompanyID(this.productServiceRawID,this.companyID).subscribe(res => {
-      this.companyPSRaws = res.companyPSRaws;
-      if (this.companyPSRaws.length > 0) this.handlecompanyPSRaw(this.companyPSRaws[0]);
-      else this.loading = false;
+      this.psrCompanyServices = res.psrCompanyServices;
+      this.psrCompanyProducts = res.psrCompanyProducts;
+      this.psrCompanyRawMaterials = res.psrCompanyRawMaterials;
+      if(res.productServiceRawID == 1){
+        if (this.psrCompanyProducts.length > 0) {this.handlePSRCompanyProduct(this.psrCompanyProducts[0]);}
+        else {
+          this.loading = false;
+          
+          this.psrCompanyProduct = {
+            compProductID: 0,
+            companyID: 0,
+            productServiceRawID: 0,
+            parentID: 0,
+            isActive: false
+          }
+          
+        }
+      }
+      else if(res.productServiceRawID == 2){
+        if (this.psrCompanyServices.length > 0) {this.handlePSRCompanyService(this.psrCompanyServices[0]);}
+        else {
+          this.loading = false;
+          this.psrCompanyService = {
+            compServiceID: 0,
+            companyID: 0,
+            productServiceRawID: 0,
+            parentID: 0,
+            isActive: false
+          }
+        }
+      }
+      else if(res.productServiceRawID == 3){
+        if (this.psrCompanyRawMaterials.length > 0) {this.handlePSRCompanyRawMaterial(this.psrCompanyRawMaterials[0]);}
+        else {
+          this.loading = false;
+          this.psrCompanyRawMaterial = {
+            compRawID: 0,
+            companyID: 0,
+            productServiceRawID: 0,
+            parentID: 0,
+            isActive: false
+          }
+        }
+      }
+
     });
   }
 
-  // NodeSelection(list: any[]) {    
-  //   for (let x of list) {
-  //     var gbFact = list.find(f => f.gbOwnershipID == x.gbOwnershipID);
-  //       if(gbFact){
-  //         this.selectedNode = gbFact;
-  //       }
-  //     if (x.children.length !== 0) {
-  //       var result = this.NodeSelection(x.children);
-  //       if(result){ 
-  //         return true;
-  //       }
-  //     } 
-  
-  //   }
-  
-  //   return false;
-  
-  // }
 
-
-  handlecompanyPSRaw(CompanyPSRaw: CompanyPSRawDto) {
+  handlePSRCompanyService(psrCompanyService: PSRCompanyServiceDto) {
     debugger;
-    this.companyPSRaw = CompanyPSRaw
-    this.companyPSRawActivation = this.companyPSRaw.isActive ? 1 : 0;
+    this.psrCompanyService = psrCompanyService
+    this.psrCompanyServiceActivation = this.psrCompanyService.isActive ? 1 : 0;
+    this.loading = false;
+  }
+
+  handlePSRCompanyProduct(psrCompanyProduct: PSRCompanyProductDto) {
+    debugger;
+    this.psrCompanyProduct = psrCompanyProduct
+    this.psrCompanyProductActivation = this.psrCompanyProduct.isActive ? 1 : 0;
+    this.loading = false;
+  }
+
+  handlePSRCompanyRawMaterial(psrCompanyRawMaterial: PSRCompanyRawMaterialDto) {
+    debugger;
+    this.psrCompanyRawMaterial = psrCompanyRawMaterial
+    this.psrCompanyRawMaterialActivation = this.psrCompanyRawMaterial.isActive ? 1 : 0;
     this.loading = false;
   }
 
   onNodeClick(event: any) {
     debugger;
-    this.productServiceRawID = event.node.productServiceRawID;
-    this.getCompanyPSRawsByProductServiceRawIDAndCompanyID();
+    if(event.node.productServiceRawID > 0 && event.node.productServiceRawID < 4){
+      this.productServiceRawID = event.node.productServiceRawID;
+      this.getCompanyPSRawsByProductServiceRawIDAndCompanyID();
+    }else{
+      this.getCompanyPSRawsByProductServiceRawIDAndCompanyID();
+    }
+
     // this.handlecompanyPSRaw(event.node);
   }
 
@@ -255,31 +316,96 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
      
   }
 
-  // save() {
-  //   debugger;
-  //   this.loading =true;
-  //   this.companyPSRaw.isActive = this.companyPSRawActivation == 1 ? true : false;
-  //   this.companyPSRawService.getCompanyPSRawsByProductServiceRawIDAndCompanyID(this.companyOwnershipFact).subscribe({
-  //     next: (res) => {
-  //       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
-  //       console.log('Save response:', res);    
-  //       this.loading =false;  
-  //     },
-  //     error: (err) => {
-  //       console.error("Error While Saveing", err);
-  //       this.loading =false;  
-  //       Swal.fire({
-  //         toast: true,
-  //         position: 'top-end',
-  //         showConfirmButton: false,
-  //         timer: 1000,
-  //         title: 'Error!',
-  //         text: "Error While Saveing",
-  //         icon: 'error'
-  //       });
+  savePSRCompanyService() {
+    debugger;
+    this.loading =true;
+    this.psrCompanyService.isActive = this.psrCompanyServiceActivation == 1 ? true : false;
+    this.psrCompanyService.companyID = this.companyID;
+    this.psrCompanyService.serviceStart = new Date(this.psrCompanyService.serviceStart).toLocaleString();
+    this.psrCompanyService.productServiceRawID = this.productServiceRawID;
+    this.companyPSRawService.createOrUpdatePSRCompanyServiceByModel(this.psrCompanyService).subscribe({
+      next: (res) => {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);    
+        this.loading =false;  
+        this.getCompanyPSRawsByProductServiceRawIDAndCompanyID();
+      },
+      error: (err) => {
+        console.error("Error While Saveing", err);
+        this.loading =false;  
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          title: 'Error!',
+          text: "Error While Saveing",
+          icon: 'error'
+        });
        
-  //      // alert("Save error: " + err.message); // Display error message to user
-  //     }
-  //   });
-  // }
+       // alert("Save error: " + err.message); // Display error message to user
+      }
+    });
+  }
+  savePSRCompanyProduct() {
+    debugger;
+    this.loading =true;
+    this.psrCompanyProduct.isActive = this.psrCompanyProductActivation == 1 ? true : false;
+    this.psrCompanyProduct.companyID = this.companyID;
+    this.psrCompanyProduct.productionStart = new Date(this.psrCompanyProduct.productionStart).toLocaleString();
+    this.psrCompanyProduct.productServiceRawID = this.productServiceRawID;
+    this.companyPSRawService.createOrUpdatePSRCompanyProductByModel(this.psrCompanyProduct).subscribe({
+      next: (res) => {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);    
+        this.loading =false;  
+        this.getCompanyPSRawsByProductServiceRawIDAndCompanyID();
+      },
+      error: (err) => {
+        console.error("Error While Saveing", err);
+        this.loading =false;  
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          title: 'Error!',
+          text: "Error While Saveing",
+          icon: 'error'
+        });
+       
+       // alert("Save error: " + err.message); // Display error message to user
+      }
+    });
+  }
+  savePSRCompanyRawMaterial() {
+    debugger;
+    this.loading =true;
+    this.psrCompanyRawMaterial.isActive = this.psrCompanyRawMaterialActivation == 1 ? true : false;
+    this.psrCompanyRawMaterial.companyID = this.companyID;
+    this.psrCompanyRawMaterial.productServiceRawID = this.productServiceRawID;
+    this.companyPSRawService.createOrUpdatePSRCompanyRawMaterialByModel(this.psrCompanyRawMaterial).subscribe({
+      next: (res) => {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);    
+        this.loading =false;  
+        this.getCompanyPSRawsByProductServiceRawIDAndCompanyID();
+      },
+      error: (err) => {
+        console.error("Error While Saveing", err);
+        this.loading =false;  
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          title: 'Error!',
+          text: "Error While Saveing",
+          icon: 'error'
+        });
+       
+       // alert("Save error: " + err.message); // Display error message to user
+      }
+    });
+  }
 }

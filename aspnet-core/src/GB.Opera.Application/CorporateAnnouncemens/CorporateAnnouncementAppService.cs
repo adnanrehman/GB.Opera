@@ -51,7 +51,7 @@ namespace CorporateAnnouncements
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@Ticker", model.Ticker);
-                parameters.Add("AnnouncementDate", model.AnnouncedDate);
+                parameters.Add("@AnnouncementDate", model.AnnouncedDate);
                 parameters.Add("@Announcement", model.Announcement);
                 parameters.Add("@AAnnouncement", model.AAnnouncement);
                 parameters.Add("@GulfbaseID", model.GulfbaseID);

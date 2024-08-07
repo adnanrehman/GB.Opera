@@ -81,28 +81,28 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <!-- <h6>Product is a title please chose another tag</h6> -->
+            <div class="col-md-6" *ngIf="productServiceRawID == 1">
+              <h6>Product is a title! please chose another tag</h6>
               <div class="card">
                 <div class="card-body p-1">
                   <div class="row">
                     <div class="col-md-6">
-                      <label class="col-form-label">Services Range</label>
+                      <label class="col-form-label">Capacity Per Annum</label>
                       <input
                         autofocus
-                        [(ngModel)]="companyPSRaw.serviceRange"
+                        [(ngModel)]="psrCompanyProduct.capacityPerAnnum"
                         [ngModelOptions]="{ standalone: true }"
                         pattern="^\d*(\.\d{0,2})?$"
                         type="text"
                         class="form-control"
-                        name="serviceRange"
+                        name="capacityPerAnnum"
                         placeholder="Production Cap. per Anumm"
                       />
                     </div>
                     <div class="col-md-6">
                       <label class="col-form-label">Production Start</label>
                       <p-calendar
-                        [style]="{ width: '100%' }" dataType="string" [showIcon]="true" [(ngModel)]="companyPSRaw.serviceStart" name="serviceStart"
+                        [style]="{ width: '100%' }" dataType="string" [showIcon]="true" [(ngModel)]="psrCompanyProduct.productionStart" name="productionStart"
                         placeholder="Select a Production Start"
                       />
                     </div>
@@ -110,7 +110,7 @@
                       <label class="col-form-label">Description</label>
                       <textarea
                         rows="3"
-                        [(ngModel)]="companyPSRaw.description" name="description"
+                        [(ngModel)]="psrCompanyProduct.description" name="description"
                         class="form-control"
                         placeholder="Describe Overview here..."
                       >
@@ -120,7 +120,7 @@
                       <label class="col-form-label">Description (AR)</label>
                       <textarea
                         rows="3"
-                        [(ngModel)]="companyPSRaw.aDescription" name="aDescription"
+                        [(ngModel)]="psrCompanyProduct.aDescription" name="aDescription"
                         class="form-control"
                         placeholder="Describe Overview here..."
                       >
@@ -129,7 +129,7 @@
                     <div class="col-md-6">
                         <label class="col-form-label">Activation</label>
                         <p-dropdown
-                      [(ngModel)]="companyPSRawActivation"
+                      [(ngModel)]="psrCompanyProductActivation"
                       [ngModelOptions]="{ standalone: true }"
                       [options]="activationDropdown"
                       placeholder="Select a Company Activation"
@@ -141,14 +141,127 @@
                       </p-dropdown>
                     </div>
                     <div class="col-md-6 mt-4">
-                        <button class="btn btn-sm btn-primary mt-1">Save</button>
+                        <button class="btn btn-sm btn-primary mt-1" type="button" (click)="savePSRCompanyProduct()">Save</button>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <p-table
                       #dt
-                      [value]="companyPSRaws"
+                      [value]="psrCompanyProducts"
+                      [scrollable]="true" 
+                      scrollHeight="20rem"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Preview</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>Capacity Per Annum</th>
+                          <th>Production Start</th>
+                          <th>Description</th>
+                          <th>Description (AR)</th>
+                          <th>Active</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr (click)="handlePSRCompanyProduct(item)"> 
+                          <td>{{ item.capacityPerAnnum }}</td>
+                          <td>{{ item.productionStart | date: 'dd/MM/yyyy' }}</td>
+                          <td>{{ item.description }}</td>
+                          <td>{{ item.aDescription }}</td>
+                          <td class="text-center">
+                            <div class="text-center">
+                              <input class="form-check-input" [(ngModel)]="item.isActive" name="isActive"
+                              [ngModelOptions]="{ standalone: true }"
+                              pInputText type="checkbox" />
+                              
+                            </div>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="productServiceRawID == 2">
+              <h6>Service</h6>
+              <div class="card">
+                <div class="card-body p-1">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Services Range</label>
+                      <input
+                        autofocus
+                        [(ngModel)]="psrCompanyService.serviceRange"
+                        [ngModelOptions]="{ standalone: true }"
+                        pattern="^\d*(\.\d{0,2})?$"
+                        type="text"
+                        class="form-control"
+                        name="serviceRange"
+                        placeholder="Production Cap. per Anumm"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Service Start</label>
+                      <p-calendar
+                        [style]="{ width: '100%' }" dataType="string" [showIcon]="true" [(ngModel)]="psrCompanyService.serviceStart" name="serviceStart"
+                        placeholder="Select a Production Start"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Description</label>
+                      <textarea
+                        rows="3"
+                        [(ngModel)]="psrCompanyService.description" name="description"
+                        class="form-control"
+                        placeholder="Describe Overview here..."
+                      >
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Description (AR)</label>
+                      <textarea
+                        rows="3"
+                        [(ngModel)]="psrCompanyService.aDescription" name="aDescription"
+                        class="form-control"
+                        placeholder="Describe Overview here..."
+                      >
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label">Activation</label>
+                        <p-dropdown
+                      [(ngModel)]="psrCompanyServiceActivation"
+                      [ngModelOptions]="{ standalone: true }"
+                      [options]="activationDropdown"
+                      placeholder="Select a Company Activation"
+                      optionLabel="displayText"
+                      optionValue="value"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                      >
+                      </p-dropdown>
+                    </div>
+                    <div class="col-md-6 mt-4">
+                        <button class="btn btn-sm btn-primary mt-1" type="button" (click)="savePSRCompanyService()">Save</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p-table
+                      #dt
+                      [value]="psrCompanyServices"
                       [scrollable]="true" 
                       scrollHeight="20rem"
                       responsiveLayout="stack"
@@ -173,9 +286,137 @@
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
-                        <tr (click)="handlecompanyPSRaw(item)"> 
-                          <td>{{ item.year }}</td>
+                        <tr (click)="handlePSRCompanyService(item)"> 
+                          <td>{{ item.serviceRange }}</td>
                           <td>{{ item.serviceStart | date: 'dd/MM/yyyy' }}</td>
+                          <td>{{ item.description }}</td>
+                          <td>{{ item.aDescription }}</td>
+                          <td class="text-center">
+                            <div class="text-center">
+                              <input class="form-check-input" [(ngModel)]="item.isActive" name="isActive"
+                              [ngModelOptions]="{ standalone: true }"
+                              pInputText type="checkbox" />
+                              
+                            </div>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="productServiceRawID == 3">
+              <h6>Product is a title! please chose another tag</h6>
+              <div class="card">
+                <div class="card-body p-1">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="col-form-label">Use Per Annum</label>
+                      <input
+                        autofocus
+                        [(ngModel)]="psrCompanyRawMaterial.usePerAnnum"
+                        [ngModelOptions]="{ standalone: true }"
+                        pattern="^\d*(\.\d{0,2})?$"
+                        type="text"
+                        class="form-control"
+                        name="usePerAnnum"
+                        placeholder="Use. per Anumm"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Suppliers</label>
+                      <textarea
+                        rows="3"
+                        [(ngModel)]="psrCompanyRawMaterial.suppliers" name="suppliers"
+                        class="form-control"
+                        placeholder="Describe Overview here..."
+                      >
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Suppliers (AR)</label>
+                      <textarea
+                        rows="3"
+                        [(ngModel)]="psrCompanyRawMaterial.aSuppliers" name="aSuppliers"
+                        class="form-control"
+                        placeholder="Describe Overview here..."
+                      >
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Description</label>
+                      <textarea
+                        rows="3"
+                        [(ngModel)]="psrCompanyRawMaterial.description" name="description"
+                        class="form-control"
+                        placeholder="Describe Overview here..."
+                      >
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Description (AR)</label>
+                      <textarea
+                        rows="3"
+                        [(ngModel)]="psrCompanyRawMaterial.aDescription" name="aDescription"
+                        class="form-control"
+                        placeholder="Describe Overview here..."
+                      >
+                      </textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="col-form-label">Activation</label>
+                        <p-dropdown
+                      [(ngModel)]="psrCompanyRawMaterialActivation"
+                      [ngModelOptions]="{ standalone: true }"
+                      [options]="activationDropdown"
+                      placeholder="Select a Company Activation"
+                      optionLabel="displayText"
+                      optionValue="value"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                      >
+                      </p-dropdown>
+                    </div>
+                    <div class="col-md-6 mt-4">
+                        <button class="btn btn-sm btn-primary mt-1" type="button" (click)="savePSRCompanyRawMaterial()">Save</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p-table
+                      #dt
+                      [value]="psrCompanyRawMaterials"
+                      [scrollable]="true" 
+                      scrollHeight="20rem"
+                      responsiveLayout="stack"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="caption">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                          <div class="mr-auto p-2">
+                            <span>
+                              <h5>Preview</h5>
+                            </span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>Use. Per Annum</th>
+                          <th>Suppliers</th>
+                          <th>Suppliers (AR)</th>
+                          <th>Description</th>
+                          <th>Description (AR)</th>
+                          <th>Active</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr (click)="handlePSRCompanyRawMaterial(item)"> 
+                          <td>{{ item.usePerAnnum }}</td>
+                          <td>{{ item.suppliers }}</td>
+                          <td>{{ item.aSuppliers }}</td>
                           <td>{{ item.description }}</td>
                           <td>{{ item.aDescription }}</td>
                           <td class="text-center">

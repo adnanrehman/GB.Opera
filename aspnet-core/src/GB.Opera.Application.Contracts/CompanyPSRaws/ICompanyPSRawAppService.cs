@@ -10,8 +10,9 @@ namespace CompanyPSRaws
     public interface ICompanyPSRawAppService : IApplicationService
     {
         Task<CompanyPSRawOutputDto> GetCompanyPSRaws(int productServiceRawID,int companyID);
-        //Task<CompanyPSRawDto> CreateOrUpdateCompanyPSRaw(CompanyPSRawDto model);
-        //Task DeleteCompanyPSRaw(Int64 CompanyPSRawID);
+        Task<PSRCompanyServiceDto> CreateOrUpdatePSRCompanyService(PSRCompanyServiceDto model);
+        Task<PSRCompanyProductDto> CreateOrUpdatePSRCompanyProduct(PSRCompanyProductDto model);
+        Task<PSRCompanyRawMaterialDto> CreateOrUpdatePSRCompanyRawMaterial(PSRCompanyRawMaterialDto model);
 
     }
 }
