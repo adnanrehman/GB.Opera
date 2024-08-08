@@ -202,6 +202,27 @@ namespace Commons
             }
             return productServiceRawList;
         }
+        public async Task<List<ESDFactDto>> GetAllESDFactsMappings()
+        {
+            var results = await _connection.QueryMultipleAsync(
+                sql: "[usp_getAllESDFactsMappings]",
+                commandType: CommandType.StoredProcedure
+            );
+            var esdFacts = new List<ESDFactDto>();
+            while (!results.IsConsumed)
+            {
+                var resultSet = await results.ReadAsync<ESDFactDto>();
+                esdFacts.AddRange(resultSet);
+            }
+            return esdFacts;
+        }
+        public async Task<List<CountryDto>> GetCountriesForIndicators()
+        {
+            var data = (await _connection.QueryAsync<CountryDto>(sql: "[usp_getCountriesForIndicators]", commandType: CommandType.StoredProcedure)).ToList();
+
+            return data;
+        }
+
 
 
 

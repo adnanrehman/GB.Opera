@@ -72,6 +72,11 @@ export interface CompanyWithHasFundDto {
   mfSubCategories: MFSubCategoryDto[];
 }
 
+export interface CountryDto {
+  countryID: number;
+  country?: string;
+}
+
 export interface CurrencyDto {
   currencyID: number;
   currency?: string;
@@ -80,6 +85,13 @@ export interface CurrencyDto {
   aDescription?: string;
   creationDate?: string;
   isActive: boolean;
+}
+
+export interface ESDFactDto {
+  esdFactID: number;
+  parentID: number;
+  esdFact?: string;
+  aesdFact?: string;
 }
 
 export interface FactsOwnershipMappingDto {

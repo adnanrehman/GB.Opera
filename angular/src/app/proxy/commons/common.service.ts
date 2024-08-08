@@ -1,4 +1,4 @@
-import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, CompanyQNPDto, CompanyWithHasFundDto, FactsOwnershipMappingDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, ProductServiceRawDto, SectorDto, StockMarketDto } from './models';
+import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, CompanyQNPDto, CompanyWithHasFundDto, CountryDto, ESDFactDto, FactsOwnershipMappingDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, ProductServiceRawDto, SectorDto, StockMarketDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { CompanyDto } from '../companies/models';
@@ -8,6 +8,14 @@ import type { CompanyDto } from '../companies/models';
 })
 export class CommonService {
   apiName = 'Default';
+  
+
+  getAllESDFactsMappings = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ESDFactDto[]>({
+      method: 'GET',
+      url: '/api/app/common/e-sDFacts-mappings',
+    },
+    { apiName: this.apiName,...config });
   
 
   getAllFactsOwnershipMappings = (config?: Partial<Rest.Config>) =>
@@ -75,6 +83,14 @@ export class CommonService {
       method: 'GET',
       url: '/api/app/common/companies-with-has-fund',
       params: { stockMarketID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getCountriesForIndicators = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, CountryDto[]>({
+      method: 'GET',
+      url: '/api/app/common/countries-for-indicators',
     },
     { apiName: this.apiName,...config });
   

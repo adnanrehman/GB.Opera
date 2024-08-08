@@ -24,6 +24,8 @@ namespace Commons
         Task<List<FactsOwnershipMappingDto>> GetAllFactsOwnershipMappings();
         Task<CompanyQNPDto> GetCompaniesForQNP(int sectorID, int marketID);
         Task<List<ProductServiceRawDto>> GetAllPSRMappings();
+        Task<List<ESDFactDto>> GetAllESDFactsMappings();
+        Task<List<CountryDto>> GetCountriesForIndicators();
 
 
     }
