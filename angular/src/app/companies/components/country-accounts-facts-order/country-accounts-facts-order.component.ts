@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
@@ -7,56 +7,100 @@ import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { CommonModule, NgFor } from '@angular/common';
+import { InputTextModule } from 'primeng/inputtext';
+import { ListboxModule } from 'primeng/listbox';
+import { TreeModule } from 'primeng/tree';
+import { CountryFactOrderDto, CountryFactOrderService } from '@proxy/country-fact-orders';
+import { CommonService } from '@proxy/commons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-country-accounts-facts-order',
   standalone: true,
   imports: [
+    CommonModule,
     TableModule,
+    TabViewModule,
     AutoCompleteModule,
     FormsModule,
     DropdownModule,
     CalendarModule,
     ImageModule,
     FileUploadModule,
-    TabViewModule,
+    NgFor,
+    ThemeSharedModule,
+    ReactiveFormsModule,
+    ListboxModule,
+    InputTextModule,
+    TabViewModule,TreeModule
   ],
   templateUrl: './country-accounts-facts-order.component.html',
   styleUrl: './country-accounts-facts-order.component.scss'
 })
 export class CountryAccountsFactsOrderComponent {
-  filteredCountries: any[];
-  subsidiaries: any[] = [ 
-    { company: "KSE (Title)",share:"25",pa:"Traveler Cheques",order:"1" }, 
-    { company: "BH (Title)",share:"100",pa:"Financial Services",order:"2" }, 
-    { company: "OM (Title)",share:"300",pa:"Real Estates",order:"3" }, 
-    { company: "QTR (Title)",share:"25",pa:"Traveler Cheques",order:"4" }, 
-    { company: "UK (Title)",share:"100",pa:"Financial Services",order:"5" }, 
-    { company: "GR (Title)",share:"300",pa:"Real Estates",order:"6" }, 
-    { company: "FR (Title)",share:"300",pa:"Real Estates",order:"7" }, 
-    { company: "USA (Title)",share:"300",pa:"Real Estates",order:"8" }, 
-    { company: "SW (Title)",share:"300",pa:"Real Estates",order:"9" }, 
-    { company: "MR (Title)",share:"300",pa:"Real Estates",order:"10" }, 
-    { company: "BX (Title)",share:"300",pa:"Real Estates",order:"11" }, 
-    { company: "JP (Title)",share:"300",pa:"Real Estates",order:"12" }, 
-    { company: "SK (Title)",share:"300",pa:"Real Estates",order:"13" }, 
-    { company: "CH (Title)",share:"300",pa:"Real Estates",order:"14" }, 
-    { company: "IN (Title)",share:"300",pa:"Real Estates",order:"15" }, 
-    { company: "SK Assets",share:"300",pa:"Real Estates",order:"19" }, 
-  ];
-  markets = [
-    { name: 'TASI' },
-    { name: 'ReactJS' },
-    { name: 'Angular' },
-    { name: 'Bootstrap' },
-    { name: 'PrimeNG' },
-  ];
+  loading: boolean = false;
+  countryID: number;
+  countryName: string;
+  countries = [];
+  countryFactOrders: CountryFactOrderDto[];
+
+  constructor(
+    private commonService: CommonService,
+    private countryFactOrderService: CountryFactOrderService
+  ) {}
+
   ngOnInit() {
-    this.filteredCountries = [
-      { name: 'RIBL', code: 'rible' },
-      { name: 'Suadia Arabia', code: 'KSA' },
-      { name: 'Dubai', code: 'UAE' },
-      { name: 'IRAN', code: 'IR' },
-    ];
+    this.getCountriesForIndicators();
+  }
+
+  getCountriesForIndicators() {
+    this.loading =true;
+    this.commonService.getCountriesForIndicators().subscribe(res => {
+      this.countries = res;
+      if(this.countries.length > 0) this.getCountryFactOrdersByCountryID();
+      this.loading =false;
+    });
+  }
+
+  getCountryFactOrdersByCountryID() {
+    debugger;
+    this.loading = true;
+    if (this.countryID == undefined && this.countries.length > 0)
+      this.countryID = this.countries[0].countryID;
+    this.countryFactOrderService
+      .getCountryFactOrdersByCountryID(this.countryID)
+      .subscribe(res => {
+        debugger;
+        this.countryFactOrders = res;
+        this.loading = false;
+      });
+  }
+
+  save() {
+    debugger;
+    this.loading =true;
+    this.countryFactOrderService.createOrUpdateCountryFactOrderByList(this.countryFactOrders).subscribe({
+      next: (res) => {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);    
+        this.loading =false;  
+      },
+      error: (err) => {
+        console.error("Error While Saveing", err);
+        this.loading =false;  
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          title: 'Error!',
+          text: "Error While Saveing",
+          icon: 'error'
+        });
+       
+      }
+    });
   }
 }

@@ -106,6 +106,7 @@ export class CountryAccountsComponent {
     this.loading =true;
     this.commonService.getCountriesForIndicators().subscribe(res => {
       this.countries = res;
+      if(this.countries.length > 0) this.getCountriesFactsByCountryID();
       this.loading =false;
     });
   }
@@ -113,7 +114,7 @@ export class CountryAccountsComponent {
   getCountriesFactsByCountryID(): void {
     debugger; // For debugging purposes
     if (this.countryID == undefined && this.countries.length > 0)
-      this.countryID = this.countries[0].companyID;
+      this.countryID = this.countries[0].countryID;
     this.countryAccountService.getCountriesFactsByCountryID(this.countryID).subscribe(res => {
       console.log('Tree res:', res);
       this.selectedNodes =[];

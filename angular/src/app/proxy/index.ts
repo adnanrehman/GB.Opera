@@ -1,4 +1,5 @@
 import * as AccountsClassifications from './accounts-classifications';
+import * as AgencyRatings from './agency-ratings';
 import * as Books from './books';
 import * as Commons from './commons';
 import * as Companies from './companies';
@@ -12,7 +13,8 @@ import * as CompanyOwnerships from './company-ownerships';
 import * as CompanyPsraws from './company-psraws';
 import * as CorporateAnnouncements from './corporate-announcements';
 import * as CountryAccounts from './country-accounts';
+import * as CountryFactOrders from './country-fact-orders';
 import * as EstimatesandForecasts from './estimatesand-forecasts';
 import * as GbFacts from './gb-facts';
 import * as GbOwnerShips from './gb-owner-ships';
-export { AccountsClassifications, Books, Commons, Companies, CompanyAccounts, CompanyFactOrders, CompanyManagements, CompanyMutualFundSettings, CompanyMutualFunds, CompanyOwnershipFacts, CompanyOwnerships, CompanyPsraws, CorporateAnnouncements, CountryAccounts, EstimatesandForecasts, GbFacts, GbOwnerShips };
+export { AccountsClassifications, AgencyRatings, Books, Commons, Companies, CompanyAccounts, CompanyFactOrders, CompanyManagements, CompanyMutualFundSettings, CompanyMutualFunds, CompanyOwnershipFacts, CompanyOwnerships, CompanyPsraws, CorporateAnnouncements, CountryAccounts, CountryFactOrders, EstimatesandForecasts, GbFacts, GbOwnerShips };

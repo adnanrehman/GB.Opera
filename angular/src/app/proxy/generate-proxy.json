@@ -873,6 +873,186 @@
       "rootPath": "app",
       "remoteServiceName": "Default",
       "controllers": {
+        "AgencyRatings.AgencyRatingAppService": {
+          "controllerName": "AgencyRating",
+          "controllerGroupName": "AgencyRating",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "AgencyRatings.AgencyRatingAppService",
+          "interfaces": [
+            {
+              "type": "AgencyRatings.IAgencyRatingAppService",
+              "name": "IAgencyRatingAppService",
+              "methods": [
+                {
+                  "name": "GetAgencyRatings",
+                  "parametersOnMethod": [
+                    {
+                      "name": "isCredit",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "AgencyRatings.AgencyRatingDto",
+                    "typeSimple": "AgencyRatings.AgencyRatingDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateAgency",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "AgencyRatings.AgencyDto, GB.Opera.Application.Contracts",
+                      "type": "AgencyRatings.AgencyDto",
+                      "typeSimple": "AgencyRatings.AgencyDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "AgencyRatings.AgencyDto",
+                    "typeSimple": "AgencyRatings.AgencyDto"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateRating",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "AgencyRatings.RatingDto, GB.Opera.Application.Contracts",
+                      "type": "AgencyRatings.RatingDto",
+                      "typeSimple": "AgencyRatings.RatingDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "AgencyRatings.RatingDto",
+                    "typeSimple": "AgencyRatings.RatingDto"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetAgencyRatingsByIsCredit": {
+              "uniqueName": "GetAgencyRatingsByIsCredit",
+              "name": "GetAgencyRatings",
+              "httpMethod": "GET",
+              "url": "api/app/agency-rating/agency-ratings",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "isCredit",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "isCredit",
+                  "name": "isCredit",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "AgencyRatings.AgencyRatingDto",
+                "typeSimple": "AgencyRatings.AgencyRatingDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "AgencyRatings.IAgencyRatingAppService"
+            },
+            "CreateOrUpdateAgencyByInput": {
+              "uniqueName": "CreateOrUpdateAgencyByInput",
+              "name": "CreateOrUpdateAgency",
+              "httpMethod": "POST",
+              "url": "api/app/agency-rating/or-update-agency",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "AgencyRatings.AgencyDto, GB.Opera.Application.Contracts",
+                  "type": "AgencyRatings.AgencyDto",
+                  "typeSimple": "AgencyRatings.AgencyDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "AgencyRatings.AgencyDto",
+                  "typeSimple": "AgencyRatings.AgencyDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "AgencyRatings.AgencyDto",
+                "typeSimple": "AgencyRatings.AgencyDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "AgencyRatings.IAgencyRatingAppService"
+            },
+            "CreateOrUpdateRatingByInput": {
+              "uniqueName": "CreateOrUpdateRatingByInput",
+              "name": "CreateOrUpdateRating",
+              "httpMethod": "POST",
+              "url": "api/app/agency-rating/or-update-rating",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "AgencyRatings.RatingDto, GB.Opera.Application.Contracts",
+                  "type": "AgencyRatings.RatingDto",
+                  "typeSimple": "AgencyRatings.RatingDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "AgencyRatings.RatingDto",
+                  "typeSimple": "AgencyRatings.RatingDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "AgencyRatings.RatingDto",
+                "typeSimple": "AgencyRatings.RatingDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "AgencyRatings.IAgencyRatingAppService"
+            }
+          }
+        },
         "Commons.CommonAppService": {
           "controllerName": "Common",
           "controllerGroupName": "Common",
@@ -1107,6 +1287,23 @@
                   "returnValue": {
                     "type": "System.Collections.Generic.List<Commons.CountryDto>",
                     "typeSimple": "[Commons.CountryDto]"
+                  }
+                },
+                {
+                  "name": "GetAgencyRatings",
+                  "parametersOnMethod": [
+                    {
+                      "name": "isCredit",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "AgencyRatings.AgencyRatingDto",
+                    "typeSimple": "AgencyRatings.AgencyRatingDto"
                   }
                 }
               ]
@@ -1585,6 +1782,43 @@
               "returnValue": {
                 "type": "System.Collections.Generic.List<Commons.CountryDto>",
                 "typeSimple": "[Commons.CountryDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.ICommonAppService"
+            },
+            "GetAgencyRatingsByIsCredit": {
+              "uniqueName": "GetAgencyRatingsByIsCredit",
+              "name": "GetAgencyRatings",
+              "httpMethod": "GET",
+              "url": "api/app/common/agency-ratings",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "isCredit",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "isCredit",
+                  "name": "isCredit",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "AgencyRatings.AgencyRatingDto",
+                "typeSimple": "AgencyRatings.AgencyRatingDto"
               },
               "allowAnonymous": null,
               "implementFrom": "Commons.ICommonAppService"
@@ -3809,6 +4043,132 @@
               },
               "allowAnonymous": null,
               "implementFrom": "CountryAccounts.ICountryAccountAppService"
+            }
+          }
+        },
+        "CountryFactOrders.CountryFactOrderAppService": {
+          "controllerName": "CountryFactOrder",
+          "controllerGroupName": "CountryFactOrder",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "CountryFactOrders.CountryFactOrderAppService",
+          "interfaces": [
+            {
+              "type": "CountryFactOrders.ICountryFactOrderAppService",
+              "name": "ICountryFactOrderAppService",
+              "methods": [
+                {
+                  "name": "GetCountryFactOrders",
+                  "parametersOnMethod": [
+                    {
+                      "name": "CountryID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<CountryFactOrders.CountryFactOrderDto>",
+                    "typeSimple": "[CountryFactOrders.CountryFactOrderDto]"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateCountryFactOrder",
+                  "parametersOnMethod": [
+                    {
+                      "name": "list",
+                      "typeAsString": "System.Collections.Generic.List`1[[CountryFactOrders.CountryFactOrderDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<CountryFactOrders.CountryFactOrderDto>",
+                      "typeSimple": "[CountryFactOrders.CountryFactOrderDto]",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<CountryFactOrders.CountryFactOrderDto>",
+                    "typeSimple": "[CountryFactOrders.CountryFactOrderDto]"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetCountryFactOrdersByCountryID": {
+              "uniqueName": "GetCountryFactOrdersByCountryID",
+              "name": "GetCountryFactOrders",
+              "httpMethod": "GET",
+              "url": "api/app/country-fact-order/country-fact-orders",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "CountryID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "CountryID",
+                  "name": "CountryID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<CountryFactOrders.CountryFactOrderDto>",
+                "typeSimple": "[CountryFactOrders.CountryFactOrderDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CountryFactOrders.ICountryFactOrderAppService"
+            },
+            "CreateOrUpdateCountryFactOrderByList": {
+              "uniqueName": "CreateOrUpdateCountryFactOrderByList",
+              "name": "CreateOrUpdateCountryFactOrder",
+              "httpMethod": "POST",
+              "url": "api/app/country-fact-order/or-update-country-fact-order",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "list",
+                  "typeAsString": "System.Collections.Generic.List`1[[CountryFactOrders.CountryFactOrderDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<CountryFactOrders.CountryFactOrderDto>",
+                  "typeSimple": "[CountryFactOrders.CountryFactOrderDto]",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "list",
+                  "name": "list",
+                  "jsonName": null,
+                  "type": "System.Collections.Generic.List<CountryFactOrders.CountryFactOrderDto>",
+                  "typeSimple": "[CountryFactOrders.CountryFactOrderDto]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<CountryFactOrders.CountryFactOrderDto>",
+                "typeSimple": "[CountryFactOrders.CountryFactOrderDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CountryFactOrders.ICountryFactOrderAppService"
             }
           }
         },
@@ -7519,6 +7879,213 @@
     }
   },
   "types": {
+    "AgencyRatings.AgencyDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "AgencyId",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Agency",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AAgency",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Introduction",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AIntroduction",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Website",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsCredit",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "AgencyRatings.AgencyRatingDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Agencies",
+          "jsonName": null,
+          "type": "[AgencyRatings.AgencyDto]",
+          "typeSimple": "[AgencyRatings.AgencyDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Ratings",
+          "jsonName": null,
+          "type": "[AgencyRatings.RatingDto]",
+          "typeSimple": "[AgencyRatings.RatingDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "AgencyRatings.RatingDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "RatingId",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Rating",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ARating",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Brief",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ABrief",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsCredit",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "Commons.AnnouncementTypeDto": {
       "baseType": null,
       "isEnum": false,
@@ -15118,6 +15685,111 @@
         },
         {
           "name": "ACountryCustomFactName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CountryFactOrders.CountryFactOrderDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CountryFactOrdrID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CountryID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ESDFactIDOrder",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "FactName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CustomOrder",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "MeasurementUnit",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Currency",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",

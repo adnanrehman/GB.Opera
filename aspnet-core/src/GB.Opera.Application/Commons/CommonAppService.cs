@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.Text;
 using Volo.Abp.Data;
 using Companies;
+using AgencyRatings;
 
 namespace Commons
 {
@@ -221,6 +222,26 @@ namespace Commons
             var data = (await _connection.QueryAsync<CountryDto>(sql: "[usp_getCountriesForIndicators]", commandType: CommandType.StoredProcedure)).ToList();
 
             return data;
+        }
+
+        public async Task<AgencyRatingDto> GetAgencyRatings(bool isCredit)
+        {
+            try
+            {
+                var reader = await _connection.QueryMultipleAsync("getAgenciesRatings",
+                            param: new { IsCredit = isCredit },
+                            commandType: CommandType.StoredProcedure);
+                var output = new AgencyRatingDto();
+                output.Agencies = reader.Read<AgencyDto>().ToList();
+                output.Ratings = reader.Read<RatingDto>().ToList();
+                return output;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
 

@@ -1,4 +1,5 @@
-﻿using Companies;
+﻿using AgencyRatings;
+using Companies;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,6 +27,7 @@ namespace Commons
         Task<List<ProductServiceRawDto>> GetAllPSRMappings();
         Task<List<ESDFactDto>> GetAllESDFactsMappings();
         Task<List<CountryDto>> GetCountriesForIndicators();
+        Task<AgencyRatingDto> GetAgencyRatings(bool isCredit);
 
 
     }

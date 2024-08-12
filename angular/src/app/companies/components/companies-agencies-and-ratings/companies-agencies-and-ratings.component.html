@@ -4,45 +4,45 @@
       <div class="row mb-2">
         <div class="col-md-12">
           <p-dropdown
-            [options]="markets"
-            placeholder="Select a Market"
-            optionLabel="name"
-            [style]="{ width: '100%' }"
-            [showClear]="true"
+          [options]="stockMarkets"
+          [(ngModel)]="stockMarketID"
+          name="stockMarketID"
+          placeholder="Select a Market"
+          optionLabel="abbr"
+          optionValue="stockMarketID"
+          (ngModelChange)="getStockMarketSectorsByStockMarketID()"
+          [style]="{ width: '100%' }"
+          [showClear]="true"
           >
           </p-dropdown>
         </div>
         <div class="col-md-12 mt-2">
           <p-dropdown
-            [options]="markets"
-            placeholder="Select a Sector"
-            optionLabel="name"
-            [style]="{ width: '100%' }"
-            [showClear]="true"
+          [options]="companyMarketSectors"
+          [(ngModel)]="sectorID"
+          name="sectorID"
+          placeholder="Select a Sector"
+          optionLabel="sector"
+          optionValue="sectorID"
+          (ngModelChange)="getSectorCompaniesBySectorIDAndStockMarketID()"
+          [style]="{ width: '100%' }"
+          [showClear]="true"
           >
           </p-dropdown>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <h6>Companies</h6>
-          <div class="card">
-            <div class="card-body p-0">
-              <h6 class="selector p-1 mb-1 border-bottom">ACDB</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">AVD</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">HGFA</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">KJUYA</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">ADEF</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">DDEDW</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SDAD</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">DFES</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
-            </div>
-          </div>
+          <h6 class="p-1 mb-1">Companies</h6>
+          <p-listbox
+            [options]="companiesTickers"
+            [(ngModel)]="companyID"
+            name="companyID"
+            optionLabel="ticker"
+            optionValue="companyID"
+            [style]="{ width: '100%' }"
+            [listStyle]="{ 'max-height': '30rem' }"
+          />
         </div>
       </div>
     </div>
@@ -52,11 +52,14 @@
           <div class="row">
             <div class="col-md-8">
               <p-autoComplete
-                [suggestions]="filteredCountries"
-                field="name"
-                placeholder="Search the Companies and select"
-                [style]="{ width: '100%' }"
-                [inputStyle]="{ width: '100%' }"
+              [(ngModel)]="selectedItem"
+              [ngModelOptions]="{ standalone: true }"
+              (onSelect)="onSelect($event)"
+              [suggestions]="suggestions"
+              (completeMethod)="search($event)"
+              [style]="{ width: '100%' }"
+              field="company"
+              [inputStyle]="{ width: '100%' }"
               >
               </p-autoComplete>
             </div>

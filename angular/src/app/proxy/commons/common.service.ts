@@ -1,6 +1,7 @@
 import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, CompanyQNPDto, CompanyWithHasFundDto, CountryDto, ESDFactDto, FactsOwnershipMappingDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, ProductServiceRawDto, SectorDto, StockMarketDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
+import type { AgencyRatingDto } from '../agency-ratings/models';
 import type { CompanyDto } from '../companies/models';
 
 @Injectable({
@@ -8,6 +9,15 @@ import type { CompanyDto } from '../companies/models';
 })
 export class CommonService {
   apiName = 'Default';
+  
+
+  getAgencyRatingsByIsCredit = (isCredit: boolean, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, AgencyRatingDto>({
+      method: 'GET',
+      url: '/api/app/common/agency-ratings',
+      params: { isCredit },
+    },
+    { apiName: this.apiName,...config });
   
 
   getAllESDFactsMappings = (config?: Partial<Rest.Config>) =>
