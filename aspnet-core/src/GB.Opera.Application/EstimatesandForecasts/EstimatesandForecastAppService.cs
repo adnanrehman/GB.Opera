@@ -15,6 +15,7 @@ using Commons;
 using System.Reflection;
 using System.ComponentModel.Design;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using GB.Opera.constants;
 
 namespace EstimatesandForecasts
 {
@@ -32,7 +33,7 @@ namespace EstimatesandForecasts
         {
             try
             {
-                var reader = await _connection.QueryMultipleAsync("[usp_getEstimatesandForecasts]",
+                var reader = await _connection.QueryMultipleAsync(ProcedureNames.usp_getEstimatesandForecasts,
                     param: new { @CompanyID = companyID },
                 commandType: CommandType.StoredProcedure);
                 var output = new EstimatesandForecastOutputDto();
@@ -74,7 +75,7 @@ namespace EstimatesandForecasts
                 parameters.Add("@Recommendation", model.Recommendation);
                 parameters.Add("@ARecommendation", model.ARecommendation);
 
-                await _connection.ExecuteAsync("usp_InsetUpdateEstimatesandForecasts", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsetUpdateEstimatesandForecasts, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)

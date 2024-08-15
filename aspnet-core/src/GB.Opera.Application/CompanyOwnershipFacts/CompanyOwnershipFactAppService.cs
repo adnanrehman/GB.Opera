@@ -22,6 +22,7 @@ using System.Text.RegularExpressions;
 using CompanyMutualFundSettings;
 using GB.Opera.Books;
 using CompanyOwnershipFacts;
+using GB.Opera.constants;
 
 namespace CompanyOwnershipFacts
 {
@@ -39,7 +40,7 @@ namespace CompanyOwnershipFacts
         {
             try
             {
-                var data = (await _connection.QueryAsync<CompanyOwnershipFactDto>(sql: "usp_getCompanyOwnershipPreview",
+                var data = (await _connection.QueryAsync<CompanyOwnershipFactDto>(sql:ProcedureNames.usp_getCompanyOwnershipPreview,
                                 param: new { CompanyID = companyID },
                                 commandType: CommandType.StoredProcedure)).ToList();
                 return data;
@@ -62,7 +63,7 @@ namespace CompanyOwnershipFacts
                 parameters.Add("@ParentID", dto.ParentID);
                 parameters.Add("@Value", dto.Value);
 
-                await _connection.ExecuteAsync("usp_InsertUpdateCompanyOwnerships", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateCompanyOwnerships, parameters, commandType: CommandType.StoredProcedure);
 
                 return dto;
             }

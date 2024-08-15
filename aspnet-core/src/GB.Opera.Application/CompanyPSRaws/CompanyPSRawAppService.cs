@@ -15,6 +15,7 @@ using Commons;
 using System.Reflection;
 using System.ComponentModel.Design;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using GB.Opera.constants;
 
 namespace CompanyPSRaws
 {
@@ -32,7 +33,7 @@ namespace CompanyPSRaws
         {
             try
             {
-                var reader = await _connection.QueryMultipleAsync("[getPSRParentID]",
+                var reader = await _connection.QueryMultipleAsync(ProcedureNames.getPSRParentID,
                     param: new { @ProductServiceRawID = productServiceRawID, @CompanyID = companyID },
                 commandType: CommandType.StoredProcedure);
                 var output = new CompanyPSRawOutputDto();
@@ -76,7 +77,7 @@ namespace CompanyPSRaws
                 parameters.Add("@ADescription", model.ADescription);
                 parameters.Add("@IsActive", model.IsActive);
 
-                await _connection.ExecuteAsync("[usp_InsertUpdatePSRCompanyServices]", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdatePSRCompanyServices, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -100,7 +101,7 @@ namespace CompanyPSRaws
                 parameters.Add("@ADescription", model.ADescription);
                 parameters.Add("@IsActive", model.IsActive);
 
-                await _connection.ExecuteAsync("[usp_InsertUpdatePSRCompanyProducts]", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdatePSRCompanyProducts, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -125,7 +126,7 @@ namespace CompanyPSRaws
                 parameters.Add("@ADescription", model.ADescription);
                 parameters.Add("@IsActive", model.IsActive);
 
-                await _connection.ExecuteAsync("[usp_InsertUpdatePSRCompanyRawMaterials]", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdatePSRCompanyRawMaterials, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)

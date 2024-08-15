@@ -17,6 +17,7 @@ using System.ComponentModel.Design;
 using CompanyManagements;
 using System.Drawing;
 using System.Runtime.ConstrainedExecution;
+using GB.Opera.constants;
 
 namespace CompanyManagements
 {
@@ -34,7 +35,7 @@ namespace CompanyManagements
         {
             try
             {
-                var reader = await _connection.QueryMultipleAsync("usp_getCompaniesManagement",
+                var reader = await _connection.QueryMultipleAsync(ProcedureNames.usp_getCompaniesManagement,
                             param: new { CompanyID = companyID },
                             commandType: CommandType.StoredProcedure);
                 var output = new CompanyManagementDto();
@@ -91,7 +92,7 @@ namespace CompanyManagements
                 parameters.Add("@IsActive", model.IsActive);
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
 
-                await _connection.ExecuteAsync("usp_InsertManagements ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertManagements, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -115,7 +116,7 @@ namespace CompanyManagements
                 parameters.Add("@IsActive", model.IsActive);
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
 
-                await _connection.ExecuteAsync("usp_InsertSnrManagement ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertSnrManagement, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -139,7 +140,7 @@ namespace CompanyManagements
                 parameters.Add("@IsActive", true);
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
 
-                await _connection.ExecuteAsync("usp_InsertAuditors ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertAuditors, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -164,7 +165,7 @@ namespace CompanyManagements
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
                 parameters.Add("@CustomOrder", model.CustomOrder);
 
-                await _connection.ExecuteAsync("usp_InsertBMembers ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertBMembers, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -204,7 +205,7 @@ namespace CompanyManagements
                 parameters.Add("@Region", model.Region);
                 parameters.Add("@ARegion", model.ARegion);
 
-                await _connection.ExecuteAsync("usp_InsertBranches ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertBranches, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -233,7 +234,7 @@ namespace CompanyManagements
                 parameters.Add("@IsActive", true);
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
 
-                await _connection.ExecuteAsync("usp_InsertOverview ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertOverview, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -266,7 +267,7 @@ namespace CompanyManagements
                 parameters.Add("@IsActive", true);
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
 
-                await _connection.ExecuteAsync("usp_InsertContacts ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertContacts, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -291,7 +292,7 @@ namespace CompanyManagements
                 parameters.Add("@ADescription", model.ADescription);
                 parameters.Add("@Active", true);
 
-                await _connection.ExecuteAsync("usp_InsertCompanyProjects ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertCompanyProjects, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using GB.Opera.AccountsClassifications;
+using GB.Opera.constants;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace GB.Opera.GbOwnerShips
             try
             {
                 var results = await _connection.QueryMultipleAsync(
-                sql: "usp_getAllFactsOwnershipMappings",
+                sql: ProcedureNames.usp_getAllFactsOwnershipMappings,
                 commandType: CommandType.StoredProcedure
             );
 
@@ -66,7 +67,7 @@ namespace GB.Opera.GbOwnerShips
                  
             };
 
-            _connection.Execute("usp_AddUpdateGBOwnership", parameters, commandType: CommandType.StoredProcedure);
+            _connection.Execute(ProcedureNames.usp_AddUpdateGBOwnership, parameters, commandType: CommandType.StoredProcedure);
 
 
             return gbOwnerShip;
@@ -80,7 +81,7 @@ namespace GB.Opera.GbOwnerShips
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<GbOwnerShip>(
-                sql: "usp_GetGBOwnershipbyId",
+                sql: ProcedureNames.usp_GetGBOwnershipbyId,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );
@@ -98,7 +99,7 @@ namespace GB.Opera.GbOwnerShips
             {
                 // Execute the stored procedure or SQL command for deletion
                 var result = await _connection.ExecuteAsync(
-                    sql: "usp_deleteOwnershipById",
+                    sql: ProcedureNames.usp_deleteOwnershipById,
                     param: parameters,
                     commandType: CommandType.StoredProcedure
                 );

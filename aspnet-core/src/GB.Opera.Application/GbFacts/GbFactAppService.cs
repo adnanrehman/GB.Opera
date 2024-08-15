@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.Text;
 using Volo.Abp.Data;
 using GB.Opera.GbFacts;
+using GB.Opera.constants;
 
 namespace GbFacts
 {
@@ -29,7 +30,7 @@ namespace GbFacts
 
         public async Task<List<GbFactListDto>> GetGbFactsDataFromProcedure()
         { 
-            var data = (await _connection.QueryAsync<GbFactListDto>(sql: "GetGBFactsData", commandType: CommandType.StoredProcedure)).ToList();
+            var data = (await _connection.QueryAsync<GbFactListDto>(sql: ProcedureNames.GetGBFactsData, commandType: CommandType.StoredProcedure)).ToList();
 
             return data;
         }
@@ -67,7 +68,7 @@ namespace GbFacts
                 IsTitle = gbFact.IsTitle
             };
 
-            _connection.Execute("usp_AddUpdateGBFact", parameters, commandType: CommandType.StoredProcedure);
+            _connection.Execute(ProcedureNames.usp_AddUpdateGBFact, parameters, commandType: CommandType.StoredProcedure);
 
             return gbFact;
         }
@@ -80,7 +81,7 @@ namespace GbFacts
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<GbFactsAccount>(
-                sql: "getGBAccounts",
+                sql: ProcedureNames.getGBAccounts,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );

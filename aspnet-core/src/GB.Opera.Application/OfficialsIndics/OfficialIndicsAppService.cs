@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using GB.Opera.constants;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace GB.Opera.OfficialsIndics
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<OfficialIndics>(
-                sql: "usp_getOfficialIndices",
+                sql: ProcedureNames.usp_getOfficialIndices,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );
@@ -46,7 +47,7 @@ namespace GB.Opera.OfficialsIndics
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<GulfbasePrices>(
-                sql: "usp_getGBIndices",
+                sql: ProcedureNames.usp_getGBIndices,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );
@@ -63,7 +64,7 @@ namespace GB.Opera.OfficialsIndics
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<GlobalIndices>(
-                sql: "usp_getGlobalIndices",
+                sql: ProcedureNames.usp_getGlobalIndices,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );
@@ -75,7 +76,7 @@ namespace GB.Opera.OfficialsIndics
         {
             // Execute the stored procedure and retrieve MFundCompanies data using Dapper
             var data = await _connection.QueryAsync<MFundCompanies>(
-                sql: "usp_getMFundCompanies", // Use the correct stored procedure name
+                sql: ProcedureNames.usp_getMFundCompanies, // Use the correct stored procedure name
                 param: null,
                 commandType: CommandType.StoredProcedure
             );
@@ -92,7 +93,7 @@ namespace GB.Opera.OfficialsIndics
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<MFunds>(
-                sql: "usp_getAllFunds",
+                sql: ProcedureNames.usp_getAllFunds,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );
@@ -108,7 +109,7 @@ namespace GB.Opera.OfficialsIndics
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<MFundPrices>(
-                sql: "usp_getAllFundPrices",
+                sql: ProcedureNames.usp_getAllFundPrices,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using GB.Opera.constants;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace GB.Opera.EndOfDay
             try
             {
                 var results = await _connection.QueryMultipleAsync(
-                sql: "usp_getGCCStockMarkets",
+                sql: ProcedureNames.usp_getGCCStockMarkets,
                 commandType: CommandType.StoredProcedure
             );
 
@@ -60,7 +61,7 @@ namespace GB.Opera.EndOfDay
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<EODPrices>(
-                sql: "usp_getPrices",
+                sql: ProcedureNames.usp_getPrices,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );

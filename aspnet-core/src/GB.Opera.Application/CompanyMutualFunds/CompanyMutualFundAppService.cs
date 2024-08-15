@@ -19,6 +19,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using static Volo.Abp.UI.Navigation.DefaultMenuNames.Application;
 using System.Text.RegularExpressions;
+using GB.Opera.constants;
 
 namespace CompanyMutualFunds
 {
@@ -36,7 +37,7 @@ namespace CompanyMutualFunds
         {
             try
             {
-                var reader = await _connection.QueryMultipleAsync("[usp_getCompanyMutualFunds]",
+                var reader = await _connection.QueryMultipleAsync(ProcedureNames.usp_getCompanyMutualFunds,
                     param: new { CompanyID = companyID },
                 commandType: CommandType.StoredProcedure);
                 var output = new GetCompanyMutualFundsDto();
@@ -142,7 +143,7 @@ namespace CompanyMutualFunds
                 parameters.Add("@IsActive", true);
 
 
-                await _connection.ExecuteAsync("[usp_InsertUpdateMutualFunds]", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateMutualFunds, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
