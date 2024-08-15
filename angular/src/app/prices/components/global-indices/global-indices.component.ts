@@ -9,6 +9,7 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
+import { OfficialIndicsService } from '@proxy/officials-indics';
 
 @Component({
   selector: 'app-global-indices',
@@ -18,37 +19,55 @@ import { CheckboxModule } from 'primeng/checkbox';
   styleUrl: './global-indices.component.scss'
 })
 export class GlobalIndicesComponent {
+  selectedDate: string | null = null;
   filteredCountries: any[];
-  ingredient:any;
-  data: any[] = [ 
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-  ];
-  markets = [ 
-    { name: "TASI" }, 
-    { name: "ReactJS" }, 
-    { name: "Angular" }, 
-    { name: "Bootstrap" }, 
-    { name: "PrimeNG" }, 
-  ];
+  globalindices: any[];
+   
   ngOnInit() { 
-    this.filteredCountries = [
-      {name: "RIBL",code:'rible'},
-      {name: "Suadia Arabia",code:'KSA'},
-      {name: "Dubai",code:'UAE'},
-      {name: "IRAN",code:'IR'},
-    ]
+     
+     
+  }
+  onDateChange(event: any) {
+  
+    console.log('Event:', event);  // Log event to check its structure
+  
+    const date = event; // Check if event.value is a Date object
+    
+    if (date instanceof Date) { // Ensure date is a Date object
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+  
+      this.selectedDate = `${year}-${month}-${day}`;
+      console.log('Selected Date:', this.selectedDate);
+       
+    } else {
+      console.error('Invalid date');
+    }
+  }
+  constructor(private officialIndicsService : OfficialIndicsService) { }
+  getGlobalIndices() {
+    if (this.selectedDate  ) {
+      this.officialIndicsService.getGlobalIndicesByPriceDate(this.selectedDate)
+        .subscribe({
+          next: (res) => {
+            // Check if res is an array and map items with boolean conversion
+            if (Array.isArray(res)) {
+              this.globalindices = res.map(item => ({
+                ...item,
+                isActive: !!item.isActive // Convert to boolean
+              }));
+              console.log('EodPrices after mapping:', this.globalindices); // Debugging output
+            } else {
+              console.error('Unexpected data format:', res);
+            }
+          },
+          error: (err) => {
+            console.error('Error fetching EOD prices:', err); // Handle errors
+          }
+        });
+    } else {
+      console.error('Selected date or market ID is not defined.');
+    }
   }
 }

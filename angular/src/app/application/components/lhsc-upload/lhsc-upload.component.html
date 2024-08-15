@@ -16,19 +16,16 @@
             <h6>Stock Markets</h6>
             <div class="card">
               <div class="card-body p-0">
-                <h6 class="selector p-1 mb-1 border-bottom">TASI</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">DFM</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">ADX</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">KSE</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">BSE</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">MSM</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">QE</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">IPC</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
+                <p-listbox
+                [options]="markets"
+                [(ngModel)]="stockmarketid"
+                name="stockMarketID"
+                optionLabel="abbr"
+                (click)="getcompanies()"
+                optionValue="stockMarketID"
+                [style]="{ width: '100%' }"
+                [listStyle]="{ 'max-height': '200rem' }"
+              />
               </div>
             </div>
           </div>
@@ -60,7 +57,7 @@
                         <h4>TASI Companies</h4>
                         <div class="card-body p-1">
                          
-                            <p-tree [value]="data" selectionMode="checkbox"  ></p-tree>
+                            <p-tree [value]="CompanyList" selectionMode="checkbox"  ></p-tree>
                         </div>
                         <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-save"></i> Generate Financial Variable</a>
                     </div>

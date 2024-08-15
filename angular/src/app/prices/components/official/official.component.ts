@@ -1,55 +1,90 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from "primeng/dropdown"; 
+import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { EndofDayService } from '@proxy/end-of-day';
+import { OfficialIndicsService } from '@proxy/officials-indics';
 @Component({
   selector: 'app-official',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,RadioButtonModule ],
+  imports: [TableModule, AutoCompleteModule, FormsModule, DropdownModule, CalendarModule, ImageModule, FileUploadModule, TabViewModule, RadioButtonModule],
   templateUrl: './official.component.html',
   styleUrl: './official.component.scss'
 })
 export class OfficialComponent {
   filteredCountries: any[];
-  ingredient:any;
-  data: any[] = [ 
-    { sm: "TASI",tick:"",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"ACDF",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"ASD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"FRDS",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"JHYGSD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"JHASD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"VFDE",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"AFASDFDSF",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"DSFSD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"VBCDBD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"RGDFGD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"SGSSDF",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"GYJG",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"HKJHJ",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"WERWE",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"DFSFSDF",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"JTYJHGJ",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
+  markets = [];
+  selectedMarketID: number | null = null;
+  selectedDate: string | null = null;
+  ingredient: any;
+  OfficailIndics: any[] = [];
+  data: any[] = [
+    { sm: "TASI", tick: "", op: "8.0200", hp: "7.9000", lp: "8.0000", cp: "8.0200", tv: "80933", tv2: "641389.7800", tr: "138", lcp: "8.0200", },
+
   ];
-  markets = [ 
-    { name: "TASI" }, 
-    { name: "ReactJS" }, 
-    { name: "Angular" }, 
-    { name: "Bootstrap" }, 
-    { name: "PrimeNG" }, 
-  ];
-  ngOnInit() { 
-    this.filteredCountries = [
-      {name: "RIBL",code:'rible'},
-      {name: "Suadia Arabia",code:'KSA'},
-      {name: "Dubai",code:'UAE'},
-      {name: "IRAN",code:'IR'},
-    ]
+  constructor(private endofDayService: EndofDayService,private officialIndicsService : OfficialIndicsService) { }
+
+  getstockmarkets() {
+    this.endofDayService.getAllGCCSector().subscribe(res => {
+      this.markets = res;
+    });
   }
+  onDropdownChange(event: any) {
+    this.selectedMarketID = event.value;
+    console.log('Selected Market ID:', this.selectedMarketID);
+
+  }
+  onDateChange(event: any) {
+
+    console.log('Event:', event);  // Log event to check its structure
+
+    const date = event; // Check if event.value is a Date object
+
+    if (date instanceof Date) { // Ensure date is a Date object
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+
+      this.selectedDate = `${year}-${month}-${day}`;
+      console.log('Selected Date:', this.selectedDate);
+
+    } else {
+      console.error('Invalid date');
+    }
+  }
+  ngOnInit() {
+    this.getstockmarkets();
+
+  }
+  getEPfficail() {
+    if (this.selectedDate && this.selectedMarketID) {
+      this.officialIndicsService.getOfficialIndicsByPriceDateAndStockMarketID(this.selectedDate, this.selectedMarketID)
+        .subscribe({
+          next: (res) => {
+            // Check if res is an array and map items with boolean conversion
+            if (Array.isArray(res)) {
+              this.OfficailIndics = res.map(item => ({
+                ...item,
+                isActive: !!item.isActive // Convert to boolean
+              }));
+              console.log('EodPrices after mapping:', this.OfficailIndics); // Debugging output
+            } else {
+              console.error('Unexpected data format:', res);
+            }
+          },
+          error: (err) => {
+            console.error('Error fetching EOD prices:', err); // Handle errors
+          }
+        });
+    } else {
+      console.error('Selected date or market ID is not defined.');
+    }
+  }
+  
 }

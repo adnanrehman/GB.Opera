@@ -149,8 +149,8 @@ addAccount( obj: any) {
   this.ref = this.dialogService.open(AccountsClassificationsDetailComponent, {
     header: 'Add Account',
     data: {
-      obj: obj,
-      text:"Add Account",
+        obj: obj,
+        text:"Add Account",
     },
     width: '40%',
     contentStyle: { "max-height": "1000px", "overflow": "auto" },

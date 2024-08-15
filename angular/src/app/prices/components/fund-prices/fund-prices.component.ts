@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from "primeng/dropdown"; 
-import { CalendarModule } from 'primeng/calendar';
+import { Calendar, CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { CheckboxModule } from 'primeng/checkbox';
+import { Checkbox, CheckboxModule } from 'primeng/checkbox';
+import { MFundPrices, OfficialIndicsService } from '@proxy/officials-indics';
 
 @Component({
   selector: 'app-fund-prices',
@@ -18,37 +19,87 @@ import { CheckboxModule } from 'primeng/checkbox';
   styleUrl: './fund-prices.component.scss'
 })
 export class FundPricesComponent {
+  @ViewChild('priceInput') priceInput: ElementRef<HTMLInputElement>;
+  @ViewChild('calendar') calendar: Calendar;
+  @ViewChild('checkbox') checkbox: Checkbox;
   filteredCountries: any[];
+  checkboxState: boolean;
+  
   ingredient:any;
-  data: any[] = [ 
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-    { sm: "NIKKIE 225",o:"6549.0000",h:"6539.5487",l:"1154287.6584",c:"208457.5596",v:"" },    
-  ];
-  markets = [ 
-    { name: "TASI" }, 
-    { name: "ReactJS" }, 
-    { name: "Angular" }, 
-    { name: "Bootstrap" }, 
-    { name: "PrimeNG" }, 
-  ];
-  ngOnInit() { 
-    this.filteredCountries = [
-      {name: "RIBL",code:'rible'},
-      {name: "Suadia Arabia",code:'KSA'},
-      {name: "Dubai",code:'UAE'},
-      {name: "IRAN",code:'IR'},
-    ]
+  markets:any;
+  funds:any;
+  data: MFundPrices[]
+  selectedMarketID: number | null = null;
+  selectedfunfId: number | null = null;
+  
+  constructor( private officialIndicsService : OfficialIndicsService) { }
+  ngAfterViewInit() {
+    this.usp_getAllFundPrices();
   }
+  getMFundCompanies() {
+    this.officialIndicsService.getMFundCompanies().subscribe(res => {
+      this.markets = res;
+    });
+  }
+  ngOnInit() { 
+    this.getMFundCompanies();
+     
+  }
+  onDropdownChange(event: any) {
+    this.selectedMarketID = event.value;
+    this.usp_getAllFunds();
+     
+  }
+  onDropdownFundChnage(event: any) {
+    this.selectedfunfId = event.value;
+    this.usp_getAllFundPrices();
+     
+  }
+  usp_getAllFunds() {
+    this.officialIndicsService.getAllFundsByCompanyID(this.selectedMarketID).subscribe(res => {
+      this.funds = res;
+    });
+  }
+  usp_getAllFundPrices() {
+    this.officialIndicsService.getAllFundPricesByMFundID(this.selectedfunfId).subscribe(res => {
+      this.data = res;
+      this.updateInputValue();
+    });
+  }
+  updateInputValue() {
+    if (this.priceInput && this.data.length > 0) {
+      const firstItem = this.data[0];
+
+      // Setting price input value
+      const valueToSet = firstItem?.closingPrice != null ? firstItem.closingPrice.toString() : '';  
+      this.priceInput.nativeElement.value = valueToSet;
+
+      // Setting calendar value
+      if (this.calendar) {
+        const dateToSet = firstItem?.priceDate ? new Date(firstItem.priceDate) : null;
+        if (dateToSet instanceof Date && !isNaN(dateToSet.getTime())) {
+          // Set the calendar value after a short delay to ensure initialization
+          setTimeout(() => {
+            this.calendar.value = dateToSet;
+          }, 0);
+        } else {
+          console.error('Invalid date:', dateToSet);
+        }
+      }
+      if (this.checkbox) {
+        // Convert isActive to boolean
+        let checkboxState: boolean;
+        if (typeof firstItem.isActive === 'string') {
+          checkboxState = firstItem.isActive === 'Yes';
+        } else if (typeof firstItem.isActive === 'boolean') {
+          checkboxState = firstItem.isActive;
+        } else {
+          checkboxState = false; // Default value if unknown type
+        }
+  
+        // Set the checkbox state
+        this.checkboxState = checkboxState;
+      }
+  }
+}
 }

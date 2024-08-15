@@ -8,6 +8,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { EndofDayService } from '@proxy/end-of-day/endof-day.service';
 
 @Component({
   selector: 'app-end-of-day',
@@ -19,32 +20,14 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 export class EndOfDayComponent {
   filteredCountries: any[];
   ingredient:any;
-  data: any[] = [ 
-    { sm: "TASI",tick:"Almatherrit",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"ACDF",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"ASD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"FRDS",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"JHYGSD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"JHASD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"VFDE",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"AFASDFDSF",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"DSFSD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"VBCDBD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"RGDFGD",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"SGSSDF",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"GYJG",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"HKJHJ",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"WERWE",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"DFSFSDF",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-    { sm: "TASI",tick:"JTYJHGJ",op:"8.0200",hp:"7.9000",lp:"8.0000",cp:"8.0200",tv:"80933",tv2:"641389.7800",tr:"138",lcp:"8.0200", },  
-  ];
-  markets = [ 
-    { name: "TASI" }, 
-    { name: "ReactJS" }, 
-    { name: "Angular" }, 
-    { name: "Bootstrap" }, 
-    { name: "PrimeNG" }, 
-  ];
+  
+  markets = [];
+
+  EodPrices: any[] = [];
+  selectedMarketID: number | null = null;
+  selectedDate: string | null = null;
+  constructor(private endofDayService : EndofDayService){} 
+  
   ngOnInit() { 
     this.filteredCountries = [
       {name: "RIBL",code:'rible'},
@@ -52,6 +35,63 @@ export class EndOfDayComponent {
       {name: "Dubai",code:'UAE'},
       {name: "IRAN",code:'IR'},
     ]
+    this.getstockmarkets();
   }
+getstockmarkets(){
+  this.endofDayService.getAllGCCSector().subscribe(res =>{
+this.markets=res;
+  });
+}
+onDropdownChange(event: any) {
+  this.selectedMarketID = event.value;
+  console.log('Selected Market ID:', this.selectedMarketID);
+  
+}
+onDateChange(event: any) {
+  
+  console.log('Event:', event);  // Log event to check its structure
+
+  const date = event; // Check if event.value is a Date object
+  
+  if (date instanceof Date) { // Ensure date is a Date object
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    this.selectedDate = `${year}-${month}-${day}`;
+    console.log('Selected Date:', this.selectedDate);
+     
+  } else {
+    console.error('Invalid date');
+  }
+}
+
+
+getEodPrices() {
+  if (this.selectedDate && this.selectedMarketID) {
+    this.endofDayService.eodPricesByPriceDateAndStockMarketID(this.selectedDate, this.selectedMarketID)
+      .subscribe({
+        next: (res) => {
+          // Check if res is an array and map items with boolean conversion
+          if (Array.isArray(res)) {
+            this.EodPrices = res.map(item => ({
+              ...item,
+              isActive: !!item.isActive // Convert to boolean
+            }));
+            console.log('EodPrices after mapping:', this.EodPrices); // Debugging output
+          } else {
+            console.error('Unexpected data format:', res);
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching EOD prices:', err); // Handle errors
+        }
+      });
+  } else {
+    console.error('Selected date or market ID is not defined.');
+  }
+}
+
 
 }
+ 
