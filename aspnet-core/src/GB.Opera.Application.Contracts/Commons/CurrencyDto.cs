@@ -9,5 +9,10 @@ namespace Commons
     {
         public int CurrencyID { get; set; }
         public string? Currency { get; set; }
+        public string? ACurrency { get; set; }
+        public string? Description { get; set; }
+        public string? ADescription { get; set; }
+        public DateTime CreationDate { get; set; }
+        public bool IsActive { get; set; }
     }
 }

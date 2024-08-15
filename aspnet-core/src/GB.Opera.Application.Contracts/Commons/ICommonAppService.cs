@@ -1,4 +1,5 @@
-﻿using Companies;
+﻿using AgencyRatings;
+using Companies;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,13 @@ namespace Commons
         Task<List<SectorDto>> GetStockMarketSectors(int stockMarketID);
         Task<List<CompaniesTickerDto>> GetSectorCompanies(int sectorID, int stockMarketID);
         Task<LangAnnounceTypeDto> GetLangAnnouceTypes();
+        Task<CompanyWithHasFundDto> GetCompaniesWithHasFund(int stockMarketID);
+        Task<List<FactsOwnershipMappingDto>> GetAllFactsOwnershipMappings();
+        Task<CompanyQNPDto> GetCompaniesForQNP(int sectorID, int marketID);
+        Task<List<ProductServiceRawDto>> GetAllPSRMappings();
+        Task<List<ESDFactDto>> GetAllESDFactsMappings();
+        Task<List<CountryDto>> GetCountriesForIndicators();
+        Task<AgencyRatingDto> GetAgencyRatings(bool isCredit);
 
 
     }

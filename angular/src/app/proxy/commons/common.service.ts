@@ -1,6 +1,7 @@
-import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, SectorDto, StockMarketDto } from './models';
+import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, CompanyQNPDto, CompanyWithHasFundDto, CountryDto, ESDFactDto, FactsOwnershipMappingDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, ProductServiceRawDto, SectorDto, StockMarketDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
+import type { AgencyRatingDto } from '../agency-ratings/models';
 import type { CompanyDto } from '../companies/models';
 
 @Injectable({
@@ -8,6 +9,39 @@ import type { CompanyDto } from '../companies/models';
 })
 export class CommonService {
   apiName = 'Default';
+  
+
+  getAgencyRatingsByIsCredit = (isCredit: boolean, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, AgencyRatingDto>({
+      method: 'GET',
+      url: '/api/app/common/agency-ratings',
+      params: { isCredit },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getAllESDFactsMappings = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ESDFactDto[]>({
+      method: 'GET',
+      url: '/api/app/common/e-sDFacts-mappings',
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getAllFactsOwnershipMappings = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, FactsOwnershipMappingDto[]>({
+      method: 'GET',
+      url: '/api/app/common/facts-ownership-mappings',
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getAllPSRMappings = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ProductServiceRawDto[]>({
+      method: 'GET',
+      url: '/api/app/common/p-sRMappings',
+    },
+    { apiName: this.apiName,...config });
   
 
   getCompMSectorsByMarketID = (marketID: number, config?: Partial<Rest.Config>) =>
@@ -36,11 +70,37 @@ export class CommonService {
     { apiName: this.apiName,...config });
   
 
+  getCompaniesForQNPBySectorIDAndMarketID = (sectorID: number, marketID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, CompanyQNPDto>({
+      method: 'GET',
+      url: '/api/app/common/companies-for-qNP',
+      params: { sectorID, marketID },
+    },
+    { apiName: this.apiName,...config });
+  
+
   getCompaniesTickersBySectorIDAndMarketID = (sectorID: number, marketID: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, CompaniesTickerDto[]>({
       method: 'GET',
       url: '/api/app/common/companies-tickers',
       params: { sectorID, marketID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getCompaniesWithHasFundByStockMarketID = (stockMarketID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, CompanyWithHasFundDto>({
+      method: 'GET',
+      url: '/api/app/common/companies-with-has-fund',
+      params: { stockMarketID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getCountriesForIndicators = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, CountryDto[]>({
+      method: 'GET',
+      url: '/api/app/common/countries-for-indicators',
     },
     { apiName: this.apiName,...config });
   

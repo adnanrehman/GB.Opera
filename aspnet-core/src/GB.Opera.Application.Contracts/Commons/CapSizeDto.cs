@@ -5,9 +5,11 @@ using System.Text;
 
 namespace Commons
 {
-    public class CapSizeDto
+    public class FactsOwnershipMappingDto
     {
-        public int CapSizeID { get; set; }
-        public string? CapSize { get; set; }
+        public int GBOwnershipID { get; set; }
+        public int ParentID { get; set; }
+        public string? GBOwnership { get; set; }
+        public string? AGBOwnership { get; set; }
     }
 }

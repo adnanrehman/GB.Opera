@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from "primeng/dropdown"; 
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
@@ -9,79 +9,65 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TreeModule } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { CommonModule, NgFor } from '@angular/common';
+import { InputTextModule } from 'primeng/inputtext';
+import { ListboxModule } from 'primeng/listbox';
+import { CommonService } from '@proxy/commons';
+import { GbFactListDto, GbFactService } from '@proxy/gb-facts';
+import { CompanyAccountService, CompanyGBFactMappingDto } from '@proxy/company-accounts';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-accounts',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,
-    CalendarModule,ImageModule,FileUploadModule,TabViewModule,TreeModule ],
+  imports: [
+    CommonModule,
+    TableModule,
+    TabViewModule,
+    AutoCompleteModule,
+    FormsModule,
+    DropdownModule,
+    CalendarModule,
+    ImageModule,
+    FileUploadModule,
+    NgFor,
+    ThemeSharedModule,
+    ReactiveFormsModule,
+    ListboxModule,
+    InputTextModule,
+    TabViewModule,TreeModule
+  ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss'
 })
 export class AccountsComponent {
-  filteredCountries: any[];
+  loading: boolean = false;
+  headerValue: any;
+  selectedItem: any;
+  suggestions: any[] = [];
+  sectorID: number;
+  stockMarketID: number;
+  companyID: number;
+  marketLangAnnouncement = [];
+  companyMarketSectors = [];
+  companiesTickers = [];
   tree:TreeNode[];
   data:TreeNode[];
-  subsidiaries: any[] = [ 
-    { company: "Suadi Travels Cheque",share:"25",pa:"Traveler Cheques",order:"" }, 
-    { company: "Riyadh Capitol",share:"100",pa:"Financial Services",order:"" }, 
-    { company: "Ithara Alriyadh",share:"300",pa:"Real Estates",order:"" }, 
-    { company: "Suadi Travels Cheque",share:"25",pa:"Traveler Cheques",order:"" }, 
-    { company: "Riyadh Capitol",share:"100",pa:"Financial Services",order:"" }, 
-    { company: "Ithara Alriyadh",share:"300",pa:"Real Estates",order:"" }, 
-  ];
-  markets = [ 
-    { name: "TASI" }, 
-    { name: "ReactJS" }, 
-    { name: "Angular" }, 
-    { name: "Bootstrap" }, 
-    { name: "PrimeNG" }, 
-  ];
-  ngOnInit() { 
-    this.filteredCountries = [
-      {name: "RIBL",code:'rible'},
-      {name: "Suadia Arabia",code:'KSA'},
-      {name: "Dubai",code:'UAE'},
-      {name: "IRAN",code:'IR'},
-    ];
+  gbFactLists: GbFactListDto[];
+  companyFacts:CompanyGBFactMappingDto[];
+  selectedNode: TreeNode;
+  selectedNodes: any[] = [];
+  constructor(
+    private commonService: CommonService,
+    private companyAccountService:CompanyAccountService,
+    private gbfactservice: GbFactService
+  ) {}
 
-    this.data=[
-      {
-        label: 'MISC',
-        children: [
-          {label: 'No.  Of Employees',},
-          {label: 'Weighted Shared',},
-          {label: 'Treasury Shared',},
-          {label: 'No. Of Branches',},
-          {label: 'Np. Of Atms',},
-          {label: 'OutStanding Shares',},
-          {label: 'Breakdown',children:[{label:''}]},
-          {label: 'Segment Analysis',children:[{label:''}]},
-          {label: 'Geographical Analysis',children:[{label:''}]},
-          {label: 'Market Risk',children:[{label:''}]},
-          {label: 'Liquidity Risk',children:[{label:''}]},
-          {label: 'Zakat-Saudi ShareHolders'},
-          {label: 'Income Tax'},
-         
-        ]
-      },
-      {
-        label: 'Capitol Adequery',
-        children: [
-          {label: 'Risk Weighted Assets',},
-          {label: 'Capitol Required',},
-          {label: 'Tier 1 Capitol',},
-          {label: 'Tier 2 Capitol',},
-          {label: 'Np. Of Atms',},
-          {label: 'Total Tier 1 and 2 Capitol',},
-          {label: 'Tier 1 capitol Adequery Ratio'},
-          {label: 'Total capitol Adequery Ratio'},
-         
-        ]
-      },
-        
-       ];
-
+  ngOnInit() {
+    this.getMarketLangAnnouncements();
+    this.stockMarketID = 0;
+    this.fetchTreeData();
        this.tree=[
         {
           label:'Accounts Breakdown',
@@ -108,4 +94,169 @@ export class AccountsComponent {
         }
       ]
   }
+
+  fetchTreeData(): void {
+    debugger; // For debugging purposes
+    this.gbfactservice.getAllFactsMappings().subscribe(res => {
+      console.log('Tree res:', res);
+      
+      // Initialize idMap and gbFactListDto
+      let idMap = {};
+      this.gbFactLists = res.map(item => {
+        let newItem = {
+          ...item,
+          label: item.gbFact || '', // Assign gbFact to label or default to empty string
+          parent: null,
+          children: []
+        };
+        idMap[newItem.gbFactID] = newItem;
+        return newItem;
+      });
+  
+      // Build the tree structure
+      let treeData = [];
+      this.gbFactLists.forEach(item => {
+        if (item.parentId === 0) {
+          treeData.push(item);
+        } else {
+          let parentItem = idMap[item.parentId];
+          if (parentItem) {
+            parentItem.children.push(item);
+            item = parentItem;
+          } else {
+            console.error(`Parent id ${item.parentId} not found in idMap.`);
+          }
+        }
+      });
+  
+      // Assign the final tree data to gbFactListDto
+      this.gbFactLists = treeData;
+      console.log('Tree Data:', this.gbFactLists);
+    });
+  }
+
+  search(event: AutoCompleteCompleteEvent) {
+    this.loading =true;
+    this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
+      this.suggestions = res;
+      this.loading =false;
+    });
+  }
+
+  onSelect(event: any) {
+    debugger;
+    this.loading =true;
+    debugger;
+    this.stockMarketID = event.value.stockMarketID;
+    this.sectorID = event.value.sectorID;
+    this.companyID = event.value.companyID
+    this.getCompMarketSectorsByMarketID();
+    this.loading =false;
+  }
+
+  getMarketLangAnnouncements() {
+    this.commonService.getMarketLangAnnouncements().subscribe(res => {
+      this.marketLangAnnouncement = res;
+    });
+  }
+
+  getCompMarketSectorsByMarketID() {
+    debugger;
+    this.loading = true;
+    this.commonService.getCompMarketSectorsByMarketID(this.stockMarketID).subscribe(res => {
+      this.companyMarketSectors = res;
+      if (this.companyMarketSectors.length > 0) this.getCompaniesTickersBySectorIDAndMarketID();
+      else this.loading = false;
+    });
+  }
+
+  getCompaniesTickersBySectorIDAndMarketID() {
+    debugger;
+    if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
+      this.sectorID = this.companyMarketSectors[0].sectorID;
+    this.commonService
+      .getCompaniesTickersBySectorIDAndMarketID(this.sectorID, this.stockMarketID)
+      .subscribe(res => {
+        this.companiesTickers = res;
+        if (this.companiesTickers.length > 0) this.getCompaniesFactsByCompanyID();
+        else this.loading = false;
+      });
+  }
+
+  getCompaniesFactsByCompanyID(): void {
+    debugger; // For debugging purposes
+    if (this.companyID == undefined && this.companiesTickers.length > 0)
+      this.companyID = this.companiesTickers[0].companyID;
+    this.companyAccountService.getCompaniesFactsByCompanyID(this.companyID).subscribe(res => {
+      console.log('Tree res:', res);
+      this.selectedNodes =[];
+      this.NodeSelection(this.gbFactLists,res);
+      this.loading = false;
+    });
+  }
+
+  NodeSelection(list: any[],companyFacts: any[]) {    
+    for (let x of list) {
+      var gbFact = companyFacts.find(f => f.gbFactID == x.gbFactID);
+        if(gbFact){
+          this.selectedNodes.push(x);
+        }
+      if (x.children.length !== 0) {
+        var result = this.NodeSelection(x.children,companyFacts);
+        if(result){ 
+          return true;
+        }
+      } 
+  
+    }
+  
+    return false;
+  
+  }
+
+  onNodeSelect(event: { originalEvent: Event, node: TreeNode }): void {
+   debugger;
+    this.selectedNode = event.node;
+    this.selectedNodes.push(event.node)
+     
+  }
+
+  save() {
+    debugger;
+    this.loading =true;
+    const gbAcFactsAccounts: CompanyGBFactMappingDto[] = this.mapGbFactListDtoTocompanyGBFactMapping(this.selectedNodes);
+    this.companyAccountService.createOrUpdateCompanyFactsByList(gbAcFactsAccounts).subscribe({
+      next: (res) => {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);    
+        this.loading =false;  
+      },
+      error: (err) => {
+        console.error("Error While Saveing", err);
+        this.loading =false;  
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          title: 'Error!',
+          text: "Error While Saveing",
+          icon: 'error'
+        });
+       
+       // alert("Save error: " + err.message); // Display error message to user
+      }
+    });
+  }
+    mapGbFactListDtoTocompanyGBFactMapping(companyGBFactMapping: GbFactListDto[]): CompanyGBFactMappingDto[] {
+      return companyGBFactMapping.map(dto => ({
+        companyID: this.companyID,
+        gbFactID:  dto.gbFactID, 
+          parentID: dto.parentId,
+          customFactName:  dto.gbFact, 
+          aCustomFactName: dto.agbFact
+        
+    }));
+  }
 }
+

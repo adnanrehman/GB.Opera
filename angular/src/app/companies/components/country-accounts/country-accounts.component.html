@@ -1,45 +1,45 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
     <div class="row mb-2">
       <div class="col-md-3">
         <div class="row">
           <div class="col-md-12">
-            <h6>Countries</h6>
-            <div class="card">
-              <div class="card-body p-0">
-                <h6 class="selector p-1 mb-1 border-bottom">Kingdom Of Suadia Arabia</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">United Arab Emirates</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">State of Kuwait</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">Kingdom of Bahrain</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">Sultanat of Oman</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">State of Qatar</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">UK Germany</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">France</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">Switzerland</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">USA</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">Mexico</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">Brazil</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">Japan</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">Hong Kong</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">China</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">India</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">South Korea</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">Singapore</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">Canada</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">Spain Malaysia</h6>
-              </div>
-            </div>
+            <h6 class="p-1 mb-1">Countries</h6>
+            <p-listbox
+              [options]="countries"
+              [(ngModel)]="countryID"
+              name="countryID"
+              (click)="getCountriesFactsByCountryID()"
+              optionLabel="country"
+              optionValue="countryID"
+              [style]="{ width: '100%' }"
+              [listStyle]="{ 'max-height': '30rem' }"
+            />
           </div>
         </div>
       </div>
       <div class="col-md-9">
         <div class="card">
           <div class="card-body p-2">
+            <div class="row">
+              <div class="col-md-10">
+              </div>
+              <div class="col-md-2">
+                <a href="#" class="btn btn-success btn-sm me-1" (click)="save()"><i class="fa fa-save"></i> Save</a>
+              </div>
+            </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <h6>Kingdom of Suadia Arabia Accounts</h6>
+                    <h6> {{countryName}} Accounts</h6>
                     <div class="card">
                         <div class="card-body p-1">
-                            <p-tree [value]="data" selectionMode="checkbox"  ></p-tree>
+                          <p-tree [value]="ESDFacts" selectionMode="checkbox" (onNodeUnselect)="onNodeUnselect($event)" [(selection)]="selectedNodes" (onNodeSelect)="onNodeSelect($event)">
+                            <ng-template let-node pTemplate="default">
+                              <span pTooltip="{{ node.aCountryCustomFactName }}" tooltipPosition="top">
+                                <p-checkbox [value]="node"></p-checkbox>
+                                {{ node.label }}
+                              </span>
+                            </ng-template>
+                          </p-tree>
                         </div>
                     </div>                    
                 </div>

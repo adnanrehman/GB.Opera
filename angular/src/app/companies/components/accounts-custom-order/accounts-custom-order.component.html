@@ -1,48 +1,49 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
     <div class="row mb-2">
       <div class="col-md-3">
         <div class="row mb-2">
           <div class="col-md-12">
             <p-dropdown
-              [options]="markets"
-              placeholder="Select a Market"
-              optionLabel="name"
-              [style]="{ width: '100%' }"
-              [showClear]="true"
-            >
-            </p-dropdown>
+            [options]="stockMarkets"
+            [(ngModel)]="stockMarketID"
+            name="stockMarketID"
+            placeholder="Select a Market"
+            optionLabel="abbr"
+            optionValue="stockMarketID"
+            (ngModelChange)="getStockMarketSectorsByStockMarketID()"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
           </div>
           <div class="col-md-12 mt-2">
             <p-dropdown
-              [options]="markets"
-              placeholder="Select a Sector"
-              optionLabel="name"
-              [style]="{ width: '100%' }"
-              [showClear]="true"
-            >
-            </p-dropdown>
+            [options]="companyMarketSectors"
+            [(ngModel)]="sectorID"
+            name="sectorID"
+            placeholder="Select a Sector"
+            optionLabel="sector"
+            optionValue="sectorID"
+            (ngModelChange)="getSectorCompaniesBySectorIDAndStockMarketID()"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
-            <h6>Companies</h6>
-            <div class="card">
-              <div class="card-body p-0">
-                <h6 class="selector p-1 mb-1 border-bottom">ACDB</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">AVD</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">HGFA</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">KJUYA</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">ADEF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">DDEDW</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDAD</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">DFES</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
-              </div>
-            </div>
+            <h6 class="p-1 mb-1">Companies</h6>
+            <p-listbox
+              [options]="companiesTickers"
+              [(ngModel)]="companyID"
+              name="companyID"              
+              optionLabel="ticker"
+              (click)="getCompaniesFactOrdersByCompanyID()"
+              optionValue="companyID"
+              [style]="{ width: '100%' }"
+              [listStyle]="{ 'max-height': '30rem' }"
+            />
           </div>
         </div>
       </div>
@@ -50,19 +51,23 @@
         <div class="card">
           <div class="card-body p-2">
             <div class="row">
-              <div class="col-md-8">
-                <!-- <p-autoComplete
-                  [suggestions]="filteredCountries"
-                  field="name"
-                  placeholder="Search the Companies and select"
-                  [style]="{ width: '100%' }"
-                  [inputStyle]="{ width: '100%' }"
-                >
-                </p-autoComplete> -->
+              <div class="col-md-10">
+                <p-autoComplete
+                [(ngModel)]="selectedItem"
+                [ngModelOptions]="{ standalone: true }"
+                (onSelect)="onSelect($event)"
+                placeholder="Search Companies or Ticker"
+                [suggestions]="suggestions"
+                (completeMethod)="search($event)"
+                [style]="{ width: '100%' }"
+                field="company"
+                [inputStyle]="{ width: '100%' }"
+              >
+              </p-autoComplete>
               </div>
-              <div class="col-md-4 text-end">
+              <div class="col-md-2 text-end">
                 <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a> -->
-                <a href="#" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+                <a href="#" (click)="save()" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
                 <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
               </div>
             </div>
@@ -70,8 +75,9 @@
                 <div class="col-md-12">
                     <p-table
                     #dt
-                    [value]="subsidiaries"
-                    [tableStyle]="{ 'max-height': '20rem' }"
+                    [value]="companyFactOrders"
+                    [scrollable]="true" 
+                    scrollHeight="30rem"
                     responsiveLayout="stack"
                     styleClass="p-datatable-gridlines"
                   >
@@ -79,14 +85,13 @@
                       <div class="d-flex flex-column flex-md-row justify-content-between">
                         <div class="mr-auto p-2">
                           <span>
-                            <h5>ADCB Facts Orders</h5>
+                            <h5>Facts Orders</h5>
                           </span>
                         </div>
                       </div>
                     </ng-template>
                     <ng-template pTemplate="header">
                       <tr>
-                        <th class="text-center"></th>
                         <th>Account</th>
                         <th>Orignal Order</th>
                         <th>Custom Order</th>
@@ -98,21 +103,40 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-item>
                       <tr>
-                        <td class="text-center"></td>
-                        <td>{{ item.company }}</td>
-                        <td>{{ item.order }}</td>
-                        <td>{{ item.share }}</td>
+                        <td>{{ item.factName }}</td>
+                        <td>{{ item.gbFactIDOrder }}</td>
+                        <td>{{ item.customOrder }}</td>
                         <td class="text-center">
-                            <p-checkbox [binary]="true" inputId="binary" />  
+                          <div class="text-center">
+                            <input class="form-check-input" [(ngModel)]="item.checkMe" name="checkMe"
+                            [ngModelOptions]="{ standalone: true }"
+                            pInputText type="checkbox" />
+                            
+                          </div>
                         </td>
                         <td class="text-center">
-                            <p-checkbox [binary]="true" inputId="binary" />
+                          <div class="text-center">
+                            <input class="form-check-input" [(ngModel)]="item.isQuarterly" name="isQuarterly"
+                            [ngModelOptions]="{ standalone: true }"
+                            pInputText type="checkbox" />
+                            
+                          </div>
                         </td>
                         <td class="text-center">
-                            <p-checkbox [binary]="true" inputId="binary" />
+                          <div class="text-center">
+                            <input class="form-check-input" [(ngModel)]="item.iRy" name="iRy"
+                            [ngModelOptions]="{ standalone: true }"
+                            pInputText type="checkbox" />
+                            
+                          </div>
                         </td>
                         <td class="text-center">
-                            <p-checkbox [binary]="true" inputId="binary" />
+                          <div class="text-center">
+                            <input class="form-check-input" [(ngModel)]="item.iRq" name="iRq"
+                            [ngModelOptions]="{ standalone: true }"
+                            pInputText type="checkbox" />
+                            
+                          </div>
                         </td>
                       </tr>
                     </ng-template>

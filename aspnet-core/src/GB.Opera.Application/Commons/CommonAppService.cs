@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.Text;
 using Volo.Abp.Data;
 using Companies;
+using AgencyRatings;
 
 namespace Commons
 {
@@ -118,6 +119,132 @@ namespace Commons
             }
 
         }
+
+        public async Task<CompanyWithHasFundDto> GetCompaniesWithHasFund(int stockMarketID)
+        {
+            try
+            {
+                var reader = await _connection.QueryMultipleAsync("[usp_getCompaniesWithHasFund]",
+                    param: new { StockMarketID = stockMarketID },
+                    commandType: CommandType.StoredProcedure);
+
+                var output = new CompanyWithHasFundDto();
+                output.Companies = reader.Read<CompanyDto>().ToList();
+                output.AssetsAllocations = reader.Read<AssetsAllocationDto>().ToList();
+                output.GeoDiversifications = reader.Read<GeoDiversificationDto>().ToList();
+                output.SectorDiversifications = reader.Read<SectorDiversificationDto>().ToList();
+                output.MajorInvestments = reader.Read<MajorInvestmentDto>().ToList();
+                output.Benchmarks = reader.Read<BenchmarkDto>().ToList();
+                output.Currencies = reader.Read<CurrencyDto>().ToList();
+                output.PortfolioTypes = reader.Read<PortfolioTypeDto>().ToList();
+                output.MFListings = reader.Read<MFListingDto>().ToList();
+                output.MFRisks = reader.Read<MFRiskDto>().ToList();
+                output.MFClassifications = reader.Read<MFClassificationDto>().ToList();
+                output.MFSubCategories = reader.Read<MFSubCategoryDto>().ToList();
+                output.MFCategories = reader.Read<MFCategoryDto>().ToList();
+                
+                return output;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public async Task<List<FactsOwnershipMappingDto>> GetAllFactsOwnershipMappings()
+        {
+            try
+            {
+                var data = (await _connection.QueryAsync<FactsOwnershipMappingDto>(sql: "usp_getAllFactsOwnershipMappings",
+                                commandType: CommandType.StoredProcedure)).ToList();
+                return data;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        public async Task<CompanyQNPDto> GetCompaniesForQNP(int sectorID, int marketID)
+        {
+            try
+            {
+                var reader = await _connection.QueryMultipleAsync("[usp_getCompaniesForQNP]",
+                    param: new { @SectorID = sectorID, @MarketID = marketID },
+                commandType: CommandType.StoredProcedure);
+                var output = new CompanyQNPDto();
+                output.Companies = reader.Read<CompanyDto>().ToList();
+                output.PeriodTypes = reader.Read<PeriodTypeDto>().ToList();
+                output.QPeriods = reader.Read<QPeriodDto>().ToList();
+                return output;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        public async Task<List<ProductServiceRawDto>> GetAllPSRMappings()
+        {
+            var results = await _connection.QueryMultipleAsync(
+                sql: "[usp_getAllPSRMappings]",
+                commandType: CommandType.StoredProcedure
+            );
+            var productServiceRawList = new List<ProductServiceRawDto>();
+            while (!results.IsConsumed)
+            {
+                var resultSet = await results.ReadAsync<ProductServiceRawDto>();
+                productServiceRawList.AddRange(resultSet);
+            }
+            return productServiceRawList;
+        }
+        public async Task<List<ESDFactDto>> GetAllESDFactsMappings()
+        {
+            var results = await _connection.QueryMultipleAsync(
+                sql: "[usp_getAllESDFactsMappings]",
+                commandType: CommandType.StoredProcedure
+            );
+            var esdFacts = new List<ESDFactDto>();
+            while (!results.IsConsumed)
+            {
+                var resultSet = await results.ReadAsync<ESDFactDto>();
+                esdFacts.AddRange(resultSet);
+            }
+            return esdFacts;
+        }
+        public async Task<List<CountryDto>> GetCountriesForIndicators()
+        {
+            var data = (await _connection.QueryAsync<CountryDto>(sql: "[usp_getCountriesForIndicators]", commandType: CommandType.StoredProcedure)).ToList();
+
+            return data;
+        }
+
+        public async Task<AgencyRatingDto> GetAgencyRatings(bool isCredit)
+        {
+            try
+            {
+                var reader = await _connection.QueryMultipleAsync("getAgenciesRatings",
+                            param: new { IsCredit = isCredit },
+                            commandType: CommandType.StoredProcedure);
+                var output = new AgencyRatingDto();
+                output.Agencies = reader.Read<AgencyDto>().ToList();
+                output.Ratings = reader.Read<RatingDto>().ToList();
+                return output;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+
 
 
 
