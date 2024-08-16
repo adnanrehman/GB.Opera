@@ -1,0 +1,258 @@
+<div class="container ms-2" [abpLoading]="loading">
+  <div class="row mb-2">
+    <div class="col-md-3">
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <p-dropdown
+            [options]="stockMarkets"
+            [(ngModel)]="stockMarketID"
+            name="stockMarketID"
+            placeholder="Select a Market"
+            optionLabel="abbr"
+            optionValue="stockMarketID"
+            (ngModelChange)="getStockMarketSectorsByStockMarketID()"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
+        </div>
+        <div class="col-md-12 mt-2">
+          <p-dropdown
+            [options]="companyMarketSectors"
+            [(ngModel)]="sectorID"
+            name="sectorID"
+            placeholder="Select a Sector"
+            optionLabel="sector"
+            optionValue="sectorID"
+            (ngModelChange)="getSectorCompaniesBySectorIDAndStockMarketID()"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h6 class="p-1 mb-1">Companies</h6>
+          <p-listbox
+            [options]="companiesTickers"
+            [(ngModel)]="companyID"
+            name="companyID"
+            optionLabel="ticker"
+            optionValue="companyID"
+            [style]="{ width: '100%' }"
+            [listStyle]="{ 'max-height': '30rem' }"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body p-2">
+          <div class="row">
+            <div class="col-md-8">
+              <p-autoComplete
+                [(ngModel)]="selectedItem"
+                [ngModelOptions]="{ standalone: true }"
+                (onSelect)="onSelect($event)"
+                [suggestions]="suggestions"
+                (completeMethod)="search($event)"
+                [style]="{ width: '100%' }"
+                field="company"
+                [inputStyle]="{ width: '100%' }"
+              >
+              </p-autoComplete>
+            </div>
+            <div class="col-md-4">
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" (click)="createOrUpdateNewsEng()" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <label class="col-form-label">Category</label>
+              <p-dropdown
+                [(ngModel)]="newsEng.newsCategoryID"
+                required="true"
+                name="newsCategoryID"
+                [options]="newsCategories"
+                placeholder="Select a Category"
+                optionLabel="newsCategory"
+                optionValue="newsCategoryID"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-4">
+              <label class="col-form-label">Country</label>
+              <p-dropdown
+                [(ngModel)]="newsEng.gccid"
+                required="true"
+                name="gccid"
+                [options]="countries"
+                placeholder="Select a Country"
+                optionLabel="country"
+                optionValue="gccid"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="col-md-4">
+              <label class="col-form-label">Date</label>
+              <p-calendar
+                [style]="{ width: '100%' }"
+                required="true"
+                dataType="string"
+                [showIcon]="true"
+                [(ngModel)]="newsEng.date"
+                name="asofDate"
+                placeholder="Select a As of Date"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label class="col-form-label col-4">Title</label>
+              <input
+                autofocus
+                [(ngModel)]="newsEng.title"
+                [ngModelOptions]="{ standalone: true }"
+                type="text"
+                class="form-control"
+                name="title"
+                placeholder="Title"
+              />
+            </div>
+            <div class="col-md-12">
+                <label class="col-form-label col-4">SubTitle</label>
+                <input
+                  autofocus
+                  [(ngModel)]="newsEng.subTitle"
+                  [ngModelOptions]="{ standalone: true }"
+                  type="text"
+                  class="form-control"
+                  name="subTitle"
+                  placeholder="SubTitle"
+                />
+              </div>
+            <div class="col-md-3">
+              <label class="col-form-label col-4">Source</label>
+              <input
+                  autofocus
+                  [(ngModel)]="newsEng.source"
+                  [ngModelOptions]="{ standalone: true }"
+                  type="text"
+                  class="form-control"
+                  name="source"
+                  placeholder="Source"
+                />
+            </div>
+            <div class="col-md-3 mt-4">
+                <label class="col-form-label col-4">&nbsp;</label>
+                <button type="button" class="btn btn-primary btn-block btn-sm mt-2">Select and Add</button>
+            </div>
+            <div class="col-md-3">
+                <label class="col-form-label col-4">&nbsp;</label>
+                <div class="form-check me-2">
+                    <input
+                      class="form-check-input"
+                      [(ngModel)]="newsEng.isHome"
+                      name="isHome"
+                      type="checkbox"
+                    />
+                    <label class="form-check-label" for="defaultCheck3">Important</label>
+                  </div>
+            </div>
+            <div class="col-md-3">
+                <label class="col-form-label col-4">&nbsp;</label>
+                <div class="form-check me-2">
+                    <input
+                      class="form-check-input"
+                      [(ngModel)]="newsEng.islamic"
+                      name="islamic"
+                      type="checkbox"
+                    />
+                    <label class="form-check-label" for="defaultCheck3">Islamic</label>
+                  </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-3">
+                <button type="button" (click)="getNewsEngs()" class="btn btn-primary btn-block btn-sm">Retirieve Top 10 Gulf News</button>
+            </div>
+            <div class="col-md-3">
+                <input
+                  autofocus
+                  type="text"
+                  class="form-control"
+                  name="title"
+                  placeholder="Search By News Id"
+                />
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary btn-block btn-sm">Search By News Id</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary btn-block btn-sm">Relate Indices / Sectors</button>
+            </div>
+            <div class="col-md-12">
+              <h6>Credit Rating:</h6>
+              <div class="card">
+                <div class="card-body p-0" style="height: 150px; background-color: darkgrey">
+                  <p-table
+                    #dt
+                    [value]="newsEngs"
+                    [scrollable]="true" 
+                    scrollHeight="25rem"
+                    responsiveLayout="stack"
+                    styleClass="p-datatable-strip"
+                  >
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th>NewsID</th>
+                        <th>Date</th>
+                        <th>Title</th>
+                        <th>SubTitle</th>
+                        <th>Source</th>
+                        <th>Important</th>
+                        <th>Islamic</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                      <tr>
+                      <td>{{ item.newsID }}</td>
+                      <td>{{ item.date }}</td>
+                      <td>{{ item.title }}</td>
+                      <td>{{ item.subTitle }}</td>
+                      <td>{{ item.source }}</td>
+                      <td class="text-center">
+                        <div class="text-center">
+                          <input class="form-check-input" [(ngModel)]="item.isHome" name="isHome"
+                          [ngModelOptions]="{ standalone: true }"
+                          pInputText type="checkbox" />
+                          
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="text-center">
+                          <input class="form-check-input" [(ngModel)]="item.islamic" name="islamic"
+                          [ngModelOptions]="{ standalone: true }"
+                          pInputText type="checkbox" />
+                          
+                        </div>
+                      </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

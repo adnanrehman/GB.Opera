@@ -28,6 +28,7 @@ namespace Commons
         Task<List<ESDFactDto>> GetAllESDFactsMappings();
         Task<List<CountryDto>> GetCountriesForIndicators();
         Task<AgencyRatingDto> GetAgencyRatings(bool isCredit);
+        Task<GetNewsCatAndCountriesDto> GetNewsCatAndCountries();
 
 
     }

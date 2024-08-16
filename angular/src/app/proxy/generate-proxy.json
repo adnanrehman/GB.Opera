@@ -1305,6 +1305,14 @@
                     "type": "AgencyRatings.AgencyRatingDto",
                     "typeSimple": "AgencyRatings.AgencyRatingDto"
                   }
+                },
+                {
+                  "name": "GetNewsCatAndCountries",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Commons.GetNewsCatAndCountriesDto",
+                    "typeSimple": "Commons.GetNewsCatAndCountriesDto"
+                  }
                 }
               ]
             }
@@ -1819,6 +1827,21 @@
               "returnValue": {
                 "type": "AgencyRatings.AgencyRatingDto",
                 "typeSimple": "AgencyRatings.AgencyRatingDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.ICommonAppService"
+            },
+            "GetNewsCatAndCountries": {
+              "uniqueName": "GetNewsCatAndCountries",
+              "name": "GetNewsCatAndCountries",
+              "httpMethod": "GET",
+              "url": "api/app/common/news-cat-and-countries",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Commons.GetNewsCatAndCountriesDto",
+                "typeSimple": "Commons.GetNewsCatAndCountriesDto"
               },
               "allowAnonymous": null,
               "implementFrom": "Commons.ICommonAppService"
@@ -5826,6 +5849,196 @@
               "implementFrom": "GbFacts.IGbFactAppService"
             }
           }
+        },
+        "NewsArabs.NewsArabAppService": {
+          "controllerName": "NewsArab",
+          "controllerGroupName": "NewsArab",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "NewsArabs.NewsArabAppService",
+          "interfaces": [
+            {
+              "type": "NewsArabs.INewsArabAppService",
+              "name": "INewsArabAppService",
+              "methods": [
+                {
+                  "name": "GetNewsArabs",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<NewsArabs.NewsArabDto>",
+                    "typeSimple": "[NewsArabs.NewsArabDto]"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateNewsArab",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "NewsArabs.NewsArabDto, GB.Opera.Application.Contracts",
+                      "type": "NewsArabs.NewsArabDto",
+                      "typeSimple": "NewsArabs.NewsArabDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "NewsArabs.NewsArabDto",
+                    "typeSimple": "NewsArabs.NewsArabDto"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetNewsArabs": {
+              "uniqueName": "GetNewsArabs",
+              "name": "GetNewsArabs",
+              "httpMethod": "GET",
+              "url": "api/app/news-arab/news-arabs",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<NewsArabs.NewsArabDto>",
+                "typeSimple": "[NewsArabs.NewsArabDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "NewsArabs.INewsArabAppService"
+            },
+            "CreateOrUpdateNewsArabByInput": {
+              "uniqueName": "CreateOrUpdateNewsArabByInput",
+              "name": "CreateOrUpdateNewsArab",
+              "httpMethod": "POST",
+              "url": "api/app/news-arab/or-update-news-arab",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "NewsArabs.NewsArabDto, GB.Opera.Application.Contracts",
+                  "type": "NewsArabs.NewsArabDto",
+                  "typeSimple": "NewsArabs.NewsArabDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "NewsArabs.NewsArabDto",
+                  "typeSimple": "NewsArabs.NewsArabDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "NewsArabs.NewsArabDto",
+                "typeSimple": "NewsArabs.NewsArabDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "NewsArabs.INewsArabAppService"
+            }
+          }
+        },
+        "NewsEngs.NewsEngAppService": {
+          "controllerName": "NewsEng",
+          "controllerGroupName": "NewsEng",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "NewsEngs.NewsEngAppService",
+          "interfaces": [
+            {
+              "type": "NewsEngs.INewsEngAppService",
+              "name": "INewsEngAppService",
+              "methods": [
+                {
+                  "name": "GetNewsEngs",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<NewsEngs.NewsEngDto>",
+                    "typeSimple": "[NewsEngs.NewsEngDto]"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateNewsEng",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "NewsEngs.NewsEngDto, GB.Opera.Application.Contracts",
+                      "type": "NewsEngs.NewsEngDto",
+                      "typeSimple": "NewsEngs.NewsEngDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "NewsEngs.NewsEngDto",
+                    "typeSimple": "NewsEngs.NewsEngDto"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetNewsEngs": {
+              "uniqueName": "GetNewsEngs",
+              "name": "GetNewsEngs",
+              "httpMethod": "GET",
+              "url": "api/app/news-eng/news-engs",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<NewsEngs.NewsEngDto>",
+                "typeSimple": "[NewsEngs.NewsEngDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "NewsEngs.INewsEngAppService"
+            },
+            "CreateOrUpdateNewsEngByInput": {
+              "uniqueName": "CreateOrUpdateNewsEngByInput",
+              "name": "CreateOrUpdateNewsEng",
+              "httpMethod": "POST",
+              "url": "api/app/news-eng/or-update-news-eng",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "NewsEngs.NewsEngDto, GB.Opera.Application.Contracts",
+                  "type": "NewsEngs.NewsEngDto",
+                  "typeSimple": "NewsEngs.NewsEngDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "NewsEngs.NewsEngDto",
+                  "typeSimple": "NewsEngs.NewsEngDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "NewsEngs.NewsEngDto",
+                "typeSimple": "NewsEngs.NewsEngDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "NewsEngs.INewsEngAppService"
+            }
+          }
         }
       }
     },
@@ -9272,6 +9485,18 @@
       "genericArguments": null,
       "properties": [
         {
+          "name": "GCCID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "CountryID",
           "jsonName": null,
           "type": "System.Int32",
@@ -9285,6 +9510,18 @@
         },
         {
           "name": "Country",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ACountry",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -9597,6 +9834,39 @@
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Commons.GetNewsCatAndCountriesDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "NewsCategories",
+          "jsonName": null,
+          "type": "[Commons.NewsCategoryDto]",
+          "typeSimple": "[Commons.NewsCategoryDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Countries",
+          "jsonName": null,
+          "type": "[Commons.CountryDto]",
+          "typeSimple": "[Commons.CountryDto]",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -10173,6 +10443,51 @@
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Commons.NewsCategoryDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "NewsCategoryID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NewsCategory",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ANewsCategory",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -18210,6 +18525,312 @@
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "NewsArabs.NewsArabDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "NewsID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GCCID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NewsCategoryID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Date",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ATitle",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ASubTitle",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ASource",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ADescription",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsHome",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GulfBaseSectorID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Islamic",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "NewsEngs.NewsEngDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "NewsID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GCCID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NewsCategoryID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Date",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Title",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SubTitle",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Source",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Description",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsHome",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GulfBaseSectorID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Islamic",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

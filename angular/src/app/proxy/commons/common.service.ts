@@ -1,4 +1,4 @@
-import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, CompanyQNPDto, CompanyWithHasFundDto, CountryDto, ESDFactDto, FactsOwnershipMappingDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, ProductServiceRawDto, SectorDto, StockMarketDto } from './models';
+import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, CompanyQNPDto, CompanyWithHasFundDto, CountryDto, ESDFactDto, FactsOwnershipMappingDto, GetNewsCatAndCountriesDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, ProductServiceRawDto, SectorDto, StockMarketDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { AgencyRatingDto } from '../agency-ratings/models';
@@ -117,6 +117,14 @@ export class CommonService {
     this.restService.request<any, MarketLangAnnouncementDto[]>({
       method: 'GET',
       url: '/api/app/common/market-lang-announcements',
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getNewsCatAndCountries = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, GetNewsCatAndCountriesDto>({
+      method: 'GET',
+      url: '/api/app/common/news-cat-and-countries',
     },
     { apiName: this.apiName,...config });
   

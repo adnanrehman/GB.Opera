@@ -73,8 +73,10 @@ export interface CompanyWithHasFundDto {
 }
 
 export interface CountryDto {
+  gccid: number;
   countryID: number;
   country?: string;
+  aCountry?: string;
 }
 
 export interface CurrencyDto {
@@ -112,6 +114,11 @@ export interface GeoDiversificationDto {
   geoDiversification?: string;
   aGeoDiversification?: string;
   isActive: boolean;
+}
+
+export interface GetNewsCatAndCountriesDto {
+  newsCategories: NewsCategoryDto[];
+  countries: CountryDto[];
 }
 
 export interface IndustryDto {
@@ -187,6 +194,12 @@ export interface MarketSectorDto {
   marketSectorID: number;
   sectorID: number;
   sector?: string;
+}
+
+export interface NewsCategoryDto {
+  newsCategoryID: number;
+  newsCategory?: string;
+  aNewsCategory?: string;
 }
 
 export interface PeriodTypeDto {

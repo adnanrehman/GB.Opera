@@ -244,6 +244,26 @@ namespace Commons
 
         }
 
+        public async Task<GetNewsCatAndCountriesDto> GetNewsCatAndCountries()
+        {
+            try
+            {
+                var reader = await _connection.QueryMultipleAsync("[getNewsCatAndCountries]",
+                commandType: CommandType.StoredProcedure);
+                var output = new GetNewsCatAndCountriesDto();
+                output.NewsCategories = reader.Read<NewsCategoryDto>().ToList();
+                output.Countries = reader.Read<CountryDto>().ToList();
+                return output;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
 
 
 
