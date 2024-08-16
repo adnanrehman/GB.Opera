@@ -21,6 +21,7 @@ using static Volo.Abp.UI.Navigation.DefaultMenuNames.Application;
 using System.Text.RegularExpressions;
 using CompanyMutualFundSettings;
 using GB.Opera.Books;
+using GB.Opera.constants;
 
 namespace CompanyAccounts
 {
@@ -38,7 +39,7 @@ namespace CompanyAccounts
         {
             try
             {
-                var data = (await _connection.QueryAsync<CompanyGBFactMappingDto>(sql: "usp_getCompaniesFacts",
+                var data = (await _connection.QueryAsync<CompanyGBFactMappingDto>(sql: ProcedureNames.usp_getCompaniesFacts,
                                 param: new { CompanyID = companyID },
                                 commandType: CommandType.StoredProcedure)).ToList();
                 return data;
@@ -63,7 +64,7 @@ namespace CompanyAccounts
                     parameters.Add("@CustomFactName", company.CustomFactName);
                     parameters.Add("@ACustomFactName", company.ACustomFactName);
 
-                    await _connection.ExecuteAsync("usp_InsertUpdateCompaniesFacts", parameters, commandType: CommandType.StoredProcedure);
+                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateCompaniesFacts, parameters, commandType: CommandType.StoredProcedure);
                 }
 
                 return list;

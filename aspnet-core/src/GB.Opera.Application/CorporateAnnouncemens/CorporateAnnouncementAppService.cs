@@ -15,6 +15,7 @@ using Commons;
 using System.Reflection;
 using System.ComponentModel.Design;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using GB.Opera.constants;
 
 namespace CorporateAnnouncements
 {
@@ -32,7 +33,7 @@ namespace CorporateAnnouncements
         {
             try
             {
-                var data = (await _connection.QueryAsync<CorporateAnnouncementDto>(sql: "usp_getAnnoucementsInfo",
+                var data = (await _connection.QueryAsync<CorporateAnnouncementDto>(sql:ProcedureNames.usp_getAnnoucementsInfo,
                                 param: new { CompanyID = companyID },
                                 commandType: CommandType.StoredProcedure)).ToList();
                 return data;
@@ -56,7 +57,7 @@ namespace CorporateAnnouncements
                 parameters.Add("@AAnnouncement", model.AAnnouncement);
                 parameters.Add("@GulfbaseID", model.GulfbaseID);
 
-                await _connection.ExecuteAsync("usp_DT_InsertUpdateCorporateAnnouncements", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_DT_InsertUpdateCorporateAnnouncements, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -72,7 +73,7 @@ namespace CorporateAnnouncements
                 var parameters = new DynamicParameters();
                 parameters.Add("@CorporateAnnouncementID", corporateAnnouncementID);
 
-                await _connection.ExecuteAsync("[usp_DeleteCooperateAnnouncement]", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_DeleteCooperateAnnouncement, parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception ex)
             {

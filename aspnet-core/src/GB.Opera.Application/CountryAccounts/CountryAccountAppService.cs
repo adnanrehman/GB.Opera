@@ -20,6 +20,7 @@ using System.Xml.Linq;
 using static Volo.Abp.UI.Navigation.DefaultMenuNames.Application;
 using System.Text.RegularExpressions;
 using GB.Opera.Books;
+using GB.Opera.constants;
 
 namespace CountryAccounts
 {
@@ -37,7 +38,7 @@ namespace CountryAccounts
         {
             try
             {
-                var data = (await _connection.QueryAsync<CountryAccountDto>(sql: "[usp_getCountriesFacts]",
+                var data = (await _connection.QueryAsync<CountryAccountDto>(sql: ProcedureNames.usp_getCountriesFacts,
                                 param: new { CountryID = CountryID },
                                 commandType: CommandType.StoredProcedure)).ToList();
                 return data;
@@ -62,7 +63,7 @@ namespace CountryAccounts
                     parameters.Add("@CountryCustomFactName", Country.CountryCustomFactName);
                     parameters.Add("@ACountryCustomFactName", Country.ACountryCustomFactName);
 
-                    await _connection.ExecuteAsync("usp_InsertUpdateCountriesFacts", parameters, commandType: CommandType.StoredProcedure);
+                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateCountriesFacts, parameters, commandType: CommandType.StoredProcedure);
                 }
 
                 return list;

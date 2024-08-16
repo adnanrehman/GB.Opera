@@ -14,6 +14,7 @@ using Volo.Abp.Data;
 using Commons;
 using System.Reflection;
 using System.ComponentModel.Design;
+using GB.Opera.constants;
 
 namespace Companies
 {
@@ -31,7 +32,7 @@ namespace Companies
         {
             try
             {
-                var data = (await _connection.QueryAsync<CompanyDto>(sql: "usp_getCompanies",
+                var data = (await _connection.QueryAsync<CompanyDto>(sql: ProcedureNames.usp_getCompanies,
                                 param: new { StockMarketID = stockMarketID, SectorID = sectorID },
                                 commandType: CommandType.StoredProcedure)).ToList();
                 return data;
@@ -85,7 +86,7 @@ namespace Companies
                 parameters.Add("@StockTicker", model.StockTicker);
                 parameters.Add("@EnglishShortName", model.EnglishShortName);
 
-                await _connection.ExecuteAsync("usp_InsertCompanies", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertCompanies, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)

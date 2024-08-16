@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using GB.Opera.constants;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace GB.Opera.LHRUploads
         {
 
             var results = await _connection.QueryMultipleAsync(
-                sql: "usp_getCompStockMarkets",
+                sql: ProcedureNames.usp_getCompStockMarkets,
                 commandType: CommandType.StoredProcedure
             );
 
@@ -50,7 +51,7 @@ namespace GB.Opera.LHRUploads
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<Company>(
-                sql: "usp_getCompaniesFromMarket",
+                sql: ProcedureNames.usp_getCompaniesFromMarket,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );

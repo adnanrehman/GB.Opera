@@ -17,6 +17,7 @@ using System.ComponentModel.Design;
 using CompanyOwnerships;
 using System.Drawing;
 using System.Runtime.ConstrainedExecution;
+using GB.Opera.constants;
 
 namespace CompanyOwnerships
 {
@@ -34,7 +35,7 @@ namespace CompanyOwnerships
         {
             try
             {
-                var reader = await _connection.QueryMultipleAsync("usp_getCompanyRelatedInformations",
+                var reader = await _connection.QueryMultipleAsync(ProcedureNames.usp_getCompanyRelatedInformations,
                             param: new { CompanyID = companyID },
                             commandType: CommandType.StoredProcedure);
                 var output = new CompanyOwnershipDto();
@@ -72,7 +73,7 @@ namespace CompanyOwnerships
                 parameters.Add("@CustomOrder", model.CustomOrder);
                 parameters.Add("@CompanyTypeID", model.CompanyTypeID);
 
-                await _connection.ExecuteAsync("usp_InsertUpdateSubsidiaries ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateSubsidiaries, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -92,7 +93,7 @@ namespace CompanyOwnerships
                 parameters.Add("@UploadDate", model.UploadDate);
 
 
-                await _connection.ExecuteAsync("usp_InsertUpdateSubsCompUpdate ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateSubsCompUpdate, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -116,7 +117,7 @@ namespace CompanyOwnerships
                 parameters.Add("@IsActive", true);
                 parameters.Add("@CreationDate", DateTime.Now);
 
-                await _connection.ExecuteAsync("usp_InsertUpdateSistorCompanies ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateSistorCompanies, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -141,7 +142,7 @@ namespace CompanyOwnerships
                 parameters.Add("@IsActive", true);
                 parameters.Add("@CreationDate", DateTime.Now);
 
-                await _connection.ExecuteAsync("usp_InsertUpdateCompaniesProducts", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateCompaniesProducts, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -169,7 +170,7 @@ namespace CompanyOwnerships
                 parameters.Add("@CreationDate", DateTime.Now);
                 parameters.Add("@IsActive", true);
 
-                await _connection.ExecuteAsync("usp_InsertUpdateRawMaterials ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateRawMaterials, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -193,7 +194,7 @@ namespace CompanyOwnerships
                 parameters.Add("@CreationDate", DateTime.Now);
                 parameters.Add("@IsActive", true);
 
-                await _connection.ExecuteAsync("usp_InsertUpdateForeignInvementOptions ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateForeignInvementOptions, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
@@ -216,7 +217,7 @@ namespace CompanyOwnerships
                 parameters.Add("@CreationDate", DateTime.Now);
                 parameters.Add("@IsActive", true);
 
-                await _connection.ExecuteAsync("usp_InsertUpdateMiscNotes ", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateMiscNotes, parameters, commandType: CommandType.StoredProcedure);
                 return model;
             }
             catch (Exception ex)
