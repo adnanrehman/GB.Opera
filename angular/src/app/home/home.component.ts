@@ -54,6 +54,10 @@ export class HomeComponent {
     this.authService.navigateToLogin();
   }
 
+  logout(){
+    this.authService.logout();
+  }
+
   ngAfterViewInit(){
     // this.tabService.addTab({ title:"Gb Facts",component:GbFactsComponent,href:"GbFacts" });
     // this.selectTab("GbFacts");
