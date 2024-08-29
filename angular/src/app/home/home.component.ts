@@ -1,4 +1,4 @@
-import { AuthService } from '@abp/ng.core';
+import { AuthService, PermissionService } from '@abp/ng.core';
 import { Component, ComponentFactoryResolver, ElementRef, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { GbFactsComponent } from '../application/components/gb-facts/gb-facts.component';
 import { AccountsClassificationComponent } from '../application/components/accounts-classification/accounts-classification.component';
@@ -44,6 +44,7 @@ export class HomeComponent {
 
   constructor(private authService: AuthService,
     private tabService: TabService,
+    private permissionService: PermissionService,
     private menuService: MenuService,
     private spinner: NgxSpinnerService,
   ) {
@@ -71,8 +72,18 @@ export class HomeComponent {
       this.tabs = tabs;
       this.spinner.hide();
     }); 
+    debugger;
     this.menuService.menus$.subscribe(menus => {
       this.menus = menus;
+      this.menus.forEach(element => {
+        debugger;
+        if(this.permissionService.getGrantedPolicy(element.permission))
+          element.active = true;
+        element.menuItems.forEach(data => {
+          if(this.permissionService.getGrantedPolicy(data.permission))
+            data.active = true;          
+        });
+      });
       this.spinner.hide();
     }); 
   }

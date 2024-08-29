@@ -13,6 +13,7 @@ public class OperaPermissionDefinitionProvider : PermissionDefinitionProvider
         #region Application
 
         var application = context.AddGroup(OperaPermissions.Application);
+        application.AddPermission(OperaPermissions.Application, L("Application"));
 
         var application_GbFacts = application.AddPermission(OperaPermissions.Application_GbFacts, L("GbFacts"));
         application_GbFacts.AddChild(OperaPermissions.Application_GbFacts + ".Create", L("Create"));
@@ -64,7 +65,7 @@ public class OperaPermissionDefinitionProvider : PermissionDefinitionProvider
         #region CompanyAndMarket
 
         var companyAndMarket = context.AddGroup(OperaPermissions.CompanyAndMarket);
-
+        companyAndMarket.AddPermission(OperaPermissions.CompanyAndMarket, L("CompanyAndMarket"));
         var companyAndMarket_CountryGroup = companyAndMarket.AddPermission(OperaPermissions.CompanyAndMarket_CountryGroup, L("CountryGroup"));
         companyAndMarket_CountryGroup.AddChild(OperaPermissions.CompanyAndMarket_CountryGroup + ".Create", L("Create"));
         companyAndMarket_CountryGroup.AddChild(OperaPermissions.CompanyAndMarket_CountryGroup + ".Edit", L("Edit"));
@@ -95,7 +96,7 @@ public class OperaPermissionDefinitionProvider : PermissionDefinitionProvider
         #region Company
 
         var company = context.AddGroup(OperaPermissions.Company);
-
+        company.AddPermission(OperaPermissions.Company, L("Company"));
         var company_Company = company.AddPermission(OperaPermissions.Company_Company, L("Company"));
         company_Company.AddChild(OperaPermissions.Company_Company + ".Create", L("Create"));
         company_Company.AddChild(OperaPermissions.Company_Company + ".Edit", L("Edit"));
@@ -181,7 +182,7 @@ public class OperaPermissionDefinitionProvider : PermissionDefinitionProvider
         #region News
 
         var news = context.AddGroup(OperaPermissions.News);
-
+        news.AddPermission(OperaPermissions.News, L("News"));
         var news_EconomicAndBusiness = news.AddPermission(OperaPermissions.News_EconomicAndBusiness, L("EconomicAndBusiness"));
         news_EconomicAndBusiness.AddChild(OperaPermissions.News_EconomicAndBusiness + ".Create", L("Create"));
         news_EconomicAndBusiness.AddChild(OperaPermissions.News_EconomicAndBusiness + ".Edit", L("Edit"));
@@ -212,7 +213,7 @@ public class OperaPermissionDefinitionProvider : PermissionDefinitionProvider
         #region PriceAndIndices
 
         var priceAndIndices = context.AddGroup(OperaPermissions.PriceAndIndices);
-
+        priceAndIndices.AddPermission(OperaPermissions.PriceAndIndices, L("PriceAndIndices"));
         var priceAndIndices_EndOfDay = priceAndIndices.AddPermission(OperaPermissions.PriceAndIndices_EndOfDay, L("EndOfDay"));
         priceAndIndices_EndOfDay.AddChild(OperaPermissions.PriceAndIndices_EndOfDay + ".Create", L("Create"));
         priceAndIndices_EndOfDay.AddChild(OperaPermissions.PriceAndIndices_EndOfDay + ".Edit", L("Edit"));
@@ -248,7 +249,7 @@ public class OperaPermissionDefinitionProvider : PermissionDefinitionProvider
         #region Financial
 
         var financial = context.AddGroup(OperaPermissions.Financial);
-
+        financial.AddPermission(OperaPermissions.Financial, L("Financial"));
         var financial_Upload = financial.AddPermission(OperaPermissions.Financial_Upload, L("Upload"));
         financial_Upload.AddChild(OperaPermissions.Financial_Upload + ".Create", L("Create"));
         financial_Upload.AddChild(OperaPermissions.Financial_Upload + ".Edit", L("Edit"));

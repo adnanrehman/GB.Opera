@@ -62,14 +62,19 @@ import { BatchesAdminComponent } from 'src/app/financials/components/batches-adm
 import { AccountsCustomOrderComponent } from 'src/app/companies/components/accounts-custom-order/accounts-custom-order.component';
 import { EstimatesAndForecastsComponent } from 'src/app/companies/components/estimates-and-forecasts/estimates-and-forecasts.component';
 import { GlobalIndicesComponent } from 'src/app/prices/components/global-indices/global-indices.component';
+import { Application, Application_AccountsClassification, Application_EconomicAndStatisticalData, Application_GbFacts, Application_Gbir, Application_GbUniversalFacts, Application_LhscUpload, Application_Ownership, Application_ProductsServicesAndRawMaterials, Application_Reports, Company, Company_Accounts, Company_AccountsCustomOrder, Company_AgenciesRating, Company_Announcements, Company_CompaniesAgenciesAndRatings, Company_CompaniesProductsServicesRawMaterialsUpdates, Company_Company, Company_CountryAccounts, Company_CountryAccountsFactsOrder, Company_EstimatesAndForecasts, Company_Ipos, Company_Management, Company_MutaulFunds, Company_MutaulFundsSettings, Company_Ownership, Company_UpdateOwnershipFacts, CompanyAndMarket, CompanyAndMarket_Country, CompanyAndMarket_CountryGroup, CompanyAndMarket_CountryProfile, CompanyAndMarket_CurrencyExchange, CompanyAndMarket_MarketSector, Financial, Financial_BatchesAdmin, Financial_BatchesEntry, Financial_BatchesReEntry, Financial_CompQnetP, Financial_CurrentDividends, Financial_CurrentValues, Financial_EnhancedRatios, Financial_Entry, Financial_FinancialsAdmin, Financial_HistoricalCashDividends, Financial_QnetProfitReport, Financial_ReEntry, Financial_Reviewer, Financial_ReviewerNew, Financial_Upload, Financial_UploadIndicatorsBatch, News, News_Arabic, News_EconomicAndBusiness, News_English, News_Gulfbase, News_Market, PriceAndIndices, PriceAndIndices_EndOfDay, PriceAndIndices_FundPrices, PriceAndIndices_GlobalIndices, PriceAndIndices_GulfbasePrice, PriceAndIndices_IntraDay, PriceAndIndices_Official } from 'src/app/services/permissions';
 
 class Menu {
   title: string;
+  permission: string;
+  active:boolean = false;
   menuItems:MenuItem[];
 }
 
 class MenuItem{
   href: string;
+  permission: string;
+  active:boolean = false;
   title: string;
   component: Type<any>;
 }
@@ -86,92 +91,276 @@ export class MenuService {
 
 constructor(){
   this.menu = [
-    {title:"Application", menuItems:
-      [
-      { href:"gb-facts", title:"Gb Facts", component:GbFactsComponent },
-      { href:"account-classification", title:"Accounts Classificartion", component:AccountsClassificationComponent },
-      { href:"ownership", title:"Ownership", component:OwnershipComponent },
-      { href:"reports", title:"Reports", component:ReportsComponent },
-      { href:"lhsc-upload", title:"LHSC Upload", component:LhscUploadComponent },
-      { href:"gbir", title:"GBIR", component:GbirComponent },
-      { href:"gbir-universal-facts", title:"GBIR Universal Facts", component:GbUniversalFactsComponent },
-      { href:"gbir-universal-facts-view", title:"GBIR Universal Facts View", component:GbUniversalFactsViewComponent },
-      { href:"products-services-and-raw-materials", title:"Products Services And Raw Materials", component:ProductsServicesAndRawMaterialsComponent },
-      { href:"economic-and-statistical-data", title:"Economic and Statistical Data", component:EconomicAndStatisticalDataComponent },
-      ]
+    {
+      title: "Application", permission: Application, menuItems: [
+        {
+          href: "gb-facts", title: "Gb Facts", permission: Application_GbFacts, component: GbFactsComponent,
+          active: false
+        },
+        {
+          href: "account-classification", title: "Accounts Classificartion", permission: Application_AccountsClassification, component: AccountsClassificationComponent,
+          active: false
+        },
+        {
+          href: "ownership", title: "Ownership", permission: Application_Ownership, component: OwnershipComponent,
+          active: false
+        },
+        {
+          href: "reports", title: "Reports", permission: Application_Reports, component: ReportsComponent,
+          active: false
+        },
+        {
+          href: "lhsc-upload", title: "LHSC Upload", permission: Application_LhscUpload, component: LhscUploadComponent,
+          active: false
+        },
+        {
+          href: "gbir", title: "GBIR", permission: Application_Gbir, component: GbirComponent,
+          active: false
+        },
+        {
+          href: "gbir-universal-facts", title: "GBIR Universal Facts", permission: Application_GbUniversalFacts, component: GbUniversalFactsComponent,
+          active: false
+        },
+        {
+          href: "gbir-universal-facts-view", title: "GBIR Universal Facts View", permission: Application_GbFacts, component: GbUniversalFactsViewComponent,
+          active: false
+        },
+        {
+          href: "products-services-and-raw-materials", title: "Products Services And Raw Materials", permission: Application_ProductsServicesAndRawMaterials, component: ProductsServicesAndRawMaterialsComponent,
+          active: false
+        },
+        {
+          href: "economic-and-statistical-data", title: "Economic and Statistical Data", permission: Application_EconomicAndStatisticalData, component: EconomicAndStatisticalDataComponent,
+          active: false
+        },
+      ],
+      active: false
     },
-    {title:"Companies and Markets", menuItems:
-      [
-      { href:"country-group", title:"Country-Group", component:CountryGroupComponent },
-      { href:"countries", title:"Countries", component:CountriesComponent },
-      { href:"country-profile-admin", title:"Country Profile (Admin)", component:CountryProfileAdminComponent },
-      { href:"country-profile", title:"Country Profile", component:CountryProfileComponent },
-      { href:"market-sector", title:"Market-Sector", component:MarketSectorComponent },
-      { href:"currency-exchange", title:"Currency Exchange", component:CurrencyExchangeComponent },
-
-      ]
+    {
+      title: "Companies and Markets", permission: CompanyAndMarket, menuItems: [
+        {
+          href: "country-group", title: "Country-Group", permission: CompanyAndMarket_CountryGroup, component: CountryGroupComponent,
+          active: false
+        },
+        {
+          href: "countries", title: "Countries", permission: CompanyAndMarket_Country, component: CountriesComponent,
+          active: false
+        },
+        {
+          href: "country-profile-admin", title: "Country Profile (Admin)", permission: Application_GbFacts, component: CountryProfileAdminComponent,
+          active: false
+        },
+        {
+          href: "country-profile", title: "Country Profile", permission: CompanyAndMarket_CountryProfile, component: CountryProfileComponent,
+          active: false
+        },
+        {
+          href: "market-sector", title: "Market-Sector", permission: CompanyAndMarket_MarketSector, component: MarketSectorComponent,
+          active: false
+        },
+        {
+          href: "currency-exchange", title: "Currency Exchange", permission: CompanyAndMarket_CurrencyExchange, component: CurrencyExchangeComponent,
+          active: false
+        },
+      ],
+      active: false
     },
-    {title:"Companies", menuItems:
-      [
-      { href:"companies", title:"Companies", component:CompaniesComponent },
-      { href:"management", title:"Management", component:ManagementComponent },
-      { href:"ownership-companies", title:"Ownership (Companies)", component:OwnershipCompaniesComponent },      
-      { href:"announcements", title:"Announcements", component:AnnouncementsComponent },
-      { href:"mutaul-funds", title:"Mutual Funds", component:MutaulFundsComponent },
-      { href:"mutaul-funds-settings", title:"Mutual Funds Settings", component:MutaulFundsSettingsComponent },
-      { href:"ipos", title:"IPOs", component:IposComponent },
-      { href:"accounts", title:"Accounts", component:AccountsComponent },
-      { href:"accounts-custom-order", title:"Accounts Custom Order", component:AccountsCustomOrderComponent },
-      // { href:"segment-accounts", title:"Segment Accounts", component:SegmentAccountsComponent },
-      { href:"update-ownership-facts", title:"Update Ownership Facts", component:UpdateOwnershipFactsComponent },
-      { href:"estimates-and-forecasts", title:"Estimates and Forecasts", component:EstimatesAndForecastsComponent },
-      { href:"companies-products-services-raw-materials-updates", title:"Companies Products Services Raw Materials Updates", component:CompaniesProductsServicesRawMaterialsUpdatesComponent },
-      { href:"country-accounts", title:"Country Accounts", component:CountryAccountsComponent },
-      { href:"country-accounts-facts-order", title:"Country Accounts Facts Order", component:CountryAccountsFactsOrderComponent },
-      { href:"agencies-rating", title:"Agencies Rating", component:AgenciesRatingComponent },
-      { href:"companies-agencies-and-ratings", title:"Companies Agencies and Ratings", component:CompaniesAgenciesAndRatingsComponent },
-    ]
+    {
+      title: "Companies", permission: Company, menuItems: [
+        {
+          href: "companies", title: "Companies", permission: Company_Company, component: CompaniesComponent,
+          active: false
+        },
+        {
+          href: "management", title: "Management", permission: Company_Management, component: ManagementComponent,
+          active: false
+        },
+        {
+          href: "ownership-companies", title: "Ownership (Companies)", permission: Company_Ownership, component: OwnershipCompaniesComponent,
+          active: false
+        },
+        {
+          href: "announcements", title: "Announcements", permission: Company_Announcements, component: AnnouncementsComponent,
+          active: false
+        },
+        {
+          href: "mutaul-funds", title: "Mutual Funds", permission: Company_MutaulFunds, component: MutaulFundsComponent,
+          active: false
+        },
+        {
+          href: "mutaul-funds-settings", title: "Mutual Funds Settings", permission: Company_MutaulFundsSettings, component: MutaulFundsSettingsComponent,
+          active: false
+        },
+        {
+          href: "ipos", title: "IPOs", permission: Company_Ipos, component: IposComponent,
+          active: false
+        },
+        {
+          href: "accounts", title: "Accounts", permission: Company_Accounts, component: AccountsComponent,
+          active: false
+        },
+        {
+          href: "accounts-custom-order", title: "Accounts Custom Order", permission: Company_AccountsCustomOrder, component: AccountsCustomOrderComponent,
+          active: false
+        },
+        // { href:"segment-accounts", title:"Segment Accounts" , permission:Application_GbFacts, component:SegmentAccountsComponent },
+        {
+          href: "update-ownership-facts", title: "Update Ownership Facts", permission: Company_UpdateOwnershipFacts, component: UpdateOwnershipFactsComponent,
+          active: false
+        },
+        {
+          href: "estimates-and-forecasts", title: "Estimates and Forecasts", permission: Company_EstimatesAndForecasts, component: EstimatesAndForecastsComponent,
+          active: false
+        },
+        {
+          href: "companies-products-services-raw-materials-updates", title: "Companies Products Services Raw Materials Updates", permission: Company_CompaniesProductsServicesRawMaterialsUpdates, component: CompaniesProductsServicesRawMaterialsUpdatesComponent,
+          active: false
+        },
+        {
+          href: "country-accounts", title: "Country Accounts", permission: Company_CountryAccounts, component: CountryAccountsComponent,
+          active: false
+        },
+        {
+          href: "country-accounts-facts-order", title: "Country Accounts Facts Order", permission: Company_CountryAccountsFactsOrder, component: CountryAccountsFactsOrderComponent,
+          active: false
+        },
+        {
+          href: "agencies-rating", title: "Agencies Rating", permission: Company_AgenciesRating, component: AgenciesRatingComponent,
+          active: false
+        },
+        {
+          href: "companies-agencies-and-ratings", title: "Companies Agencies and Ratings", permission: Company_CompaniesAgenciesAndRatings, component: CompaniesAgenciesAndRatingsComponent,
+          active: false
+        },
+      ],
+      active: false
     },
-    {title:"News", menuItems:
-      [
-      { href:"economic-and-business", title:"Economic & Business", component:EconomicAndBusinessComponent },
-      { href:"market", title:"Market", component:MarketComponent },
-      { href:"company", title:"Company", component:CompanyComponent },      
-      { href:"gulfbase", title:"Gulfbase", component:GulfbaseComponent },
-      { href:"english", title:"English", component:EnglishComponent },
-      { href:"arabic", title:"Arabic", component:ArabicComponent },
-    ]
+    {
+      title: "News", permission: News, menuItems: [
+        {
+          href: "economic-and-business", title: "Economic & Business", permission: News_EconomicAndBusiness, component: EconomicAndBusinessComponent,
+          active: false
+        },
+        {
+          href: "market", title: "Market", permission: News_Market, component: MarketComponent,
+          active: false
+        },
+        {
+          href: "company", title: "Company", permission: News_Gulfbase, component: CompanyComponent,
+          active: false
+        },
+        {
+          href: "gulfbase", title: "Gulfbase", permission: News_Gulfbase, component: GulfbaseComponent,
+          active: false
+        },
+        {
+          href: "english", title: "English", permission: News_English, component: EnglishComponent,
+          active: false
+        },
+        {
+          href: "arabic", title: "Arabic", permission: News_Arabic, component: ArabicComponent,
+          active: false
+        },
+      ],
+      active: false
     },
-    {title:"Prices & Indices", menuItems:
-      [
-      { href:"end-of-day", title:"End Of Day", component:EndOfDayComponent },
-      { href:"intra-day", title:"Intra Day", component:IntraDayComponent },
-      { href:"official", title:"Official", component:OfficialComponent },      
-      { href:"gulfbase-price", title:"Gulfbase (Price)", component:GulfbasePriceComponent },
-      { href:"global-indices", title:"Global Indices", component:GlobalIndicesComponent },
-      { href:"fund-prices", title:"Fund Prices", component:FundPricesComponent },
-       
-    ]
+    {
+      title: "Prices & Indices", permission: PriceAndIndices, menuItems: [
+        {
+          href: "end-of-day", title: "End Of Day", permission: PriceAndIndices_EndOfDay, component: EndOfDayComponent,
+          active: false
+        },
+        {
+          href: "intra-day", title: "Intra Day", permission: PriceAndIndices_IntraDay, component: IntraDayComponent,
+          active: false
+        },
+        {
+          href: "official", title: "Official", permission: PriceAndIndices_Official, component: OfficialComponent,
+          active: false
+        },
+        {
+          href: "gulfbase-price", title: "Gulfbase (Price)", permission: PriceAndIndices_GulfbasePrice, component: GulfbasePriceComponent,
+          active: false
+        },
+        {
+          href: "global-indices", title: "Global Indices", permission: PriceAndIndices_GlobalIndices, component: GlobalIndicesComponent,
+          active: false
+        },
+        {
+          href: "fund-prices", title: "Fund Prices", permission: PriceAndIndices_FundPrices, component: FundPricesComponent,
+          active: false
+        },
+      ],
+      active: false
     },
-    {title:"Financials", menuItems:
-      [
-      { href:"upload", title:"Upload", component:UploadComponent },
-      { href:"entry", title:"Entry", component:EntryComponent },
-      { href:"re-entry", title:"Re Entry", component:ReEntryComponent },      
-      { href:"reviewer", title:"Reviewer", component:ReviewerComponent },
-      { href:"reviewer-news", title:"Reviewer (New)", component:ReviewerNewComponent },
-      { href:"current-values", title:"Current Values", component:CurrentValuesComponent },
-      { href:"financials-admin", title:"Financials (Admim)", component:FinancialsAdminComponent },
-      { href:"comp-qnet-p", title:"CompQnetP", component:CompQnetPComponent },
-      { href:"qnet-profit-report", title:"QNet Profit Report", component:QnetProfitReportComponent },
-      { href:"current-dividends", title:"Current Dividends", component:CurrentDividendsComponent },
-      { href:"enhanced-ratios", title:"Enhanced Ratios", component:EnhancedRatiosComponent },
-      { href:"historical-cash-dividends", title:"Historical Cash Dividends", component:HistoricalCashDividendsComponent },
-      { href:"upload-indicators-batch", title:"Upload Indicators Batch", component:UploadIndicatorsBatchComponent },
-      { href:"batches-entry", title:"Batches Entry", component:BatchesEntryComponent },
-      { href:"batches-re-entry", title:"Batches ReEntry", component:BatchesReEntryComponent },
-      { href:"batches-admin", title:"Batches (Admin)", component:BatchesAdminComponent },
-    ]
+    {
+      title: "Financials", permission: Financial, menuItems: [
+        {
+          href: "upload", title: "Upload", permission: Financial_Upload, component: UploadComponent,
+          active: false
+        },
+        {
+          href: "entry", title: "Entry", permission: Financial_Entry, component: EntryComponent,
+          active: false
+        },
+        {
+          href: "re-entry", title: "Re Entry", permission: Financial_ReEntry, component: ReEntryComponent,
+          active: false
+        },
+        {
+          href: "reviewer", title: "Reviewer", permission: Financial_Reviewer, component: ReviewerComponent,
+          active: false
+        },
+        {
+          href: "reviewer-news", title: "Reviewer (New)", permission: Financial_ReviewerNew, component: ReviewerNewComponent,
+          active: false
+        },
+        {
+          href: "current-values", title: "Current Values", permission: Financial_CurrentValues, component: CurrentValuesComponent,
+          active: false
+        },
+        {
+          href: "financials-admin", title: "Financials (Admim)", permission: Financial_FinancialsAdmin, component: FinancialsAdminComponent,
+          active: false
+        },
+        {
+          href: "comp-qnet-p", title: "CompQnetP", permission: Financial_CompQnetP, component: CompQnetPComponent,
+          active: false
+        },
+        {
+          href: "qnet-profit-report", title: "QNet Profit Report", permission: Financial_QnetProfitReport, component: QnetProfitReportComponent,
+          active: false
+        },
+        {
+          href: "current-dividends", title: "Current Dividends", permission: Financial_CurrentDividends, component: CurrentDividendsComponent,
+          active: false
+        },
+        {
+          href: "enhanced-ratios", title: "Enhanced Ratios", permission: Financial_EnhancedRatios, component: EnhancedRatiosComponent,
+          active: false
+        },
+        {
+          href: "historical-cash-dividends", title: "Historical Cash Dividends", permission: Financial_HistoricalCashDividends, component: HistoricalCashDividendsComponent,
+          active: false
+        },
+        {
+          href: "upload-indicators-batch", title: "Upload Indicators Batch", permission: Financial_UploadIndicatorsBatch, component: UploadIndicatorsBatchComponent,
+          active: false
+        },
+        {
+          href: "batches-entry", title: "Batches Entry", permission: Financial_BatchesEntry, component: BatchesEntryComponent,
+          active: false
+        },
+        {
+          href: "batches-re-entry", title: "Batches ReEntry", permission: Financial_BatchesReEntry, component: BatchesReEntryComponent,
+          active: false
+        },
+        {
+          href: "batches-admin", title: "Batches (Admin)", permission: Financial_BatchesAdmin, component: BatchesAdminComponent,
+          active: false
+        },
+      ],
+      active: false
     }
 
 

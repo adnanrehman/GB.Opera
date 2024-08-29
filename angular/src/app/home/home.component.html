@@ -3,17 +3,20 @@
   id="sidebar"
 >
   <p-accordion [activeIndex]="6">
-    <p-accordionTab header="{{ menu.title }}" *ngFor="let menu of menus">
-      <ul class="nav flex-column bg-nav w-100">
-        <li
+    <p-accordionTab header="{{ menu.title }}" [hidden]="!menu.active" *ngFor="let menu of menus">
+      <ul class="nav flex-column bg-nav w-100" >
+        <ng-container *ngFor="let sub of menu.menuItems">
+          <li
           href="#"
-          class="nav-link"
-          (click)="addinTab(sub.href)"
-          *ngFor="let sub of menu.menuItems"
+          class="nav-link"          
+          (click)="addinTab(sub.href)"          
+          *ngIf="sub.active" 
         >
           <i class="bx bxs-dashboard"></i>
           <span class="mx-2 text-white">{{ sub.title }}</span>
         </li>
+      </ng-container>
+        
       </ul>
     </p-accordionTab>
     <p-accordionTab header="Administration">
