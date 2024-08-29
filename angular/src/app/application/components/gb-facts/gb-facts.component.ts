@@ -8,6 +8,7 @@ import { Myinterface } from 'src/app/myinterface';
 import { GbFactService } from '@proxy/gb-facts/gb-fact.service';
 import { GbFactListDto } from '@proxy/gb-facts/models';
 import { SignalNode } from '@angular/core/primitives/signals';
+import { PermissionService } from '@abp/ng.core';
  
 
 @Component({
@@ -23,10 +24,15 @@ export class GbFactsComponent {
   cols: any[];
   ref!: DynamicDialogRef;
   treeData = [];
+  createPermission: boolean = false;
  
   myinterface: Myinterface[];
   gbFactListDto: GbFactListDto[]
-  constructor(private dialogService: DialogService,private gnfactservice: GbFactService) {}
+  constructor(private dialogService: DialogService,private gnfactservice: GbFactService,private permissionService: PermissionService) {
+    if(this.permissionService.getGrantedPolicy('Application.GBFacts.Create')){
+        this.createPermission =true;
+    }
+  }
  
 
   
