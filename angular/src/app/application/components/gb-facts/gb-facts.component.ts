@@ -9,6 +9,7 @@ import { GbFactService } from '@proxy/gb-facts/gb-fact.service';
 import { GbFactListDto } from '@proxy/gb-facts/models';
 import { SignalNode } from '@angular/core/primitives/signals';
 import { PermissionService } from '@abp/ng.core';
+import { Application_GbFacts } from 'src/app/services/permissions';
  
 
 @Component({
@@ -24,14 +25,25 @@ export class GbFactsComponent {
   cols: any[];
   ref!: DynamicDialogRef;
   treeData = [];
+  permission: {
+    create:boolean;
+    edit:boolean,
+    delete:boolean
+  }
   createPermission: boolean = false;
  
   myinterface: Myinterface[];
   gbFactListDto: GbFactListDto[]
   constructor(private dialogService: DialogService,private gnfactservice: GbFactService,private permissionService: PermissionService) {
-    if(this.permissionService.getGrantedPolicy('Application.GBFacts.Create')){
-        this.createPermission =true;
+    if(this.permissionService.getGrantedPolicy(Application_GbFacts + '.Create')){
+        this.permission.create = true;
     }
+    if(this.permissionService.getGrantedPolicy(Application_GbFacts + '.edit')){
+      this.permission.edit = true;
+  }
+  if(this.permissionService.getGrantedPolicy(Application_GbFacts + '.delete')){
+    this.permission.delete = true;
+}
   }
  
 
