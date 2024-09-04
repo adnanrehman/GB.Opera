@@ -64,6 +64,10 @@ export class HomeComponent {
     // this.selectTab("GbFacts");
     // this.loadTabComponent();
   }
+
+  trackByFn(index, item) {
+    return item.href; // or any unique identifier
+  }
   
 
   ngOnInit(){
@@ -164,7 +168,8 @@ export class HomeComponent {
     // if (this.selectedIndex === index && this.tabs.length > 0) {
     //   this.selectedIndex = Math.max(0, index - 1);
     // }
-    this.selectTab(this.tabs[index-1].href);
+    if(this.tabs.length > 1)
+      this.selectTab(this.tabs[index-1].href);
     // this.loadTabComponent();
   }
 
