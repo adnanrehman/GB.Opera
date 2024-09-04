@@ -3,7 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "https://localhost:44349",
+      "applicationUrl": "https://operaapi.gulfbase.com",
+      //"applicationUrl": "https://localhost:44349",
       "sslPort": 44349
     }
   },
@@ -18,7 +19,8 @@
     "GB.Opera.HttpApi.Host": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:44349",
+      //"applicationUrl": "https://localhost:44349",
+      "applicationUrl": "https://operaapi.gulfbase.com",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -2,23 +2,26 @@
   class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column"
   id="sidebar"
 >
-  <p-accordion [activeIndex]="6">
-    <p-accordionTab header="{{ menu.title }}" [hidden]="!menu.active" *ngFor="let menu of menus">
-      <ul class="nav flex-column bg-nav w-100" >
-        <ng-container *ngFor="let sub of menu.menuItems">
-          <li
-          href="#"
-          class="nav-link"          
-          (click)="addinTab(sub.href)"          
-          *ngIf="sub.active" 
-        >
-          <i class="bx bxs-dashboard"></i>
-          <span class="mx-2 text-white">{{ sub.title }}</span>
-        </li>
-      </ng-container>
-        
-      </ul>
-    </p-accordionTab>
+  <p-accordion [activeIndex]="0">
+    <ng-container *ngFor="let menu of menus">
+      <p-accordionTab header="{{ menu.title }}" *ngIf="menu.active">
+        <ul class="nav flex-column bg-nav w-100" >
+          <ng-container *ngFor="let sub of menu.menuItems">
+            <li
+            href="#"
+            class="nav-link"          
+            (click)="addinTab(sub.href)"          
+            *ngIf="sub.active" 
+          >
+            <i class="bx bxs-dashboard"></i>
+            <span class="mx-2 text-white">{{ sub.title }}</span>
+          </li>
+        </ng-container>
+          
+        </ul>
+      </p-accordionTab>
+    </ng-container>
+
     <p-accordionTab header="Administration">
       <ul class="nav flex-column bg-nav text-white w-100">
         <li href="javascript:;" routerLink="/identity/roles" class="nav-link text-white">
