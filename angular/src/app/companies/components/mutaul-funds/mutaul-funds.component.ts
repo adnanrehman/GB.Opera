@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, NumberValueAccessor, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from "primeng/dropdown"; 
+import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -15,6 +15,8 @@ import { CompanyMutualFundDto, CompanyMutualFundService } from '@proxy/company-m
 import { CommonService } from '@proxy/commons';
 import Swal from 'sweetalert2';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { PermissionService } from '@abp/ng.core';
+import { Company_MutaulFunds } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-mutaul-funds',
@@ -45,7 +47,7 @@ export class MutaulFundsComponent {
   suggestions: any[] = [];
   stockMarketID: number;
   companyID: number;
-  mFundID:number;
+  mFundID: number;
   stockMarkets = [];
   companiesTickers = [];
   companyMutualFunds = [];
@@ -78,38 +80,58 @@ export class MutaulFundsComponent {
     { value: 0, displayText: 'No' },
     { value: 1, displayText: 'Yes' },
   ];
-  markets = [ 
-    { name: "TASI" }, 
-    { name: "ReactJS" }, 
-    { name: "Angular" }, 
-    { name: "Bootstrap" }, 
-    { name: "PrimeNG" }, 
+  markets = [
+    { name: "TASI" },
+    { name: "ReactJS" },
+    { name: "Angular" },
+    { name: "Bootstrap" },
+    { name: "PrimeNG" },
   ];
-
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   constructor(
     private commonService: CommonService,
-    private companyMutualFundService: CompanyMutualFundService
-  ) {}
-  ngOnInit() { 
+    private companyMutualFundService: CompanyMutualFundService, private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+   
+  }
+  ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_MutaulFunds + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_MutaulFunds + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_MutaulFunds + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getStockMarkets();
     this.stockMarketID = 0;
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading =true;
+    this.loading = true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading =false;
+      this.loading = false;
     });
   }
 
   onSelect(event: any) {
     debugger;
-    this.loading =true;
+    this.loading = true;
     this.stockMarketID = event.value.stockMarketID;
     this.companyID = event.value.companyID
     this.getCompaniesWithHasFundByStockMarketID();
-    this.loading =false;
+    this.loading = false;
   }
 
   getStockMarkets() {
@@ -134,7 +156,7 @@ export class MutaulFundsComponent {
       this.mfCategories = res.mfCategories;
       this.mfSubCategories = res.mfSubCategories;
       if (this.companies.length > 0) this.getCompanyMutualFundsByCompanyID();
-        else this.loading = false;
+      else this.loading = false;
     });
   }
 
@@ -159,18 +181,18 @@ export class MutaulFundsComponent {
       });
   }
 
-  handleCompanyMutualFund(mFundID:number) {
+  handleCompanyMutualFund(mFundID: number) {
     debugger;
-    if(mFundID){
+    if (mFundID) {
       this.companyMutualFund = this.companyMutualFunds.find(f => f.mFundID == mFundID);
       this.mFundID = mFundID;
     }
-      
-    else{
+
+    else {
       this.companyMutualFund = this.companyMutualFunds[0];
       this.mFundID = this.companyMutualFund.mFundID;
     }
-      
+
     this.companyMutualFundActivation = this.companyMutualFund.isActive ? 1 : 0;
     this.mFundGeoDiversPercents = this.mFundGeoDiversPercentsList.filter(f => f.mFundID == mFundID);
     this.mFundAssestAllocsPercents = this.mFundAssestAllocsPercentsList.filter(f => f.mFundID == mFundID);
@@ -181,7 +203,7 @@ export class MutaulFundsComponent {
 
   addNewCompanyMutualFund() {
     this.companyMutualFund = {
-      mFundID:0
+      mFundID: 0
     };
   }
 
@@ -192,11 +214,11 @@ export class MutaulFundsComponent {
     this.companyMutualFund.companyID = this.companyID;
     this.companyMutualFundService.createOrUpdateCompanyMutualFundByModel(this.companyMutualFund).subscribe(res => {
       debugger;
-      if(this.companyMutualFund.mFundID > 0){
+      if (this.companyMutualFund.mFundID > 0) {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.companyMutualFund.name + ' updated successfully', icon: 'success', });
         this.getCompanyMutualFundsByCompanyID();
       }
-      else{
+      else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.companyMutualFund.name + ' created successfully', icon: 'success', });
         this.getCompanyMutualFundsByCompanyID();
       }
@@ -204,11 +226,11 @@ export class MutaulFundsComponent {
 
       this.loading = false;
     },
-    error => {
-      this.loading = false;
-    },
-    () => {
-      this.loading = false;
-    });
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
   }
 }

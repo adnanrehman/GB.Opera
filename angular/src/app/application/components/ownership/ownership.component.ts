@@ -7,6 +7,8 @@ import { GbFactsAccountDetailComponent } from '../gb-facts/gb-facts-account-deta
 import { OwnershipAccountDetailComponent } from './ownership-account-detail/ownership-account-detail.component';
 import { GbOwnerShip, GbOwnerShipService } from '@proxy/gb-owner-ships';
 import { TooltipModule } from 'primeng/tooltip';
+import { PermissionService } from '@abp/ng.core';
+import { Application_Ownership } from 'src/app/services/permissions';
 @Component({
   selector: 'app-ownership',
   standalone: true,
@@ -18,9 +20,31 @@ export class OwnershipComponent {
   data: TreeNode[]; 
   ref!: DynamicDialogRef;
   gbOwnerShip: GbOwnerShip[];
-  constructor(private dialogService: DialogService,private gbOwnerShipService : GbOwnerShipService) {}
+  permission: {
+    create:boolean;
+    edit:boolean,
+    delete:boolean
+  }
+  constructor(private dialogService: DialogService,private gbOwnerShipService : GbOwnerShipService, private permissionService: PermissionService) {
+   
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+    
+  }
 
   ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.delete')) {
+      this.permission.delete = true;
+    }
     this.fetchgbOwnerShipTreeData();
   }
 

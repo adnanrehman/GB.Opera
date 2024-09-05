@@ -4,6 +4,8 @@ import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { TreeModule } from 'primeng/tree';
 import { EconomicAndStatisticalDataAccountDetailComponent } from './economic-and-statistical-data-account-detail/economic-and-statistical-data-account-detail.component';
 import { TreeNode } from 'primeng/api';
+import { PermissionService } from '@abp/ng.core';
+import { Application_EconomicAndStatisticalData } from 'src/app/services/permissions';
 @Component({
   selector: 'app-economic-and-statistical-data',
   standalone: true,
@@ -14,9 +16,31 @@ import { TreeNode } from 'primeng/api';
 export class EconomicAndStatisticalDataComponent {
   data: TreeNode[]; 
   ref!: DynamicDialogRef;
-  constructor(private dialogService: DialogService) {}
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
+  constructor(private dialogService: DialogService, private permissionService: PermissionService) {
+    
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+    
+  }
 
   ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(Application_EconomicAndStatisticalData + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_EconomicAndStatisticalData + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_EconomicAndStatisticalData + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getData();
   }
 

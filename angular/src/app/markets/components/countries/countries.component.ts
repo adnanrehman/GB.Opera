@@ -1,3 +1,4 @@
+import { PermissionService } from '@abp/ng.core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -7,6 +8,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
+import { CompanyAndMarket_Country } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-countries',
@@ -52,6 +54,31 @@ export class CountriesComponent {
     { name: "Bootstrap" }, 
     { name: "PrimeNG" }, 
   ];
-  ngOnInit() {
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
   }
+  constructor( private permissionService: PermissionService) {
+
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+   
+  }
+  ngOnInit() {
+
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_Country + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_Country + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_Country + '.delete')) {
+      this.permission.delete = true;
+    }
+  }
+  
 }

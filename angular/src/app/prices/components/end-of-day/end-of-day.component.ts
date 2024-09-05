@@ -9,6 +9,8 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { EndofDayService } from '@proxy/end-of-day/endof-day.service';
+import { PermissionService } from '@abp/ng.core';
+import { PriceAndIndices_EndOfDay } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-end-of-day',
@@ -26,9 +28,31 @@ export class EndOfDayComponent {
   EodPrices: any[] = [];
   selectedMarketID: number | null = null;
   selectedDate: string | null = null;
-  constructor(private endofDayService : EndofDayService){} 
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
+  constructor(private endofDayService : EndofDayService ,
+     private permissionService: PermissionService){
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+
+  } 
   
   ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_EndOfDay + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_EndOfDay + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_EndOfDay + '.delete')) {
+      this.permission.delete = true;
+    }
     this.filteredCountries = [
       {name: "RIBL",code:'rible'},
       {name: "Suadia Arabia",code:'KSA'},

@@ -1,3 +1,4 @@
+import { PermissionService } from '@abp/ng.core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
@@ -9,6 +10,7 @@ import { ImageModule } from 'primeng/image';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TreeModule } from 'primeng/tree';
+import { Application_Gbir } from 'src/app/services/permissions';
 @Component({
   selector: 'app-gbir',
   standalone: true,
@@ -21,6 +23,20 @@ export class GbirComponent {
   filteredCountries: any[];
    
   data:TreeNode[];
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
+  constructor(   
+     private permissionService: PermissionService) {
+      this.permission = {
+        create: false,
+        edit : false,
+        delete  :false
+      }
+   
+  }
   subsidiaries: any[] = [ 
     { company: "Suadi Travels Cheque",share:"25",pa:"Traveler Cheques",order:"" }, 
     { company: "Riyadh Capitol",share:"100",pa:"Financial Services",order:"" }, 
@@ -37,6 +53,15 @@ export class GbirComponent {
     { name: "PrimeNG" }, 
   ];
   ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(Application_Gbir + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_Gbir + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_Gbir + '.delete')) {
+      this.permission.delete = true;
+    }
     this.filteredCountries = [
       {name: "RIBL",code:'rible'},
       {name: "Suadia Arabia",code:'KSA'},

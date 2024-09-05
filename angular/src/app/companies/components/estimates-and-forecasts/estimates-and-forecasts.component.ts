@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from "primeng/dropdown"; 
+import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -15,6 +15,8 @@ import { EstimatesandForecastDto, EstimatesandForecastService } from '@proxy/est
 import { CommonService } from '@proxy/commons';
 import { CorporateAnnouncementDto } from '@proxy/corporate-announcements';
 import Swal from 'sweetalert2';
+import { PermissionService } from '@abp/ng.core';
+import { Company_EstimatesAndForecasts } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-estimates-and-forecasts',
@@ -65,34 +67,54 @@ export class EstimatesAndForecastsComponent {
     { value: 0, displayText: 'No' },
     { value: 1, displayText: 'Yes' },
   ];
-
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   constructor(
     private commonService: CommonService,
-    private estimatesandForecastService: EstimatesandForecastService
-  ) {}
+    private estimatesandForecastService: EstimatesandForecastService, private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+   
+  }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_EstimatesAndForecasts + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_EstimatesAndForecasts + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_EstimatesAndForecasts + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getStockMarkets();
     this.stockMarketID = 0;
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading =true;
+    this.loading = true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading =false;
+      this.loading = false;
     });
   }
 
   onSelect(event: any) {
     debugger;
-    this.loading =true;
+    this.loading = true;
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID
     this.getStockMarketSectorsByStockMarketID();
-    this.loading =false;
+    this.loading = false;
   }
 
   getStockMarkets() {
@@ -136,9 +158,9 @@ export class EstimatesAndForecastsComponent {
         debugger;
         this.estimatesandForecasts = res.estimatesandForecasts;
         this.reportSources = res.reportSources;
-        if (this.estimatesandForecasts.length > 0){
+        if (this.estimatesandForecasts.length > 0) {
           this.handleEstimatesandForecast(this.estimatesandForecasts[0]);
-        }else{
+        } else {
           this.loading = false;
           this.estimatesandForecast = {
             efid: 0,
@@ -155,7 +177,7 @@ export class EstimatesAndForecastsComponent {
     this.loading = false;
   }
 
-  
+
   addNewEstimatesandForecast() {
     this.estimatesandForecast = {
       efid: 0,
@@ -174,11 +196,11 @@ export class EstimatesAndForecastsComponent {
     this.estimatesandForecast.reportDate = new Date(this.estimatesandForecast.reportDate).toLocaleString();
     this.estimatesandForecastService.createOrUpdateEstimatesandForecastByModel(this.estimatesandForecast).subscribe(res => {
       debugger;
-      if(this.estimatesandForecast.efid > 0){
+      if (this.estimatesandForecast.efid > 0) {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.estimatesandForecast.remarks + ' updated successfully', icon: 'success', });
         this.getEstimatesandForecastsByCompanyID();
       }
-      else{
+      else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.estimatesandForecast.remarks + ' created successfully', icon: 'success', });
         this.getEstimatesandForecastsByCompanyID();
       }
@@ -186,11 +208,11 @@ export class EstimatesAndForecastsComponent {
 
       this.loading = false;
     },
-    error => {
-      this.loading = false;
-    },
-    () => {
-      this.loading = false;
-    });
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
   }
 }

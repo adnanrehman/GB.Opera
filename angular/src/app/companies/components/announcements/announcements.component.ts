@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from "primeng/dropdown"; 
+import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -14,6 +14,8 @@ import Swal from 'sweetalert2';
 import { ListboxModule } from 'primeng/listbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule, NgFor } from '@angular/common';
+import { PermissionService } from '@abp/ng.core';
+import { Company_Announcements } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-announcements',
@@ -64,35 +66,55 @@ export class AnnouncementsComponent {
     { value: 0, displayText: 'No' },
     { value: 1, displayText: 'Yes' },
   ];
-
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   constructor(
     private commonService: CommonService,
-    private corporateAnnouncementService: CorporateAnnouncementService
-  ) {}
+    private corporateAnnouncementService: CorporateAnnouncementService, private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+   
+  }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_Announcements + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_Announcements + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_Announcements + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getStockMarkets();
     this.getLangAnnouceTypes();
     this.stockMarketID = 0;
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading =true;
+    this.loading = true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading =false;
+      this.loading = false;
     });
   }
 
   onSelect(event: any) {
     debugger;
-    this.loading =true;
+    this.loading = true;
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID
     this.getStockMarketSectorsByStockMarketID();
-    this.loading =false;
+    this.loading = false;
   }
 
   getStockMarkets() {
@@ -154,7 +176,7 @@ export class AnnouncementsComponent {
     this.loading = false;
   }
 
-  
+
   addNewCorporateAnnouncement() {
     this.corporateAnnouncement = {
       companyID: 0,
@@ -173,11 +195,11 @@ export class AnnouncementsComponent {
     this.corporateAnnouncement.ticker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker
     this.corporateAnnouncementService.createOrUpdateCorporateAnnouncementByModel(this.corporateAnnouncement).subscribe(res => {
       debugger;
-      if(this.corporateAnnouncement.corporateAnnouncementID > 0){
+      if (this.corporateAnnouncement.corporateAnnouncementID > 0) {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.corporateAnnouncement.announcement + ' updated successfully', icon: 'success', });
         this.getCorporateAnnouncements();
       }
-      else{
+      else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.corporateAnnouncement.announcement + ' created successfully', icon: 'success', });
 
       }
@@ -185,12 +207,12 @@ export class AnnouncementsComponent {
 
       this.loading = false;
     },
-    error => {
-      this.loading = false;
-    },
-    () => {
-      this.loading = false;
-    });
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
   }
 
   deleteCorporateAnnouncement() {

@@ -6,7 +6,7 @@
         </p-tree>
     </div>
     <div class="col-sm-1 mt-1">
-        <a class="btn btn-primary" (click)="addAccount()"><i class="fa fa-plus fa-sm me-2"></i>Add</a>
+        <a class="btn btn-primary" *ngif="permission.create" (click)="addAccount()"><i class="fa fa-plus fa-sm me-2"></i>Add</a>
     </div>
     </div>
 

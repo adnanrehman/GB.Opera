@@ -10,6 +10,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { Checkbox, CheckboxModule } from 'primeng/checkbox';
 import { MFundPrices, OfficialIndicsService } from '@proxy/officials-indics';
+import { PermissionService } from '@abp/ng.core';
+import { PriceAndIndices_FundPrices } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-fund-prices',
@@ -24,7 +26,11 @@ export class FundPricesComponent {
   @ViewChild('checkbox') checkbox: Checkbox;
   filteredCountries: any[];
   checkboxState: boolean;
-  
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   ingredient:any;
   markets:any;
   funds:any;
@@ -32,7 +38,13 @@ export class FundPricesComponent {
   selectedMarketID: number | null = null;
   selectedfunfId: number | null = null;
   
-  constructor( private officialIndicsService : OfficialIndicsService) { }
+  constructor( private officialIndicsService : OfficialIndicsService,private permissionService: PermissionService) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+   }
   ngAfterViewInit() {
     this.usp_getAllFundPrices();
   }
@@ -42,6 +54,15 @@ export class FundPricesComponent {
     });
   }
   ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_FundPrices + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_FundPrices + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_FundPrices + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getMFundCompanies();
      
   }

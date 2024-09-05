@@ -1,3 +1,4 @@
+import { PermissionService } from '@abp/ng.core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { CommonModule, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
@@ -14,6 +15,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
+import { News_Arabic } from 'src/app/services/permissions';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -40,8 +42,13 @@ import Swal from 'sweetalert2';
   styleUrl: './arabic.component.scss'
 })
 export class ArabicComponent {
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   filteredCountries: any[];
-  ingredient:any;
+  ingredient: any;
   loading: boolean = false;
   headerValue: any;
   selectedItem: any;
@@ -61,31 +68,46 @@ export class ArabicComponent {
 
   constructor(
     private commonService: CommonService,
-    private newsArabService: NewsArabService
-  ) {}
-  ngOnInit() { 
+    private newsArabService: NewsArabService, private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit: false,
+      delete: false
+    }
+  }
+  ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(News_Arabic + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(News_Arabic + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(News_Arabic + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getStockMarkets();
     this.getNewsCatAndCountries();
     this.stockMarketID = 0;
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading =true;
+    this.loading = true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading =false;
+      this.loading = false;
     });
   }
 
   onSelect(event: any) {
     debugger;
-    this.loading =true;
+    this.loading = true;
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID
     this.getStockMarketSectorsByStockMarketID();
-    this.loading =false;
+    this.loading = false;
   }
 
   getStockMarkets() {
@@ -119,7 +141,7 @@ export class ArabicComponent {
       .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        if(this.companiesTickers.length > 0) this.companyID = this.companiesTickers[0].companyID
+        if (this.companiesTickers.length > 0) this.companyID = this.companiesTickers[0].companyID
         this.loading = false;
       });
   }
@@ -131,7 +153,7 @@ export class ArabicComponent {
       .subscribe(res => {
         debugger;
         this.newsArabs = res;
-        if (this.newsArabs.length > 0){
+        if (this.newsArabs.length > 0) {
           this.handleNewsArab(this.newsArabs[0]);
         }
       });
@@ -149,11 +171,11 @@ export class ArabicComponent {
     this.newsArab.date = new Date(this.newsArab.date).toLocaleString();
     this.newsArabService.createOrUpdateNewsArabByInput(this.newsArab).subscribe(res => {
       debugger;
-      if(this.newsArab.newsID > 0){
+      if (this.newsArab.newsID > 0) {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.aTitle + ' updated successfully', icon: 'success', });
         this.getNewsArabs();
       }
-      else{
+      else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.aTitle + ' created successfully', icon: 'success', });
         this.getNewsArabs();
       }
@@ -161,11 +183,11 @@ export class ArabicComponent {
 
       this.loading = false;
     },
-    error => {
-      this.loading = false;
-    },
-    () => {
-      this.loading = false;
-    });
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
   }
 }

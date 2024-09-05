@@ -1,3 +1,4 @@
+import { PermissionService } from '@abp/ng.core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Company } from '@proxy/lhruploads';
@@ -12,6 +13,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TreeModule } from 'primeng/tree';
+import { Application_LhscUpload } from 'src/app/services/permissions';
 @Component({
   selector: 'app-lhsc-upload',
   standalone: true,
@@ -35,10 +37,20 @@ export class LhscUploadComponent {
     { company: "Riyadh Capitol",share:"100",pa:"Financial Services",order:"" }, 
     { company: "Ithara Alriyadh",share:"300",pa:"Real Estates",order:"" }, 
   ];
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
 
-  constructor(private lhruploadsservice : LHRUploadsService )
+  constructor(private lhruploadsservice : LHRUploadsService , private permissionService: PermissionService)
   {
-
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+    
   }
   getAllStockMarkets() {
     
@@ -87,6 +99,15 @@ export class LhscUploadComponent {
     });
   }
   ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(Application_LhscUpload + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_LhscUpload + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_LhscUpload + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getAllStockMarkets();
     this.filteredCountries = [
       {name: "RIBL",code:'rible'},

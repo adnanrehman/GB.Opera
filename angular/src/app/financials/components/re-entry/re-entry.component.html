@@ -164,7 +164,7 @@
                       <button class="btn btn-sm btn-block btn-primary">Send Back</button>
                   </div>
                   <div class="col-md-4">
-                    <button class="btn btn-sm btn-block btn-primary">Save(Pending)</button>
+                    <button *ngIf="permission.create"  class="btn btn-sm btn-block btn-primary">Save(Pending)</button>
                 </div>
                   <div class="col-md-2 text-end">
                       <button class="btn btn-sm btn-block btn-primary">Forward</button>

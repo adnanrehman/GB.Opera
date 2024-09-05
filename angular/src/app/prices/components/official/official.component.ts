@@ -10,6 +10,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { EndofDayService } from '@proxy/end-of-day';
 import { OfficialIndicsService } from '@proxy/officials-indics';
+import { PermissionService } from '@abp/ng.core';
+import { PriceAndIndices_Official } from 'src/app/services/permissions';
 @Component({
   selector: 'app-official',
   standalone: true,
@@ -18,6 +20,11 @@ import { OfficialIndicsService } from '@proxy/officials-indics';
   styleUrl: './official.component.scss'
 })
 export class OfficialComponent {
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   filteredCountries: any[];
   markets = [];
   selectedMarketID: number | null = null;
@@ -28,7 +35,14 @@ export class OfficialComponent {
     { sm: "TASI", tick: "", op: "8.0200", hp: "7.9000", lp: "8.0000", cp: "8.0200", tv: "80933", tv2: "641389.7800", tr: "138", lcp: "8.0200", },
 
   ];
-  constructor(private endofDayService: EndofDayService,private officialIndicsService : OfficialIndicsService) { }
+  constructor(private endofDayService: EndofDayService,
+    private officialIndicsService : OfficialIndicsService , private permissionService: PermissionService) { 
+      this.permission = {
+        create: false,
+        edit : false,
+        delete  :false
+      }
+    }
 
   getstockmarkets() {
     this.endofDayService.getAllGCCSector().subscribe(res => {
@@ -59,6 +73,15 @@ export class OfficialComponent {
     }
   }
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_Official + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_Official + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_Official + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getstockmarkets();
 
   }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from "primeng/dropdown"; 
+import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -13,11 +13,13 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
+import { PermissionService } from '@abp/ng.core';
+import { Company_MutaulFundsSettings } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-mutaul-funds-settings',
   standalone: true,
-  imports: [    CommonModule,
+  imports: [CommonModule,
     TableModule,
     TabViewModule,
     AutoCompleteModule,
@@ -32,7 +34,7 @@ import { ListboxModule } from 'primeng/listbox';
     ReactiveFormsModule,
     ListboxModule,
     InputNumberModule,
-    InputTextModule, ],
+    InputTextModule,],
   templateUrl: './mutaul-funds-settings.component.html',
   styleUrl: './mutaul-funds-settings.component.scss'
 })
@@ -49,25 +51,45 @@ export class MutaulFundsSettingsComponent {
   mfClassifications = [];
   mfCategories = [];
   mfSubCategories = [];
-  settingID:number = 1;
-  companyMutualFundSettings: any[] =[
-    {settingID:1, settingName:"Assets Allocations"},
-    {settingID:2, settingName:"Benchmarks"},
-    {settingID:3, settingName:"Categories"},
-    {settingID:4, settingName:"Classifications"},
-    {settingID:5, settingName:"Geo Dirversifications"},
-    {settingID:6, settingName:"Listings"},
-    {settingID:7, settingName:"Major Invetsments"},
-    {settingID:8, settingName:"Portfolio Types"},
-    {settingID:9, settingName:"Risks"},
-    {settingID:10, settingName:"Sector Dirversifications"},
-    {settingID:11, settingName:"Sub Categories"},
+  settingID: number = 1;
+  companyMutualFundSettings: any[] = [
+    { settingID: 1, settingName: "Assets Allocations" },
+    { settingID: 2, settingName: "Benchmarks" },
+    { settingID: 3, settingName: "Categories" },
+    { settingID: 4, settingName: "Classifications" },
+    { settingID: 5, settingName: "Geo Dirversifications" },
+    { settingID: 6, settingName: "Listings" },
+    { settingID: 7, settingName: "Major Invetsments" },
+    { settingID: 8, settingName: "Portfolio Types" },
+    { settingID: 9, settingName: "Risks" },
+    { settingID: 10, settingName: "Sector Dirversifications" },
+    { settingID: 11, settingName: "Sub Categories" },
   ]
-
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   constructor(
-    private companyMutualFundSettingService: CompanyMutualFundSettingService
-  ) {}
-  ngOnInit() { 
+    private companyMutualFundSettingService: CompanyMutualFundSettingService, private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+    
+  }
+  ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_MutaulFundsSettings + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_MutaulFundsSettings + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_MutaulFundsSettings + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getCompanyMutualFundSettings();
   }
 

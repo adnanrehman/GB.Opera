@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-md-3 text-end">
                   <a href="#" (click)="addNewEstimatesandForecast()" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
-                  <button type="submit" [attr.disabled]="!announementForm.valid ? true : null" class="btn btn-success btn-sm me-1"
+                  <button type="submit" *ngIf="permission.create"  [attr.disabled]="!announementForm.valid ? true : null" class="btn btn-success btn-sm me-1"
                   ><i class="fa fa-save"></i> Save</button
                 >
                   <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->

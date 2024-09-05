@@ -1,3 +1,4 @@
+import { PermissionService } from '@abp/ng.core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -7,6 +8,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
+import { Financial_HistoricalCashDividends } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-historical-cash-dividends',
@@ -45,7 +47,29 @@ export class HistoricalCashDividendsComponent {
     { name: "Any Other" }, 
      
   ];
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
+  constructor( 
+    private permissionService: PermissionService){
+   this.permission = {
+     create: false,
+     edit : false,
+     delete  :false
+   }
+  }
   ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(Financial_HistoricalCashDividends + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Financial_HistoricalCashDividends + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Financial_HistoricalCashDividends + '.delete')) {
+      this.permission.delete = true;
+    }
     this.filteredCountries = [
       {name: "RIBL",code:'rible'},
       {name: "Suadia Arabia",code:'KSA'},

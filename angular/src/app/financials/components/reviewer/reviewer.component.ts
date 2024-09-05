@@ -9,6 +9,8 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { PermissionService } from '@abp/ng.core';
+import { Financial_Reviewer } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-reviewer',
@@ -47,7 +49,29 @@ export class ReviewerComponent {
     { name: "Bootstrap" }, 
     { name: "PrimeNG" }, 
   ];
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
+  constructor( 
+    private permissionService: PermissionService){
+   this.permission = {
+     create: false,
+     edit : false,
+     delete  :false
+   }
+  }
   ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(Financial_Reviewer + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Financial_Reviewer + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Financial_Reviewer + '.delete')) {
+      this.permission.delete = true;
+    }
     this.filteredCountries = [
       {name: "RIBL",code:'rible'},
       {name: "Suadia Arabia",code:'KSA'},

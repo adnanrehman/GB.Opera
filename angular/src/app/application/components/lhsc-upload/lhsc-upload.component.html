@@ -59,7 +59,7 @@
                          
                             <p-tree [value]="CompanyList" selectionMode="checkbox"  ></p-tree>
                         </div>
-                        <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-save"></i> Generate Financial Variable</a>
+                        <a href="#" *ngif="permission.create" class="btn btn-primary btn-sm me-1"><i class="fa fa-save"></i> Generate Financial Variable</a>
                     </div>
                     
                 </div>
@@ -71,7 +71,7 @@
                         </div>
                       
                     </div>
-                    <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-save"></i>Upload Key Ratios For Long Horn</a>
+                    <a href="#" *ngif="permission.create" class="btn btn-primary btn-sm me-1"><i class="fa fa-save"></i>Upload Key Ratios For Long Horn</a>
                 </div>
             </div>
           </div>

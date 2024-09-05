@@ -8,7 +8,9 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
-
+import { PermissionService } from '@abp/ng.core';
+import { Financial_CompQnetP } from 'src/app/services/permissions';
+ 
 @Component({
   selector: 'app-comp-qnet-p',
   standalone: true,
@@ -34,7 +36,29 @@ export class CompQnetPComponent {
     { name: "Bootstrap" }, 
     { name: "PrimeNG" }, 
   ];
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
+  constructor( 
+    private permissionService: PermissionService){
+   this.permission = {
+     create: false,
+     edit : false,
+     delete  :false
+   }
+  }
   ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(Financial_CompQnetP + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Financial_CompQnetP + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Financial_CompQnetP + '.delete')) {
+      this.permission.delete = true;
+    }
     this.filteredCountries = [
       {name: "RIBL",code:'rible'},
       {name: "Suadia Arabia",code:'KSA'},

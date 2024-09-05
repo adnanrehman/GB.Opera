@@ -141,7 +141,7 @@
                       </p-dropdown>
                     </div>
                     <div class="col-md-6 mt-4">
-                        <button class="btn btn-sm btn-primary mt-1" type="button" (click)="savePSRCompanyProduct()">Save</button>
+                        <button *ngIf="permission.create"  class="btn btn-sm btn-primary mt-1" type="button" (click)="savePSRCompanyProduct()">Save</button>
                     </div>
                   </div>
                   <div class="row">

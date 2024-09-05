@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from "primeng/dropdown"; 
+import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -14,6 +14,8 @@ import { SubsidiaryDto, SubsCompUpdDto, CompanyProductDto, CompanyRawMaterialDto
 import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
 import Swal from 'sweetalert2';
+import { PermissionService } from '@abp/ng.core';
+import { Company_Ownership } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-ownership-companies',
@@ -122,34 +124,54 @@ export class OwnershipCompaniesComponent {
     { name: 'Bootstrap' },
     { name: 'PrimeNG' },
   ];
-
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   constructor(
     private commonService: CommonService,
-    private companyOwnershipService: CompanyOwnershipService
-  ) {}
+    private companyOwnershipService: CompanyOwnershipService, private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit: false,
+      delete: false
+    }
+   
+  }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_Ownership + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_Ownership + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_Ownership + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getStockMarkets();
     this.stockMarketID = 0;
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading =true;
+    this.loading = true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading =false;
+      this.loading = false;
     });
   }
 
   onSelect(event: any) {
     debugger;
-    this.loading =true;
+    this.loading = true;
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID
     this.getStockMarketSectorsByStockMarketID();
-    this.loading =false;
+    this.loading = false;
   }
 
   getStockMarkets() {
@@ -213,7 +235,7 @@ export class OwnershipCompaniesComponent {
   handleSubsidiary(subsidiary: SubsidiaryDto) {
     debugger;
     this.subsidiary = subsidiary;
-    if(this.headerValue == undefined)
+    if (this.headerValue == undefined)
       this.headerValue = 'Subsidiaries';
   }
   handlesubsCompUpd(subsCompUpd: SubsCompUpdDto) {
@@ -252,8 +274,8 @@ export class OwnershipCompaniesComponent {
       sisterCompanies: [],
       companyFIPs: [],
       miscNotes: [],
-      companyProducts:[],
-      companyRawMaterials:[]
+      companyProducts: [],
+      companyRawMaterials: []
     };
   }
 
@@ -293,7 +315,7 @@ export class OwnershipCompaniesComponent {
     }
     if (this.headerValue == 'Products') {
       this.companyproduct = {
-        companyProductID:0,
+        companyProductID: 0,
         companyID: 0,
       };
     }
@@ -301,12 +323,12 @@ export class OwnershipCompaniesComponent {
       this.siterCompany = {
         sisterCompanyID: 0,
         companyID: 0,
-        isActive:false
+        isActive: false
       };
     }
     if (this.headerValue == 'Raw Materials') {
       this.companyrawmaterial = {
-        rawMaterialID:0,
+        rawMaterialID: 0,
         companyID: 0,
         isActive: false,
       };
@@ -322,7 +344,7 @@ export class OwnershipCompaniesComponent {
       this.miscNote = {
         miscNotesID: 0,
         companyID: 0,
-        isActive:false
+        isActive: false
       };
     }
   }
@@ -379,7 +401,7 @@ export class OwnershipCompaniesComponent {
       .subscribe(
         res => {
           debugger;
-          if (this.subsCompUpd.subsCompUpdID > 0){
+          if (this.subsCompUpd.subsCompUpdID > 0) {
             Swal.fire({
               toast: true,
               position: 'top-end',
@@ -390,7 +412,7 @@ export class OwnershipCompaniesComponent {
               icon: 'success',
             });
           }
-          else{
+          else {
             Swal.fire({
               toast: true,
               position: 'top-end',
@@ -401,10 +423,10 @@ export class OwnershipCompaniesComponent {
               icon: 'success',
             });
             this.companyOwnershipService
-            .getRelatedInformationsByCompanyID(this.companyID)
-            .subscribe(res => {
-              this.subsCompUpds = res.subsCompUpds;
-            });
+              .getRelatedInformationsByCompanyID(this.companyID)
+              .subscribe(res => {
+                this.subsCompUpds = res.subsCompUpds;
+              });
           }
           this.handlesubsCompUpd(this.subsCompUpd);
           this.loading = false;
@@ -424,7 +446,7 @@ export class OwnershipCompaniesComponent {
     this.companyOwnershipService.createOrUpdateSisterCompanyByModel(this.siterCompany).subscribe(
       res => {
         debugger;
-        if (this.siterCompany.sisterCompanyID > 0){
+        if (this.siterCompany.sisterCompanyID > 0) {
           Swal.fire({
             toast: true,
             position: 'top-end',
@@ -435,7 +457,7 @@ export class OwnershipCompaniesComponent {
             icon: 'success',
           });
         }
-        else{
+        else {
           Swal.fire({
             toast: true,
             position: 'top-end',
@@ -469,7 +491,7 @@ export class OwnershipCompaniesComponent {
     this.companyOwnershipService.createOrUpdateCompanyProductByModel(this.companyproduct).subscribe(
       res => {
         debugger;
-        if (this.companyproduct.companyProductID > 0){
+        if (this.companyproduct.companyProductID > 0) {
           Swal.fire({
             toast: true,
             position: 'top-end',
@@ -480,7 +502,7 @@ export class OwnershipCompaniesComponent {
             icon: 'success',
           });
         }
-        else{
+        else {
           Swal.fire({
             toast: true,
             position: 'top-end',
@@ -514,7 +536,7 @@ export class OwnershipCompaniesComponent {
     this.companyOwnershipService.createOrUpdateRawMaterialByModel(this.companyrawmaterial).subscribe(
       res => {
         debugger;
-        if (this.companyrawmaterial.rawMaterialID > 0){
+        if (this.companyrawmaterial.rawMaterialID > 0) {
           Swal.fire({
             toast: true,
             position: 'top-end',
@@ -525,7 +547,7 @@ export class OwnershipCompaniesComponent {
             icon: 'success',
           });
         }
-        else{
+        else {
           Swal.fire({
             toast: true,
             position: 'top-end',
@@ -559,7 +581,7 @@ export class OwnershipCompaniesComponent {
     this.companyOwnershipService.createOrUpdateCompanyFIPByModel(this.companyFIP).subscribe(
       res => {
         debugger;
-        if (this.companyFIP.fipid > 0){
+        if (this.companyFIP.fipid > 0) {
           Swal.fire({
             toast: true,
             position: 'top-end',
@@ -570,7 +592,7 @@ export class OwnershipCompaniesComponent {
             icon: 'success',
           });
         }
-        else{
+        else {
           Swal.fire({
             toast: true,
             position: 'top-end',
@@ -604,7 +626,7 @@ export class OwnershipCompaniesComponent {
     this.companyOwnershipService.createOrUpdateMiscNoteByModel(this.miscNote).subscribe(
       res => {
         debugger;
-        if (this.miscNote.miscNotesID > 0){
+        if (this.miscNote.miscNotesID > 0) {
           Swal.fire({
             toast: true,
             position: 'top-end',
@@ -615,7 +637,7 @@ export class OwnershipCompaniesComponent {
             icon: 'success',
           });
         }
-        else{
+        else {
           Swal.fire({
             toast: true,
             position: 'top-end',

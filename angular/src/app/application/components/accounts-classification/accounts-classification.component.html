@@ -28,7 +28,7 @@
         <div class="card-body p-1">
           <div class="row">
       <div class="col-md-2">
-        <button type="submit" class="btn btn-success btn-sm me-1"  (click)="addSelectedNodeToFacts( )"  ><span class="text-white"> <i class="fa fa-save"></i>Save</span></button>
+        <button type="submit" *ngIf="permission.create" class="btn btn-success btn-sm me-1"  (click)="addSelectedNodeToFacts( )"  ><span class="text-white"> <i class="fa fa-save"></i>Save</span></button>
     </div>
       <!-- Tree 2 -->
        

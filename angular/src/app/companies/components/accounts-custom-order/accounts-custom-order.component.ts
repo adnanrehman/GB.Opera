@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from "primeng/dropdown"; 
+import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -16,6 +16,8 @@ import { TreeModule } from 'primeng/tree';
 import { CompanyFactOrderService } from '@proxy/company-fact-orders';
 import { CommonService } from '@proxy/commons';
 import Swal from 'sweetalert2';
+import { PermissionService } from '@abp/ng.core';
+import { Company_AccountsCustomOrder } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-accounts-custom-order',
@@ -35,7 +37,7 @@ import Swal from 'sweetalert2';
     ReactiveFormsModule,
     ListboxModule,
     InputTextModule,
-    TabViewModule,TreeModule
+    TabViewModule, TreeModule
   ],
   templateUrl: './accounts-custom-order.component.html',
   styleUrl: './accounts-custom-order.component.scss'
@@ -52,34 +54,55 @@ export class AccountsCustomOrderComponent {
   companyMarketSectors = [];
   companiesTickers = [];
   companyFactOrders = [];
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
 
   constructor(
     private commonService: CommonService,
-    private companyFactOrderService:CompanyFactOrderService
-  ) {}
+    private companyFactOrderService: CompanyFactOrderService, private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+   
+  }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_AccountsCustomOrder + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_AccountsCustomOrder + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_AccountsCustomOrder + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getStockMarkets();
     this.stockMarketID = 0;
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading =true;
+    this.loading = true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading =false;
+      this.loading = false;
     });
   }
 
   onSelect(event: any) {
     debugger;
-    this.loading =true;
+    this.loading = true;
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID
     this.getStockMarketSectorsByStockMarketID();
-    this.loading =false;
+    this.loading = false;
   }
 
   getStockMarkets() {
@@ -125,16 +148,16 @@ export class AccountsCustomOrderComponent {
   }
   save() {
     debugger;
-    this.loading =true;
+    this.loading = true;
     this.companyFactOrderService.createOrUpdateCompanyFactOrderByList(this.companyFactOrders).subscribe({
       next: (res) => {
-        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
-        console.log('Save response:', res);    
-        this.loading =false;  
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);
+        this.loading = false;
       },
       error: (err) => {
         console.error("Error While Saveing", err);
-        this.loading =false;  
+        this.loading = false;
         Swal.fire({
           toast: true,
           position: 'top-end',
@@ -144,7 +167,7 @@ export class AccountsCustomOrderComponent {
           text: "Error While Saveing",
           icon: 'error'
         });
-       
+
       }
     });
   }

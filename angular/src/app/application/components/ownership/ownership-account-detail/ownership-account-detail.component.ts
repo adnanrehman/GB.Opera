@@ -1,8 +1,10 @@
+import { PermissionService } from '@abp/ng.core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GbOwnerShips } from '@proxy';
 import { GbOwnerShip, GbOwnerShipService } from '@proxy/gb-owner-ships';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { Application_Ownership } from 'src/app/services/permissions';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,12 +15,20 @@ import Swal from 'sweetalert2';
   styleUrl: './ownership-account-detail.component.scss'
 })
 export class OwnershipAccountDetailComponent {
-  
+  permission: {
+    create:boolean;
+    edit:boolean,
+    delete:boolean
+  }
   ref!: DynamicDialogRef;
   constructor(
     private modalref: DynamicDialogRef,
-    public config: DynamicDialogConfig,private gbOwnerShipService : GbOwnerShipService,) {
-      
+    public config: DynamicDialogConfig,private gbOwnerShipService : GbOwnerShipService, private permissionService: PermissionService) {
+      this.permission = {
+        create: false,
+        edit : false,
+        delete  :false
+      }
   }
   agbOwnerShip? :number
   gbOwnerShip : GbOwnerShip ={
@@ -33,6 +43,15 @@ export class OwnershipAccountDetailComponent {
    }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.delete')) {
+      this.permission.delete = true;
+    }
     if (this.config.data.obj,this.config.data.text) {
       var data = this.config.data.obj;
        

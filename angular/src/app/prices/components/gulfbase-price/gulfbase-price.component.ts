@@ -9,6 +9,8 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { OfficialIndicsService } from '@proxy/officials-indics';
+import { PermissionService } from '@abp/ng.core';
+import { PriceAndIndices_GulfbasePrice } from 'src/app/services/permissions';
 @Component({
   selector: 'app-gulfbase-price',
   standalone: true,
@@ -21,6 +23,11 @@ export class GulfbasePriceComponent {
   ingredient:any;
   EodPrices: any[] = [];
   gulfbaseprices: any[] = [];
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
  
   selectedDate: string | null = null;
    
@@ -42,10 +49,24 @@ export class GulfbasePriceComponent {
       console.error('Invalid date');
     }
   }
-  constructor(private officialIndicsService : OfficialIndicsService) { }
+  constructor(private officialIndicsService : OfficialIndicsService ,private permissionService: PermissionService) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+   }
 
   ngOnInit() { 
-     
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GulfbasePrice + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GulfbasePrice + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GulfbasePrice + '.delete')) {
+      this.permission.delete = true;
+    }
   }
   getgulfbaseprices() {
     if (this.selectedDate  ) {

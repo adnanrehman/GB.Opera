@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from "primeng/dropdown"; 
+import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -18,6 +18,8 @@ import { FactsOwnershipMappingDto, CommonService } from '@proxy/commons';
 import { CompanyGBFactMappingDto } from '@proxy/company-accounts';
 import { GbFactListDto } from '@proxy/gb-facts';
 import Swal from 'sweetalert2';
+import { PermissionService } from '@abp/ng.core';
+import { Company_UpdateOwnershipFacts } from 'src/app/services/permissions';
 @Component({
   selector: 'app-update-ownership-facts',
   standalone: true,
@@ -36,7 +38,7 @@ import Swal from 'sweetalert2';
     ReactiveFormsModule,
     ListboxModule,
     InputTextModule,
-    TabViewModule,TreeModule
+    TabViewModule, TreeModule
   ],
   templateUrl: './update-ownership-facts.component.html',
   styleUrl: './update-ownership-facts.component.scss'
@@ -53,8 +55,8 @@ export class UpdateOwnershipFactsComponent {
   companyMarketSectors = [];
   companiesTickers = [];
   companyOwnerships = [];
-  tree:TreeNode[];
-  data:TreeNode[];
+  tree: TreeNode[];
+  data: TreeNode[];
   factsOwnershipMappings: any[];
   selectedNode: TreeNode;
   selectedNodes: any[] = [];
@@ -64,13 +66,34 @@ export class UpdateOwnershipFactsComponent {
     parentID: 0,
     value: 0
   }
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
 
   constructor(
     private commonService: CommonService,
-    private companyOwnershipFactService:CompanyOwnershipFactService
-  ) {}
+    private companyOwnershipFactService: CompanyOwnershipFactService, private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+    
+  }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_UpdateOwnershipFacts + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_UpdateOwnershipFacts + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_UpdateOwnershipFacts + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getMarketLangAnnouncements();
     this.stockMarketID = 0;
     this.fetchTreeData();
@@ -80,7 +103,7 @@ export class UpdateOwnershipFactsComponent {
     debugger; // For debugging purposes
     this.commonService.getAllFactsOwnershipMappings().subscribe(res => {
       console.log('Tree res:', res);
-      
+
       // Initialize idMap and gbFactListDto
       let idMap = {};
       this.factsOwnershipMappings = res.map(item => {
@@ -93,7 +116,7 @@ export class UpdateOwnershipFactsComponent {
         idMap[newItem.gbOwnershipID] = newItem;
         return newItem;
       });
-  
+
       // Build the tree structure
       let treeData = [];
       this.factsOwnershipMappings.forEach(item => {
@@ -109,7 +132,7 @@ export class UpdateOwnershipFactsComponent {
           }
         }
       });
-  
+
       // Assign the final tree data to gbFactListDto
       this.factsOwnershipMappings = treeData;
       console.log('Tree Data:', this.factsOwnershipMappings);
@@ -117,22 +140,22 @@ export class UpdateOwnershipFactsComponent {
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading =true;
+    this.loading = true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading =false;
+      this.loading = false;
     });
   }
 
   onSelect(event: any) {
     debugger;
-    this.loading =true;
+    this.loading = true;
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID
     this.getCompMarketSectorsByMarketID();
-    this.loading =false;
+    this.loading = false;
   }
 
   getMarketLangAnnouncements() {
@@ -187,11 +210,11 @@ export class UpdateOwnershipFactsComponent {
   //         return true;
   //       }
   //     } 
-  
+
   //   }
-  
+
   //   return false;
-  
+
   // }
 
 
@@ -199,12 +222,12 @@ export class UpdateOwnershipFactsComponent {
     debugger;
     this.companyOwnershipFact.gbOwnershipID = obj.gbOwnershipID;
     this.companyOwnershipFact.facts = obj.facts;
-    if(obj.gbOwnership)
+    if (obj.gbOwnership)
       this.companyOwnershipFact.facts = obj.gbOwnership;
     this.companyOwnershipFact.parentID = obj.parentID;
     this.companyOwnershipFact.companyID = this.companyID;
     this.companyOwnershipFact.value = obj.figures;
-    this.NodeSelection(this.factsOwnershipMappings,this.companyOwnershipFact.gbOwnershipID);
+    this.NodeSelection(this.factsOwnershipMappings, this.companyOwnershipFact.gbOwnershipID);
     this.loading = false;
   }
 
@@ -213,55 +236,55 @@ export class UpdateOwnershipFactsComponent {
     this.handleCompanyOwnershipFact(event.node);
   }
 
-  NodeSelection(list: any[],gbOwnershipID: number) {    
+  NodeSelection(list: any[], gbOwnershipID: number) {
     for (let x of list) {
-        if(x.gbOwnershipID == gbOwnershipID){
-          let newItem: TreeNode = {
-            ...x,
-            label: x.gbOwnership || '', // Assign gbFact to label or default to empty string
-            parent: null,
-            expanded: true,
-            selectable: true,
-            data:x.gbOwnership,
-            partialSelected: true,
-            children: []
-          };
-          this.selectedNode = newItem;
-          this.loading =false;
-          return true;
-        }
+      if (x.gbOwnershipID == gbOwnershipID) {
+        let newItem: TreeNode = {
+          ...x,
+          label: x.gbOwnership || '', // Assign gbFact to label or default to empty string
+          parent: null,
+          expanded: true,
+          selectable: true,
+          data: x.gbOwnership,
+          partialSelected: true,
+          children: []
+        };
+        this.selectedNode = newItem;
+        this.loading = false;
+        return true;
+      }
       if (x.children.length !== 0) {
-        var result = this.NodeSelection(x.children,gbOwnershipID);
-        if(result){ 
+        var result = this.NodeSelection(x.children, gbOwnershipID);
+        if (result) {
           return true;
         }
-      } 
-  
+      }
+
     }
-  
+
     return false;
-  
+
   }
 
   onNodeSelect(event: { originalEvent: Event, node: TreeNode }): void {
-   debugger;
+    debugger;
     this.selectedNode = event.node;
     this.selectedNodes.push(event.node)
-     
+
   }
 
   save() {
     debugger;
-    this.loading =true;
+    this.loading = true;
     this.companyOwnershipFactService.createOrUpdateCompanyOwnershipsByDto(this.companyOwnershipFact).subscribe({
       next: (res) => {
-        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
-        console.log('Save response:', res);    
-        this.loading =false;  
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);
+        this.loading = false;
       },
       error: (err) => {
         console.error("Error While Saveing", err);
-        this.loading =false;  
+        this.loading = false;
         Swal.fire({
           toast: true,
           position: 'top-end',
@@ -271,8 +294,8 @@ export class UpdateOwnershipFactsComponent {
           text: "Error While Saveing",
           icon: 'error'
         });
-       
-       // alert("Save error: " + err.message); // Display error message to user
+
+        // alert("Save error: " + err.message); // Display error message to user
       }
     });
   }

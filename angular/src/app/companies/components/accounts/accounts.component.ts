@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from "primeng/dropdown"; 
+import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -17,6 +17,8 @@ import { CommonService } from '@proxy/commons';
 import { GbFactListDto, GbFactService } from '@proxy/gb-facts';
 import { CompanyAccountService, CompanyGBFactMappingDto } from '@proxy/company-accounts';
 import Swal from 'sweetalert2';
+import { PermissionService } from '@abp/ng.core';
+import { Company_Accounts } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-accounts',
@@ -36,7 +38,7 @@ import Swal from 'sweetalert2';
     ReactiveFormsModule,
     ListboxModule,
     InputTextModule,
-    TabViewModule,TreeModule
+    TabViewModule, TreeModule
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss'
@@ -52,54 +54,76 @@ export class AccountsComponent {
   marketLangAnnouncement = [];
   companyMarketSectors = [];
   companiesTickers = [];
-  tree:TreeNode[];
-  data:TreeNode[];
+  tree: TreeNode[];
+  data: TreeNode[];
   gbFactLists: GbFactListDto[];
-  companyFacts:CompanyGBFactMappingDto[];
+  companyFacts: CompanyGBFactMappingDto[];
   selectedNode: TreeNode;
   selectedNodes: any[] = [];
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   constructor(
     private commonService: CommonService,
-    private companyAccountService:CompanyAccountService,
-    private gbfactservice: GbFactService
-  ) {}
+    private companyAccountService: CompanyAccountService,
+    private gbfactservice: GbFactService, private permissionService: PermissionService
+
+  ) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+   
+  }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_Accounts + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_Accounts + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_Accounts + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getMarketLangAnnouncements();
     this.stockMarketID = 0;
     this.fetchTreeData();
-       this.tree=[
-        {
-          label:'Accounts Breakdown',
-          children :[
-            {
-              label:'Revenues',
-              children:[
-                {
-                  label:'Total Operating Income',
-                },
-                {
-                  label:'Sales',
-                },
-                {
-                  label:'Revenues',
-                },
-                {
-                  label:'Gross Premiums',
-                },
-      
-              ]
-            }
-          ],
-        }
-      ]
+    this.tree = [
+      {
+        label: 'Accounts Breakdown',
+        children: [
+          {
+            label: 'Revenues',
+            children: [
+              {
+                label: 'Total Operating Income',
+              },
+              {
+                label: 'Sales',
+              },
+              {
+                label: 'Revenues',
+              },
+              {
+                label: 'Gross Premiums',
+              },
+
+            ]
+          }
+        ],
+      }
+    ]
   }
 
   fetchTreeData(): void {
     debugger; // For debugging purposes
     this.gbfactservice.getAllFactsMappings().subscribe(res => {
       console.log('Tree res:', res);
-      
+
       // Initialize idMap and gbFactListDto
       let idMap = {};
       this.gbFactLists = res.map(item => {
@@ -112,7 +136,7 @@ export class AccountsComponent {
         idMap[newItem.gbFactID] = newItem;
         return newItem;
       });
-  
+
       // Build the tree structure
       let treeData = [];
       this.gbFactLists.forEach(item => {
@@ -128,7 +152,7 @@ export class AccountsComponent {
           }
         }
       });
-  
+
       // Assign the final tree data to gbFactListDto
       this.gbFactLists = treeData;
       console.log('Tree Data:', this.gbFactLists);
@@ -136,22 +160,22 @@ export class AccountsComponent {
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading =true;
+    this.loading = true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading =false;
+      this.loading = false;
     });
   }
 
   onSelect(event: any) {
     debugger;
-    this.loading =true;
+    this.loading = true;
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID
     this.getCompMarketSectorsByMarketID();
-    this.loading =false;
+    this.loading = false;
   }
 
   getMarketLangAnnouncements() {
@@ -189,51 +213,51 @@ export class AccountsComponent {
       this.companyID = this.companiesTickers[0].companyID;
     this.companyAccountService.getCompaniesFactsByCompanyID(this.companyID).subscribe(res => {
       console.log('Tree res:', res);
-      this.selectedNodes =[];
-      this.NodeSelection(this.gbFactLists,res);
+      this.selectedNodes = [];
+      this.NodeSelection(this.gbFactLists, res);
       this.loading = false;
     });
   }
 
-  NodeSelection(list: any[],companyFacts: any[]) {    
+  NodeSelection(list: any[], companyFacts: any[]) {
     for (let x of list) {
       var gbFact = companyFacts.find(f => f.gbFactID == x.gbFactID);
-        if(gbFact){
-          this.selectedNodes.push(x);
-        }
+      if (gbFact) {
+        this.selectedNodes.push(x);
+      }
       if (x.children.length !== 0) {
-        var result = this.NodeSelection(x.children,companyFacts);
-        if(result){ 
+        var result = this.NodeSelection(x.children, companyFacts);
+        if (result) {
           return true;
         }
-      } 
-  
+      }
+
     }
-  
+
     return false;
-  
+
   }
 
   onNodeSelect(event: { originalEvent: Event, node: TreeNode }): void {
-   debugger;
+    debugger;
     this.selectedNode = event.node;
     this.selectedNodes.push(event.node)
-     
+
   }
 
   save() {
     debugger;
-    this.loading =true;
+    this.loading = true;
     const gbAcFactsAccounts: CompanyGBFactMappingDto[] = this.mapGbFactListDtoTocompanyGBFactMapping(this.selectedNodes);
     this.companyAccountService.createOrUpdateCompanyFactsByList(gbAcFactsAccounts).subscribe({
       next: (res) => {
-        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
-        console.log('Save response:', res);    
-        this.loading =false;  
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);
+        this.loading = false;
       },
       error: (err) => {
         console.error("Error While Saveing", err);
-        this.loading =false;  
+        this.loading = false;
         Swal.fire({
           toast: true,
           position: 'top-end',
@@ -243,19 +267,19 @@ export class AccountsComponent {
           text: "Error While Saveing",
           icon: 'error'
         });
-       
-       // alert("Save error: " + err.message); // Display error message to user
+
+        // alert("Save error: " + err.message); // Display error message to user
       }
     });
   }
-    mapGbFactListDtoTocompanyGBFactMapping(companyGBFactMapping: GbFactListDto[]): CompanyGBFactMappingDto[] {
-      return companyGBFactMapping.map(dto => ({
-        companyID: this.companyID,
-        gbFactID:  dto.gbFactID, 
-          parentID: dto.parentId,
-          customFactName:  dto.gbFact, 
-          aCustomFactName: dto.agbFact
-        
+  mapGbFactListDtoTocompanyGBFactMapping(companyGBFactMapping: GbFactListDto[]): CompanyGBFactMappingDto[] {
+    return companyGBFactMapping.map(dto => ({
+      companyID: this.companyID,
+      gbFactID: dto.gbFactID,
+      parentID: dto.parentId,
+      customFactName: dto.gbFact,
+      aCustomFactName: dto.agbFact
+
     }));
   }
 }

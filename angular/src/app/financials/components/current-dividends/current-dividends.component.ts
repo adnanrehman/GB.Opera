@@ -1,3 +1,4 @@
+import { PermissionService } from '@abp/ng.core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -8,6 +9,7 @@ import { ImageModule } from 'primeng/image';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TreeModule } from 'primeng/tree';
+import { Financial_CurrentDividends } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-current-dividends',
@@ -32,5 +34,28 @@ export class CurrentDividendsComponent {
     { company:  "ADIB",ye:"36477",est:"AABR",order:"Ending December 2017  ..."  }, 
     { company:  "AFNIC",ye:"3654",est:"AABR",order:"Ending December 2017  ..."  }, 
   ];
-
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
+  constructor( 
+    private permissionService: PermissionService){
+   this.permission = {
+     create: false,
+     edit : false,
+     delete  :false
+   }
+  }
+  ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(Financial_CurrentDividends + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Financial_CurrentDividends + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Financial_CurrentDividends + '.delete')) {
+      this.permission.delete = true;
+    }
+  }
 }

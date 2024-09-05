@@ -15,6 +15,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import Swal from 'sweetalert2';
+import { PermissionService } from '@abp/ng.core';
+import { News_English } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-english',
@@ -40,7 +42,11 @@ import Swal from 'sweetalert2';
   styleUrl: './english.component.scss'
 })
 export class EnglishComponent {
-
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   filteredCountries: any[];
   ingredient:any;
   loading: boolean = false;
@@ -62,9 +68,24 @@ export class EnglishComponent {
 
   constructor(
     private commonService: CommonService,
-    private newsEngService: NewsEngService
-  ) {}
+    private newsEngService: NewsEngService,private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit: false,
+      delete: false
+    }
+  }
   ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(News_English + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(News_English + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(News_English + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getStockMarkets();
     this.getNewsCatAndCountries();
     this.stockMarketID = 0;

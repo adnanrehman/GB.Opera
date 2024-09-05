@@ -24,7 +24,8 @@
               <div class="col-md-10">
               </div>
               <div class="col-md-2">
-                <a href="#" class="btn btn-success btn-sm me-1" (click)="save()"><i class="fa fa-save"></i> Save</a>
+                <a href="#" 
+                *ngIf="permission.create"  class="btn btn-success btn-sm me-1" (click)="save()"><i class="fa fa-save"></i> Save</a>
               </div>
             </div>
             <div class="row mt-2">

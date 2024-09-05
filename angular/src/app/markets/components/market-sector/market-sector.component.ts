@@ -9,6 +9,8 @@ import { ImageModule } from 'primeng/image';
 import { TableModule } from 'primeng/table';
 import { TreeModule } from 'primeng/tree';
 import { CheckboxModule } from 'primeng/checkbox';
+import { PermissionService } from '@abp/ng.core';
+import { CompanyAndMarket_MarketSector } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-market-sector',
@@ -21,7 +23,19 @@ export class MarketSectorComponent {
   Caps:TreeNode[]
   filteredCountries: any[];
   GBSector:TreeNode[];
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
+  constructor(  private permissionService: PermissionService) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
   
+  }
   active = [ 
     { name: "true" }, 
     { name: "false" }, 
@@ -52,6 +66,16 @@ export class MarketSectorComponent {
      
   ];
   ngOnInit() {
+
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_MarketSector + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_MarketSector + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_MarketSector + '.delete')) {
+      this.permission.delete = true;
+    }
 
     this.filteredCountries = [
       {name: "GCC",code:'GCC'},

@@ -9,6 +9,8 @@ import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
+import { PermissionService } from '@abp/ng.core';
+import { CompanyAndMarket_CountryGroup } from 'src/app/services/permissions';
 @Component({
   imports: [TableModule,TreeModule,CalendarModule,AutoCompleteModule, FormsModule,DropdownModule,ImageModule,FileUploadModule,CheckboxModule],
   selector: 'app-country-group',
@@ -26,7 +28,30 @@ export class CountryGroupComponent {
     { name: "false" }, 
      
   ];
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
+  constructor(
+      private permissionService: PermissionService) {
+        this.permission = {
+          create: false,
+          edit : false,
+          delete  :false
+        }
+    
+  }
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryGroup + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryGroup + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryGroup + '.delete')) {
+      this.permission.delete = true;
+    }
 
     this.filteredCountries = [
       {name: "GCC",code:'GCC'},

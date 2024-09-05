@@ -27,6 +27,8 @@ import { CommonModule, NgFor } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
 import { FinancialsAdminComponent } from 'src/app/financials/components/financials-admin/financials-admin.component';
+import { PermissionService } from '@abp/ng.core';
+import { Company_Management } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-management',
@@ -145,13 +147,33 @@ export class ManagementComponent {
     { name: 'Bootstrap' },
     { name: 'PrimeNG' },
   ];
-
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   constructor(
     private commonService: CommonService,
-    private companyManagmentService: CompanyManagmentService
-  ) {}
+    private companyManagmentService: CompanyManagmentService , private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+   
+  }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_Management + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_Management + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_Management + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getMarketLangAnnouncements();
     this.stockMarketID = 0;
   }

@@ -10,7 +10,7 @@ import { GbFactListDto } from '@proxy/gb-facts/models';
 import { SignalNode } from '@angular/core/primitives/signals';
 import { PermissionService } from '@abp/ng.core';
 import { Application_GbFacts } from 'src/app/services/permissions';
- 
+
 
 @Component({
   selector: 'app-gb-facts',
@@ -21,38 +21,34 @@ import { Application_GbFacts } from 'src/app/services/permissions';
 })
 export class GbFactsComponent {
 
-  data: TreeNode[]; 
+  data: TreeNode[];
   cols: any[];
   ref!: DynamicDialogRef;
   treeData = [];
   permission: {
-    create:boolean;
-    edit:boolean,
-    delete:boolean
+    create: boolean;
+    edit: boolean,
+    delete: boolean
   }
   createPermission: boolean = false;
- 
+
   myinterface: Myinterface[];
   gbFactListDto: GbFactListDto[]
-  constructor(private dialogService: DialogService,private gnfactservice: GbFactService,private permissionService: PermissionService) {
-    if(this.permissionService.getGrantedPolicy(Application_GbFacts + '.Create')){
-        this.permission.create = true;
+  constructor(private dialogService: DialogService, private gnfactservice: GbFactService, private permissionService: PermissionService) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
     }
-    if(this.permissionService.getGrantedPolicy(Application_GbFacts + '.edit')){
-      this.permission.edit = true;
   }
-  if(this.permissionService.getGrantedPolicy(Application_GbFacts + '.delete')){
-    this.permission.delete = true;
-}
-  }
- 
 
-  
+
+
   fetchTreeData(): void {
     debugger; // For debugging purposes
     this.gnfactservice.getAllFactsMappings().subscribe(res => {
       console.log('Tree res:', res);
-      
+
       // Initialize idMap and gbFactListDto
       let idMap = {};
       this.gbFactListDto = res.map(item => {
@@ -65,7 +61,7 @@ export class GbFactsComponent {
         idMap[newItem.gbFactID] = newItem;
         return newItem;
       });
-  
+
       // Build the tree structure
       let treeData = [];
       this.gbFactListDto.forEach(item => {
@@ -81,37 +77,44 @@ export class GbFactsComponent {
           }
         }
       });
-  
+
       // Assign the final tree data to gbFactListDto
       this.gbFactListDto = treeData;
       console.log('Tree Data:', this.gbFactListDto);
     });
   }
-  
 
-  ngOnInit() { 
+
+  ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Application_GbFacts + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_GbFacts + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_GbFacts + '.delete')) {
+      this.permission.delete = true;
+    }
     this.fetchTreeData();
-    this.cols = [ 
-        { field: 'name', header: 'First Name' }, 
-        { field: 'age', header: 'Age' }, 
-    ];
- 
+   
+   
+
   }
 
-  addAccount( obj: any) {
+  addAccount(obj: any) {
     debugger;
     this.ref = this.dialogService.open(GbFactsAccountDetailComponent, {
       header: 'Add Account',
       data: {
         obj: obj,
-        text:"Add Account",
+        text: "Add Account",
       },
       width: '40%',
       contentStyle: { "max-height": "1000px", "overflow": "auto" },
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
-       this.fetchTreeData();
+      this.fetchTreeData();
     });
 
   }
@@ -122,7 +125,7 @@ export class GbFactsComponent {
       header: 'Edit Account',
       data: {
         obj: obj,
-        text:"Edit Account",
+        text: "Edit Account",
       },
       width: '40%',
       contentStyle: { "max-height": "1000px", "overflow": "auto" },
@@ -138,17 +141,17 @@ export class GbFactsComponent {
     // Handle single click logic here
     console.log('Node clicked:', event.node);
     if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
-     
+
       console.log('Ctrl or Command + Click');
       this.addAccount(event);
     } else {
-      
-     
+
+
       this.editHeader(event);
     }
   }
 
- 
+
 
 
 }

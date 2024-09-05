@@ -10,6 +10,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { OfficialIndicsService } from '@proxy/officials-indics';
+import { PermissionService } from '@abp/ng.core';
+import { PriceAndIndices_GlobalIndices } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-global-indices',
@@ -22,11 +24,25 @@ export class GlobalIndicesComponent {
   selectedDate: string | null = null;
   filteredCountries: any[];
   globalindices: any[];
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
    
   ngOnInit() { 
-     
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GlobalIndices + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GlobalIndices + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GlobalIndices + '.delete')) {
+      this.permission.delete = true;
+    }
      
   }
+  
   onDateChange(event: any) {
   
     console.log('Event:', event);  // Log event to check its structure
@@ -45,7 +61,13 @@ export class GlobalIndicesComponent {
       console.error('Invalid date');
     }
   }
-  constructor(private officialIndicsService : OfficialIndicsService) { }
+  constructor(private officialIndicsService : OfficialIndicsService, private permissionService: PermissionService) { 
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+  }
   getGlobalIndices() {
     if (this.selectedDate  ) {
       this.officialIndicsService.getGlobalIndicesByPriceDate(this.selectedDate)

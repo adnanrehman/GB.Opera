@@ -15,6 +15,8 @@ import { TreeModule } from 'primeng/tree';
 import { CountryFactOrderDto, CountryFactOrderService } from '@proxy/country-fact-orders';
 import { CommonService } from '@proxy/commons';
 import Swal from 'sweetalert2';
+import { PermissionService } from '@abp/ng.core';
+import { Company_CountryAccountsFactsOrder } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-country-accounts-facts-order',
@@ -34,7 +36,7 @@ import Swal from 'sweetalert2';
     ReactiveFormsModule,
     ListboxModule,
     InputTextModule,
-    TabViewModule,TreeModule
+    TabViewModule, TreeModule
   ],
   templateUrl: './country-accounts-facts-order.component.html',
   styleUrl: './country-accounts-facts-order.component.scss'
@@ -45,22 +47,42 @@ export class CountryAccountsFactsOrderComponent {
   countryName: string;
   countries = [];
   countryFactOrders: CountryFactOrderDto[];
-
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   constructor(
     private commonService: CommonService,
-    private countryFactOrderService: CountryFactOrderService
-  ) {}
+    private countryFactOrderService: CountryFactOrderService, private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+   
+  }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_CountryAccountsFactsOrder + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_CountryAccountsFactsOrder + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_CountryAccountsFactsOrder + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getCountriesForIndicators();
   }
 
   getCountriesForIndicators() {
-    this.loading =true;
+    this.loading = true;
     this.commonService.getCountriesForIndicators().subscribe(res => {
       this.countries = res;
-      if(this.countries.length > 0) this.getCountryFactOrdersByCountryID();
-      this.loading =false;
+      if (this.countries.length > 0) this.getCountryFactOrdersByCountryID();
+      this.loading = false;
     });
   }
 
@@ -80,16 +102,16 @@ export class CountryAccountsFactsOrderComponent {
 
   save() {
     debugger;
-    this.loading =true;
+    this.loading = true;
     this.countryFactOrderService.createOrUpdateCountryFactOrderByList(this.countryFactOrders).subscribe({
       next: (res) => {
-        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
-        console.log('Save response:', res);    
-        this.loading =false;  
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);
+        this.loading = false;
       },
       error: (err) => {
         console.error("Error While Saveing", err);
-        this.loading =false;  
+        this.loading = false;
         Swal.fire({
           toast: true,
           position: 'top-end',
@@ -99,7 +121,7 @@ export class CountryAccountsFactsOrderComponent {
           text: "Error While Saveing",
           icon: 'error'
         });
-       
+
       }
     });
   }

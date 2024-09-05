@@ -21,6 +21,8 @@ import { AppModule } from 'src/app/app.module';
 import { CompaniesModule } from '../../companies.module';
 import { CompanyAutocompleteComponent } from 'src/app/common/components/company-autocomplete/company-autocomplete.component';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { PermissionService } from '@abp/ng.core';
+import { Company_Company } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-companies',
@@ -69,6 +71,11 @@ export class CompaniesComponent {
     {value:0,displayText:"No"},
     {value:1,displayText:"Yes"}
   ]
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   compDropdown!: CompDropdownDto;
   company: CompanyDto = {
     companyID: 0,
@@ -95,9 +102,25 @@ export class CompaniesComponent {
   marketID: number;
   constructor(private commonService: CommonService, 
     public fileService: FileService,
-    private companyService: CompanyService) {}
+    private companyService: CompanyService, private permissionService: PermissionService) {
+      this.permission = {
+        create: false,
+        edit : false,
+        delete  :false
+      }
+      
+    }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_Company + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_Company + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_Company + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getCompStockMarkets();
     this.company.stockMarketID = 0;
   }

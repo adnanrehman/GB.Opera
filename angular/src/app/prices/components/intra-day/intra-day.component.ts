@@ -8,6 +8,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { PermissionService } from '@abp/ng.core';
+import { PriceAndIndices_IntraDay } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-intra-day',
@@ -17,6 +19,11 @@ import { RadioButtonModule } from 'primeng/radiobutton';
   styleUrl: './intra-day.component.scss'
 })
 export class IntraDayComponent {
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   filteredCountries: any[];
   ingredient:any;
   data: any[] = [ 
@@ -46,6 +53,15 @@ export class IntraDayComponent {
     { name: "PrimeNG" }, 
   ];
   ngOnInit() { 
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_IntraDay + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_IntraDay + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_IntraDay + '.delete')) {
+      this.permission.delete = true;
+    }
     this.filteredCountries = [
       {name: "RIBL",code:'rible'},
       {name: "Suadia Arabia",code:'KSA'},
@@ -53,4 +69,15 @@ export class IntraDayComponent {
       {name: "IRAN",code:'IR'},
     ]
   }
+  constructor(  private permissionService: PermissionService){
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+
+  } 
+  
+  
 }
+ 

@@ -16,6 +16,8 @@ import { CommonModule, NgFor } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
 import { TreeModule } from 'primeng/tree';
+import { PermissionService } from '@abp/ng.core';
+import { Company_AgenciesRating } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-agencies-rating',
@@ -36,14 +38,14 @@ import { TreeModule } from 'primeng/tree';
     ListboxModule,
     RadioButtonModule,
     InputTextModule,
-    TabViewModule,TreeModule
+    TabViewModule, TreeModule
   ],
   templateUrl: './agencies-rating.component.html',
   styleUrl: './agencies-rating.component.scss'
 })
 export class AgenciesRatingComponent {
   loading: boolean = false;
-  isCredit:any;
+  isCredit: any;
   agencies: AgencyDto[];
   ratings: RatingDto[];
   agency: AgencyDto = {
@@ -54,42 +56,63 @@ export class AgenciesRatingComponent {
     ratingId: 0,
     isCredit: false
   }
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   constructor(
     private commonService: CommonService,
-    private agencyRatingService: AgencyRatingService
-  ) {}
+    private agencyRatingService: AgencyRatingService, private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+   
+  }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_AgenciesRating + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_AgenciesRating + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_AgenciesRating + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getAgencyRatingsByIsCredit();
   }
 
   getAgencyRatingsByIsCredit() {
-    this.loading =true;
+    this.loading = true;
     this.commonService.getAgencyRatingsByIsCredit(this.isCredit).subscribe(res => {
       this.agencies = res.agencies;
       this.ratings = res.ratings;
-      if(this.agencies.length > 0) this.handleAgency(this.agencies[0]);
-      if(this.ratings.length > 0) this.handlerating(this.ratings[0]);
-      this.loading =false;
+      if (this.agencies.length > 0) this.handleAgency(this.agencies[0]);
+      if (this.ratings.length > 0) this.handlerating(this.ratings[0]);
+      this.loading = false;
     });
   }
 
-  handleAgency(agency: AgencyDto){
+  handleAgency(agency: AgencyDto) {
     // this.agency = agency;
   }
 
-  handlerating(rating: RatingDto){
+  handlerating(rating: RatingDto) {
     // this.rating = rating;
   }
 
-  addNewAgency(){
+  addNewAgency() {
     this.agency = {
       agencyId: 0,
       isCredit: false
     }
   }
 
-  addNewRating(){
+  addNewRating() {
     this.rating = {
       ratingId: 0,
       isCredit: false
@@ -102,7 +125,7 @@ export class AgenciesRatingComponent {
     this.agency.isCredit = this.isCredit == "true" ? true : false;
     this.agencyRatingService.createOrUpdateRatingByInput(this.rating).subscribe(res => {
       debugger;
-      if(this.rating.ratingId > 0)
+      if (this.rating.ratingId > 0)
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.rating.rating + ' updated successfully', icon: 'success', });
       else
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.rating.rating + ' created successfully', icon: 'success', });
@@ -115,12 +138,12 @@ export class AgenciesRatingComponent {
       this
       this.loading = false;
     },
-    error => {
-      this.loading = false;
-    },
-    () => {
-      this.loading = false;
-    });
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
   }
 
   createOrUpdateAgency() {
@@ -129,24 +152,24 @@ export class AgenciesRatingComponent {
     this.agency.isCredit = this.isCredit == "true" ? true : false;
     this.agencyRatingService.createOrUpdateAgencyByInput(this.agency).subscribe(res => {
       debugger;
-      if(this.agency.agencyId > 0)
+      if (this.agency.agencyId > 0)
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.agency.agency + ' updated successfully', icon: 'success', });
       else
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.agency.agency + ' created successfully', icon: 'success', });
-        this.isCredit = this.agency.isCredit;
-        this.getAgencyRatingsByIsCredit();
-        this.agency = {
-          agencyId: 0,
-          isCredit: false
-        }
+      this.isCredit = this.agency.isCredit;
+      this.getAgencyRatingsByIsCredit();
+      this.agency = {
+        agencyId: 0,
+        isCredit: false
+      }
       this.loading = false;
     },
-    error => {
-      this.loading = false;
-    },
-    () => {
-      this.loading = false;
-    });
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
   }
 
 }

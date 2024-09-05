@@ -16,6 +16,8 @@ import { ListboxModule } from 'primeng/listbox';
 import { CommonService, ESDFactDto } from '@proxy/commons';
 import { CountryAccountDto, CountryAccountService } from '@proxy/country-accounts';
 import Swal from 'sweetalert2';
+import { PermissionService } from '@abp/ng.core';
+import { Company_CountryAccounts } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-country-accounts',
@@ -35,7 +37,7 @@ import Swal from 'sweetalert2';
     ReactiveFormsModule,
     ListboxModule,
     InputTextModule,
-    TabViewModule,TreeModule
+    TabViewModule, TreeModule
   ],
   templateUrl: './country-accounts.component.html',
   styleUrl: './country-accounts.component.scss',
@@ -48,24 +50,45 @@ export class CountryAccountsComponent {
   ESDFacts: ESDFactDto[];
   selectedNode: TreeNode;
   selectedNodes: any[] = [];
-
+  permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   constructor(
     private commonService: CommonService,
-    private countryAccountService:CountryAccountService
-  ) {}
+    private countryAccountService: CountryAccountService, private permissionService: PermissionService
+  ) {
+    this.permission = {
+      create: false,
+      edit : false,
+      delete  :false
+    }
+
+   
+  }
 
   ngOnInit() {
+    if (this.permissionService.getGrantedPolicy(Company_CountryAccounts + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_CountryAccounts + '.edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Company_CountryAccounts + '.delete')) {
+      this.permission.delete = true;
+    }
     this.getCountriesForIndicators();
     this.fetchESDFacts();
   }
 
-  
+
   fetchESDFacts(): void {
     debugger; // For debugging purposes
-    this.loading =true;
+    this.loading = true;
     this.commonService.getAllESDFactsMappings().subscribe(res => {
       console.log('Tree res:', res);
-      
+
       // Initialize idMap and gbFactListDto
       let idMap = {};
       this.ESDFacts = res.map(item => {
@@ -78,7 +101,7 @@ export class CountryAccountsComponent {
         idMap[newItem.esdFactID] = newItem;
         return newItem;
       });
-  
+
       // Build the tree structure
       let treeData = [];
       this.ESDFacts.forEach(item => {
@@ -94,20 +117,20 @@ export class CountryAccountsComponent {
           }
         }
       });
-  
+
       // Assign the final tree data to gbFactListDto
       this.ESDFacts = treeData;
-      this.loading =false;
+      this.loading = false;
       console.log('Tree Data:', this.ESDFacts);
     });
   }
 
   getCountriesForIndicators() {
-    this.loading =true;
+    this.loading = true;
     this.commonService.getCountriesForIndicators().subscribe(res => {
       this.countries = res;
-      if(this.countries.length > 0) this.getCountriesFactsByCountryID();
-      this.loading =false;
+      if (this.countries.length > 0) this.getCountriesFactsByCountryID();
+      this.loading = false;
     });
   }
 
@@ -117,61 +140,61 @@ export class CountryAccountsComponent {
       this.countryID = this.countries[0].countryID;
     this.countryAccountService.getCountriesFactsByCountryID(this.countryID).subscribe(res => {
       console.log('Tree res:', res);
-      this.selectedNodes =[];
-      if(res.length > 0){
+      this.selectedNodes = [];
+      if (res.length > 0) {
         this.countryName = this.countries.find(f => f.countryID == this.countryID).country
-        this.NodeSelection(this.ESDFacts,res);
+        this.NodeSelection(this.ESDFacts, res);
       }
 
       this.loading = false;
     });
   }
 
-  NodeSelection(list: any[],esdFacts: any[]) {    
+  NodeSelection(list: any[], esdFacts: any[]) {
     for (let x of list) {
       var esdFact = esdFacts.find(f => f.esdFactID == x.esdFactID);
-        if(esdFact){
-          this.selectedNodes.push(x);
-        }
+      if (esdFact) {
+        this.selectedNodes.push(x);
+      }
       if (x.children.length !== 0) {
-        var result = this.NodeSelection(x.children,esdFacts);
-        if(result){ 
+        var result = this.NodeSelection(x.children, esdFacts);
+        if (result) {
           return true;
         }
-      } 
-  
+      }
+
     }
-  
+
     return false;
-  
+
   }
 
   onNodeSelect(event: { originalEvent: Event, node: any }): void {
-   debugger;
+    debugger;
     this.selectedNode = event.node;
     var exist = this.selectedNodes.find(f => f.esdFactID == event.node.esdFactId)
-    if(!exist)  
+    if (!exist)
       this.selectedNodes.push(event.node)
-     
+
   }
   onNodeUnselect(event: { originalEvent: Event, node: any }): void {
     debugger;
-     this.selectedNodes = this.selectedNodes.filter(n => n.esdFactID != event.node.esdFactID)
-   }
+    this.selectedNodes = this.selectedNodes.filter(n => n.esdFactID != event.node.esdFactID)
+  }
 
   save() {
     debugger;
-    this.loading =true;
+    this.loading = true;
     const countryAccount: CountryAccountDto[] = this.mapESDFactsToCountryFactMapping(this.selectedNodes);
     this.countryAccountService.createOrUpdateCountryFactByList(countryAccount).subscribe({
       next: (res) => {
-        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
-        console.log('Save response:', res);    
-        this.loading =false;  
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
+        console.log('Save response:', res);
+        this.loading = false;
       },
       error: (err) => {
         console.error("Error While Saveing", err);
-        this.loading =false;  
+        this.loading = false;
         Swal.fire({
           toast: true,
           position: 'top-end',
@@ -181,19 +204,19 @@ export class CountryAccountsComponent {
           text: "Error While Saveing",
           icon: 'error'
         });
-       
-       // alert("Save error: " + err.message); // Display error message to user
+
+        // alert("Save error: " + err.message); // Display error message to user
       }
     });
   }
-    
+
   mapESDFactsToCountryFactMapping(companyGBFactMapping: ESDFactDto[]): CountryAccountDto[] {
-      return companyGBFactMapping.map(dto => ({
-        countryID: this.countryID,
-        esdFactID:  dto.esdFactID, 
-        parentID: dto.parentID,
-        countryCustomFactName:  dto.esdFact, 
-        aCountryCustomFactName: dto.aesdFact        
+    return companyGBFactMapping.map(dto => ({
+      countryID: this.countryID,
+      esdFactID: dto.esdFactID,
+      parentID: dto.parentID,
+      countryCustomFactName: dto.esdFact,
+      aCountryCustomFactName: dto.aesdFact
     }));
   }
 }
