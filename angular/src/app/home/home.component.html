@@ -2,47 +2,56 @@
   class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column"
   id="sidebar"
 >
-  <p-accordion [activeIndex]="6">
-    <p-accordionTab header="{{ menu.title }}" [hidden]="!menu.active" *ngFor="let menu of menus">
-      <ul class="nav flex-column bg-nav w-100" >
-        <ng-container *ngFor="let sub of menu.menuItems">
-          <li
-          href="#"
-          class="nav-link"          
-          (click)="addinTab(sub.href)"          
-          *ngIf="sub.active" 
-        >
-          <i class="bx bxs-dashboard"></i>
-          <span class="mx-2 text-white">{{ sub.title }}</span>
-        </li>
-      </ng-container>
-        
-      </ul>
-    </p-accordionTab>
-    <p-accordionTab header="Administration">
-      <ul class="nav flex-column bg-nav text-white w-100">
-        <li href="javascript:;" routerLink="/identity/roles" class="nav-link text-white">
-          <i class="fa fa-id-card-o"></i>
-          <span class="mx-2 text-white">Roles</span>
-        </li>
-        <li href="javascript:;" routerLink="/identity/users" class="nav-link text-white">
-          <i class="fa fa-id-card-o"></i>
-          <span class="mx-2 text-white">Users</span>
-        </li>
-        <li href="javascript:;" routerLink="/tenant-management/tenants" class="nav-link text-white">
-          <i class="fa fa-users"></i>
-          <span class="mx-2 text-white">Tenants</span>
-        </li>
-        <li href="javascript:;" routerLink="/setting-management" class="nav-link text-white">
-          <i class="fa fa-cog"></i>
-          <span class="mx-2 text-white">Settings</span>
-        </li>
 
-        <li (click)="logout()" class="nav-link text-white">
-          <i class="fa fa-sign-out"></i>
-          <span class="mx-2 text-white">Logout</span>
-        </li>
-      </ul>
+  <p-accordion multiple="true" *ngIf="menus && menus.length">
+      <p-accordionTab *ngFor="let menu of menus; index as i" aria-level="i" [hidden]="!menu.active">
+        <ng-template pTemplate="header">{{ menu.title }}</ng-template>
+        <ng-template pTemplate="content" >
+          <ul class="nav flex-column bg-nav w-100" >
+            <ng-container *ngFor="let sub of menu.menuItems">
+              <li
+              href="#"
+              class="nav-link"          
+              (click)="addinTab(sub.href)"          
+              *ngIf="sub.active" 
+            >
+              <i class="bx bxs-dashboard"></i>
+              <span class="mx-2 text-white">{{ sub.title }}</span>
+            </li>
+          </ng-container>
+            
+          </ul>
+      </ng-template>
+
+      </p-accordionTab>
+    <p-accordionTab>
+      <ng-template pTemplate="header">Administration</ng-template>
+      <ng-template pTemplate="content" >
+        <ul class="nav flex-column bg-nav text-white w-100">
+          <li href="javascript:;" routerLink="/identity/roles" class="nav-link text-white">
+            <i class="fa fa-id-card-o"></i>
+            <span class="mx-2 text-white">Roles</span>
+          </li>
+          <li href="javascript:;" routerLink="/identity/users" class="nav-link text-white">
+            <i class="fa fa-id-card-o"></i>
+            <span class="mx-2 text-white">Users</span>
+          </li>
+          <li href="javascript:;" routerLink="/tenant-management/tenants" class="nav-link text-white">
+            <i class="fa fa-users"></i>
+            <span class="mx-2 text-white">Tenants</span>
+          </li>
+          <li href="javascript:;" routerLink="/setting-management" class="nav-link text-white">
+            <i class="fa fa-cog"></i>
+            <span class="mx-2 text-white">Settings</span>
+          </li>
+  
+          <li (click)="logout()" class="nav-link text-white">
+            <i class="fa fa-sign-out"></i>
+            <span class="mx-2 text-white">Logout</span>
+          </li>
+        </ul>
+      </ng-template>
+
     </p-accordionTab>
   </p-accordion>
 
