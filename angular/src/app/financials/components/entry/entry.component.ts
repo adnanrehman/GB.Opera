@@ -11,11 +11,13 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { PermissionService } from '@abp/ng.core';
 import { Financial_Entry } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-entry',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,CheckboxModule,RadioButtonModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,
+    ImageModule,FileUploadModule,TabViewModule,CheckboxModule,RadioButtonModule,CommonModule ],
   templateUrl: './entry.component.html',
   styleUrl: './entry.component.scss'
 })
@@ -67,10 +69,10 @@ export class EntryComponent {
     if (this.permissionService.getGrantedPolicy(Financial_Entry + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_Entry + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Financial_Entry + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_Entry + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Financial_Entry + '.Delete')) {
       this.permission.delete = true;
     }
     this.filteredCountries = [

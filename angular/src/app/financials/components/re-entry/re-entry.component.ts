@@ -11,11 +11,14 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { PermissionService } from '@abp/ng.core';
 import { Financial_ReEntry } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-re-entry',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,CheckboxModule,RadioButtonModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,
+    DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,CheckboxModule,
+    RadioButtonModule,  CommonModule ],
   templateUrl: './re-entry.component.html',
   styleUrl: './re-entry.component.scss'
 })
@@ -68,10 +71,10 @@ export class ReEntryComponent {
     if (this.permissionService.getGrantedPolicy(Financial_ReEntry + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_ReEntry + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Financial_ReEntry + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_ReEntry + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Financial_ReEntry + '.Delete')) {
       this.permission.delete = true;
     }
     this.filteredCountries = [

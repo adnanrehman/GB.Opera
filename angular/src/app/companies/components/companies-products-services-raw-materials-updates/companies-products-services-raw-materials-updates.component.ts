@@ -38,7 +38,7 @@ import { PermissionService } from '@abp/ng.core';
     ReactiveFormsModule,
     ListboxModule,
     InputTextModule,
-    TabViewModule, TreeModule
+    TabViewModule, TreeModule,CommonModule
   ],
   templateUrl: './companies-products-services-raw-materials-updates.component.html',
   styleUrl: './companies-products-services-raw-materials-updates.component.scss'
@@ -112,10 +112,10 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
     if (this.permissionService.getGrantedPolicy(Company_CompaniesProductsServicesRawMaterialsUpdates + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Company_CompaniesProductsServicesRawMaterialsUpdates + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Company_CompaniesProductsServicesRawMaterialsUpdates + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Company_CompaniesProductsServicesRawMaterialsUpdates + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Company_CompaniesProductsServicesRawMaterialsUpdates + '.Delete')) {
       this.permission.delete = true;
     }
     this.getMarketLangAnnouncements();

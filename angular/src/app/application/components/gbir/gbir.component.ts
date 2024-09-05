@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
@@ -15,7 +16,7 @@ import { Application_Gbir } from 'src/app/services/permissions';
   selector: 'app-gbir',
   standalone: true,
   imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,
-    CalendarModule,ImageModule,FileUploadModule,TabViewModule,TreeModule ],
+    CalendarModule,ImageModule,FileUploadModule,TabViewModule,TreeModule,CommonModule ],
   templateUrl: './gbir.component.html',
   styleUrl: './gbir.component.scss'
 })
@@ -56,10 +57,10 @@ export class GbirComponent {
     if (this.permissionService.getGrantedPolicy(Application_Gbir + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_Gbir + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Application_Gbir + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_Gbir + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Application_Gbir + '.Delete')) {
       this.permission.delete = true;
     }
     this.filteredCountries = [

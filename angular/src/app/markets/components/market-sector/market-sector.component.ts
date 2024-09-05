@@ -11,11 +11,13 @@ import { TreeModule } from 'primeng/tree';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PermissionService } from '@abp/ng.core';
 import { CompanyAndMarket_MarketSector } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-market-sector',
   standalone: true,
-  imports: [TableModule,TreeModule,CalendarModule,AutoCompleteModule, FormsModule,DropdownModule,ImageModule,FileUploadModule,CheckboxModule ],
+  imports: [TableModule,TreeModule,CalendarModule,AutoCompleteModule,
+     FormsModule,DropdownModule,ImageModule,FileUploadModule,CheckboxModule,CommonModule ],
   templateUrl: './market-sector.component.html',
   styleUrl: './market-sector.component.scss'
 })
@@ -70,10 +72,10 @@ export class MarketSectorComponent {
     if (this.permissionService.getGrantedPolicy(CompanyAndMarket_MarketSector + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_MarketSector + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_MarketSector + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_MarketSector + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_MarketSector + '.Delete')) {
       this.permission.delete = true;
     }
 

@@ -12,11 +12,13 @@ import { Checkbox, CheckboxModule } from 'primeng/checkbox';
 import { MFundPrices, OfficialIndicsService } from '@proxy/officials-indics';
 import { PermissionService } from '@abp/ng.core';
 import { PriceAndIndices_FundPrices } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-fund-prices',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,RadioButtonModule,CheckboxModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,
+    CalendarModule,ImageModule,FileUploadModule,TabViewModule,RadioButtonModule,CheckboxModule,CommonModule ],
   templateUrl: './fund-prices.component.html',
   styleUrl: './fund-prices.component.scss'
 })
@@ -57,10 +59,10 @@ export class FundPricesComponent {
     if (this.permissionService.getGrantedPolicy(PriceAndIndices_FundPrices + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(PriceAndIndices_FundPrices + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_FundPrices + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(PriceAndIndices_FundPrices + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_FundPrices + '.Delete')) {
       this.permission.delete = true;
     }
     this.getMFundCompanies();

@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -13,7 +14,8 @@ import { News_Market } from 'src/app/services/permissions';
 @Component({
   selector: 'app-market',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,
+    CalendarModule,ImageModule,FileUploadModule,TabViewModule,CommonModule ],
   templateUrl: './market.component.html',
   styleUrl: './market.component.scss'
 })
@@ -53,10 +55,10 @@ export class MarketComponent {
     if (this.permissionService.getGrantedPolicy(News_Market + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(News_Market + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(News_Market + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(News_Market + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(News_Market + '.Delete')) {
       this.permission.delete = true;
     }
      

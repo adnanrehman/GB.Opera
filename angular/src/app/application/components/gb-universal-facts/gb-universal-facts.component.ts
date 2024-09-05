@@ -1,10 +1,11 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Application_GbUniversalFacts } from 'src/app/services/permissions';
 @Component({
   selector: 'app-gb-universal-facts',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './gb-universal-facts.component.html',
   styleUrl: './gb-universal-facts.component.scss'
 })
@@ -28,10 +29,10 @@ export class GbUniversalFactsComponent {
     if (this.permissionService.getGrantedPolicy(Application_GbUniversalFacts + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_GbUniversalFacts + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Application_GbUniversalFacts + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_GbUniversalFacts + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Application_GbUniversalFacts + '.Delete')) {
       this.permission.delete = true;
     }
   }

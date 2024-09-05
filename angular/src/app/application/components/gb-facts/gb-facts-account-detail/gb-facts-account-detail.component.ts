@@ -4,6 +4,8 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { GbFactsAccount } from '@proxy/gb-facts/models';
 import { GbFactService } from '@proxy/gb-facts/gb-fact.service';
 import Swal from 'sweetalert2';
+import { PermissionService } from '@abp/ng.core';
+import { Application_GbFacts } from 'src/app/services/permissions';
 
 @Component({
   selector: 'app-gb-facts-account-detail',
@@ -26,15 +28,31 @@ export class GbFactsAccountDetailComponent {
     isTitle:false
     
    }
-
+   permission: {
+    create: boolean;
+    edit: boolean,
+    delete: boolean
+  }
   constructor(
     private modalref: DynamicDialogRef,
-    public config: DynamicDialogConfig,private gnfactservice: GbFactService) {
- 
+    public config: DynamicDialogConfig,private gnfactservice: GbFactService, private permissionService: PermissionService) {
+      this.permission = {
+        create: false,
+        edit : false,
+        delete  :false
+      }
   }
 
   ngOnInit() {
-    debugger;
+    if (this.permissionService.getGrantedPolicy(Application_GbFacts + '.Create')) {
+      this.permission.create = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_GbFacts + '.Edit')) {
+      this.permission.edit = true;
+    }
+    if (this.permissionService.getGrantedPolicy(Application_GbFacts + '.Delete')) {
+      this.permission.delete = true;
+    }
     if (this.config.data.obj,this.config.data.text) {
       var data = this.config.data.obj;
        

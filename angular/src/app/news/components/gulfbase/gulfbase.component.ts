@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -13,7 +14,8 @@ import { News_Gulfbase } from 'src/app/services/permissions';
 @Component({
   selector: 'app-gulfbase',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule ],
+  imports: [TableModule,AutoCompleteModule,
+     FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,CommonModule ],
   templateUrl: './gulfbase.component.html',
   styleUrl: './gulfbase.component.scss'
 })

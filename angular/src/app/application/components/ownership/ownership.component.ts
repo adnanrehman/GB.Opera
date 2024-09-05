@@ -9,10 +9,11 @@ import { GbOwnerShip, GbOwnerShipService } from '@proxy/gb-owner-ships';
 import { TooltipModule } from 'primeng/tooltip';
 import { PermissionService } from '@abp/ng.core';
 import { Application_Ownership } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-ownership',
   standalone: true,
-  imports: [TreeModule,TooltipModule],
+  imports: [TreeModule,TooltipModule,CommonModule],
   templateUrl: './ownership.component.html',
   styleUrl: './ownership.component.scss'
 })
@@ -39,10 +40,10 @@ export class OwnershipComponent {
     if (this.permissionService.getGrantedPolicy(Application_Ownership + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.Delete')) {
       this.permission.delete = true;
     }
     this.fetchgbOwnerShipTreeData();

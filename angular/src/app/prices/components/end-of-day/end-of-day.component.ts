@@ -11,11 +11,13 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { EndofDayService } from '@proxy/end-of-day/endof-day.service';
 import { PermissionService } from '@abp/ng.core';
 import { PriceAndIndices_EndOfDay } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-end-of-day',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,RadioButtonModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,
+    DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,RadioButtonModule,CommonModule ],
   templateUrl: './end-of-day.component.html',
   styleUrl: './end-of-day.component.scss'
 })
@@ -47,10 +49,10 @@ export class EndOfDayComponent {
     if (this.permissionService.getGrantedPolicy(PriceAndIndices_EndOfDay + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(PriceAndIndices_EndOfDay + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_EndOfDay + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(PriceAndIndices_EndOfDay + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_EndOfDay + '.Delete')) {
       this.permission.delete = true;
     }
     this.filteredCountries = [

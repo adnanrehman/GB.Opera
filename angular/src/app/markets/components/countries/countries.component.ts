@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -13,7 +14,8 @@ import { CompanyAndMarket_Country } from 'src/app/services/permissions';
 @Component({
   selector: 'app-countries',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,
+    CalendarModule,ImageModule,FileUploadModule,TabViewModule,CommonModule ],
   templateUrl: './countries.component.html',
   styleUrl: './countries.component.scss'
 })
@@ -73,10 +75,10 @@ export class CountriesComponent {
     if (this.permissionService.getGrantedPolicy(CompanyAndMarket_Country + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_Country + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_Country + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_Country + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_Country + '.Delete')) {
       this.permission.delete = true;
     }
   }

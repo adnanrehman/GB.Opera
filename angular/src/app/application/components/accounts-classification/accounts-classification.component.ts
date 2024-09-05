@@ -9,7 +9,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ACFactsDtos, AccountClassificationService, GbAcFactsAccount } from '@proxy/accounts-classifications';
 import { GbFactListDto, GbFactService } from '@proxy/gb-facts';
 import { Tooltip, TooltipModule } from 'primeng/tooltip';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { PermissionService } from '@abp/ng.core';
@@ -18,7 +18,7 @@ import { Application_AccountsClassification } from 'src/app/services/permissions
   selector: 'app-accounts-classification',
   standalone: true,
   //imports :[TreeSelectModule],
-  imports: [TreeModule, TooltipModule, CommonModule, FormsModule],
+  imports: [TreeModule, TooltipModule, CommonModule, FormsModule,NgIf],
   templateUrl: './accounts-classification.component.html',
   styleUrl: './accounts-classification.component.scss'
 })
@@ -92,6 +92,7 @@ export class AccountsClassificationComponent {
   }
 
   ngOnInit() {
+    debugger;
     if (this.permissionService.getGrantedPolicy(Application_AccountsClassification + '.Create')) {
       this.permission.create = true;
     }

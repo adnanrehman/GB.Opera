@@ -12,10 +12,12 @@ import { EndofDayService } from '@proxy/end-of-day';
 import { OfficialIndicsService } from '@proxy/officials-indics';
 import { PermissionService } from '@abp/ng.core';
 import { PriceAndIndices_Official } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-official',
   standalone: true,
-  imports: [TableModule, AutoCompleteModule, FormsModule, DropdownModule, CalendarModule, ImageModule, FileUploadModule, TabViewModule, RadioButtonModule],
+  imports: [TableModule, AutoCompleteModule, FormsModule, DropdownModule,
+     CalendarModule, ImageModule, FileUploadModule, TabViewModule, RadioButtonModule,CommonModule],
   templateUrl: './official.component.html',
   styleUrl: './official.component.scss'
 })
@@ -76,10 +78,10 @@ export class OfficialComponent {
     if (this.permissionService.getGrantedPolicy(PriceAndIndices_Official + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(PriceAndIndices_Official + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_Official + '.E')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(PriceAndIndices_Official + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_Official + '.Delete')) {
       this.permission.delete = true;
     }
     this.getstockmarkets();

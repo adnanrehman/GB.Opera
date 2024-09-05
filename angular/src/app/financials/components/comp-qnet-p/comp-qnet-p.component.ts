@@ -10,11 +10,13 @@ import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PermissionService } from '@abp/ng.core';
 import { Financial_CompQnetP } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
  
 @Component({
   selector: 'app-comp-qnet-p',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,CheckboxModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,
+    ImageModule,FileUploadModule,TabViewModule,CheckboxModule ,CommonModule],
   templateUrl: './comp-qnet-p.component.html',
   styleUrl: './comp-qnet-p.component.scss'
 })
@@ -53,10 +55,10 @@ export class CompQnetPComponent {
     if (this.permissionService.getGrantedPolicy(Financial_CompQnetP + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_CompQnetP + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Financial_CompQnetP + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_CompQnetP + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Financial_CompQnetP + '.Delete')) {
       this.permission.delete = true;
     }
     this.filteredCountries = [

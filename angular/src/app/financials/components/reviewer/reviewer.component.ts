@@ -11,11 +11,13 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { PermissionService } from '@abp/ng.core';
 import { Financial_Reviewer } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reviewer',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,CheckboxModule,RadioButtonModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,
+    CalendarModule,ImageModule,FileUploadModule,TabViewModule,CheckboxModule,RadioButtonModule,CommonModule ],
   templateUrl: './reviewer.component.html',
   styleUrl: './reviewer.component.scss'
 })
@@ -66,10 +68,10 @@ export class ReviewerComponent {
     if (this.permissionService.getGrantedPolicy(Financial_Reviewer + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_Reviewer + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Financial_Reviewer + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_Reviewer + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Financial_Reviewer + '.Delete')) {
       this.permission.delete = true;
     }
     this.filteredCountries = [

@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -14,7 +15,8 @@ import { Financial_EnhancedRatios } from 'src/app/services/permissions';
 @Component({
   selector: 'app-enhanced-ratios',
   standalone: true,
-  imports: [TableModule,TreeModule,CalendarModule,AutoCompleteModule, FormsModule,DropdownModule,ImageModule,FileUploadModule,TabViewModule],
+  imports: [TableModule,TreeModule,CalendarModule,AutoCompleteModule, FormsModule,
+    DropdownModule,ImageModule,FileUploadModule,TabViewModule,CommonModule],
   templateUrl: './enhanced-ratios.component.html',
   styleUrl: './enhanced-ratios.component.scss'
 })
@@ -50,10 +52,10 @@ export class EnhancedRatiosComponent {
     if (this.permissionService.getGrantedPolicy(Financial_EnhancedRatios + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_EnhancedRatios + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Financial_EnhancedRatios + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_EnhancedRatios + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Financial_EnhancedRatios + '.Delete')) {
       this.permission.delete = true;
     }
   }

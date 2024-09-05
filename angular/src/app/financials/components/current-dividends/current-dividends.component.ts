@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -14,7 +15,8 @@ import { Financial_CurrentDividends } from 'src/app/services/permissions';
 @Component({
   selector: 'app-current-dividends',
   standalone: true,
-  imports: [TableModule,TreeModule,CalendarModule,AutoCompleteModule, FormsModule,DropdownModule,ImageModule,FileUploadModule,TabViewModule],
+  imports: [TableModule,TreeModule,CalendarModule,AutoCompleteModule,
+     FormsModule,DropdownModule,ImageModule,FileUploadModule,TabViewModule,CommonModule],
   templateUrl: './current-dividends.component.html',
   styleUrl: './current-dividends.component.scss'
 })
@@ -51,10 +53,10 @@ export class CurrentDividendsComponent {
     if (this.permissionService.getGrantedPolicy(Financial_CurrentDividends + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_CurrentDividends + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Financial_CurrentDividends + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_CurrentDividends + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Financial_CurrentDividends + '.Delete')) {
       this.permission.delete = true;
     }
   }

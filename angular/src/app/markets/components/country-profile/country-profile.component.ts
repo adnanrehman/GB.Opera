@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
@@ -15,7 +16,8 @@ import { CompanyAndMarket_CountryProfile } from 'src/app/services/permissions';
 @Component({
   selector: 'app-country-profile',
   standalone: true,
-  imports: [TableModule,TreeModule,CalendarModule,AutoCompleteModule, FormsModule,DropdownModule,ImageModule,FileUploadModule,TabViewModule],
+  imports: [TableModule,TreeModule,CalendarModule,AutoCompleteModule,
+     FormsModule,DropdownModule,ImageModule,FileUploadModule,TabViewModule,CommonModule],
   templateUrl: './country-profile.component.html',
   styleUrl: './country-profile.component.scss'
 })
@@ -38,10 +40,10 @@ export class CountryProfileComponent {
     if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryProfile + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryProfile + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryProfile + '.Eit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryProfile + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryProfile + '.Delete')) {
       this.permission.delete = true;
     }
     this.tree = [

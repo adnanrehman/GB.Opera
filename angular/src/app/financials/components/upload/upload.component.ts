@@ -10,11 +10,13 @@ import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PermissionService } from '@abp/ng.core';
 import { Financial_Upload } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-upload',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,CheckboxModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,
+    ImageModule,FileUploadModule,TabViewModule,CheckboxModule,CommonModule ],
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.scss'
 })
@@ -53,10 +55,10 @@ export class UploadComponent {
     if (this.permissionService.getGrantedPolicy(Financial_Upload + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_Upload + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Financial_Upload + '.Eit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_Upload + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Financial_Upload + '.Dlete')) {
       this.permission.delete = true;
     }
     this.filteredCountries = [

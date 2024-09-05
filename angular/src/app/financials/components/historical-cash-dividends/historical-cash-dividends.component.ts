@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -13,7 +14,8 @@ import { Financial_HistoricalCashDividends } from 'src/app/services/permissions'
 @Component({
   selector: 'app-historical-cash-dividends',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,
+    ImageModule,FileUploadModule,TabViewModule,CommonModule ],
   templateUrl: './historical-cash-dividends.component.html',
   styleUrl: './historical-cash-dividends.component.scss'
 })
@@ -64,10 +66,10 @@ export class HistoricalCashDividendsComponent {
     if (this.permissionService.getGrantedPolicy(Financial_HistoricalCashDividends + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_HistoricalCashDividends + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Financial_HistoricalCashDividends + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Financial_HistoricalCashDividends + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Financial_HistoricalCashDividends + '.Delete')) {
       this.permission.delete = true;
     }
     this.filteredCountries = [

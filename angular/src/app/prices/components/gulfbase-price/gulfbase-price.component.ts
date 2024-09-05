@@ -11,10 +11,12 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { OfficialIndicsService } from '@proxy/officials-indics';
 import { PermissionService } from '@abp/ng.core';
 import { PriceAndIndices_GulfbasePrice } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-gulfbase-price',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,RadioButtonModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,
+    CalendarModule,ImageModule,FileUploadModule,TabViewModule,RadioButtonModule ,CommonModule],
   templateUrl: './gulfbase-price.component.html',
   styleUrl: './gulfbase-price.component.scss'
 })
@@ -61,10 +63,10 @@ export class GulfbasePriceComponent {
     if (this.permissionService.getGrantedPolicy(PriceAndIndices_GulfbasePrice + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GulfbasePrice + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GulfbasePrice + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GulfbasePrice + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GulfbasePrice + '.Delete')) {
       this.permission.delete = true;
     }
   }

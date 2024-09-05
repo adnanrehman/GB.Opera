@@ -11,8 +11,10 @@ import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PermissionService } from '@abp/ng.core';
 import { CompanyAndMarket_CountryGroup } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 @Component({
-  imports: [TableModule,TreeModule,CalendarModule,AutoCompleteModule, FormsModule,DropdownModule,ImageModule,FileUploadModule,CheckboxModule],
+  imports: [TableModule,TreeModule,CalendarModule,AutoCompleteModule,
+     FormsModule,DropdownModule,ImageModule,FileUploadModule,CheckboxModule,CommonModule],
   selector: 'app-country-group',
   standalone: true,
   
@@ -46,10 +48,10 @@ export class CountryGroupComponent {
     if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryGroup + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryGroup + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryGroup + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryGroup + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(CompanyAndMarket_CountryGroup + '.Delete')) {
       this.permission.delete = true;
     }
 

@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Company } from '@proxy/lhruploads';
@@ -17,7 +18,7 @@ import { Application_LhscUpload } from 'src/app/services/permissions';
 @Component({
   selector: 'app-lhsc-upload',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CommonModule,
     CalendarModule,ImageModule,FileUploadModule,TabViewModule,TreeModule ,ListboxModule],
   templateUrl: './lhsc-upload.component.html',
   styleUrl: './lhsc-upload.component.scss'
@@ -99,13 +100,14 @@ export class LhscUploadComponent {
     });
   }
   ngOnInit() { 
+    debugger;
     if (this.permissionService.getGrantedPolicy(Application_LhscUpload + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_LhscUpload + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Application_LhscUpload + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_LhscUpload + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Application_LhscUpload + '.Delete')) {
       this.permission.delete = true;
     }
     this.getAllStockMarkets();

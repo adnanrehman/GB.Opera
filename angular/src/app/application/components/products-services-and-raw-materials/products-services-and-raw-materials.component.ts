@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
  
@@ -16,7 +17,7 @@ import { Application_ProductsServicesAndRawMaterials } from 'src/app/services/pe
   selector: 'app-products-services-and-raw-materials',
   standalone: true,
   imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,
-    CalendarModule,ImageModule,FileUploadModule,TabViewModule,TreeModule ],
+    CalendarModule,ImageModule,FileUploadModule,TabViewModule,TreeModule,CommonModule ],
   templateUrl: './products-services-and-raw-materials.component.html',
   styleUrl: './products-services-and-raw-materials.component.scss'
 })
@@ -41,10 +42,10 @@ export class ProductsServicesAndRawMaterialsComponent {
     if (this.permissionService.getGrantedPolicy(Application_ProductsServicesAndRawMaterials + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_ProductsServicesAndRawMaterials + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Application_ProductsServicesAndRawMaterials + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_ProductsServicesAndRawMaterials + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Application_ProductsServicesAndRawMaterials + '.Delete')) {
       this.permission.delete = true;
     }
     this.data=[

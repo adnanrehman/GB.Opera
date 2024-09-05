@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -13,7 +14,8 @@ import { News_EconomicAndBusiness } from 'src/app/services/permissions';
 @Component({
   selector: 'app-economic-and-business',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,
+    DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,CommonModule ],
   templateUrl: './economic-and-business.component.html',
   styleUrl: './economic-and-business.component.scss'
 })
@@ -63,10 +65,10 @@ export class EconomicAndBusinessComponent {
     if (this.permissionService.getGrantedPolicy(News_EconomicAndBusiness + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(News_EconomicAndBusiness + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(News_EconomicAndBusiness + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(News_EconomicAndBusiness + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(News_EconomicAndBusiness + '.Delete')) {
       this.permission.delete = true;
     }
     this.filteredCountries = [

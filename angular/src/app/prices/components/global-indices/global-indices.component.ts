@@ -12,11 +12,13 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { OfficialIndicsService } from '@proxy/officials-indics';
 import { PermissionService } from '@abp/ng.core';
 import { PriceAndIndices_GlobalIndices } from 'src/app/services/permissions';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-global-indices',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,RadioButtonModule,CheckboxModule ],
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,
+    ImageModule,FileUploadModule,TabViewModule,RadioButtonModule,CheckboxModule,CommonModule ],
   templateUrl: './global-indices.component.html',
   styleUrl: './global-indices.component.scss'
 })
@@ -34,10 +36,10 @@ export class GlobalIndicesComponent {
     if (this.permissionService.getGrantedPolicy(PriceAndIndices_GlobalIndices + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GlobalIndices + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GlobalIndices + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GlobalIndices + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(PriceAndIndices_GlobalIndices + '.Delete')) {
       this.permission.delete = true;
     }
      
