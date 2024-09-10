@@ -168,6 +168,7 @@ export class EnglishComponent {
     debugger;
     this.loading = true;
     this.newsEng.companyID = this.companyID;
+    this.newsEng.LangID=true;
     this.newsEng.date = new Date(this.newsEng.date).toLocaleString();
     this.newsEngService.createOrUpdateNewsEngByInput(this.newsEng).subscribe(res => {
       debugger;

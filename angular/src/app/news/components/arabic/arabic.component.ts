@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonService } from '@proxy/commons';
 import { NewsArabDto, NewsArabService } from '@proxy/news-arabs';
+import { NewsEngService } from '@proxy/news-engs/news-eng.service';
 import { AutoCompleteModule, AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -68,7 +69,7 @@ export class ArabicComponent {
 
   constructor(
     private commonService: CommonService,
-    private newsArabService: NewsArabService, private permissionService: PermissionService
+    private newsArabService: NewsArabService, private permissionService: PermissionService,private newsEngService: NewsEngService
   ) {
     this.permission = {
       create: false,
@@ -168,15 +169,16 @@ export class ArabicComponent {
     debugger;
     this.loading = true;
     this.newsArab.companyID = this.companyID;
+    this.newsArab.LangID = false;
     this.newsArab.date = new Date(this.newsArab.date).toLocaleString();
-    this.newsArabService.createOrUpdateNewsArabByInput(this.newsArab).subscribe(res => {
+    this.newsEngService.createOrUpdateNewsEngByInput(this.newsArab).subscribe(res => {
       debugger;
       if (this.newsArab.newsID > 0) {
-        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.aTitle + ' updated successfully', icon: 'success', });
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' updated successfully', icon: 'success', });
         this.getNewsArabs();
       }
       else {
-        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.aTitle + ' created successfully', icon: 'success', });
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' created successfully', icon: 'success', });
         this.getNewsArabs();
       }
       this.handleNewsArab(this.newsArab);

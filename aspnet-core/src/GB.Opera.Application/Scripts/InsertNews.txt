@@ -1,0 +1,69 @@
+
+--ALTER procedure [dbo].[USP_GBN_InsertUpdateNews]
+alter procedure InsertNews
+@LangID smallint,
+@NewsID int,
+@GCCID int,
+@NewsCategoryID int,
+@CompanyID int,
+@Date smalldatetime,
+@Title NVARCHAR(1000),
+@SubTitle NVARCHAR(1000),
+@Source   NVARCHAR(1000),
+@Description ntext,
+@IsHome bit,
+@Islamic bit,
+@ForSocialNetworks bit,
+@IsGulfbaseNews bit,
+ @SourceID int =0,
+ @GulfBaseSectorID int 
+AS
+BEGIN
+	IF(@GCCID=0)
+		SET @GCCID=NULL;
+		 
+	--DECLARE @GulfbaseSectorID int;
+	 DECLARE @Source1 NVARCHAR(250) =(Select IIF(@LANGID=1,Source,ASource) Source from GB_NewsSource where SourceID=@SourceID);
+	IF(@CompanyID<>0)
+	--	SELECT @GulfbaseSectorID = GBSECTORID FROM Companies WHERE CompanyID=@CompanyID;
+
+	DECLARE @UpdatedDateTime datetime = (CONVERT(DATETIME, CONVERT(varchar(20), @Date,101)  + ' ' + CONVERT(varchar(8), CURRENT_TIMESTAMP, 108)));
+
+IF(@LangID=1)
+	BEGIN
+		IF(@NewsID=0)
+			BEGIN
+				INSERT INTO [dbo].[News_En]  ([GCCID],[NewsCategoryID],[CompanyID],[Date],[Title],[SubTitle],[Source],[Description],[IsHome],[GulfBaseSectorID],
+				[Islamic],[ForSocialNetworks],[IsGulfbaseNews] )          
+					OUTPUT inserted.NewsID
+				VALUES
+					(@GCCID,@NewsCategoryID,@CompanyID,@UpdatedDateTime, @Title, @SubTitle,@Source,@Description,@IsHome,@GulfBaseSectorID,@Islamic,@ForSocialNetworks,@IsGulfbaseNews )
+			END
+		ELSE
+			BEGIN
+				UPDATE News_En SET 
+				GCCID= @GCCID,NewsCategoryID =@NewsCategoryID, CompanyID=@CompanyID, Date=@UpdatedDateTime,Title=@Title,Source=@Source,Description=@Description,IsHome=@IsHome,
+				GulfBaseSectorID =@GulfbaseSectorID,Islamic=@Islamic,ForSocialNetworks=@ForSocialNetworks,IsGulfbaseNews=@IsGulfbaseNews 
+					OUTPUT inserted.NewsID
+				WHERE NewsID=@NewsID
+
+			END	
+	END
+ELSE
+	IF(@NewsID=0)
+			BEGIN
+				INSERT INTO [dbo].[News_Ar]  ([GCCID],[NewsCategoryID],[CompanyID],[Date],[ATitle],[ASubTitle],[ASource],[ADescription],[IsHome],
+				[GulfBaseSectorID],[Islamic],[ForSocialNetworks],[IsGulfbaseNews] )          
+					OUTPUT inserted.NewsID
+				VALUES
+					(@GCCID,@NewsCategoryID,@CompanyID,@UpdatedDateTime, @Title, @SubTitle,@Source,@Description,@IsHome,@GulfBaseSectorID,@Islamic,@ForSocialNetworks,@IsGulfbaseNews)
+			END
+		ELSE
+			BEGIN
+				UPDATE News_Ar SET 
+				GCCID= @GCCID,NewsCategoryID =@NewsCategoryID, CompanyID=@CompanyID, Date=@UpdatedDateTime,ATitle=@Title,ASource=@Source,ADescription=@Description,IsHome=@IsHome,
+				GulfBaseSectorID =@GulfbaseSectorID,Islamic=@Islamic,ForSocialNetworks=@ForSocialNetworks,IsGulfbaseNews=@IsGulfbaseNews 
+					OUTPUT inserted.NewsID
+				WHERE NewsID=@NewsID
+			END	
+	END

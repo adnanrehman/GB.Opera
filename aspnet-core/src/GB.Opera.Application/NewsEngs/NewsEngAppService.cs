@@ -56,7 +56,9 @@ namespace NewsEngs
             try
             {
                 var parameters = new DynamicParameters();
+                parameters.Add("@LangID", input.LangID);
                 parameters.Add("@GCCID", input.GCCID);
+                parameters.Add("@NewsID", input.NewsID);
                 parameters.Add("@NewsCategoryID", input.NewsCategoryID);
                 parameters.Add("@CompanyID", input.CompanyID);
                 parameters.Add("@Date", input.Date);
@@ -65,8 +67,10 @@ namespace NewsEngs
                 parameters.Add("@Source", input.Source);
                 parameters.Add("@Description", input.Description);
                 parameters.Add("@IsHome", input.IsHome);
-                parameters.Add("@GulfBaseSectorID", input.GulfBaseSectorID);
+               parameters.Add("@GulfBaseSectorID", input.gulfBaseSectorID);
                 parameters.Add("@Islamic", input.Islamic);
+                parameters.Add("@ForSocialNetworks", input.IsSocialmedia);
+                parameters.Add("@IsGulfbaseNews", input.Isgulfbase);
 
                 await _connection.ExecuteAsync("InsertNews", parameters, commandType: CommandType.StoredProcedure);
 

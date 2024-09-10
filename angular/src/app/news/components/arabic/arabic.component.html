@@ -19,7 +19,7 @@
           <div class="col-md-12 mt-2">
             <p-dropdown
               [options]="companyMarketSectors"
-              [(ngModel)]="sectorID"
+              [(ngModel)]="newsArab.gulfBaseSectorID"
               name="sectorID"
               placeholder="Select a Sector"
               optionLabel="sector"
@@ -118,7 +118,7 @@
                 <label class="col-form-label col-4">Title</label>
                 <input
                   autofocus
-                  [(ngModel)]="newsArab.aTitle"
+                  [(ngModel)]="newsArab.title"
                   [ngModelOptions]="{ standalone: true }"
                   type="text"
                   class="form-control"
@@ -130,7 +130,7 @@
                   <label class="col-form-label col-4">SubTitle</label>
                   <input
                     autofocus
-                    [(ngModel)]="newsArab.aSubTitle"
+                    [(ngModel)]="newsArab.subTitle"
                     [ngModelOptions]="{ standalone: true }"
                     type="text"
                     class="form-control"
@@ -138,11 +138,25 @@
                     placeholder="SubTitle (AR)"
                   />
                 </div>
+                <div class="col-md-12">
+                  <label class="col-form-label col-4">Description</label>
+                  <textarea
+                    autofocus
+                    [(ngModel)]="newsArab.description"
+                    [ngModelOptions]="{ standalone: true }"
+                    type="text"
+                    class="form-control"
+                    name="Description"
+                    rows="4"
+                    placeholder="Description"
+                  >
+                </textarea>
+                </div>
               <div class="col-md-3">
                 <label class="col-form-label col-4">Source</label>
                 <input
                     autofocus
-                    [(ngModel)]="newsArab.aSource"
+                    [(ngModel)]="newsArab.source"
                     [ngModelOptions]="{ standalone: true }"
                     type="text"
                     class="form-control"
@@ -163,7 +177,7 @@
                         name="isHome"
                         type="checkbox"
                       />
-                      <label class="form-check-label" for="defaultCheck3">Important</label>
+                      <label class="form-check-label" for="defaultCheck3">Home</label>
                     </div>
               </div>
               <div class="col-md-3">
@@ -176,6 +190,24 @@
                         type="checkbox"
                       />
                       <label class="form-check-label" for="defaultCheck3">Islamic</label>
+                    </div>
+                    <div class="form-check me-2">
+                      <input
+                        class="form-check-input"
+                        [(ngModel)]="newsArab.isSocialmedia"
+                        name="isSocialmedia"
+                        type="checkbox"
+                      />
+                      <label class="form-check-label" for="defaultCheck3">Social Media</label>
+                    </div>
+                    <div class="form-check me-2">
+                      <input
+                        class="form-check-input"
+                        [(ngModel)]="newsArab.Isgulfbase"
+                        name="Isgulfbase"
+                        type="checkbox"
+                      />
+                      <label class="form-check-label" for="defaultCheck3">Gulf Base</label>
                     </div>
               </div>
             </div>

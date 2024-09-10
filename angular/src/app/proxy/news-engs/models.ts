@@ -12,4 +12,8 @@ export interface NewsEngDto {
   isHome?: boolean;
   gulfBaseSectorID?: number;
   islamic?: boolean;
+  isSocialmedia ?: boolean;
+  Isgulfbase ?: boolean;
+  LangID ? : boolean;
+
 }

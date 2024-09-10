@@ -19,7 +19,7 @@
         <div class="col-md-12 mt-2">
           <p-dropdown
             [options]="companyMarketSectors"
-            [(ngModel)]="sectorID"
+            [(ngModel)]="newsEng.gulfBaseSectorID"
             name="sectorID"
             placeholder="Select a Sector"
             optionLabel="sector"
@@ -138,6 +138,20 @@
                   placeholder="SubTitle"
                 />
               </div>
+              <div class="col-md-12">
+                <label class="col-form-label col-4">Description</label>
+                <textarea
+                  autofocus
+                  [(ngModel)]="newsEng.description"
+                  [ngModelOptions]="{ standalone: true }"
+                  type="text"
+                  class="form-control"
+                  name="Description"
+                  rows="4"
+                  placeholder="Description"
+                >
+              </textarea>
+              </div>
             <div class="col-md-3">
               <label class="col-form-label col-4">Source</label>
               <input
@@ -163,8 +177,9 @@
                       name="isHome"
                       type="checkbox"
                     />
-                    <label class="form-check-label" for="defaultCheck3">Important</label>
+                    <label class="form-check-label" for="defaultCheck3">Home</label>
                   </div>
+
             </div>
             <div class="col-md-3">
                 <label class="col-form-label col-4">&nbsp;</label>
@@ -176,6 +191,24 @@
                       type="checkbox"
                     />
                     <label class="form-check-label" for="defaultCheck3">Islamic</label>
+                  </div>
+                  <div class="form-check me-2">
+                    <input
+                      class="form-check-input"
+                      [(ngModel)]="newsEng.isSocialmedia"
+                      name="isSocialmedia"
+                      type="checkbox"
+                    />
+                    <label class="form-check-label" for="defaultCheck3">Social Media</label>
+                  </div>
+                  <div class="form-check me-2">
+                    <input
+                      class="form-check-input"
+                      [(ngModel)]="newsEng.Isgulfbase"
+                      name="Isgulfbase"
+                      type="checkbox"
+                    />
+                    <label class="form-check-label" for="defaultCheck3">Gulf Base</label>
                   </div>
             </div>
           </div>

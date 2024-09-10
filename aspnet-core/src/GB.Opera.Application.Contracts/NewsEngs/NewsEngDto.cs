@@ -8,7 +8,7 @@ namespace NewsEngs
 {
     public class NewsEngDto
     {
-        public int NewsID { get; set; }
+        public int? NewsID { get; set; }
         public int? GCCID { get; set; }
         public int? NewsCategoryID { get; set; }
         public int? CompanyID { get; set; }
@@ -18,8 +18,12 @@ namespace NewsEngs
         public string? Source { get; set; }
         public string? Description { get; set; }
         public bool? IsHome { get; set; }
-        public int? GulfBaseSectorID { get; set; }
+        public int? gulfBaseSectorID { get; set; }
         public bool? Islamic { get; set; }
+        public bool? IsSocialmedia { get; set; }
+        public bool? Isgulfbase { get; set; }
+        public bool? LangID { get; set; }
+        
     }
 
 }
