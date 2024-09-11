@@ -237,22 +237,22 @@ constructor(){
     },
     {
       title: "News", permission: News, menuItems: [
-        {
-          href: "economic-and-business", title: "Economic & Business", permission: News_EconomicAndBusiness, component: EconomicAndBusinessComponent,
-          active: false
-        },
-        {
-          href: "market", title: "Market", permission: News_Market, component: MarketComponent,
-          active: false
-        },
-        {
-          href: "company", title: "Company", permission: News_Gulfbase, component: CompanyComponent,
-          active: false
-        },
-        {
-          href: "gulfbase", title: "Gulfbase", permission: News_Gulfbase, component: GulfbaseComponent,
-          active: false
-        },
+        // {
+        //   href: "economic-and-business", title: "Economic & Business", permission: News_EconomicAndBusiness, component: EconomicAndBusinessComponent,
+        //   active: false
+        // },
+        // {
+        //   href: "market", title: "Market", permission: News_Market, component: MarketComponent,
+        //   active: false
+        // },
+        // {
+        //   href: "company", title: "Company", permission: News_Gulfbase, component: CompanyComponent,
+        //   active: false
+        // },
+        // {
+        //   href: "gulfbase", title: "Gulfbase", permission: News_Gulfbase, component: GulfbaseComponent,
+        //   active: false
+        // },
         {
           href: "english", title: "English", permission: News_English, component: EnglishComponent,
           active: false
