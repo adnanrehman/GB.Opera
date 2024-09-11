@@ -1,6 +1,7 @@
 import type { NewsArabDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
+import type { NewsEngDto } from '../news-engs/models';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class NewsArabService {
   
 
   getNewsArabs = (config?: Partial<Rest.Config>) =>
-    this.restService.request<any, NewsArabDto[]>({
+    this.restService.request<any, NewsEngDto[]>({
       method: 'GET',
       url: '/api/app/news-arab/news-arabs',
     },

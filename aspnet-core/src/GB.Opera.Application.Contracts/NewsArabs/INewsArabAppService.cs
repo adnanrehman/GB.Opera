@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewsEngs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Text;
@@ -10,7 +11,7 @@ namespace NewsArabs
 {
     public interface INewsArabAppService : IApplicationService
     {
-        Task<List<NewsArabDto>> GetNewsArabs();
+        Task<List<NewsEngDto>> GetNewsArabs();
         Task<NewsArabDto> CreateOrUpdateNewsArab(NewsArabDto input);
 
     }

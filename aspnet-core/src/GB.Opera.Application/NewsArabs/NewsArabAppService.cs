@@ -21,6 +21,7 @@ using static Volo.Abp.UI.Navigation.DefaultMenuNames.Application;
 using System.Text.RegularExpressions;
 using GB.Opera.Books;
 using System.Diagnostics.Metrics;
+using NewsEngs;
 
 namespace NewsArabs
 {
@@ -34,13 +35,13 @@ namespace NewsArabs
             _connection = new SqlConnection(configuration.GetConnectionString("Default"));
         }
 
-        public async Task<List<NewsArabDto>> GetNewsArabs()
+        public async Task<List<NewsEngDto>> GetNewsArabs()
         {
             try
             {
-                var sql = $@"select top 10 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],ATitle,ASubTitle,ASource,[ADescription],IsHome,GulfBaseSectorID,Islamic from News_Ar where NewsCategoryID = 1 order by NewsID desc";
+                var sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],ATitle As Title,ASubTitle As SubTitle,ASource As Source,[ADescription] As Description,IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_Ar order by NewsID desc";
 
-                var data = await _connection.QueryAsync<NewsArabDto>(sql);
+                var data = await _connection.QueryAsync<NewsEngDto>(sql);
                 return data.ToList();
             }
             catch (Exception ex)

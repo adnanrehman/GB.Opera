@@ -163,24 +163,30 @@ export class EnglishComponent {
     this.newsEng = newsEng;
     this.loading = false;
   }
+  addNewNewsEng(){
+    this.newsEng = {
+      newsID: 0
+    }
+  }
 
   createOrUpdateNewsEng() {
     debugger;
     this.loading = true;
     this.newsEng.companyID = this.companyID;
-    this.newsEng.LangID=true;
+    this.newsEng.gulfBaseSectorID = this.sectorID;
+    this.newsEng.langID=true;
     this.newsEng.date = new Date(this.newsEng.date).toLocaleString();
     this.newsEngService.createOrUpdateNewsEngByInput(this.newsEng).subscribe(res => {
       debugger;
       if(this.newsEng.newsID > 0){
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' updated successfully', icon: 'success', });
-        this.getNewsEngs();
+        this.handleNewsEng(this.newsEng);
       }
       else{
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' created successfully', icon: 'success', });
         this.getNewsEngs();
       }
-      this.handleNewsEng(this.newsEng);
+      
 
       this.loading = false;
     },

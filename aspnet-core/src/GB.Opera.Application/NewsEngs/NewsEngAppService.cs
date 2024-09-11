@@ -38,7 +38,7 @@ namespace NewsEngs
         {
             try
             {
-                var sql = $@"select top 10 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],Title,SubTitle,Source,[Description],IsHome,GulfBaseSectorID,Islamic from News_En where NewsCategoryID = 1 order by NewsID desc";
+                var sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],Title,SubTitle,Source,[Description],IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_En order by NewsID desc";
 
                 var data = await _connection.QueryAsync<NewsEngDto>(sql);
                 return data.ToList();
@@ -69,8 +69,8 @@ namespace NewsEngs
                 parameters.Add("@IsHome", input.IsHome);
                parameters.Add("@GulfBaseSectorID", input.gulfBaseSectorID);
                 parameters.Add("@Islamic", input.Islamic);
-                parameters.Add("@ForSocialNetworks", input.IsSocialmedia);
-                parameters.Add("@IsGulfbaseNews", input.Isgulfbase);
+                parameters.Add("@ForSocialNetworks", input.ForSocialNetworks);
+                parameters.Add("@IsGulfbaseNews", input.IsGulfbaseNews);
 
                 await _connection.ExecuteAsync("InsertNews", parameters, commandType: CommandType.StoredProcedure);
 

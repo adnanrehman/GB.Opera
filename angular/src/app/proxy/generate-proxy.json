@@ -5866,8 +5866,8 @@
                   "name": "GetNewsArabs",
                   "parametersOnMethod": [],
                   "returnValue": {
-                    "type": "System.Collections.Generic.List<NewsArabs.NewsArabDto>",
-                    "typeSimple": "[NewsArabs.NewsArabDto]"
+                    "type": "System.Collections.Generic.List<NewsEngs.NewsEngDto>",
+                    "typeSimple": "[NewsEngs.NewsEngDto]"
                   }
                 },
                 {
@@ -5900,8 +5900,8 @@
               "parametersOnMethod": [],
               "parameters": [],
               "returnValue": {
-                "type": "System.Collections.Generic.List<NewsArabs.NewsArabDto>",
-                "typeSimple": "[NewsArabs.NewsArabDto]"
+                "type": "System.Collections.Generic.List<NewsEngs.NewsEngDto>",
+                "typeSimple": "[NewsEngs.NewsEngDto]"
               },
               "allowAnonymous": null,
               "implementFrom": "NewsArabs.INewsArabAppService"
@@ -18697,8 +18697,8 @@
         {
           "name": "NewsID",
           "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
+          "type": "System.Int32?",
+          "typeSimple": "number?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -18815,7 +18815,7 @@
           "regex": null
         },
         {
-          "name": "GulfBaseSectorID",
+          "name": "gulfBaseSectorID",
           "jsonName": null,
           "type": "System.Int32?",
           "typeSimple": "number?",
@@ -18828,6 +18828,42 @@
         },
         {
           "name": "Islamic",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ForSocialNetworks",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsGulfbaseNews",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LangID",
           "jsonName": null,
           "type": "System.Boolean?",
           "typeSimple": "boolean?",

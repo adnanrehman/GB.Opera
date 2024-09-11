@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonService } from '@proxy/commons';
 import { NewsArabDto, NewsArabService } from '@proxy/news-arabs';
+import { NewsEngDto } from '@proxy/news-engs';
 import { NewsEngService } from '@proxy/news-engs/news-eng.service';
 import { AutoCompleteModule, AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
@@ -62,8 +63,8 @@ export class ArabicComponent {
   companiesTickers = [];
   newsCategories = [];
   countries = [];
-  newsArabs: NewsArabDto[] = [];
-  newsArab: NewsArabDto = {
+  newsArabs: NewsEngDto[] = [];
+  newsArab: NewsEngDto = {
     newsID: 0
   }
 
@@ -117,6 +118,12 @@ export class ArabicComponent {
     });
   }
 
+  addNewNewsArab(){
+    this.newsArab = {
+      newsID: 0
+    }
+  }
+
   getNewsCatAndCountries() {
     this.commonService.getNewsCatAndCountries().subscribe(res => {
       this.newsCategories = res.newsCategories;
@@ -160,7 +167,7 @@ export class ArabicComponent {
       });
   }
 
-  handleNewsArab(newsArab: NewsArabDto) {
+  handleNewsArab(newsArab: NewsEngDto) {
     this.newsArab = newsArab;
     this.loading = false;
   }
@@ -169,19 +176,20 @@ export class ArabicComponent {
     debugger;
     this.loading = true;
     this.newsArab.companyID = this.companyID;
-    this.newsArab.LangID = false;
+    this.newsArab.gulfBaseSectorID = this.sectorID;
+    this.newsArab.langID = false;
     this.newsArab.date = new Date(this.newsArab.date).toLocaleString();
     this.newsEngService.createOrUpdateNewsEngByInput(this.newsArab).subscribe(res => {
       debugger;
       if (this.newsArab.newsID > 0) {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' updated successfully', icon: 'success', });
-        this.getNewsArabs();
+        this.handleNewsArab(this.newsArab);
       }
       else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' created successfully', icon: 'success', });
         this.getNewsArabs();
       }
-      this.handleNewsArab(this.newsArab);
+      
 
       this.loading = false;
     },

@@ -20,8 +20,8 @@ namespace NewsEngs
         public bool? IsHome { get; set; }
         public int? gulfBaseSectorID { get; set; }
         public bool? Islamic { get; set; }
-        public bool? IsSocialmedia { get; set; }
-        public bool? Isgulfbase { get; set; }
+        public bool? ForSocialNetworks { get; set; }
+        public bool? IsGulfbaseNews { get; set; }
         public bool? LangID { get; set; }
         
     }
