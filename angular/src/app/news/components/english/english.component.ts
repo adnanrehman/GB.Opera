@@ -78,6 +78,7 @@ export class EnglishComponent {
     }
   }
   ngOnInit() { 
+    this.loading = true;
     if (this.permissionService.getGrantedPolicy(News_English + '.Create')) {
       this.permission.create = true;
     }
@@ -155,9 +156,7 @@ export class EnglishComponent {
       .subscribe(res => {
         debugger;
         this.newsEngs = res;
-        if (this.newsEngs.length > 0){
-          this.handleNewsEng(this.newsEngs[0]);
-        }
+        this.loading = false;
       });
   }
 
