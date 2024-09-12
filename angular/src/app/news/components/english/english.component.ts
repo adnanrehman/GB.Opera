@@ -2,7 +2,6 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { CommonModule, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NewsEngDto, NewsEngService } from '@proxy/news-engs';
 import { CommonService } from '@proxy/commons';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
@@ -17,6 +16,7 @@ import { TabViewModule } from 'primeng/tabview';
 import Swal from 'sweetalert2';
 import { PermissionService } from '@abp/ng.core';
 import { News_English } from 'src/app/services/permissions';
+import { NewsDto, NewsService } from '@proxy/news';
 
 @Component({
   selector: 'app-english',
@@ -56,19 +56,20 @@ export class EnglishComponent {
   sectorID: number;
   stockMarketID: number;
   companyID: number;
+  newsId: number;
   stockMarkets = [];
   companyMarketSectors = [];
   companiesTickers = [];
   newsCategories = [];
   countries = [];
-  newsEngs: NewsEngDto[] = [];
-  newsEng: NewsEngDto = {
+  newsEngs: NewsDto[] = [];
+  newsEng: NewsDto = {
     newsID: 0
   }
 
   constructor(
     private commonService: CommonService,
-    private newsEngService: NewsEngService,private permissionService: PermissionService
+    private newsEngService: NewsService,private permissionService: PermissionService
   ) {
     this.permission = {
       create: false,
@@ -77,7 +78,6 @@ export class EnglishComponent {
     }
   }
   ngOnInit() { 
-    this.loading = true;
     if (this.permissionService.getGrantedPolicy(News_English + '.Create')) {
       this.permission.create = true;
     }
@@ -94,15 +94,15 @@ export class EnglishComponent {
   }
 
   search(event: AutoCompleteCompleteEvent) {
-   
+    this.loading =true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      
+      this.loading =false;
     });
   }
 
   onSelect(event: any) {
-   
+    debugger;
     this.loading =true;
     debugger;
     this.stockMarketID = event.value.stockMarketID;
@@ -143,35 +143,38 @@ export class EnglishComponent {
       .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        if(this.companiesTickers.length > 0) this.companyID = this.companiesTickers[0].companyID
+        // if(this.companiesTickers.length > 0) this.companyID = this.companiesTickers[0].companyID
         this.loading = false;
       });
   }
 
   getNewsEngs() {
-   
+    debugger;
     this.newsEngService
-      .getNewsEngs()
+      .getNewsByLangIdAndNewsId(true,this.newsId)
       .subscribe(res => {
+        debugger;
         this.newsEngs = res;
-        this.loading = false;
-        // if (this.newsEngs.length > 0){
-        //   this.handleNewsEng(this.newsEngs[0]);
-        // }
+        if (this.newsEngs.length > 0){
+          this.handleNewsEng(this.newsEngs[0]);
+        }
       });
   }
 
-  handleNewsEng(newsEng: NewsEngDto) {
+  searchByNewsId(){
+    this.getNewsEngs();
+  }
+
+  handleNewsEng(newsEng: NewsDto) {
     this.newsEng = newsEng;
+    this.newsEng.date = new Date(this.newsEng.date).toLocaleDateString();
     this.loading = false;
   }
   addNewNewsEng(){
-    this.newsEng = {};
-    this.stockMarkets = [];
-    this.companyMarketSectors = [];
-    this.companiesTickers = [];
-    this.companyID =0;
-    this.selectedItem = null;
+    this.newsEng = {
+      newsID: 0
+    }
+    this.newsEng.date = new Date().toLocaleDateString();
   }
 
   createOrUpdateNewsEng() {
@@ -180,18 +183,19 @@ export class EnglishComponent {
     this.newsEng.companyID = this.companyID;
     this.newsEng.gulfBaseSectorID = this.sectorID;
     this.newsEng.langID=true;
-    this.newsEng.date = new Date(this.newsEng.date).toLocaleString();
-    this.newsEngService.createOrUpdateNewsEngByInput(this.newsEng).subscribe(res => {
-      this.addNewNewsEng(); 
+    // this.newsEng.date = new Date(this.newsEng.date).toLocaleString();
+    this.newsEngService.createOrUpdateNewsByInput(this.newsEng).subscribe(res => {
+      debugger;
       if(this.newsEng.newsID > 0){
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' updated successfully', icon: 'success', });
         this.handleNewsEng(this.newsEng);
-
       }
       else{
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' created successfully', icon: 'success', });
         this.getNewsEngs();
       }
+      
+
       this.loading = false;
     },
     error => {

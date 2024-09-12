@@ -1,5 +1,5 @@
 
-export interface NewsEngDto {
+export interface NewsDto {
   newsID?: number;
   gccid?: number;
   newsCategoryID?: number;

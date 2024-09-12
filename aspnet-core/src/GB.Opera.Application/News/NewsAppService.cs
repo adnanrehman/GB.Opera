@@ -22,27 +22,34 @@ using System.Text.RegularExpressions;
 using GB.Opera.Books;
 using System.Diagnostics.Metrics;
 
-namespace NewsEngs
+namespace News
 {
-    public class NewsEngAppService : ApplicationService, INewsEngAppService
+    public class NewsAppService : ApplicationService, INewsAppService
     {
         private readonly IConfiguration _configuration;
         private readonly SqlConnection _connection;
-        public NewsEngAppService(IConfiguration configuration)
+        public NewsAppService(IConfiguration configuration)
         {
             _configuration = configuration;
             _connection = new SqlConnection(configuration.GetConnectionString("Default"));
         }
 
         //LangId , News Id
-        public async Task<List<NewsEngDto>> GetNewsEngs()
+        public async Task<List<NewsDto>> GetNews(bool langId,int newsId)
         {
             try
             {
-                //var sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],Title,SubTitle,Source,[Description],IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_En  WHERE (NewsId= NewsIdParam OR NewsIdParam =0) order by  NewsID desc";
-                var sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],Title,SubTitle,Source,[Description],IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_En order by NewsID desc";
+                var sql = "";
+                if (langId)
+                {
+                    sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],Title,SubTitle,Source,[Description],IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_En  WHERE (NewsId= {newsId} OR {newsId} =0) order by  NewsID desc";
+                }
+                else
+                {
+                    sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],ATitle As Title,ASubTitle As SubTitle,ASource As Source,[ADescription] As Description,IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_Ar WHERE (NewsId= {newsId} OR {newsId} =0) order by NewsID desc";
+                }               
 
-                var data = await _connection.QueryAsync<NewsEngDto>(sql);
+                var data = await _connection.QueryAsync<NewsDto>(sql);
                 return data.ToList();
             }
             catch (Exception ex)
@@ -53,7 +60,7 @@ namespace NewsEngs
 
         }
 
-        public async Task<NewsEngDto> CreateOrUpdateNewsEng(NewsEngDto input)
+        public async Task<NewsDto> CreateOrUpdateNews(NewsDto input)
         {
             try
             {

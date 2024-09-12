@@ -4,9 +4,7 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonService } from '@proxy/commons';
-import { NewsArabDto, NewsArabService } from '@proxy/news-arabs';
-import { NewsEngDto } from '@proxy/news-engs';
-import { NewsEngService } from '@proxy/news-engs/news-eng.service';
+import { NewsDto, NewsService } from '@proxy/news';
 import { AutoCompleteModule, AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -58,19 +56,20 @@ export class ArabicComponent {
   sectorID: number;
   stockMarketID: number;
   companyID: number;
+  newsId:number;
   stockMarkets = [];
   companyMarketSectors = [];
   companiesTickers = [];
   newsCategories = [];
   countries = [];
-  newsArabs: NewsEngDto[] = [];
-  newsArab: NewsEngDto = {
+  newsArabs: NewsDto[] = [];
+  newsArab: NewsDto = {
     newsID: 0
   }
 
   constructor(
     private commonService: CommonService,
-    private newsArabService: NewsArabService, private permissionService: PermissionService,private newsEngService: NewsEngService
+    private newsArabService: NewsService, private permissionService: PermissionService
   ) {
     this.permission = {
       create: false,
@@ -122,11 +121,13 @@ export class ArabicComponent {
 
   addNewNewsArab(){
     this.newsArab = {};
+    this.newsArab.date = new Date().toLocaleDateString();
     this.stockMarkets = [];
     this.companyMarketSectors = [];
     this.companiesTickers = [];
     this.companyID =0;
     this.selectedItem = null;
+    this.getNewsArabs();
   }
 
   getNewsCatAndCountries() {
@@ -154,7 +155,7 @@ export class ArabicComponent {
       .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        if (this.companiesTickers.length > 0) this.companyID = this.companiesTickers[0].companyID
+        // if (this.companiesTickers.length > 0) this.companyID = this.companiesTickers[0].companyID
         this.loading = false;
       });
   }
@@ -162,7 +163,7 @@ export class ArabicComponent {
   getNewsArabs() {
     debugger;
     this.newsArabService
-      .getNewsArabs()
+      .getNewsByLangIdAndNewsId(false,this.newsId)
       .subscribe(res => {
         debugger;
         this.newsArabs = res;
@@ -170,9 +171,14 @@ export class ArabicComponent {
       });
   }
 
-  handleNewsArab(newsArab: NewsEngDto) {
+  handleNewsArab(newsArab: NewsDto) {
     this.newsArab = newsArab;
+    this.newsArab.date = new Date(this.newsArab.date).toLocaleDateString();
     this.loading = false;
+  }
+
+  searchByNewsId(){
+    this.getNewsArabs();
   }
 
   createOrUpdateNewsArab() {
@@ -181,8 +187,8 @@ export class ArabicComponent {
     this.newsArab.companyID = this.companyID;
     this.newsArab.gulfBaseSectorID = this.sectorID;
     this.newsArab.langID = false;
-    this.newsArab.date = new Date(this.newsArab.date).toLocaleString();
-    this.newsEngService.createOrUpdateNewsEngByInput(this.newsArab).subscribe(res => {
+    // this.newsArab.date = new Date(this.newsArab.date).toLocaleString();
+    this.newsArabService.createOrUpdateNewsByInput(this.newsArab).subscribe(res => {
       debugger;
       if (this.newsArab.newsID > 0) {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' updated successfully', icon: 'success', });

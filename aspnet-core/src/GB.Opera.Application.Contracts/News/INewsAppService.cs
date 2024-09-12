@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
-namespace NewsEngs
+namespace News
 {
-    public interface INewsEngAppService : IApplicationService
+    public interface INewsAppService : IApplicationService
     {
-        Task<List<NewsEngDto>> GetNewsEngs();
-        Task<NewsEngDto> CreateOrUpdateNewsEng(NewsEngDto input);
+        Task<List<NewsDto>> GetNews(bool langId, int newsId);
+        Task<NewsDto> CreateOrUpdateNews(NewsDto input);
 
     }
 }

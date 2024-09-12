@@ -106,6 +106,7 @@
                 [style]="{ width: '100%' }"
                 required="true"
                 dataType="string"
+                dateFormat="mm/dd/yy"
                 [showIcon]="true"
                 [(ngModel)]="newsEng.date"
                 name="asofDate"
@@ -152,7 +153,15 @@
                 >
               </textarea>
               </div>
-            <div class="col-md-3">
+
+            <!-- <div class="col-md-3 mt-4">
+                <label class="col-form-label col-4">&nbsp;</label>
+                <button type="button" class="btn btn-primary btn-block btn-sm mt-2">Select and Add</button>
+            </div> -->
+
+          </div>
+          <div class="d-flex p-2 bd-highlight">
+            <div class="mt-1 me-4">
               <label class="col-form-label col-4">Source</label>
               <input
                   autofocus
@@ -164,69 +173,73 @@
                   placeholder="Source"
                 />
             </div>
-            <!-- <div class="col-md-3 mt-4">
-                <label class="col-form-label col-4">&nbsp;</label>
-                <button type="button" class="btn btn-primary btn-block btn-sm mt-2">Select and Add</button>
-            </div> -->
-            <div class="col-md-3">
-                <label class="col-form-label col-4">&nbsp;</label>
-                <div class="form-check me-2">
-                    <input
-                      class="form-check-input"
-                      [(ngModel)]="newsEng.isHome"
-                      name="isHome"
-                      type="checkbox"
-                    />
-                    <label class="form-check-label" for="defaultCheck3">Home</label>
-                  </div>
+            <div class="mt-1 me-4">
+              <label class="col-form-label col-4">&nbsp;</label>
+              <div class="form-check me-2">
+                  <input
+                    class="form-check-input"
+                    [(ngModel)]="newsEng.isHome"
+                    name="isHome"
+                    type="checkbox"
+                  />
+                  <label class="form-check-label" for="defaultCheck3">Home</label>
+                </div>
 
-            </div>
-            <div class="col-md-3">
-                <label class="col-form-label col-4">&nbsp;</label>
-                <div class="form-check me-2">
-                    <input
-                      class="form-check-input"
-                      [(ngModel)]="newsEng.islamic"
-                      name="islamic"
-                      type="checkbox"
-                    />
-                    <label class="form-check-label" for="defaultCheck3">Islamic</label>
-                  </div>
-                  <div class="form-check me-2">
-                    <input
-                      class="form-check-input"
-                      [(ngModel)]="newsEng.forSocialNetworks"
-                      name="forSocialNetworks"
-                      type="checkbox"
-                    />
-                    <label class="form-check-label" for="defaultCheck3">Social Media</label>
-                  </div>
-                  <div class="form-check me-2">
-                    <input
-                      class="form-check-input"
-                      [(ngModel)]="newsEng.isGulfbaseNews"
-                      name="isGulfbaseNews"
-                      type="checkbox"
-                    />
-                    <label class="form-check-label" for="defaultCheck3">Gulf Base</label>
-                  </div>
+          </div>
+          <div class="mt-1 me-4">
+              <label class="col-form-label col-4">&nbsp;</label>
+              <div class="form-check me-2">
+                  <input
+                    class="form-check-input"
+                    [(ngModel)]="newsEng.islamic"
+                    name="islamic"
+                    type="checkbox"
+                  />
+                  <label class="form-check-label" for="defaultCheck3">Islamic</label>
+                </div>
+          </div>
+          <div class="mt-1 me-4">
+            <label class="col-form-label col-4">&nbsp;</label>
+            <div class="form-check me-2">
+              <input
+                class="form-check-input"
+                [(ngModel)]="newsEng.forSocialNetworks"
+                name="forSocialNetworks"
+                type="checkbox"
+              />
+              <label class="form-check-label" for="defaultCheck3">Social Media</label>
             </div>
           </div>
-          <div class="row mt-3">
-            <div class="col-md-3">
-                <button type="button" (click)="getNewsEngs()" class="btn btn-primary btn-block btn-sm">Retrieve  Top 100 Gulf News</button>
+          <div class="mt-1 me-4">
+            <label class="col-form-label col-4">&nbsp;</label>
+            <div class="form-check me-2">              
+              <input
+                class="form-check-input"
+                [(ngModel)]="newsEng.isGulfbaseNews"
+                name="isGulfbaseNews"
+                type="checkbox"
+              />
+              <label class="form-check-label" for="defaultCheck3">Gulf Base</label>
             </div>
+          </div>
+          </div>
+          <div class="row mt-3">
+            <!-- <div class="col-md-3">
+                <button type="button" (click)="getNewsEngs()" class="btn btn-primary btn-block btn-sm">Retrieve  Top 100 Gulf News</button>
+            </div> -->
             <div class="col-md-3">
                 <input
                   autofocus
+                  [(ngModel)]="newsId"
+                  [ngModelOptions]="{ standalone: true }"
                   type="text"
                   class="form-control"
-                  name="title"
+                  name="newsId"
                   placeholder="Search By News Id"
                 />
             </div>
             <div class="col-md-3">
-                <button type="button" class="btn btn-primary btn-block btn-sm">Search By News Id</button>
+                <button type="button" (click)="searchByNewsId()" class="btn btn-primary btn-block btn-sm">Search By News Id</button>
             </div>
             <!-- <div class="col-md-3">
                 <button type="button" class="btn btn-primary btn-block btn-sm">Relate Indices / Sectors</button>
@@ -255,7 +268,7 @@
               <ng-template pTemplate="body" let-item>
                 <tr (click)="handleNewsEng(item)">
                 <td>{{ item.newsID }}</td>
-                <td>{{ item.date  | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ item.date  | date: 'MM/dd/yyyy' }}</td>
                 <td>{{ item.title }}</td>
                 <td>{{ item.subTitle }}</td>
                 <td>{{ item.source }}</td>
