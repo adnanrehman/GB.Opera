@@ -90,6 +90,30 @@ namespace News
             }
         }
 
+        public async Task DeleteNews(bool langId, int newsId)
+        {
+            try
+            {
+                var sql = "";
+                if (langId)
+                {
+                    sql = $@"delete from News_En  WHERE NewsId= {newsId}";
+                }
+                else
+                {
+                    sql = $@"delete from News_Ar  WHERE NewsId= {newsId}";
+                }
+
+                await _connection.QueryAsync(sql);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
 
     }
 }

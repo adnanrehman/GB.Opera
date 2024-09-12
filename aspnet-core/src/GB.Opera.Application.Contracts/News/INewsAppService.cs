@@ -12,6 +12,7 @@ namespace News
     {
         Task<List<NewsDto>> GetNews(bool langId, int newsId);
         Task<NewsDto> CreateOrUpdateNews(NewsDto input);
+        Task DeleteNews(bool langId, int newsId);
 
     }
 }

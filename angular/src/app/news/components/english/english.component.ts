@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 import { PermissionService } from '@abp/ng.core';
 import { News_English } from 'src/app/services/permissions';
 import { NewsDto, NewsService } from '@proxy/news';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-english',
@@ -95,10 +96,8 @@ export class EnglishComponent {
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading =true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading =false;
     });
   }
 
@@ -166,14 +165,49 @@ export class EnglishComponent {
 
   handleNewsEng(newsEng: NewsDto) {
     this.newsEng = newsEng;
-    this.newsEng.date = new Date(this.newsEng.date).toLocaleDateString();
+    this.newsEng.date = moment(this.newsEng.date).format("MM/DD/YYYY");
     this.loading = false;
   }
   addNewNewsEng(){
     this.newsEng = {
       newsID: 0
     }
-    this.newsEng.date = new Date().toLocaleDateString();
+    this.newsEng.date = moment().format("MM/DD/YYYY")
+    this.stockMarkets = [];
+    this.companyMarketSectors = [];
+    this.companiesTickers = [];
+    this.companyID =0;
+    this.selectedItem = null;
+  }
+
+  deleteNews(newsEng: NewsDto){
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: "Are you sure you want to delete this News?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.newsEngService.deleteNewsByLangIdAndNewsId(true,newsEng.newsID).subscribe(res => {
+          Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' deleted successfully', icon: 'success', });
+          this.getNewsEngs();         
+    
+          this.loading = false;
+        },
+        error => {
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+        });
+      }
+    })
   }
 
   createOrUpdateNewsEng() {
@@ -182,7 +216,7 @@ export class EnglishComponent {
     this.newsEng.companyID = this.companyID;
     this.newsEng.gulfBaseSectorID = this.sectorID;
     this.newsEng.langID=true;
-    // this.newsEng.date = new Date(this.newsEng.date).toLocaleString();
+    this.newsEng.date = moment(this.newsEng.date).format();
     this.newsEngService.createOrUpdateNewsByInput(this.newsEng).subscribe(res => {
       debugger;
       if(this.newsEng.newsID > 0){

@@ -18,6 +18,15 @@ export class NewsService {
     { apiName: this.apiName,...config });
   
 
+  deleteNewsByLangIdAndNewsId = (langId: boolean, newsId: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'DELETE',
+      url: '/api/app/news/news',
+      params: { langId, newsId },
+    },
+    { apiName: this.apiName,...config });
+  
+
   getNewsByLangIdAndNewsId = (langId: boolean, newsId: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, NewsDto[]>({
       method: 'GET',

@@ -5903,6 +5903,31 @@
                     "type": "News.NewsDto",
                     "typeSimple": "News.NewsDto"
                   }
+                },
+                {
+                  "name": "DeleteNews",
+                  "parametersOnMethod": [
+                    {
+                      "name": "langId",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "newsId",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
                 }
               ]
             }
@@ -5998,6 +6023,63 @@
               "returnValue": {
                 "type": "News.NewsDto",
                 "typeSimple": "News.NewsDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "News.INewsAppService"
+            },
+            "DeleteNewsByLangIdAndNewsId": {
+              "uniqueName": "DeleteNewsByLangIdAndNewsId",
+              "name": "DeleteNews",
+              "httpMethod": "DELETE",
+              "url": "api/app/news/news",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "langId",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "newsId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "langId",
+                  "name": "langId",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "newsId",
+                  "name": "newsId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
               },
               "allowAnonymous": null,
               "implementFrom": "News.INewsAppService"

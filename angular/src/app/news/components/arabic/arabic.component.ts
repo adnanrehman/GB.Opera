@@ -17,7 +17,7 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { News_Arabic } from 'src/app/services/permissions';
 import Swal from 'sweetalert2';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-arabic',
   standalone: true,
@@ -121,13 +121,13 @@ export class ArabicComponent {
 
   addNewNewsArab(){
     this.newsArab = {};
-    this.newsArab.date = new Date().toLocaleDateString();
+    this.newsArab.date = moment().format("MM/DD/YYYY")
     this.stockMarkets = [];
     this.companyMarketSectors = [];
     this.companiesTickers = [];
     this.companyID =0;
     this.selectedItem = null;
-    this.getNewsArabs();
+    // this.getNewsArabs();
   }
 
   getNewsCatAndCountries() {
@@ -173,12 +173,42 @@ export class ArabicComponent {
 
   handleNewsArab(newsArab: NewsDto) {
     this.newsArab = newsArab;
-    this.newsArab.date = new Date(this.newsArab.date).toLocaleDateString();
+    this.newsArab.date = moment(this.newsArab.date).format("MM/DD/YYYY");
     this.loading = false;
   }
 
   searchByNewsId(){
     this.getNewsArabs();
+  }
+
+  deleteNews(newsArab: NewsDto){
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: "Are you sure you want to delete this News?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.newsArabService.deleteNewsByLangIdAndNewsId(false,newsArab.newsID).subscribe(res => {
+          Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' deleted successfully', icon: 'success', });
+          this.getNewsArabs();         
+    
+          this.loading = false;
+        },
+        error => {
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+        });
+      }
+    })
   }
 
   createOrUpdateNewsArab() {
@@ -187,7 +217,7 @@ export class ArabicComponent {
     this.newsArab.companyID = this.companyID;
     this.newsArab.gulfBaseSectorID = this.sectorID;
     this.newsArab.langID = false;
-    // this.newsArab.date = new Date(this.newsArab.date).toLocaleString();
+    this.newsArab.date = moment(this.newsArab.date).format();
     this.newsArabService.createOrUpdateNewsByInput(this.newsArab).subscribe(res => {
       debugger;
       if (this.newsArab.newsID > 0) {
