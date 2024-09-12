@@ -19,6 +19,9 @@ namespace NewsArabs
         public string? ADescription { get; set; }
         public bool? IsHome { get; set; }
         public int? GulfBaseSectorID { get; set; }
+
+        public bool? ForSocialNetworks { get; set; }
+        public bool? IsGulfbaseNews { get; set; }
         public bool? Islamic { get; set; }
     }
 

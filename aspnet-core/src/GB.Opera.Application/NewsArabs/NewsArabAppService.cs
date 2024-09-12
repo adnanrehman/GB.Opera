@@ -57,19 +57,22 @@ namespace NewsArabs
             try
             {
                 var parameters = new DynamicParameters();
+                parameters.Add("@LangID", 2);
+                parameters.Add("@NewsID", input.NewsID);
                 parameters.Add("@GCCID", input.GCCID);
                 parameters.Add("@NewsCategoryID", input.NewsCategoryID);
                 parameters.Add("@CompanyID", input.CompanyID);
                 parameters.Add("@Date", input.Date);
                 parameters.Add("@Title", input.ATitle);
-                parameters.Add("@ASubTitle", input.ASubTitle);
+                parameters.Add("@SubTitle", input.ASubTitle);
                 parameters.Add("@Source", input.ASource);
                 parameters.Add("@Description", input.ADescription);
                 parameters.Add("@IsHome", input.IsHome);
-                parameters.Add("@GulfBaseSectorID", input.GulfBaseSectorID);
                 parameters.Add("@Islamic", input.Islamic);
+                parameters.Add("@ForSocialNetworks", input.ForSocialNetworks);
+                parameters.Add("@IsGulfbaseNews", input.IsGulfbaseNews);
 
-                await _connection.ExecuteAsync("InsertNews", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync("USP_GBN_InsertUpdateNews", parameters, commandType: CommandType.StoredProcedure);
 
                 return input;
             }

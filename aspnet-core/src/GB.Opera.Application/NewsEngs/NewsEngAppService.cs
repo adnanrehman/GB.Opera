@@ -34,10 +34,12 @@ namespace NewsEngs
             _connection = new SqlConnection(configuration.GetConnectionString("Default"));
         }
 
+        //LangId , News Id
         public async Task<List<NewsEngDto>> GetNewsEngs()
         {
             try
             {
+                //var sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],Title,SubTitle,Source,[Description],IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_En  WHERE (NewsId= NewsIdParam OR NewsIdParam =0) order by  NewsID desc";
                 var sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],Title,SubTitle,Source,[Description],IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_En order by NewsID desc";
 
                 var data = await _connection.QueryAsync<NewsEngDto>(sql);
@@ -57,8 +59,8 @@ namespace NewsEngs
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@LangID", input.LangID);
-                parameters.Add("@GCCID", input.GCCID);
                 parameters.Add("@NewsID", input.NewsID);
+                parameters.Add("@GCCID", input.GCCID);
                 parameters.Add("@NewsCategoryID", input.NewsCategoryID);
                 parameters.Add("@CompanyID", input.CompanyID);
                 parameters.Add("@Date", input.Date);
@@ -67,12 +69,11 @@ namespace NewsEngs
                 parameters.Add("@Source", input.Source);
                 parameters.Add("@Description", input.Description);
                 parameters.Add("@IsHome", input.IsHome);
-               parameters.Add("@GulfBaseSectorID", input.gulfBaseSectorID);
                 parameters.Add("@Islamic", input.Islamic);
                 parameters.Add("@ForSocialNetworks", input.ForSocialNetworks);
                 parameters.Add("@IsGulfbaseNews", input.IsGulfbaseNews);
 
-                await _connection.ExecuteAsync("InsertNews", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync("USP_GBN_InsertUpdateNews", parameters, commandType: CommandType.StoredProcedure);
 
                 return input;
             }

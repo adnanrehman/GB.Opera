@@ -79,6 +79,7 @@ export class ArabicComponent {
     }
   }
   ngOnInit() {
+    this.loading = true;
     if (this.permissionService.getGrantedPolicy(News_Arabic + '.Create')) {
       this.permission.create = true;
     }
@@ -91,13 +92,14 @@ export class ArabicComponent {
     this.getStockMarkets();
     this.getNewsCatAndCountries();
     this.stockMarketID = 0;
+    this.getNewsArabs();
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading = true;
+    
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading = false;
+      
     });
   }
 
@@ -119,9 +121,12 @@ export class ArabicComponent {
   }
 
   addNewNewsArab(){
-    this.newsArab = {
-      newsID: 0
-    }
+    this.newsArab = {};
+    this.stockMarkets = [];
+    this.companyMarketSectors = [];
+    this.companiesTickers = [];
+    this.companyID =0;
+    this.selectedItem = null;
   }
 
   getNewsCatAndCountries() {
@@ -161,9 +166,7 @@ export class ArabicComponent {
       .subscribe(res => {
         debugger;
         this.newsArabs = res;
-        if (this.newsArabs.length > 0) {
-          this.handleNewsArab(this.newsArabs[0]);
-        }
+        this.loading = false;
       });
   }
 

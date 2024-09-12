@@ -77,6 +77,7 @@ export class EnglishComponent {
     }
   }
   ngOnInit() { 
+    this.loading = true;
     if (this.permissionService.getGrantedPolicy(News_English + '.Create')) {
       this.permission.create = true;
     }
@@ -89,18 +90,19 @@ export class EnglishComponent {
     this.getStockMarkets();
     this.getNewsCatAndCountries();
     this.stockMarketID = 0;
+    this.getNewsEngs();
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading =true;
+   
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading =false;
+      
     });
   }
 
   onSelect(event: any) {
-    debugger;
+   
     this.loading =true;
     debugger;
     this.stockMarketID = event.value.stockMarketID;
@@ -147,15 +149,15 @@ export class EnglishComponent {
   }
 
   getNewsEngs() {
-    debugger;
+   
     this.newsEngService
       .getNewsEngs()
       .subscribe(res => {
-        debugger;
         this.newsEngs = res;
-        if (this.newsEngs.length > 0){
-          this.handleNewsEng(this.newsEngs[0]);
-        }
+        this.loading = false;
+        // if (this.newsEngs.length > 0){
+        //   this.handleNewsEng(this.newsEngs[0]);
+        // }
       });
   }
 
@@ -164,9 +166,12 @@ export class EnglishComponent {
     this.loading = false;
   }
   addNewNewsEng(){
-    this.newsEng = {
-      newsID: 0
-    }
+    this.newsEng = {};
+    this.stockMarkets = [];
+    this.companyMarketSectors = [];
+    this.companiesTickers = [];
+    this.companyID =0;
+    this.selectedItem = null;
   }
 
   createOrUpdateNewsEng() {
@@ -177,17 +182,16 @@ export class EnglishComponent {
     this.newsEng.langID=true;
     this.newsEng.date = new Date(this.newsEng.date).toLocaleString();
     this.newsEngService.createOrUpdateNewsEngByInput(this.newsEng).subscribe(res => {
-      debugger;
+      this.addNewNewsEng(); 
       if(this.newsEng.newsID > 0){
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' updated successfully', icon: 'success', });
         this.handleNewsEng(this.newsEng);
+
       }
       else{
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' created successfully', icon: 'success', });
         this.getNewsEngs();
       }
-      
-
       this.loading = false;
     },
     error => {
