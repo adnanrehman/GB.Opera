@@ -65,6 +65,7 @@ namespace GB.Opera.constants
         public const string usp_getMFundCompanies = "usp_getMFundCompanies";
         public const string usp_getAllFunds = "usp_getAllFunds";
         public const string usp_getAllFundPrices = "usp_getAllFundPrices";
+        public const string usp_InsertPrice = "InsertPrice";
 
 
 

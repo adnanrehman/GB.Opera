@@ -11,5 +11,6 @@ namespace GB.Opera.EndOfDay
         public Task<List<GCCSector>> GetAllGCCSector();
 
         public   Task<List<EODPrices>> EODPrices(DateTime PriceDate, Int16 StockMarketID);
+        Task<string> ImportPrices(string filePath);
     }
 }
