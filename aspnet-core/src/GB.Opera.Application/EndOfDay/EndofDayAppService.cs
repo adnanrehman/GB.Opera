@@ -1,11 +1,17 @@
-﻿using Dapper;
+﻿using Commons;
+using Companies;
+using Dapper;
 using GB.Opera.constants;
 using Microsoft.Extensions.Configuration;
+using OfficeOpenXml;
+using OfficeOpenXml.ConditionalFormatting.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
@@ -69,7 +75,70 @@ namespace GB.Opera.EndOfDay
             return data.ToList();
         }
 
-      
+        public async Task<string> ImportPrices(string filePath)
+        {
+            try
+            {
+                var stockMarkets = await _connection.QueryAsync<StockMarketDto>($@"SELECT * FROM StockMarkets");
+                var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT * FROM Companies");
+
+                using (var package = new ExcelPackage(new FileInfo(filePath)))
+                {
+                    var worksheet = package.Workbook.Worksheets[0];
+                    var rowCount = worksheet.Dimension.Rows;
+                    var colCount = worksheet.Dimension.Columns;
+
+                    for (int row = 2; row <= rowCount; row++)
+                    {
+                        if (!string.IsNullOrEmpty(worksheet.Cells[row, 1].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 4].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 5].Text))
+                        {
+                            var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (worksheet.Cells[row, 5].Text).ToUpper()).FirstOrDefault();
+                            if (stockMarket != null)
+                            {
+                                var ticker = Companies.Where(f => f.Ticker.ToUpper() == (worksheet.Cells[row, 4].Text).ToUpper()).FirstOrDefault();
+                                if (ticker != null)
+                                {
+                                    var parameters = new DynamicParameters();
+                                    parameters.Add("@StockMarketID", stockMarket.StockMarketID);
+                                    parameters.Add("@CompanyID", ticker.CompanyID);
+                                    parameters.Add("@PriceDate", Convert.ToDateTime(worksheet.Cells[row, 6].Text));
+                                    parameters.Add("@OpeningPrice", Convert.ToDecimal(worksheet.Cells[row, 7].Text));
+                                    parameters.Add("@HighestPrice", Convert.ToDecimal(worksheet.Cells[row, 8].Text));
+                                    parameters.Add("@LowestPrice", Convert.ToDecimal(worksheet.Cells[row, 9].Text));
+                                    parameters.Add("@ClosingPrice", Convert.ToDecimal(worksheet.Cells[row, 10].Text));
+                                    parameters.Add("@TradingVolume", Convert.ToInt64((worksheet.Cells[row, 11].Text).Replace(",", "")));
+                                    parameters.Add("@Trades", Convert.ToInt64((worksheet.Cells[row, 12].Text).Replace(",", "")));
+                                    parameters.Add("@TradingValue", Convert.ToDecimal((worksheet.Cells[row, 13].Text).Replace(",", "")));
+                                    parameters.Add("@LastClosedPrice", null);
+                                    parameters.Add("@LastUpdated", DateTime.Now);
+                                    parameters.Add("@IsActive", true);
+                                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice, parameters, commandType: CommandType.StoredProcedure);
+
+                                }
+                                else
+                                {
+                                    return $@"{worksheet.Cells[row, 4].Text} not exist please first add this Ticker";
+                                }
+                            }
+                            else
+                            {
+                                return $@"{worksheet.Cells[row, 5].Text} not exist please first add this Stock Market";
+                            }
+                        }
+                        
+                    }
+                    return "1";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+
+        }
+
+
 
 
     }

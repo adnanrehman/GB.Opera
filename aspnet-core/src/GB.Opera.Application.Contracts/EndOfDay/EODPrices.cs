@@ -8,6 +8,7 @@ namespace GB.Opera.EndOfDay
     {
         public bool IsActive { get; set; }
         public string StockMarket { get; set; }
+        public int StockMarketId { get; set; }
 
         public string Ticker { get; set; }
 
@@ -25,7 +26,25 @@ namespace GB.Opera.EndOfDay
 
         public DateTime LastUpdated { get; set; }
 
-        public short CompanyID { get; set; }
+        public int CompanyID { get; set; }
  
+    }
+
+    public class PriceDto
+    {
+        public long PriceID { get; set; }
+        public int StockMarketID { get; set; }
+        public int CompanyID { get; set; }
+        public DateTime? PriceDate { get; set; }
+        public decimal? OpeningPrice { get; set; }
+        public decimal? HighestPrice { get; set; }
+        public decimal? LowestPrice { get; set; }
+        public decimal? ClosingPrice { get; set; }
+        public long? TradingVolume { get; set; }
+        public decimal? TradingValue { get; set; }
+        public long? Trades { get; set; }
+        public decimal? LastClosedPrice { get; set; }
+        public DateTime? LastUpdated { get; set; }
+        public bool IsActive { get; set; }
     }
 }

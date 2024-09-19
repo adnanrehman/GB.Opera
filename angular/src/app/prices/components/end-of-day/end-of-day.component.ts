@@ -12,11 +12,15 @@ import { EndofDayService } from '@proxy/end-of-day/endof-day.service';
 import { PermissionService } from '@abp/ng.core';
 import { PriceAndIndices_EndOfDay } from 'src/app/services/permissions';
 import { CommonModule } from '@angular/common';
+import { ImportService } from 'src/app/services/import/import.service';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { DialogModule } from 'primeng/dialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-end-of-day',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,
+  imports: [TableModule,AutoCompleteModule, FormsModule,  DialogModule,  ThemeSharedModule,
     DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,RadioButtonModule,CommonModule ],
   templateUrl: './end-of-day.component.html',
   styleUrl: './end-of-day.component.scss'
@@ -24,6 +28,9 @@ import { CommonModule } from '@angular/common';
 export class EndOfDayComponent {
   filteredCountries: any[];
   ingredient:any;
+  importFile:any;
+  loading: boolean = false;
+  showImportPriceModal: boolean = false;
   
   markets = [];
 
@@ -36,6 +43,7 @@ export class EndOfDayComponent {
     delete: boolean
   }
   constructor(private endofDayService : EndofDayService ,
+    public importService: ImportService,
      private permissionService: PermissionService){
     this.permission = {
       create: false,
@@ -116,6 +124,39 @@ getEodPrices() {
   } else {
     console.error('Selected date or market ID is not defined.');
   }
+}
+
+showImportModel(){
+  this.showImportPriceModal =true;
+}
+onFileChange(event:any){
+  this.importFile = event.target.files[0];
+  console.log(event);
+}
+
+ImportPrices(){
+  this.loading = true;
+  const formData = new FormData();
+  formData.append('file', this.importFile);
+  this.importService.importPrices(formData).subscribe(res => {
+    debugger;
+    if(res == "1")  {
+      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: ' file importrd successfully', icon: 'success', });
+      this.showImportPriceModal = false;
+      this.importFile = null;
+    }        
+    else    {
+      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Error!', text: res, icon: 'error', });
+    }
+
+    this.loading = false;
+  },
+    error => {
+      this.loading = false;
+    },
+    () => {
+      this.loading = false;
+    });
 }
 
 

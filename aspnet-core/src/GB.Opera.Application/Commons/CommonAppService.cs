@@ -35,7 +35,7 @@ namespace Commons
 
         public async Task<List<CompanyDto>> SearchCompanies(string param)
         {
-            var sql = $@"SELECT * FROM Companies where Company like '%{param}%' or Ticker like '%{param}%'";
+            var sql = $@"SELECT * FROM Companies where Upper(Company) like Upper('%{param}%') or Upper(Ticker) like Upper('%{param}%') or Upper(StockTicker) like Upper('%{param}%')";
 
             var data = await _connection.QueryAsync<CompanyDto>(sql);
             return data.ToList();

@@ -6027,74 +6027,158 @@
             }
           }
         },
-        "NewsArabs.NewsArabAppService": {
-          "controllerName": "NewsArab",
-          "controllerGroupName": "NewsArab",
+        "News.NewsAppService": {
+          "controllerName": "News",
+          "controllerGroupName": "News",
           "isRemoteService": true,
           "isIntegrationService": false,
           "apiVersion": null,
-          "type": "NewsArabs.NewsArabAppService",
+          "type": "News.NewsAppService",
           "interfaces": [
             {
-              "type": "NewsArabs.INewsArabAppService",
-              "name": "INewsArabAppService",
+              "type": "News.INewsAppService",
+              "name": "INewsAppService",
               "methods": [
                 {
-                  "name": "GetNewsArabs",
-                  "parametersOnMethod": [],
-                  "returnValue": {
-                    "type": "System.Collections.Generic.List<NewsArabs.NewsArabDto>",
-                    "typeSimple": "[NewsArabs.NewsArabDto]"
-                  }
-                },
-                {
-                  "name": "CreateOrUpdateNewsArab",
+                  "name": "GetNews",
                   "parametersOnMethod": [
                     {
-                      "name": "input",
-                      "typeAsString": "NewsArabs.NewsArabDto, GB.Opera.Application.Contracts",
-                      "type": "NewsArabs.NewsArabDto",
-                      "typeSimple": "NewsArabs.NewsArabDto",
+                      "name": "langId",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "newsId",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
                       "isOptional": false,
                       "defaultValue": null
                     }
                   ],
                   "returnValue": {
-                    "type": "NewsArabs.NewsArabDto",
-                    "typeSimple": "NewsArabs.NewsArabDto"
+                    "type": "System.Collections.Generic.List<News.NewsDto>",
+                    "typeSimple": "[News.NewsDto]"
+                  }
+                },
+                {
+                  "name": "CreateOrUpdateNews",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "News.NewsDto, GB.Opera.Application.Contracts",
+                      "type": "News.NewsDto",
+                      "typeSimple": "News.NewsDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "News.NewsDto",
+                    "typeSimple": "News.NewsDto"
+                  }
+                },
+                {
+                  "name": "DeleteNews",
+                  "parametersOnMethod": [
+                    {
+                      "name": "langId",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "newsId",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
                   }
                 }
               ]
             }
           ],
           "actions": {
-            "GetNewsArabs": {
-              "uniqueName": "GetNewsArabs",
-              "name": "GetNewsArabs",
+            "GetNewsByLangIdAndNewsId": {
+              "uniqueName": "GetNewsByLangIdAndNewsId",
+              "name": "GetNews",
               "httpMethod": "GET",
-              "url": "api/app/news-arab/news-arabs",
+              "url": "api/app/news/news",
               "supportedVersions": [],
-              "parametersOnMethod": [],
-              "parameters": [],
+              "parametersOnMethod": [
+                {
+                  "name": "langId",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "newsId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "langId",
+                  "name": "langId",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "newsId",
+                  "name": "newsId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
               "returnValue": {
-                "type": "System.Collections.Generic.List<NewsArabs.NewsArabDto>",
-                "typeSimple": "[NewsArabs.NewsArabDto]"
+                "type": "System.Collections.Generic.List<News.NewsDto>",
+                "typeSimple": "[News.NewsDto]"
               },
               "allowAnonymous": null,
-              "implementFrom": "NewsArabs.INewsArabAppService"
+              "implementFrom": "News.INewsAppService"
             },
-            "CreateOrUpdateNewsArabByInput": {
-              "uniqueName": "CreateOrUpdateNewsArabByInput",
-              "name": "CreateOrUpdateNewsArab",
+            "CreateOrUpdateNewsByInput": {
+              "uniqueName": "CreateOrUpdateNewsByInput",
+              "name": "CreateOrUpdateNews",
               "httpMethod": "POST",
-              "url": "api/app/news-arab/or-update-news-arab",
+              "url": "api/app/news/or-update-news",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
                   "name": "input",
-                  "typeAsString": "NewsArabs.NewsArabDto, GB.Opera.Application.Contracts",
-                  "type": "NewsArabs.NewsArabDto",
-                  "typeSimple": "NewsArabs.NewsArabDto",
+                  "typeAsString": "News.NewsDto, GB.Opera.Application.Contracts",
+                  "type": "News.NewsDto",
+                  "typeSimple": "News.NewsDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -6104,8 +6188,8 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "NewsArabs.NewsArabDto",
-                  "typeSimple": "NewsArabs.NewsArabDto",
+                  "type": "News.NewsDto",
+                  "typeSimple": "News.NewsDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -6114,106 +6198,68 @@
                 }
               ],
               "returnValue": {
-                "type": "NewsArabs.NewsArabDto",
-                "typeSimple": "NewsArabs.NewsArabDto"
+                "type": "News.NewsDto",
+                "typeSimple": "News.NewsDto"
               },
               "allowAnonymous": null,
-              "implementFrom": "NewsArabs.INewsArabAppService"
-            }
-          }
-        },
-        "NewsEngs.NewsEngAppService": {
-          "controllerName": "NewsEng",
-          "controllerGroupName": "NewsEng",
-          "isRemoteService": true,
-          "isIntegrationService": false,
-          "apiVersion": null,
-          "type": "NewsEngs.NewsEngAppService",
-          "interfaces": [
-            {
-              "type": "NewsEngs.INewsEngAppService",
-              "name": "INewsEngAppService",
-              "methods": [
-                {
-                  "name": "GetNewsEngs",
-                  "parametersOnMethod": [],
-                  "returnValue": {
-                    "type": "System.Collections.Generic.List<NewsEngs.NewsEngDto>",
-                    "typeSimple": "[NewsEngs.NewsEngDto]"
-                  }
-                },
-                {
-                  "name": "CreateOrUpdateNewsEng",
-                  "parametersOnMethod": [
-                    {
-                      "name": "input",
-                      "typeAsString": "NewsEngs.NewsEngDto, GB.Opera.Application.Contracts",
-                      "type": "NewsEngs.NewsEngDto",
-                      "typeSimple": "NewsEngs.NewsEngDto",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "NewsEngs.NewsEngDto",
-                    "typeSimple": "NewsEngs.NewsEngDto"
-                  }
-                }
-              ]
-            }
-          ],
-          "actions": {
-            "GetNewsEngs": {
-              "uniqueName": "GetNewsEngs",
-              "name": "GetNewsEngs",
-              "httpMethod": "GET",
-              "url": "api/app/news-eng/news-engs",
-              "supportedVersions": [],
-              "parametersOnMethod": [],
-              "parameters": [],
-              "returnValue": {
-                "type": "System.Collections.Generic.List<NewsEngs.NewsEngDto>",
-                "typeSimple": "[NewsEngs.NewsEngDto]"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "NewsEngs.INewsEngAppService"
+              "implementFrom": "News.INewsAppService"
             },
-            "CreateOrUpdateNewsEngByInput": {
-              "uniqueName": "CreateOrUpdateNewsEngByInput",
-              "name": "CreateOrUpdateNewsEng",
-              "httpMethod": "POST",
-              "url": "api/app/news-eng/or-update-news-eng",
+            "DeleteNewsByLangIdAndNewsId": {
+              "uniqueName": "DeleteNewsByLangIdAndNewsId",
+              "name": "DeleteNews",
+              "httpMethod": "DELETE",
+              "url": "api/app/news/news",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
-                  "name": "input",
-                  "typeAsString": "NewsEngs.NewsEngDto, GB.Opera.Application.Contracts",
-                  "type": "NewsEngs.NewsEngDto",
-                  "typeSimple": "NewsEngs.NewsEngDto",
+                  "name": "langId",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "newsId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
                   "isOptional": false,
                   "defaultValue": null
                 }
               ],
               "parameters": [
                 {
-                  "nameOnMethod": "input",
-                  "name": "input",
+                  "nameOnMethod": "langId",
+                  "name": "langId",
                   "jsonName": null,
-                  "type": "NewsEngs.NewsEngDto",
-                  "typeSimple": "NewsEngs.NewsEngDto",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
-                  "bindingSourceId": "Body",
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "newsId",
+                  "name": "newsId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
                   "descriptorName": ""
                 }
               ],
               "returnValue": {
-                "type": "NewsEngs.NewsEngDto",
-                "typeSimple": "NewsEngs.NewsEngDto"
+                "type": "System.Void",
+                "typeSimple": "System.Void"
               },
               "allowAnonymous": null,
-              "implementFrom": "NewsEngs.INewsEngAppService"
+              "implementFrom": "News.INewsAppService"
             }
           }
         }
@@ -19278,7 +19324,7 @@
         }
       ]
     },
-    "NewsArabs.NewsArabDto": {
+    "News.NewsDto": {
       "baseType": null,
       "isEnum": false,
       "enumNames": null,
@@ -19287,18 +19333,6 @@
       "properties": [
         {
           "name": "NewsID",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "GCCID",
           "jsonName": null,
           "type": "System.Int32?",
           "typeSimple": "number?",
@@ -19310,6 +19344,7 @@
           "regex": null
         },
         {
+<<<<<<< HEAD
           "name": "NewsCategoryID",
           "jsonName": null,
           "type": "System.Int32?",
@@ -19487,6 +19522,8 @@
           "regex": null
         },
         {
+=======
+>>>>>>> 50cb2dd369ad21e13161946e4ef4eb00f49addfe
           "name": "GCCID",
           "jsonName": null,
           "type": "System.Int32?",
@@ -19619,7 +19656,11 @@
           "regex": null
         },
         {
+<<<<<<< HEAD
           "name": "IsSocialmedia",
+=======
+          "name": "ForSocialNetworks",
+>>>>>>> 50cb2dd369ad21e13161946e4ef4eb00f49addfe
           "jsonName": null,
           "type": "System.Boolean?",
           "typeSimple": "boolean?",
@@ -19631,7 +19672,11 @@
           "regex": null
         },
         {
+<<<<<<< HEAD
           "name": "Isgulfbase",
+=======
+          "name": "IsGulfbaseNews",
+>>>>>>> 50cb2dd369ad21e13161946e4ef4eb00f49addfe
           "jsonName": null,
           "type": "System.Boolean?",
           "typeSimple": "boolean?",

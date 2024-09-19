@@ -4,8 +4,7 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonService } from '@proxy/commons';
-import { NewsArabDto, NewsArabService } from '@proxy/news-arabs';
-import { NewsEngService } from '@proxy/news-engs/news-eng.service';
+import { NewsDto, NewsService } from '@proxy/news';
 import { AutoCompleteModule, AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -18,7 +17,7 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { News_Arabic } from 'src/app/services/permissions';
 import Swal from 'sweetalert2';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-arabic',
   standalone: true,
@@ -57,20 +56,27 @@ export class ArabicComponent {
   sectorID: number;
   stockMarketID: number;
   companyID: number;
+  newsId:number;
   stockMarkets = [];
   companyMarketSectors = [];
   companiesTickers = [];
   newsCategories = [];
   countries = [];
+<<<<<<< HEAD
   newsArabs: NewsArabDto[] = [];
   newsArab: NewsArabDto = {
     newsID: 0,
     langID:false
+=======
+  newsArabs: NewsDto[] = [];
+  newsArab: NewsDto = {
+    newsID: 0
+>>>>>>> 50cb2dd369ad21e13161946e4ef4eb00f49addfe
   }
 
   constructor(
     private commonService: CommonService,
-    private newsArabService: NewsArabService, private permissionService: PermissionService,private newsEngService: NewsEngService
+    private newsArabService: NewsService, private permissionService: PermissionService
   ) {
     this.permission = {
       create: false,
@@ -79,6 +85,7 @@ export class ArabicComponent {
     }
   }
   ngOnInit() {
+    this.loading = true;
     if (this.permissionService.getGrantedPolicy(News_Arabic + '.Create')) {
       this.permission.create = true;
     }
@@ -91,13 +98,14 @@ export class ArabicComponent {
     this.getStockMarkets();
     this.getNewsCatAndCountries();
     this.stockMarketID = 0;
+    this.getNewsArabs();
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading = true;
+    
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading = false;
+      
     });
   }
 
@@ -116,6 +124,17 @@ export class ArabicComponent {
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
     });
+  }
+
+  addNewNewsArab(){
+    this.newsArab = {};
+    this.newsArab.date = moment().format("MM/DD/YYYY")
+    this.stockMarkets = [];
+    this.companyMarketSectors = [];
+    this.companiesTickers = [];
+    this.companyID =0;
+    this.selectedItem = null;
+    // this.getNewsArabs();
   }
 
   getNewsCatAndCountries() {
@@ -143,7 +162,7 @@ export class ArabicComponent {
       .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        if (this.companiesTickers.length > 0) this.companyID = this.companiesTickers[0].companyID
+        // if (this.companiesTickers.length > 0) this.companyID = this.companiesTickers[0].companyID
         this.loading = false;
       });
   }
@@ -151,25 +170,59 @@ export class ArabicComponent {
   getNewsArabs() {
     debugger;
     this.newsArabService
-      .getNewsArabs()
+      .getNewsByLangIdAndNewsId(false,this.newsId)
       .subscribe(res => {
         debugger;
         this.newsArabs = res;
-        if (this.newsArabs.length > 0) {
-          this.handleNewsArab(this.newsArabs[0]);
-        }
+        this.loading = false;
       });
   }
 
-  handleNewsArab(newsArab: NewsArabDto) {
+  handleNewsArab(newsArab: NewsDto) {
     this.newsArab = newsArab;
+    this.newsArab.date = moment(this.newsArab.date).format("MM/DD/YYYY");
     this.loading = false;
+  }
+
+  searchByNewsId(){
+    this.getNewsArabs();
+  }
+
+  deleteNews(newsArab: NewsDto){
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: "Are you sure you want to delete this News?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.newsArabService.deleteNewsByLangIdAndNewsId(false,newsArab.newsID).subscribe(res => {
+          Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' deleted successfully', icon: 'success', });
+          this.getNewsArabs();         
+    
+          this.loading = false;
+        },
+        error => {
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+        });
+      }
+    })
   }
 
   createOrUpdateNewsArab() {
     debugger;
     this.loading = true;
     this.newsArab.companyID = this.companyID;
+<<<<<<< HEAD
     this.newsArab.islamic = false;
     this.newsArab.date = new Date(this.newsArab.date).toLocaleString();
     this.newsEngService.createOrUpdateNewsEngByInput(this.newsArab).subscribe(res => {
@@ -177,12 +230,22 @@ export class ArabicComponent {
       if (this.newsArab.newsID > 0) {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.aTitle + ' updated successfully', icon: 'success', });
         this.getNewsArabs();
+=======
+    this.newsArab.gulfBaseSectorID = this.sectorID;
+    this.newsArab.langID = false;
+    this.newsArab.date = moment(this.newsArab.date).format();
+    this.newsArabService.createOrUpdateNewsByInput(this.newsArab).subscribe(res => {
+      debugger;
+      if (this.newsArab.newsID > 0) {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' updated successfully', icon: 'success', });
+        this.handleNewsArab(this.newsArab);
+>>>>>>> 50cb2dd369ad21e13161946e4ef4eb00f49addfe
       }
       else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.aTitle + ' created successfully', icon: 'success', });
         this.getNewsArabs();
       }
-      this.handleNewsArab(this.newsArab);
+      
 
       this.loading = false;
     },

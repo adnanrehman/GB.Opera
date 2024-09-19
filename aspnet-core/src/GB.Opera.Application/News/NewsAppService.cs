@@ -22,25 +22,34 @@ using System.Text.RegularExpressions;
 using GB.Opera.Books;
 using System.Diagnostics.Metrics;
 
-namespace NewsEngs
+namespace News
 {
-    public class NewsEngAppService : ApplicationService, INewsEngAppService
+    public class NewsAppService : ApplicationService, INewsAppService
     {
         private readonly IConfiguration _configuration;
         private readonly SqlConnection _connection;
-        public NewsEngAppService(IConfiguration configuration)
+        public NewsAppService(IConfiguration configuration)
         {
             _configuration = configuration;
             _connection = new SqlConnection(configuration.GetConnectionString("Default"));
         }
 
-        public async Task<List<NewsEngDto>> GetNewsEngs()
+        //LangId , News Id
+        public async Task<List<NewsDto>> GetNews(bool langId,int newsId)
         {
             try
             {
-                var sql = $@"select top 10 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],Title,SubTitle,Source,[Description],IsHome,GulfBaseSectorID,Islamic from News_En where NewsCategoryID = 1 order by NewsID desc";
+                var sql = "";
+                if (langId)
+                {
+                    sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],Title,SubTitle,Source,[Description],IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_En  WHERE (NewsId= {newsId} OR {newsId} =0) order by  NewsID desc";
+                }
+                else
+                {
+                    sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],ATitle As Title,ASubTitle As SubTitle,ASource As Source,[ADescription] As Description,IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_Ar WHERE (NewsId= {newsId} OR {newsId} =0) order by NewsID desc";
+                }               
 
-                var data = await _connection.QueryAsync<NewsEngDto>(sql);
+                var data = await _connection.QueryAsync<NewsDto>(sql);
                 return data.ToList();
             }
             catch (Exception ex)
@@ -51,14 +60,14 @@ namespace NewsEngs
 
         }
 
-        public async Task<NewsEngDto> CreateOrUpdateNewsEng(NewsEngDto input)
+        public async Task<NewsDto> CreateOrUpdateNews(NewsDto input)
         {
             try
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@LangID", input.LangID);
-                parameters.Add("@GCCID", input.GCCID);
                 parameters.Add("@NewsID", input.NewsID);
+                parameters.Add("@GCCID", input.GCCID);
                 parameters.Add("@NewsCategoryID", input.NewsCategoryID);
                 parameters.Add("@CompanyID", input.CompanyID);
                 parameters.Add("@Date", input.Date);
@@ -67,12 +76,11 @@ namespace NewsEngs
                 parameters.Add("@Source", input.Source);
                 parameters.Add("@Description", input.Description);
                 parameters.Add("@IsHome", input.IsHome);
-               parameters.Add("@GulfBaseSectorID", input.gulfBaseSectorID);
                 parameters.Add("@Islamic", input.Islamic);
-                parameters.Add("@ForSocialNetworks", input.IsSocialmedia);
-                parameters.Add("@IsGulfbaseNews", input.Isgulfbase);
+                parameters.Add("@ForSocialNetworks", input.ForSocialNetworks);
+                parameters.Add("@IsGulfbaseNews", input.IsGulfbaseNews);
 
-                await _connection.ExecuteAsync("InsertNews", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync("USP_GBN_InsertUpdateNews", parameters, commandType: CommandType.StoredProcedure);
 
                 return input;
             }
@@ -80,6 +88,30 @@ namespace NewsEngs
             {
                 throw ex;
             }
+        }
+
+        public async Task DeleteNews(bool langId, int newsId)
+        {
+            try
+            {
+                var sql = "";
+                if (langId)
+                {
+                    sql = $@"delete from News_En  WHERE NewsId= {newsId}";
+                }
+                else
+                {
+                    sql = $@"delete from News_Ar  WHERE NewsId= {newsId}";
+                }
+
+                await _connection.QueryAsync(sql);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
 

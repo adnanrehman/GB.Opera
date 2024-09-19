@@ -270,10 +270,10 @@ constructor(){
           href: "end-of-day", title: "End Of Day", permission: PriceAndIndices_EndOfDay, component: EndOfDayComponent,
           active: false
         },
-        {
-          href: "intra-day", title: "Intra Day", permission: PriceAndIndices_IntraDay, component: IntraDayComponent,
-          active: false
-        },
+        // {
+        //   href: "intra-day", title: "Intra Day", permission: PriceAndIndices_IntraDay, component: IntraDayComponent,
+        //   active: false
+        // },
         {
           href: "official", title: "Official", permission: PriceAndIndices_Official, component: OfficialComponent,
           active: false
