@@ -5,15 +5,14 @@ export interface NewsArabDto {
   newsCategoryID?: number;
   companyID?: number;
   date?: string;
-  title?: string;
-  subTitle?: string;
-  source?: string;
-  description?: string;
+  aTitle?: string;
+  aSubTitle?: string;
+  aSource?: string;
+  aDescription?: string;
   isHome?: boolean;
   gulfBaseSectorID?: number;
   islamic?: boolean;
-  isSocialmedia ?: boolean;
-  Isgulfbase ?: boolean;
-  LangID ? : boolean;
-   
+  isSocialmedia?: boolean;
+  isgulfbase?: boolean;
+  langID?: boolean;
 }

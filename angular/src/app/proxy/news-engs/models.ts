@@ -1,6 +1,6 @@
 
 export interface NewsEngDto {
-  newsID: number;
+  newsID?: number;
   gccid?: number;
   newsCategoryID?: number;
   companyID?: number;
@@ -12,8 +12,7 @@ export interface NewsEngDto {
   isHome?: boolean;
   gulfBaseSectorID?: number;
   islamic?: boolean;
-  isSocialmedia ?: boolean;
-  Isgulfbase ?: boolean;
-  LangID ? : boolean;
-
+  isSocialmedia?: boolean;
+  isgulfbase?: boolean;
+  langID?: boolean;
 }

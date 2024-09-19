@@ -22,4 +22,5 @@ import * as Lhruploads from './lhruploads';
 import * as NewsArabs from './news-arabs';
 import * as NewsEngs from './news-engs';
 import * as OfficialsIndics from './officials-indics';
-export { AccountsClassifications, AgencyRatings, Books, Commons, Companies, CompanyAccounts, CompanyFactOrders, CompanyManagements, CompanyMutualFundSettings, CompanyMutualFunds, CompanyOwnershipFacts, CompanyOwnerships, CompanyPsraws, CorporateAnnouncements, CountryAccounts, CountryFactOrders, EndOfDay, EstimatesandForecasts, GbFacts, GbOwnerShips, Lhruploads, NewsArabs, NewsEngs, OfficialsIndics };
+import * as Uploads from './uploads';
+export { AccountsClassifications, AgencyRatings, Books, Commons, Companies, CompanyAccounts, CompanyFactOrders, CompanyManagements, CompanyMutualFundSettings, CompanyMutualFunds, CompanyOwnershipFacts, CompanyOwnerships, CompanyPsraws, CorporateAnnouncements, CountryAccounts, CountryFactOrders, EndOfDay, EstimatesandForecasts, GbFacts, GbOwnerShips, Lhruploads, NewsArabs, NewsEngs, OfficialsIndics, Uploads };

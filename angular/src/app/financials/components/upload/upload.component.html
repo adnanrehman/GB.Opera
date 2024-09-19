@@ -4,23 +4,31 @@
       <div class="row mb-2">
         <div class="col-md-12">
           <p-dropdown
-            [options]="markets"
-            placeholder="Select a Market"
-            optionLabel="name"
-            [style]="{ width: '100%' }"
-            [showClear]="true"
-          >
-          </p-dropdown>
+          [options]="stockMarkets"
+          [(ngModel)]="stockMarketID"
+          name="stockMarketID"
+          placeholder="Select a Market"
+          optionLabel="abbr"
+          optionValue="stockMarketID"
+          (ngModelChange)="getStockMarketSectorsByStockMarketID()"
+          [style]="{ width: '100%' }"
+          [showClear]="true"
+        >
+        </p-dropdown>
         </div>
         <div class="col-md-12 mt-2">
           <p-dropdown
-            [options]="markets"
-            placeholder="Select a Sector"
-            optionLabel="name"
-            [style]="{ width: '100%' }"
-            [showClear]="true"
-          >
-          </p-dropdown>
+          [options]="companyMarketSectors"
+          [(ngModel)]="newsEng.gulfBaseSectorID"
+          name="sectorID"
+          placeholder="Select a Sector"
+          optionLabel="sector"
+          optionValue="sectorID"
+          (ngModelChange)="getSectorCompaniesBySectorIDAndStockMarketID()"
+          [style]="{ width: '100%' }"
+          [showClear]="true"
+        >
+        </p-dropdown>
         </div>
       </div>
       <div class="row">
@@ -29,18 +37,15 @@
           <div class="card">
             <div class="card-body p-0">
               <h6 class="selector p-1 mb-1 border-bottom">ACDB</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">AVD</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">HGFA</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">KJUYA</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">ADEF</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">DDEDW</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SDAD</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">DFES</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
+              <p-listbox
+              [options]="companiesTickers"
+              [(ngModel)]="companyID"
+              name="companyID"
+              optionLabel="ticker"
+              optionValue="companyID"
+              [style]="{ width: '100%' }"
+              [listStyle]="{ 'max-height': '30rem' }"
+            />
             </div>
           </div>
         </div>
@@ -51,14 +56,7 @@
         <div class="card-body p-2">
           <div class="row">
             <div class="col-md-8">
-              <!-- <p-autoComplete
-                  [suggestions]="filteredCountries"
-                  field="name"
-                  placeholder="Search the Companies and select"
-                  [style]="{ width: '100%' }"
-                  [inputStyle]="{ width: '100%' }"
-                >
-                </p-autoComplete> -->
+            
             </div>
             <div class="col-md-4 text-end">
               <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a> -->
@@ -70,11 +68,13 @@
             <div class="col-md-3">
               <label class="col-form-label">Enrty Type</label>
               <p-dropdown
-                [options]="markets"
+                [options]="NewType"
                 placeholder="Select a Enrty Type"
-                optionLabel="name"
+                optionLabel="financialEntryType"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
+                optionLabel="financialEntryType"
+                optionValue="financialEntryTypeID"
               >
               </p-dropdown>
             </div>
@@ -89,10 +89,12 @@
             <div class="col-md-3">
               <label class="col-form-label">Quarters</label>
               <p-dropdown
-                [options]="markets"
+              [options]="quarter"
                 placeholder="Select a Quarters"
-                optionLabel="name"
+                optionLabel="qPeriod"
                 [style]="{ width: '100%' }"
+                optionLabel="qPeriod"
+                optionValue="qPeriodID"
                 [showClear]="true"
               >
               </p-dropdown>
@@ -100,9 +102,11 @@
             <div class="col-md-3">
               <label class="col-form-label">Periods</label>
               <p-dropdown
-                [options]="markets"
+                [options]="period"
                 placeholder="Select a Periods"
-                optionLabel="name"
+                
+                optionLabel="period"
+                optionValue="periodTypeID"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
               >
@@ -120,22 +124,26 @@
             <div class="col-md-3">
               <label class="col-form-label">Users (Entry)</label>
               <p-dropdown
-                [options]="markets"
+                [options]="entryusers"
                 placeholder="Select a Users (Entry)"
                 optionLabel="name"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
+                optionLabel="userName"
+                optionValue="userID"
               >
               </p-dropdown>
             </div>
             <div class="col-md-3">
               <label class="col-form-label">Users (ReEntry)</label>
               <p-dropdown
-                [options]="markets"
+                [options]="reentryusers"
                 placeholder="Select a Users (ReEntry)"
-                optionLabel="name"
+                optionLabel="users"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
+                optionLabel="userName"
+                optionValue="userID"
               >
               </p-dropdown>
             </div>

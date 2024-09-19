@@ -65,7 +65,7 @@ namespace NewsArabs
                 parameters.Add("@Source", input.ASource);
                 parameters.Add("@Description", input.ADescription);
                 parameters.Add("@IsHome", input.IsHome);
-                parameters.Add("@GulfBaseSectorID", input.GulfBaseSectorID);
+                parameters.Add("@GulfBaseSectorID", input.gulfBaseSectorID);
                 parameters.Add("@Islamic", input.Islamic);
 
                 await _connection.ExecuteAsync("InsertNews", parameters, commandType: CommandType.StoredProcedure);

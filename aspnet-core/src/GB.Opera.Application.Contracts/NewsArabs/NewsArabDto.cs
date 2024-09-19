@@ -18,8 +18,11 @@ namespace NewsArabs
         public string? ASource { get; set; }
         public string? ADescription { get; set; }
         public bool? IsHome { get; set; }
-        public int? GulfBaseSectorID { get; set; }
+        public int? gulfBaseSectorID { get; set; }
         public bool? Islamic { get; set; }
+        public bool? IsSocialmedia { get; set; }
+        public bool? Isgulfbase { get; set; }
+        public bool? LangID { get; set; }
     }
 
 }

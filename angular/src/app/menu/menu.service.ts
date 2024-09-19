@@ -303,14 +303,14 @@ constructor(){
           href: "entry", title: "Entry", permission: Financial_Entry, component: EntryComponent,
           active: false
         },
-        {
-          href: "re-entry", title: "Re Entry", permission: Financial_ReEntry, component: ReEntryComponent,
-          active: false
-        },
-        {
-          href: "reviewer", title: "Reviewer", permission: Financial_Reviewer, component: ReviewerComponent,
-          active: false
-        },
+        // {
+        //   href: "re-entry", title: "Re Entry", permission: Financial_ReEntry, component: ReEntryComponent,
+        //   active: false
+        // },
+        // {
+        //   href: "reviewer", title: "Reviewer", permission: Financial_Reviewer, component: ReviewerComponent,
+        //   active: false
+        // },
         {
           href: "reviewer-news", title: "Reviewer (New)", permission: Financial_ReviewerNew, component: ReviewerNewComponent,
           active: false
