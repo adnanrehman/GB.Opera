@@ -2,3 +2,11 @@
 Alter Table FinancialStatusRemarks add gbuserId uniqueidentifier
 
 Alter Table [FinRemarksLog] add gbuserId uniqueidentifier
+
+
+
+
+ ALter Table UserFinancials add gbEntryUser uniqueidentifier
+
+ 
+ ALter Table UserFinancials add gbReEntryUser uniqueidentifier

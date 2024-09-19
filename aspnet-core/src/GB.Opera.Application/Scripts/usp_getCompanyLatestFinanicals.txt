@@ -1,0 +1,21 @@
+ 
+ALTER PROCEDURE [dbo].[usp_getCompanyLatestFinanicals]
+(
+@CompanyID smallint
+)
+AS
+
+SELECT top 5		--dbo.Financials.FinancialsID, dbo.Companies.CompanyID,
+                       dbo.Companies.Ticker, dbo.Financials.AsOfDate, dbo.FinancialsQYPeriods.Year, 
+                      dbo.QPeriodTypes.QPeriod as Period, dbo.FinancialsQYPeriods.IsYearly, dbo.getUserNameFromFinIDEntReEnt_New(dbo.FinancialsQYPeriods.FinancialsID, 1) 
+                      AS EntryUser, dbo.getUserNameFromFinIDEntReEnt_New(dbo.FinancialsQYPeriods.FinancialsID, 0) AS ReEntryUser, --dbo.FinancialStatusRemarks.StatusID, 
+                      dbo.FinancialsQYPeriods.QPeriodID--, dbo.Companies.StockMarketID
+FROM         dbo.FinancialStatusRemarks INNER JOIN
+                      dbo.QPeriodTypes INNER JOIN
+                      dbo.FinancialsQYPeriods ON dbo.QPeriodTypes.QPeriodID = dbo.FinancialsQYPeriods.QPeriodID INNER JOIN
+                      dbo.Financials ON dbo.FinancialsQYPeriods.FinancialsID = dbo.Financials.FinancialsID ON 
+                      dbo.FinancialStatusRemarks.FinancialsID = dbo.FinancialsQYPeriods.FinancialsID RIGHT OUTER JOIN
+                      dbo.Companies ON dbo.Financials.CompanyID = dbo.Companies.CompanyID
+WHERE     (dbo.Companies.CompanyID = @CompanyID) 
+
+ORDER BY Year DESC, QPeriodID Asc

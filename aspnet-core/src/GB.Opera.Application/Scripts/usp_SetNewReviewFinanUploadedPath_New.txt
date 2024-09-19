@@ -1,0 +1,33 @@
+ 
+Create PROCEDURE [dbo].[usp_SetNewReviewFinanUploadedPath_New]
+@NewReviewFinancialID bigint,
+@UploadedPath varchar(200),
+@FileName varchar(150),
+@EntryUser uniqueidentifier,
+@ReEntryUser uniqueidentifier
+AS
+BEGIN
+
+declare @FinancialsID bigint
+
+Select @FinancialsID=FinancialsID from [NewReviewFinancials] where [NewReviewFinancialID]=@NewReviewFinancialID
+
+UPDATE [opera].[dbo].[NewReviewFinancials]
+   SET 
+    
+      [UploadedPath] = @UploadedPath
+      ,[FileName] = @FileName
+      
+ WHERE [NewReviewFinancialID]=@NewReviewFinancialID
+
+--Insert Users
+INSERT INTO [opera].[dbo].[UserFinancials]
+           ([FinancialsID]
+           ,[NewReviewFinancialID]
+           ,[EntryUser]
+           ,[ReEntryUser],gbEntryUser,gbReEntryUser)
+     VALUES
+           (@FinancialsID,@NewReviewFinancialID,null,null,@EntryUser,@ReEntryUser)
+
+END
+
