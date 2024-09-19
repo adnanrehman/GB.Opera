@@ -65,18 +65,10 @@ namespace GB.Opera.constants
         public const string usp_getMFundCompanies = "usp_getMFundCompanies";
         public const string usp_getAllFunds = "usp_getAllFunds";
         public const string usp_getAllFundPrices = "usp_getAllFundPrices";
-<<<<<<< HEAD
         public const string usp_getCompaniesFinanicalTickers = "usp_getCompaniesFinanicalTickers";
         public const string usp_getEntryReEntryUsers_New = "usp_getEntryReEntryUsers_New";
         public const string usp_getCompanyLatestFinanicals = "usp_getCompanyLatestFinanicals";
-=======
         public const string usp_InsertPrice = "InsertPrice";
-
->>>>>>> 50cb2dd369ad21e13161946e4ef4eb00f49addfe
-
-
-
-
     }
 }
  

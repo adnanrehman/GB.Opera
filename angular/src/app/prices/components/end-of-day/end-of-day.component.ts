@@ -141,7 +141,7 @@ ImportPrices(){
   this.importService.importPrices(formData).subscribe(res => {
     debugger;
     if(res == "1")  {
-      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: ' file importrd successfully', icon: 'success', });
+      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: ' file imported successfully', icon: 'success', });
       this.showImportPriceModal = false;
       this.importFile = null;
     }        

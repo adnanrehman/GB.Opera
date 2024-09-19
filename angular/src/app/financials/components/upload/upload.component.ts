@@ -11,10 +11,10 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { PermissionService } from '@abp/ng.core';
 import { Financial_Upload } from 'src/app/services/permissions';
 import { CommonService } from '@proxy/commons/common.service';
-import { NewsEngDto } from '@proxy/news-engs';
 import { ListboxModule } from 'primeng/listbox';
 import { UploadService } from '@proxy/uploads/upload.service';
 import { UploadwithHasDtos } from '@proxy/uploads/models';
+import { NewsDto } from '@proxy/news';
 
 @Component({
   selector: 'app-upload',
@@ -34,7 +34,7 @@ export class UploadComponent {
   stockMarkets = [];
   filteredCountries: any[];
   companyMarketSectors = [];
-  newsEngs: NewsEngDto[] = [];
+  newsEngs: NewsDto[] = [];
   stockMarketID: number;
   sectorID: number;
   companiesTickers = [];
@@ -50,7 +50,7 @@ export class UploadComponent {
    
  
   companyID: number;
-  newsEng: NewsEngDto = {
+  newsEng: NewsDto = {
     newsID: 0
   }
   

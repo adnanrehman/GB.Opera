@@ -24,6 +24,16 @@ export class EndofDayService {
       url: '/api/app/endof-day/g-cCSector',
     },
     { apiName: this.apiName,...config });
+  
+
+  importPricesByFilePath = (filePath: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, string>({
+      method: 'POST',
+      responseType: 'text',
+      url: '/api/app/endof-day/import-prices',
+      params: { filePath },
+    },
+    { apiName: this.apiName,...config });
 
   constructor(private restService: RestService) {}
 }

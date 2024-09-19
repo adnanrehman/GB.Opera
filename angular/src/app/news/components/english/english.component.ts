@@ -214,16 +214,10 @@ export class EnglishComponent {
     debugger;
     this.loading = true;
     this.newsEng.companyID = this.companyID;
-<<<<<<< HEAD
-    this.newsEng.langID=true;
-    this.newsEng.date = new Date(this.newsEng.date).toLocaleString();
-    this.newsEngService.createOrUpdateNewsEngByInput(this.newsEng).subscribe(res => {
-=======
     this.newsEng.gulfBaseSectorID = this.sectorID;
     this.newsEng.langID=true;
     this.newsEng.date = moment(this.newsEng.date).format();
     this.newsEngService.createOrUpdateNewsByInput(this.newsEng).subscribe(res => {
->>>>>>> 50cb2dd369ad21e13161946e4ef4eb00f49addfe
       debugger;
       if(this.newsEng.newsID > 0){
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' updated successfully', icon: 'success', });

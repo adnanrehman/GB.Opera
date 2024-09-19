@@ -2,6 +2,7 @@
 export interface EODPrices {
   isActive: boolean;
   stockMarket?: string;
+  stockMarketId: number;
   ticker?: string;
   priceID: number;
   openingPrice: number;

@@ -31,7 +31,7 @@ namespace News
         public NewsAppService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connection = new SqlConnection(configuration.GetConnectionString("Default"));
+            _connection = new SqlConnection(configuration.GetConnectionString("DefaultForNews"));
         }
 
         //LangId , News Id

@@ -21,9 +21,5 @@ import * as GbOwnerShips from './gb-owner-ships';
 import * as Lhruploads from './lhruploads';
 import * as News from './news';
 import * as OfficialsIndics from './officials-indics';
-<<<<<<< HEAD
 import * as Uploads from './uploads';
-export { AccountsClassifications, AgencyRatings, Books, Commons, Companies, CompanyAccounts, CompanyFactOrders, CompanyManagements, CompanyMutualFundSettings, CompanyMutualFunds, CompanyOwnershipFacts, CompanyOwnerships, CompanyPsraws, CorporateAnnouncements, CountryAccounts, CountryFactOrders, EndOfDay, EstimatesandForecasts, GbFacts, GbOwnerShips, Lhruploads, NewsArabs, NewsEngs, OfficialsIndics, Uploads };
-=======
-export { AccountsClassifications, AgencyRatings, Books, Commons, Companies, CompanyAccounts, CompanyFactOrders, CompanyManagements, CompanyMutualFundSettings, CompanyMutualFunds, CompanyOwnershipFacts, CompanyOwnerships, CompanyPsraws, CorporateAnnouncements, CountryAccounts, CountryFactOrders, EndOfDay, EstimatesandForecasts, GbFacts, GbOwnerShips, Lhruploads, News, OfficialsIndics };
->>>>>>> 50cb2dd369ad21e13161946e4ef4eb00f49addfe
+export { AccountsClassifications, AgencyRatings, Books, Commons, Companies, CompanyAccounts, CompanyFactOrders, CompanyManagements, CompanyMutualFundSettings, CompanyMutualFunds, CompanyOwnershipFacts, CompanyOwnerships, CompanyPsraws, CorporateAnnouncements, CountryAccounts, CountryFactOrders, EndOfDay, EstimatesandForecasts, GbFacts, GbOwnerShips, Lhruploads, News, OfficialsIndics, Uploads };

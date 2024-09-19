@@ -28,7 +28,7 @@ namespace Commons
 
         public async Task<List<CompStockMarketDto>> GetCompStockMarkets()
         {
-            var data = (await _connection.QueryAsync<CompStockMarketDto>(sql: "usp_getCompStockMarkets", commandType: CommandType.StoredProcedure)).ToList();
+            var data = (await _connection.QueryAsync<CompStockMarketDto>(sql: "usp_getCompStockMarkets", commandType: CommandType.StoredProcedure)).OrderBy(f => f.StockMarketID).ToList();
 
             return data;
         }
@@ -60,7 +60,7 @@ namespace Commons
         }
         public async Task<List<MarketLangAnnouncementDto>> GetMarketLangAnnouncements()
         {
-            var data = (await _connection.QueryAsync<MarketLangAnnouncementDto>(sql: "usp_getMarket_LangT_AnnouncementT ", commandType: CommandType.StoredProcedure)).ToList();
+            var data = (await _connection.QueryAsync<MarketLangAnnouncementDto>(sql: "usp_getMarket_LangT_AnnouncementT ", commandType: CommandType.StoredProcedure)).OrderBy(f => f.StockMarketID).ToList();
 
             return data;
         }
@@ -81,7 +81,7 @@ namespace Commons
 
         public async Task<List<StockMarketDto>> GetStockMarkets()
         {
-            var data = (await _connection.QueryAsync<StockMarketDto>(sql: "[usp_getStockMarkets]", commandType: CommandType.StoredProcedure)).ToList();
+            var data = (await _connection.QueryAsync<StockMarketDto>(sql: "[usp_getStockMarkets]", commandType: CommandType.StoredProcedure)).OrderBy(f => f.StockMarketID).OrderBy(f => f.StockMarketID).ToList();
 
             return data;
         }
