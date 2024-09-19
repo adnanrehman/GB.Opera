@@ -1,0 +1,4 @@
+
+Alter Table FinancialStatusRemarks add gbuserId uniqueidentifier
+
+Alter Table [FinRemarksLog] add gbuserId uniqueidentifier

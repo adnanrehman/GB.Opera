@@ -1,0 +1,58 @@
+CREATE PROCEDURE InsertPrice
+    @CompanyID INT,
+    @StockMarketID INT,
+    @PriceDate DATE,
+    @OpeningPrice DECIMAL(10, 2),
+    @HighestPrice DECIMAL(10, 2),
+    @LowestPrice DECIMAL(10, 2),
+    @ClosingPrice DECIMAL(10, 2),
+    @TradingVolume BIGINT,
+    @TradingValue DECIMAL(15, 2),
+    @Trades INT,
+    @LastClosedPrice DECIMAL(10, 2),
+    @LastUpdated DATETIME,
+    @IsActive BIT
+AS
+BEGIN
+    -- Check if the record already exists
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Prices
+        WHERE CompanyID = @CompanyID
+          AND StockMarketID = @StockMarketID
+          AND PriceDate = @PriceDate
+    )
+    BEGIN
+        -- Insert the new record
+        INSERT INTO Prices (
+            CompanyID,
+            StockMarketID,
+            PriceDate,
+            OpeningPrice,
+            HighestPrice,
+            LowestPrice,
+            ClosingPrice,
+            TradingVolume,
+            TradingValue,
+            Trades,
+            LastClosedPrice,
+            LastUpdated,
+            IsActive
+        )
+        VALUES (
+            @CompanyID,
+            @StockMarketID,
+            @PriceDate,
+            @OpeningPrice,
+            @HighestPrice,
+            @LowestPrice,
+            @ClosingPrice,
+            @TradingVolume,
+            @TradingValue,
+            @Trades,
+            @LastClosedPrice,
+            @LastUpdated,
+            @IsActive
+        );
+    END
+END

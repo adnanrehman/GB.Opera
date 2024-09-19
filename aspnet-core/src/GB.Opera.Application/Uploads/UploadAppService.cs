@@ -38,7 +38,7 @@ namespace GB.Opera.Uploads
                 output.FinancialEntryType = reader.Read<FinancialEntryTypes>().ToList();
                
                 output.QPeriodType = reader.Read<QPeriodTypes>().ToList();
-                output.Uploads = reader.Read<Upload>().ToList();
+               // output.Uploads = reader.Read<Upload>().ToList();
                 return output;
 
             }

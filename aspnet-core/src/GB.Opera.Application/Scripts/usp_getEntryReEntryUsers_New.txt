@@ -1,11 +1,18 @@
  
-Alter procedure [dbo].[usp_getEntryReEntryUsers_New]  
+  
+  
+Create procedure [dbo].[usp_getEntryReEntryUsers_New]  
   
 AS  
- 
   
-	SElect distinct  u.Id as UserID,UserName,ar.Name UserType from AbpUsers u inner Join AbpUserRoles r on u.id=r.UserId
-	inner Join AbpRoles ar on r.RoleId=ar.id
+ 
+
+
+  
+	SElect distinct  u.Id as UserID,UserName,ar.Name UserType from AbpUsers u inner Join AbpUserRoles r on u.Id=r.UserId
+	inner Join AbpRoles ar on r.RoleId=ar.Id
 	Where ar.Name in ('Entry Operator','Re Entry Operator') order by UserName
 	 
   
+
+ 
