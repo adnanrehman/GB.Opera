@@ -1,4 +1,4 @@
-import type { UploadFinancials, UploadwithHasDtos, Users } from './models';
+import type { UploadFinancialListDto, UploadFinancials, UploadwithHasDtos, Users } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 
@@ -9,8 +9,17 @@ export class UploadService {
   apiName = 'Default';
   
 
+  createUploadFinancialByInput = (input: UploadFinancials, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'POST',
+      url: '/api/app/upload/upload-financial',
+      body: input,
+    },
+    { apiName: this.apiName,...config });
+  
+
   getFinancialsBycompanyIdByCompanyID = (CompanyID: number, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, UploadFinancials[]>({
+    this.restService.request<any, UploadFinancialListDto[]>({
       method: 'GET',
       url: '/api/app/upload/financials-bycompany-id',
       params: { companyID: CompanyID },

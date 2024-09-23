@@ -1,4 +1,4 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
   <div class="row mb-2">
     <div class="col-md-3">
       <div class="row mb-2">
@@ -19,7 +19,7 @@
         <div class="col-md-12 mt-2">
           <p-dropdown
           [options]="companyMarketSectors"
-          [(ngModel)]="newsEng.gulfBaseSectorID"
+          [(ngModel)]="sectorID"
           name="sectorID"
           placeholder="Select a Sector"
           optionLabel="sector"
@@ -34,20 +34,16 @@
       <div class="row">
         <div class="col-md-12">
           <h6>Companies</h6>
-          <div class="card">
-            <div class="card-body p-0">
-              <h6 class="selector p-1 mb-1 border-bottom">ACDB</h6>
-              <p-listbox
+          <p-listbox
               [options]="companiesTickers"
               [(ngModel)]="companyID"
               name="companyID"
               optionLabel="ticker"
               optionValue="companyID"
+              (click)="getFinancialsBycompanyIdByCompanyID()"
               [style]="{ width: '100%' }"
               [listStyle]="{ 'max-height': '30rem' }"
             />
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -60,7 +56,7 @@
             </div>
             <div class="col-md-4 text-end">
               <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a> -->
-              <a href="#" *ngIf="permission.create"  class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              <a href="#" [attr.disabled]="companyID? null : true" (click)="createUploadFinancial()" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
               <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
             </div>
           </div>
@@ -69,6 +65,9 @@
               <label class="col-form-label">Enrty Type</label>
               <p-dropdown
                 [options]="NewType"
+                [(ngModel)]="uploadFinancial.financialEntryTypeID"
+                name="financialEntryTypeID"
+                [ngModelOptions]="{ standalone: true }"
                 placeholder="Select a Enrty Type"
                 optionLabel="financialEntryType"
                 [style]="{ width: '100%' }"
@@ -90,6 +89,9 @@
               <label class="col-form-label">Quarters</label>
               <p-dropdown
               [options]="quarter"
+              [(ngModel)]="uploadFinancial.qPeriodId"
+              name="qPeriodId"
+                [ngModelOptions]="{ standalone: true }"
                 placeholder="Select a Quarters"
                 optionLabel="qPeriod"
                 [style]="{ width: '100%' }"
@@ -104,7 +106,9 @@
               <p-dropdown
                 [options]="period"
                 placeholder="Select a Periods"
-                
+                [(ngModel)]="uploadFinancial.periodTypeID"
+                name="periodTypeID"
+                [ngModelOptions]="{ standalone: true }"
                 optionLabel="period"
                 optionValue="periodTypeID"
                 [style]="{ width: '100%' }"
@@ -114,17 +118,20 @@
             </div>
             <div class="col-md-3">
               <label class="col-form-label">Year</label>
-              <p-calendar [style]="{ width: '100%' }"  view="year"
+              <p-calendar [style]="{ width: '100%' }" dataType="string" [showIcon]="true" [(ngModel)]="uploadFinancial.year" name="year"  view="year"
               dateFormat="yy" placeholder="Select a Year" />
             </div>
             <div class="col-md-3">
               <label class="col-form-label">As Of Date</label>
-              <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
+              <p-calendar [style]="{ width: '100%' }" dataType="string" [showIcon]="true" [(ngModel)]="uploadFinancial.asOfDate" name="asOfDate" placeholder="Select a Date" />
             </div>
             <div class="col-md-3">
               <label class="col-form-label">Users (Entry)</label>
               <p-dropdown
                 [options]="entryusers"
+                [(ngModel)]="uploadFinancial.entryUser"
+                name="entryUser"
+                [ngModelOptions]="{ standalone: true }"
                 placeholder="Select a Users (Entry)"
                 optionLabel="name"
                 [style]="{ width: '100%' }"
@@ -138,6 +145,9 @@
               <label class="col-form-label">Users (ReEntry)</label>
               <p-dropdown
                 [options]="reentryusers"
+                [(ngModel)]="uploadFinancial.reEntryUser"
+                name="reEntryUser"
+                [ngModelOptions]="{ standalone: true }"
                 placeholder="Select a Users (ReEntry)"
                 optionLabel="users"
                 [style]="{ width: '100%' }"
@@ -149,26 +159,33 @@
             </div>
             <div class="col-md-6">
               <label class="col-form-label">Remarks</label>
-              <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+              <textarea rows="3" [(ngModel)]="uploadFinancial.remarks"
+              name="remarks" class="form-control" placeholder="Describe Overview here...">
               </textarea>
             </div>
             <div class="col-md-6">
               <label class="col-form-label">Remarks (AR)</label>
-              <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+              <textarea rows="3" [(ngModel)]="uploadFinancial.aRemarks"
+              name="aRemarks" class="form-control" placeholder="Describe Overview here...">
               </textarea>
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-12 text-end mt-2">
                 <button class="btn btn-sm btn-secondary">Load Markets Latest Quarters</button>
             </div>
-          </div>
-          <div class="row">
+          </div> -->
+          <div class="row mt-3">
             <div class="col-md-12">
-                <p-table #dt [value]="companies" [tableStyle]="{ 'max-height': '20rem' }" responsiveLayout="stack" styleClass="p-datatable-strip">
+                <p-table #dt 
+                [value]="uploadFinancials" 
+                  [scrollable]="true" 
+                    scrollHeight="20rem"
+                    responsiveLayout="stack"
+                    styleClass="p-datatable-gridlines"
+                >
                 <ng-template pTemplate="header">
                   <tr>
-                    <th></th>
                     <th>Ticker</th>
                     <th>As Of Date</th>
                     <th>Year</th>
@@ -181,15 +198,21 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item>
                   <tr>
-                    <td></td>
                     <td>{{item.ticker}}</td>
-                    <td>{{item.aod}}</td>
-                    <td>{{item.yr}}</td>
-                    <td>{{item.pr}}</td>
-                    <td class="text-center"><p-checkbox value="New York" inputId="ny" /></td>
-                    <td>{{item.eu}}</td>
-                    <td>{{item.reu}}</td>
-                    <td>{{item.qp}}</td>
+                    <td>{{item.asOfDate | date : 'MM/dd/yyyy'}}</td>
+                    <td>{{item.year}}</td>
+                    <td>{{item.period}}</td>
+                    <td class="text-center">
+                      <div class="text-center">
+                        <input class="form-check-input" [(ngModel)]="item.isYearly" name="isYearly"
+                        [ngModelOptions]="{ standalone: true }"
+                        pInputText type="checkbox" />
+                        
+                      </div>
+                    </td>
+                    <td>{{item.entryUser}}</td>
+                    <td>{{item.reEntryUser}}</td>
+                    <td>{{item.qPeriodID}}</td>
                   </tr>
                 </ng-template>
               </p-table>

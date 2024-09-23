@@ -10,3 +10,15 @@ Alter Table [FinRemarksLog] add gbuserId uniqueidentifier
 
  
  ALter Table UserFinancials add gbReEntryUser uniqueidentifier
+
+
+ 
+ALTER TABLE opera.dbo.FinRemarksLog
+ALTER COLUMN UserID smallint NULL;
+
+ALTER TABLE opera.dbo.[UserFinancials]
+ALTER COLUMN EntryUser smallint NULL;
+
+
+ALTER TABLE opera.dbo.[UserFinancials]
+ALTER COLUMN ReEntryUser smallint NULL;

@@ -28,25 +28,33 @@ export interface Upload {
   qPeriodID?: string;
 }
 
-export interface UploadFinancials {
-  financialsId: number;
-  companyId: number;
+export interface UploadFinancialListDto {
+  ticker?: string;
   asOfDate?: string;
-  periodTypeId: number;
-  financialEntryTypeId: number;
-  userId: number;
+  year?: number;
+  period?: string;
+  isYearly: boolean;
+  entryUser?: string;
+  reEntryUser?: string;
+  qPeriodID: number;
+}
+
+export interface UploadFinancials {
+  financialsID: number;
+  companyID: number;
+  asOfDate?: string;
+  periodTypeID: number;
+  financialEntryTypeID: number;
   remarks?: string;
   aRemarks?: string;
-  year: number;
+  year?: number;
   qPeriodId: number;
   isYearly: boolean;
   periodNote?: string;
   aPeriodNote?: string;
-  ticker?: string;
-  period?: string;
+  userID?: string;
   entryUser?: string;
   reEntryUser?: string;
-  qPeriodID: number;
 }
 
 export interface UploadwithHasDtos {
