@@ -73,7 +73,8 @@ export class UploadComponent {
     periodTypeID: 0,
     financialEntryTypeID: 0,
     isYearly: false,
-    qPeriodId: 0
+    qPeriodId: 0,
+    newReviewFinancialID: 0
   }
 
   data: UploadwithHasDtos | null = null;
@@ -197,6 +198,7 @@ getEntryusers()
       this.uploadFinancial = {
         financialsID: 0,
         companyID: 0,
+        newReviewFinancialID: 0,
         periodTypeID: 0,
         financialEntryTypeID: 0,
         isYearly: false,

@@ -69,6 +69,9 @@ namespace GB.Opera.constants
         public const string usp_getEntryReEntryUsers_New = "usp_getEntryReEntryUsers_New";
         public const string usp_getCompanyLatestFinanicals = "usp_getCompanyLatestFinanicals";
         public const string usp_InsertPrice = "InsertPrice";
+        public const string usp_getStatusFinancials_New = "usp_getStatusFinancials_New";
+        public const string usp_getCompaniesAccounts = "usp_getCompaniesAccounts";
+        public const string usp_getAsofDatesFinancials = "usp_getAsofDatesFinancials";
     }
 }
  

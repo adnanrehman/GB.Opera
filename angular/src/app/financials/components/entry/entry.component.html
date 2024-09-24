@@ -1,4 +1,4 @@
-<div class="container ps-2">
+<div class="container ps-2" [abpLoading]="loading">
   <div class="row mb-2">
     <div class="col-md-3">
       <div class="row">
@@ -22,11 +22,15 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="card">
-                  <div class="card-body p-0" style="height: 820px;">
-                    <a class="btn btn-sm btn-link"
-                      ><h6 class="selector p-1 mb-1 border-bottom">SARCO Q4 Dec 31 2023</h6></a
-                    >
-                  </div>
+                    <p-listbox
+              [options]="statusFinancials"
+              optionLabel="fileName"
+              (click)="getCompanyAccounts()"
+              [(ngModel)]="statusFinanial" 
+              [style]="{ width: '100%' }"
+              [listStyle]="{ 'max-height': '820px','min-height': '420px' }"
+            />
+                  
                 </div>
               </div>
             </div>
@@ -35,27 +39,30 @@
             <div class="row">
                 <div class="col-md-4">
                     <p-radioButton
-                    name="ingredient"
-                    value="All"
-                    [(ngModel)]="ingredient"
+                    name="financialEntryType"
+                    value="0"
+                    (click)="filterData()"
+                    [(ngModel)]="financialEntryType"
                     inputId="All"
                   />
                   <label for="All" class="ms-2 col-form-label"> All </label>
                 </div>
                 <div class="col-md-4">
                     <p-radioButton
-                    name="ingredient"
-                    value="New"
-                    [(ngModel)]="ingredient"
+                    name="financialEntryType"
+                    value="1"
+                    (click)="filterData()"
+                    [(ngModel)]="financialEntryType"
                     inputId="New"
                   />
                   <label for="New" class="ms-2 col-form-label"> New </label>
                 </div>
                 <div class="col-md-4">
                     <p-radioButton
-                    name="ingredient"
-                    value="Review"
-                    [(ngModel)]="ingredient"
+                    name="financialEntryType"
+                    (click)="filterData()"
+                    value="2"
+                    [(ngModel)]="financialEntryType"
                     inputId="Review"
                   />
                   <label for="Review" class="ms-2 col-form-label"> Review </label>
@@ -75,7 +82,7 @@
                   <label class="col-form-label"><b>Company:</b></label>
                 </div>
                 <div class="col-md-9">
-                  <label class="col-form-label">Suadi Arabian Refineries Co.</label>
+                  <label class="col-form-label">{{statusFinanial.company}}</label>
                 </div>
               </div>
               <div class="row">
@@ -83,7 +90,7 @@
                   <label class="col-form-label"><b>As Of Date:</b></label>
                 </div>
                 <div class="col-md-9">
-                  <label class="col-form-label">31-12-2023</label>
+                  <label class="col-form-label">{{statusFinanial.asOfDate | date : 'MM/dd/yyyy'}}</label>
                 </div>
               </div>
               <div class="row">
@@ -91,7 +98,7 @@
                   <label class="col-form-label"><b>Uploaded By:</b></label>
                 </div>
                 <div class="col-md-9">
-                  <label class="col-form-label">Kashif</label>
+                  <label class="col-form-label">{{statusFinanial.uploadedBy}}</label>
                 </div>
               </div>
               <div class="row">
@@ -99,7 +106,7 @@
                   <label class="col-form-label"><b>Uploaded Date:</b></label>
                 </div>
                 <div class="col-md-9">
-                  <label class="col-form-label">31-12-2023</label>
+                  <label class="col-form-label">{{statusFinanial.uploadedDate | date : 'MM/dd/yyyy'}}</label>
                 </div>
               </div>
             </div>
@@ -107,12 +114,14 @@
               <div class="row">
                 <div class="col-md-12">
                   <label class="col-form-label">Remarks</label>
-                  <textarea rows="1" class="form-control" placeholder="Describe Overview here...">
+                  <textarea rows="1" class="form-control" [(ngModel)]="statusFinanial.remarks"
+                  name="remarks"  placeholder="Describe Overview here...">
                   </textarea>
                 </div>
                 <div class="col-md-12">
                   <label class="col-form-label">Remarks (AR)</label>
-                  <textarea rows="1" class="form-control" placeholder="Describe Overview here...">
+                  <textarea rows="1" class="form-control" [(ngModel)]="statusFinanial.aRemarks"
+                  name="remarks"  placeholder="Describe Overview here...">
                   </textarea>
                 </div>
               </div>
@@ -125,17 +134,18 @@
                   <h6>Uploaded Financial:</h6>
                 </div>
                 <div class="col-md-6">
-                  <h6>As Of Date: 31-12-2023</h6>
+                  <h6>As Of Date: {{statusFinanial.asOfDate | date : 'MM/dd/yyyy'}}</h6>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <p-table
                     #dt
-                    [value]="companies"
-                    [tableStyle]="{ 'max-height': '20rem' }"
+                    [value]="financialsDetails"
+                    [scrollable]="true" 
+                    scrollHeight="35rem"
                     responsiveLayout="stack"
-                    styleClass="p-datatable-strip"
+                    styleClass="p-datatable-gridlines"
                   >
                     <ng-template pTemplate="header">
                       <tr>
@@ -145,11 +155,12 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-item>
                       <tr>
-                        <td>{{ item.company }}</td>
+                        <td>{{ item.gbFact }}</td>
                         <td>
                           <input
                             autofocus
                             [(ngModel)]="item.value"
+                            name="value"
                             type="text"
                             class="form-control"
                           />
@@ -176,29 +187,11 @@
                     <div class="card-header p-2">
                         <h6>Review Dates</h6>
                     </div>
-                    <div class="card-body p-1 text-center">
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">30-03-2023</a>
-                        <a class="btn btn-sm btn-link">29-03-2023</a>
-                        <a class="btn btn-sm btn-link">31-03-2023</a>
-                        <a class="btn btn-sm btn-link">26-03-2023</a>
-                        <a class="btn btn-sm btn-link">31-03-2023</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
-                        <a class="btn btn-sm btn-link">31-03-2024</a>
+                    <div class="card-body p-1 text-center" style="height: 35rem;overflow: auto;">
+                      <ng-container *ngFor="let item of asOfDates;">
+                        <a (click)="getAsofDatesFinancials(item)" class="btn btn-sm btn-link">{{item.asOfDate}}</a>
+                     </ng-container>
+                        
                     </div>
                 </div>
             </div>
@@ -208,17 +201,18 @@
                     <h6>Review Financial:</h6>
                   </div>
                   <div class="col-md-6">
-                    <h6>As Of Date: 30-09-2023</h6>
+                    <h6>As Of Date: {{statusFinanial.asOfDate | date : 'MM/dd/yyyy'}}</h6>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-12">
                     <p-table
                       #dt
-                      [value]="companies"
-                      [tableStyle]="{ 'max-height': '20rem' }"
-                      responsiveLayout="stack"
-                      styleClass="p-datatable-strip"
+                      [value]="reviewFinancialsDetails"
+                      [scrollable]="true" 
+                    scrollHeight="35rem"
+                    responsiveLayout="stack"
+                    styleClass="p-datatable-gridlines"
                     >
                       <ng-template pTemplate="header">
                         <tr>
@@ -228,11 +222,12 @@
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
                         <tr>
-                          <td>{{ item.company }}</td>
+                          <td>{{ item.gbFact }}</td>
                           <td>
                             <input
                               autofocus
                               [(ngModel)]="item.value"
+                              name="value"
                               type="text"
                               class="form-control"
                             />

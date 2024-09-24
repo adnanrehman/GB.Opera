@@ -9,56 +9,47 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { PermissionService } from '@abp/ng.core';
+import { ConfigStateService, PermissionService } from '@abp/ng.core';
 import { Financial_Entry } from 'src/app/services/permissions';
 import { CommonModule } from '@angular/common';
+import { ListboxModule } from 'primeng/listbox';
+import { AsOfDateDto, AsofDatesFinancialInputDto, CompanyAccountsInputDto, EntryService, FinancialsDetailDto, StatusFinancialsDto } from '@proxy/entry';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
 
 @Component({
   selector: 'app-entry',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,
+  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ListboxModule,CommonModule,ThemeSharedModule,
     ImageModule,FileUploadModule,TabViewModule,CheckboxModule,RadioButtonModule,CommonModule ],
   templateUrl: './entry.component.html',
   styleUrl: './entry.component.scss'
 })
 export class EntryComponent {
 
-  filteredCountries: any[];
-  ingredient:any;
-  companies: any[] = [ 
-    { company: "Income Statement" },
-    { company: "Reveneues", value:"15,599.0000" },
-    { company: "Operating Cost" },
-    { company: "Gross Profit" },
-    { company: "Investment Income (Loss)" , value:"15,599.0000" },
-    { company: "Share of results of associates", value:"15,362.0000" },
-    { company: "General and administrator expected", value:"237.0000"  },
-    { company: "Depreciation of property" },
-    { company: "Provision for impairment" },
-    { company: "Prof of doubtfull Debts" },
-    { company: "Net Profit loss from operations", value:"9,566.0000" },
-    { company: "Operating Income", value:"9,566.0000" },
-    { company: "other income - profit", value:"324.0000" },
-    { company: "other provisions" },
-    { company: "other Expenses" },
-    { company: "Depreciations & Amortions", value:"324.0000" },
-    { company: "Other Income", value:"9,568.0000" },
-    { company: "Provisions" },
-  ];
-  markets = [ 
-    { name: "TASI" }, 
-    { name: "ReactJS" }, 
-    { name: "Angular" }, 
-    { name: "Bootstrap" }, 
-    { name: "PrimeNG" }, 
-  ];
+  statusFinancials: any[];
+  financialsDetails: FinancialsDetailDto[]= [];
+  reviewFinancialsDetails: FinancialsDetailDto[]= [];
+  asOfDates: AsOfDateDto[]= [];
+  statusFinancialsFilterData: any[];
+  financialEntryType:any;
+  loading = false;
+  statusFinanial:StatusFinancialsDto ={
+    financialsID: 0,
+    companyID: 0,
+    newReviewFinancialID: 0,
+    financialEntryTypeID: 0
+  };
+  userId = "";
   permission: {
     create: boolean;
     edit: boolean,
     delete: boolean
   }
   constructor( 
-    private permissionService: PermissionService){
+    private permissionService: PermissionService,
+    private config: ConfigStateService,
+    private entryService:EntryService
+  ){
    this.permission = {
      create: false,
      edit : false,
@@ -75,12 +66,55 @@ export class EntryComponent {
     if (this.permissionService.getGrantedPolicy(Financial_Entry + '.Delete')) {
       this.permission.delete = true;
     }
-    this.filteredCountries = [
-      {name: "RIBL",code:'rible'},
-      {name: "Suadia Arabia",code:'KSA'},
-      {name: "Dubai",code:'UAE'},
-      {name: "IRAN",code:'IR'},
-    ]
+    const currentUser = this.config.getOne("currentUser");
+    this.userId = currentUser.id;
+    this.getStatusFinancialsByUserId();
+  }
+
+  getStatusFinancialsByUserId() {
+    this.entryService.getStatusFinancialsByUserId(this.userId).subscribe(res => {
+      this.statusFinancials = res;
+      this.statusFinancialsFilterData = res;
+    });
+  }
+
+  filterData(){
+    if(this.financialEntryType == "0")
+      this.statusFinancials = this.statusFinancialsFilterData;
+    else 
+    this.statusFinancials = this.statusFinancialsFilterData.filter(f => f.financialEntryTypeID == Number(this.financialEntryType))
+  }
+
+  getCompanyAccounts(){
+    this.loading = true;
+    var obj: CompanyAccountsInputDto= {
+      financialsID: this.statusFinanial.financialsID,
+      newReviewFinancialID: this.statusFinanial.newReviewFinancialID,
+      companyID: this.statusFinanial.companyID,
+      isNew: true
+    }
+    this.entryService.getCompanyAccountsByInput(obj).subscribe(res => {
+      debugger;
+      this.financialsDetails = res.financialsDetails;
+      this.asOfDates = res.asOfDates;
+      if(this.asOfDates.length > 0) this.getAsofDatesFinancials(this.asOfDates[0]);
+      else this.loading = false;        
+    });
+  }
+
+  getAsofDatesFinancials(asOfDate:AsOfDateDto){
+    this.loading = true;
+    var obj: AsofDatesFinancialInputDto= {
+      financialsID: this.statusFinanial.financialsID,
+      companyID: this.statusFinanial.companyID,
+      isNew: false
+    }
+    this.entryService.getAsofDatesFinancialsByInput(obj).subscribe(res => {
+      debugger;
+      this.reviewFinancialsDetails = res.financialsDetails;
+      this.loading = false;
+    });
   }
 
 }
+

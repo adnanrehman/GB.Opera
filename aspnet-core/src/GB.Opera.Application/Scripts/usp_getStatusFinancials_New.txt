@@ -1,0 +1,71 @@
+ 
+--[usp_getStatusFinancials] 1
+Create PROCEDURE [dbo].[usp_getStatusFinancials_New]
+(
+@StatusID smallint,
+@UserID uniqueidentifier
+)
+AS
+
+SET NOCOUNT ON 
+
+if(@StatusID=1)   --  for  Entry and Re-Entry users
+begin
+
+SELECT     dbo.Financials.FinancialsID, dbo.Financials.AsOfDate, dbo.Financials.CompanyID, dbo.NewReviewFinancials.NewReviewFinancialID, 
+                      dbo.NewReviewFinancials.UploadedPath, dbo.NewReviewFinancials.SecondaryUploadedPath, 
+                      '(' + dbo.getCompanyTickerFromFinID(dbo.Financials.FinancialsID) + ' ' + dbo.getQPeriodTypeFromFinID(dbo.Financials.FinancialsID) 
+                      + ') ' + CONVERT(VARCHAR(12),dbo.Financials.AsOfDate) AS FileName, dbo.FinancialStatusRemarks.Remarks, dbo.FinancialStatusRemarks.ARemarks, 
+                      dbo.AbpUsers.UserName AS UploadedBy, dbo.NewReviewFinancials.UploadedDate, dbo.Companies.Company, dbo.Companies.Ticker, 
+                      dbo.NewReviewFinancials.FinancialEntryTypeID
+FROM         dbo.AbpUsers INNER JOIN
+                      dbo.FinancialStatusRemarks ON dbo.AbpUsers.Id = dbo.FinancialStatusRemarks.gbuserId INNER JOIN
+                      dbo.Financials INNER JOIN
+                      dbo.NewReviewFinancials ON dbo.Financials.FinancialsID = dbo.NewReviewFinancials.FinancialsID INNER JOIN
+                      dbo.Companies ON dbo.Financials.CompanyID = dbo.Companies.CompanyID ON 
+                      dbo.FinancialStatusRemarks.NewReviewFinancialID = dbo.NewReviewFinancials.NewReviewFinancialID INNER JOIN
+                      dbo.UserFinancials ON dbo.NewReviewFinancials.NewReviewFinancialID = dbo.UserFinancials.NewReviewFinancialID
+WHERE     dbo.FinancialStatusRemarks.StatusID = @StatusID  AND dbo.Financials.IsActive = 'true' and UserFinancials.gbEntryUser=@UserID --AND dbo.Financials.IsAudited = 'false'
+return
+end
+
+if(@StatusID=2)   --  for   Re-Entry users
+begin
+
+SELECT     dbo.Financials.FinancialsID, dbo.Financials.AsOfDate, dbo.Financials.CompanyID, dbo.NewReviewFinancials.NewReviewFinancialID, 
+                      dbo.NewReviewFinancials.UploadedPath, dbo.NewReviewFinancials.SecondaryUploadedPath, 
+                      '(' + dbo.getCompanyTickerFromFinID(dbo.Financials.FinancialsID) + ' ' + dbo.getQPeriodTypeFromFinID(dbo.Financials.FinancialsID) 
+                      + ') ' + dbo.NewReviewFinancials.FileName AS FileName, dbo.FinancialStatusRemarks.Remarks, dbo.FinancialStatusRemarks.ARemarks, 
+                      [dbo].[getUserNameFromUserID_New](UserFinancials.gbEntryUser) AS UploadedBy, dbo.NewReviewFinancials.UploadedDate, dbo.Companies.Company, dbo.Companies.Ticker, 
+                      dbo.NewReviewFinancials.FinancialEntryTypeID
+FROM         dbo.AbpUsers INNER JOIN
+                      dbo.FinancialStatusRemarks ON dbo.AbpUsers.Id = dbo.FinancialStatusRemarks.gbuserId INNER JOIN
+                      dbo.Financials INNER JOIN
+                      dbo.NewReviewFinancials ON dbo.Financials.FinancialsID = dbo.NewReviewFinancials.FinancialsID INNER JOIN
+                      dbo.Companies ON dbo.Financials.CompanyID = dbo.Companies.CompanyID ON 
+                      dbo.FinancialStatusRemarks.NewReviewFinancialID = dbo.NewReviewFinancials.NewReviewFinancialID INNER JOIN
+                      dbo.UserFinancials ON dbo.NewReviewFinancials.NewReviewFinancialID = dbo.UserFinancials.NewReviewFinancialID
+WHERE     dbo.FinancialStatusRemarks.StatusID = @StatusID  AND dbo.Financials.IsActive = 'true' and UserFinancials.gbReEntryUser=@UserID --AND dbo.Financials.IsAudited = 'false'
+return
+end
+
+if(@StatusID=3)  -- for Review users
+begin
+SELECT     dbo.Financials.FinancialsID, dbo.Financials.AsOfDate, dbo.Financials.CompanyID, dbo.NewReviewFinancials.NewReviewFinancialID, 
+                      dbo.NewReviewFinancials.UploadedPath, dbo.NewReviewFinancials.SecondaryUploadedPath, 
+                      '(' + dbo.getCompanyTickerFromFinID(dbo.Financials.FinancialsID) + ' ' + dbo.getQPeriodTypeFromFinID(dbo.Financials.FinancialsID) 
+                      + ') ' + dbo.NewReviewFinancials.FileName AS FileName, dbo.FinancialStatusRemarks.Remarks, dbo.FinancialStatusRemarks.ARemarks, 
+                      dbo.getUserNameFromUserID_New(dbo.UserFinancials.gbReEntryUser) + ' and ' + dbo.getUserNameFromUserID_New(dbo.UserFinancials.gbReEntryUser) AS UploadedBy, 
+                      dbo.NewReviewFinancials.UploadedDate, dbo.Companies.Company, dbo.Companies.Ticker, dbo.NewReviewFinancials.FinancialEntryTypeID
+FROM         dbo.AbpUsers INNER JOIN
+                      dbo.FinancialStatusRemarks ON dbo.AbpUsers.Id = dbo.FinancialStatusRemarks.gbuserId INNER JOIN
+                      dbo.Financials INNER JOIN
+                      dbo.NewReviewFinancials ON dbo.Financials.FinancialsID = dbo.NewReviewFinancials.FinancialsID INNER JOIN
+                      dbo.Companies ON dbo.Financials.CompanyID = dbo.Companies.CompanyID ON 
+                      dbo.FinancialStatusRemarks.NewReviewFinancialID = dbo.NewReviewFinancials.NewReviewFinancialID LEFT OUTER JOIN
+                      dbo.UserFinancials ON dbo.NewReviewFinancials.NewReviewFinancialID = dbo.UserFinancials.NewReviewFinancialID
+
+WHERE     dbo.FinancialStatusRemarks.StatusID = @StatusID  AND dbo.Financials.IsActive = 'true' --AND dbo.Financials.IsAudited = 'false'
+end
+
+

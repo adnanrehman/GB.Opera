@@ -41,10 +41,12 @@ export interface UploadFinancialListDto {
 
 export interface UploadFinancials {
   financialsID: number;
+  newReviewFinancialID: number;
   companyID: number;
   asOfDate?: string;
   periodTypeID: number;
   financialEntryTypeID: number;
+  fName?: string;
   remarks?: string;
   aRemarks?: string;
   year?: number;
