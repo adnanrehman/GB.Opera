@@ -13,8 +13,9 @@ import { ConfigStateService, PermissionService } from '@abp/ng.core';
 import { Financial_Entry } from 'src/app/services/permissions';
 import { CommonModule } from '@angular/common';
 import { ListboxModule } from 'primeng/listbox';
-import { AsOfDateDto, AsofDatesFinancialInputDto, CompanyAccountsInputDto, EntryService, FinancialsDetailDto, StatusFinancialsDto } from '@proxy/entry';
+import { AsOfDateDto, AsofDatesFinancialDto, AsofDatesFinancialInputDto, CompanyAccountsInputDto, EntryService, FinancialsDetailDto, FinEntryInReviewDto, StatusFinancialsDto } from '@proxy/entry';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-entry',
@@ -29,6 +30,7 @@ export class EntryComponent {
   statusFinancials: any[];
   financialsDetails: FinancialsDetailDto[]= [];
   reviewFinancialsDetails: FinancialsDetailDto[]= [];
+  finEntryInReviews: FinEntryInReviewDto[]=[];
   asOfDates: AsOfDateDto[]= [];
   statusFinancialsFilterData: any[];
   financialEntryType:any;
@@ -39,6 +41,11 @@ export class EntryComponent {
     newReviewFinancialID: 0,
     financialEntryTypeID: 0
   };
+  asOfDate:AsOfDateDto ={
+    financialsID: 0,
+    companyID: 0,
+    hasChanges: false
+  }
   userId = "";
   permission: {
     create: boolean;
@@ -104,17 +111,79 @@ export class EntryComponent {
 
   getAsofDatesFinancials(asOfDate:AsOfDateDto){
     this.loading = true;
+    this.asOfDate = asOfDate;
     var obj: AsofDatesFinancialInputDto= {
-      financialsID: this.statusFinanial.financialsID,
-      companyID: this.statusFinanial.companyID,
+      financialsID: asOfDate.financialsID,
+      companyID: asOfDate.companyID,
       isNew: false
     }
     this.entryService.getAsofDatesFinancialsByInput(obj).subscribe(res => {
       debugger;
       this.reviewFinancialsDetails = res.financialsDetails;
+      this.finEntryInReviews = res.finEntryInReviews
       this.loading = false;
     });
   }
+
+  SavePending() {
+    debugger;
+    this.loading = true;
+    this.entryService.insertUpdateFinancialValuesByList(this.financialsDetails).subscribe(res => {
+      debugger;
+      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:'Saved successfully', icon: 'success', });
+      this.getCompanyAccounts();
+
+      this.loading = false;
+    },
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
+  }
+
+  forward() {
+    debugger;
+    this.loading = true;
+    this.entryService.insertUpdateFinancialCommentsStatusByListAndUserID(this.financialsDetails,this.userId).subscribe(res => {
+      debugger;
+      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:'Saved successfully', icon: 'success', });
+      this.getCompanyAccounts();
+
+      this.loading = false;
+    },
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
+  }
+
+  ComitChanges() {
+    debugger;
+    this.loading = true;
+    var obj: AsofDatesFinancialDto= {
+      financialsDetails: this.reviewFinancialsDetails,
+      finEntryInReviews: this.financialEntryType
+    }
+    this.entryService.insertUpdateComitChangesByDtoAndUserID(obj,this.userId).subscribe(res => {
+      debugger;
+      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:'Saved successfully', icon: 'success', });
+      this.getAsofDatesFinancials(this.asOfDate);
+
+      this.loading = false;
+    },
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
+  }
+
+
 
 }
 

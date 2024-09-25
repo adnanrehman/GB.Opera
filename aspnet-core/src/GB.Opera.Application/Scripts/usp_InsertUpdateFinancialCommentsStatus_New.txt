@@ -1,0 +1,87 @@
+﻿ 
+
+
+
+
+Create  procedure [dbo].[usp_InsertUpdateFinancialCommentsStatus_New]
+(
+
+@NewReviewFinancialID bigint 
+,@NewReviewStatusID smallint
+,@FinancialsID bigint
+,@Remarks varchar(200)
+,@ARemarks nvarchar(200)
+,@UserID uniqueidentifier
+
+)
+as
+
+SET NOCOUNT ON;
+
+if Not exists(select [FinancialsID] from [FinancialStatusRemarks] where [FinancialsID]=@FinancialsID and [NewReviewFinancialID]=@NewReviewFinancialID )
+begin
+
+INSERT INTO [opera].[dbo].[FinancialStatusRemarks]
+           ([NewReviewFinancialID]
+		   ,[FinancialsID]
+           ,[StatusID]
+           ,[Remarks]
+           ,[ARemarks]
+           ,[UserID],gbuserId)
+     VALUES
+           (@NewReviewFinancialID,@FinancialsID,@NewReviewStatusID,@Remarks,@ARemarks,null,@UserID)
+
+--exec usp_InsertUpdateFinRemarksLog @FinancialsID,@NewReviewFinancialID,'Enterer',@UserID,@Remarks,@ARemarks 
+
+end
+else
+begin
+
+UPDATE [opera].[dbo].[FinancialStatusRemarks]
+   SET [StatusID] = @NewReviewStatusID
+      ,[Remarks] = @Remarks
+      ,[ARemarks] = @ARemarks
+      ,gbuserId = @UserID
+
+where [FinancialsID]=@FinancialsID and [NewReviewFinancialID]=@NewReviewFinancialID 
+
+exec usp_InsertUpdateFinRemarksLog @FinancialsID,@NewReviewFinancialID,'Enterer',@UserID,@Remarks,@ARemarks 
+end
+  
+Delete from [FinancialsMatching] where NewReviewFinancialID=@NewReviewFinancialID 
+
+Delete from SubFinancialsMatching where [FinancialsID]=@FinancialsID 
+/*
+UPDATE [opera].[dbo].[NewReviewFinancials]
+   SET 
+      [StatusID] = @NewReviewStatus
+ 
+WHERE NewReviewFinancialID=@NewReviewFinancialID
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--Select * from FinancialsDetails
+
+
+
+
+
+
+
+
+
+
+

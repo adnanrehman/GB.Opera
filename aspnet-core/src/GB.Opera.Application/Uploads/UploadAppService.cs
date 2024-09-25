@@ -101,7 +101,7 @@ namespace GB.Opera.Uploads
                 parameters.Add("@PeriodNote", input.PeriodNote);
                 parameters.Add("@APeriodNote", input.APeriodNote);
 
-                var data = await _connection.QuerySingleAsync<UploadFinancialOutput>("usp_InsertFinancialsNewReview_New", parameters, commandType: CommandType.StoredProcedure);
+                var data = await _connection.QuerySingleAsync<UploadFinancialOutput>(ProcedureNames.usp_InsertFinancialsNewReview_New, parameters, commandType: CommandType.StoredProcedure);
 
                 var financialsID = data.FinancialsID;
                 var newReviewFinancialID = data.NewReviewFinancialID;
@@ -116,7 +116,7 @@ namespace GB.Opera.Uploads
                 parameters2.Add("@EntryUser", input.EntryUser);
                 parameters2.Add("@ReEntryUser", input.ReEntryUser);
 
-                await _connection.ExecuteAsync("usp_SetNewReviewFinanUploadedPath_New", parameters2, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_SetNewReviewFinanUploadedPath_New, parameters2, commandType: CommandType.StoredProcedure);
 
 
 

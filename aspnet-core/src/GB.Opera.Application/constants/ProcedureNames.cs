@@ -72,6 +72,11 @@ namespace GB.Opera.constants
         public const string usp_getStatusFinancials_New = "usp_getStatusFinancials_New";
         public const string usp_getCompaniesAccounts = "usp_getCompaniesAccounts";
         public const string usp_getAsofDatesFinancials = "usp_getAsofDatesFinancials";
+        public const string usp_InsertFinancialsNewReview_New = "usp_InsertFinancialsNewReview_New";
+        public const string usp_SetNewReviewFinanUploadedPath_New = "usp_SetNewReviewFinanUploadedPath_New";
+        public const string usp_InsertUpdateFinancialValues = "usp_InsertUpdateFinancialValues";
+        public const string usp_InsertUpdateFinancialCommentsStatus_New = "usp_InsertUpdateFinancialCommentsStatus_New";
+        public const string usp_InsertFinReviewFromEntry_New = "usp_InsertFinReviewFromEntry_New";
     }
 }
  

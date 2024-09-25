@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Volo.Abp.Application.Services;
 
 namespace GB.Opera.Entry
@@ -80,6 +81,61 @@ namespace GB.Opera.Entry
                 throw ex;
             }
 
+        }
+        
+        public async Task InsertUpdateFinancialValues(List<FinancialsDetailDto> list)
+        {
+            foreach (var item in list)
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@FinancialDetailID", item.FinancialDetailId);
+                parameters.Add("@GBFactID", item.GBFactID);
+                parameters.Add("@ParentID", item.ParentID);
+                parameters.Add("@GBFact", item.GBFact);
+                parameters.Add("@Value", item.Value);
+                parameters.Add("@FinancialsID", item.FinancialsID);
+
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialValues, parameters, commandType: CommandType.StoredProcedure);
+            }    
+        }
+
+        public async Task InsertUpdateFinancialCommentsStatus(List<FinancialsDetailDto> list, Guid userID)
+        {
+            foreach (var item in list)
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@FinancialDetailID", item.FinancialDetailId);
+                parameters.Add("@UserID", userID);
+                parameters.Add("@FinancialsID", item.FinancialsID);
+
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialCommentsStatus_New, parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public async Task InsertUpdateComitChanges(AsofDatesFinancialDto dto, Guid userID)
+        {
+            foreach (var item in dto.FinancialsDetails)
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@FinancialDetailID", item.FinancialDetailId);
+                parameters.Add("@GBFactID", item.GBFactID);
+                parameters.Add("@ParentID", item.ParentID);
+                parameters.Add("@GBFact", item.GBFact);
+                parameters.Add("@Value", item.Value);
+                parameters.Add("@FinancialsID", item.FinancialsID);
+
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialValues, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            foreach (var item in dto.FinEntryInReviews)
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@FinancialDetailID", item.FinancialDetailID);
+                parameters.Add("@UserID", userID);
+                parameters.Add("@FinancialsID", item.FinancialsID);
+
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertFinReviewFromEntry_New, parameters, commandType: CommandType.StoredProcedure);
+            }
         }
     }
 }

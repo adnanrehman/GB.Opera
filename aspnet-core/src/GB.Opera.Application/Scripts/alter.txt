@@ -22,3 +22,8 @@ ALTER COLUMN EntryUser smallint NULL;
 
 ALTER TABLE opera.dbo.[UserFinancials]
 ALTER COLUMN ReEntryUser smallint NULL;
+
+Alter Table FinancialsEntryInReview add gbuserId uniqueidentifier
+
+ALTER TABLE [FinancialsEntryInReview]
+ALTER COLUMN UserID SMALLINT NULL;

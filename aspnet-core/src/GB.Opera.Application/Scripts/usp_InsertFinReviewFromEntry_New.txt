@@ -1,0 +1,30 @@
+﻿ 
+Create PROCEDURE [dbo].[usp_InsertFinReviewFromEntry_New]
+(
+@FinancialsID bigint,
+@FinancialDetailID bigint,
+@UserID uniqueidentifier
+)
+
+
+AS
+BEGIN
+
+If not (@FinancialDetailID is  null)
+begin
+
+if not exists(select FinancialDetailID from FinancialsEntryInReview where FinancialDetailID=@FinancialDetailID and IsActive='true')
+begin
+INSERT INTO [opera].[dbo].[FinancialsEntryInReview]
+           ([FinancialsID]
+           ,[FinancialDetailID]
+           ,[UserID]
+           ,[ReviewEntryDate]
+           ,[IsActive],gbuserId)
+     VALUES
+           (@FinancialsID,@FinancialDetailID,null,getdate(),'true',@UserID)
+end
+end
+end
+
+
