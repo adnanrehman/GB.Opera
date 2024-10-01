@@ -1,48 +1,49 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
   <div class="row mb-2">
     <div class="col-md-3">
       <div class="row mb-2">
         <div class="col-md-12">
           <p-dropdown
-            [options]="markets"
-            placeholder="Select a Market"
-            optionLabel="name"
-            [style]="{ width: '100%' }"
-            [showClear]="true"
+          [options]="stockMarkets"
+          [(ngModel)]="stockMarketID"
+          name="stockMarketID"
+          placeholder="Select a Market"
+          optionLabel="abbr"
+          optionValue="stockMarketID"
+          (ngModelChange)="getStockMarketSectorsByStockMarketID()"
+          [style]="{ width: '100%' }"
+          [showClear]="true"
           >
           </p-dropdown>
         </div>
         <div class="col-md-12 mt-2">
           <p-dropdown
-            [options]="markets"
-            placeholder="Select a Sector"
-            optionLabel="name"
-            [style]="{ width: '100%' }"
-            [showClear]="true"
+          [options]="companyMarketSectors"
+          [(ngModel)]="sectorID"
+          name="sectorID"
+          placeholder="Select a Sector"
+          optionLabel="sector"
+          optionValue="sectorID"
+          (ngModelChange)="getSectorCompaniesBySectorIDAndStockMarketID()"
+          [style]="{ width: '100%' }"
+          [showClear]="true"
           >
           </p-dropdown>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <h6>Companies</h6>
-          <div class="card">
-            <div class="card-body p-0">
-              <h6 class="selector p-1 mb-1 border-bottom">ACDB</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">AVD</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">HGFA</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">KJUYA</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">ADEF</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">DDEDW</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SDAD</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">DFES</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
-              <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
-            </div>
-          </div>
+          <h6 class="p-1 mb-1">Companies</h6>
+          <p-listbox
+            [options]="companiesTickers"
+            [(ngModel)]="companyID"
+            name="companyID"
+            optionLabel="ticker"
+            (click)="getNewFinancialReviewsByCompanyID()"
+            optionValue="companyID"
+            [style]="{ width: '100%' }"
+            [listStyle]="{ 'max-height': '30rem' }"
+          />
         </div>
       </div>
     </div>
@@ -52,13 +53,16 @@
           <div class="row">
             <div class="col-md-12">
               <p-autoComplete
-                [suggestions]="filteredCountries"
-                field="name"
-                placeholder="Search the Companies and select"
+                [(ngModel)]="selectedItem"
+                [ngModelOptions]="{ standalone: true }"
+                (onSelect)="onSelect($event)"
+                [suggestions]="suggestions"
+                (completeMethod)="search($event)"
                 [style]="{ width: '100%' }"
+                field="company"
                 [inputStyle]="{ width: '100%' }"
-              >
-              </p-autoComplete>
+                >
+                </p-autoComplete>
             </div>
           </div>
           <div class="row mt-2">
@@ -71,13 +75,16 @@
                   <input
                     autofocus
                     type="text"
+                    [(ngModel)]="rate"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="rate"
                     class="form-control col-8"
                     name="Company"
                     placeholder="Rate"
                   />
                 </div>
                 <div class="col-md-4">
-                  <button *ngIf="permission.create"  class="btn btn-sm btn-primary">Update</button>
+                  <button *ngIf="permission.create" (click)="updateFinancialRateChangesByFinancialIdAndRate()"  class="btn btn-sm btn-primary">Update</button>
                 </div>
               </div>
             </div>
@@ -91,26 +98,24 @@
                 <div class="col-md-12">
                   <p-table
                     #dt
-                    [value]="companies"
-                    selectionMode="single"
-                    [tableStyle]="{ height: '10rem', overflow: 'scroll' }"
+                    [value]="newReviewFinancials"
+                    [scrollable]="true" 
+                    scrollHeight="40rem"
                     responsiveLayout="stack"
-                    styleClass="p-datatable-strip"
+                    styleClass="p-datatable-gridlines"
                   >
                     <ng-template pTemplate="header">
                       <tr>
-                        <th></th>
                         <th>As Of Date</th>
                         <th>Year</th>
                         <th>Q Period</th>
                       </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-item>
-                      <tr [pSelectableRow]="item">
-                        <td></td>
-                        <td>{{ item.aod }}</td>
-                        <td>{{ item.yr }}</td>
-                        <td>{{ item.pr }}</td>
+                      <tr (click)="handleNewReviewFinancial(item)">
+                        <td>{{ item.asOfDate | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ item.year }}</td>
+                        <td>{{ item.qPeriod }}</td>
                       </tr>
                     </ng-template>
                   </p-table>
@@ -122,9 +127,9 @@
                 <div class="col-md-6">New And Review Financials:</div>
                 <div class="col-md-6">
                   <p-dropdown
-                    [options]="markets"
+                    [options]="newReviewFinancials"
                     placeholder="Select a Financial"
-                    optionLabel="name"
+                    optionLabel="qperiod"
                     [style]="{ width: '100%' }"
                     [showClear]="true"
                   >
@@ -136,9 +141,13 @@
                 <div class="col-md-6">
                   <label class="col-form-label">Period Type</label>
                   <p-dropdown
-                    [options]="markets"
+                    [options]="periodTypes"
+                    [(ngModel)]="newReviewFinancial.periodTypeID"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="periodTypeID"
                     placeholder="Select a Period Type"
-                    optionLabel="name"
+                    optionLabel="period"
+                    optionValue="periodTypeID"
                     [style]="{ width: '100%' }"
                     [showClear]="true"
                   >
@@ -147,9 +156,13 @@
                 <div class="col-md-6">
                   <label class="col-form-label">Q Period</label>
                   <p-dropdown
-                    [options]="markets"
+                    [options]="qPeriods"
                     placeholder="Select a Q Period"
-                    optionLabel="name"
+                    [(ngModel)]="newReviewFinancial.qPeriodID"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="qPeriodID"
+                    optionValue="qPeriodID"
+                    optionLabel="qPeriod"
                     [style]="{ width: '100%' }"
                     [showClear]="true"
                   >
@@ -158,9 +171,13 @@
                 <div class="col-md-6">
                   <label class="col-form-label">Enterer</label>
                   <p-dropdown
-                    [options]="markets"
+                    [options]="users"
+                    [(ngModel)]="newReviewFinancial.entryUser"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="entryUser"
+                    optionValue="userID"
                     placeholder="Select a Enterer"
-                    optionLabel="name"
+                    optionLabel="userName"
                     [style]="{ width: '100%' }"
                     [showClear]="true"
                   >
@@ -169,9 +186,13 @@
                 <div class="col-md-6">
                   <label class="col-form-label">Re Enterer</label>
                   <p-dropdown
-                    [options]="markets"
+                    [options]="usersList"
+                    [(ngModel)]="newReviewFinancial.reEntryUser"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="reEntryUser"
+                    optionValue="userID"
                     placeholder="Select a Re Enterer"
-                    optionLabel="name"
+                    optionLabel="userName"
                     [style]="{ width: '100%' }"
                     [showClear]="true"
                   >
@@ -180,9 +201,13 @@
                 <div class="col-md-6">
                   <label class="col-form-label">Financial In</label>
                   <p-dropdown
-                    [options]="markets"
+                    [options]="statuses"
+                    [(ngModel)]="newReviewFinancial.statusID"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="statusID"
+                    optionValue="statusID"
                     placeholder="Select a Financial In"
-                    optionLabel="name"
+                    optionLabel="status"
                     [style]="{ width: '100%' }"
                     [showClear]="true"
                   >
@@ -193,53 +218,55 @@
                   <p-calendar
                     [style]="{ width: '100%' }"
                     view="year"
+                    dataType="string"
+                    [(ngModel)]="newReviewFinancial.year" name="year" [showIcon]="true"
                     dateFormat="yy"
                     placeholder="Select a Year"
                   />
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">As Of Date</label>
-                  <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
+                  <p-calendar [style]="{ width: '100%' }" dataType="string" [showIcon]="true" [(ngModel)]="newReviewFinancial.asOfDate" name="asOfDate" placeholder="Select a Date" />
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
-                  <p-checkbox value="New York" inputId="ny" />
+                  <p-checkbox value="New York" [(ngModel)]="newReviewFinancial.isAudited" name="isAudited" inputId="ny" />
                   <label for="ny" class="col-form-label">Audited</label>
                 </div>
                 <div class="col-md-4">
-                  <p-checkbox value="New York" inputId="ny" />
+                  <p-checkbox value="New York" [(ngModel)]="newReviewFinancial.isYearly" name="isYearly" inputId="ny" />
                   <label for="ny" class="col-form-label">Yearly</label>
                 </div>
                 <div class="col-md-4">
-                  <p-checkbox value="New York" inputId="ny" />
+                  <p-checkbox value="New York" [(ngModel)]="newReviewFinancial.isActive" name="isActive" inputId="ny" />
                   <label for="ny" class="col-form-label">Active</label>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <label class="col-form-label">Remarks</label>
-                  <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                  <textarea rows="3" class="form-control" [(ngModel)]="newReviewFinancial.remarks" name="remarks" placeholder="Describe Overview here...">
                   </textarea>
                 </div>
                 <div class="col-md-12">
                   <label class="col-form-label">Remarks (AR)</label>
-                  <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                  <textarea rows="3" class="form-control" [(ngModel)]="newReviewFinancial.aRemarks" name="aRemarks"  placeholder="Describe Overview here...">
                   </textarea>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <label>Primary File Name:</label>
+                  <label>Primary File Name: {{newReviewFinancial.fileName}}</label>
                 </div>
                 <div class="col-md-12">
-                  <label>Primary Upload Path:</label>
+                  <label>Primary Upload Path: {{newReviewFinancial.uploadedPath}}</label>
                 </div>
                 <div class="col-md-12">
-                  <label>Secondary File Name:</label>
+                  <label>Secondary File Name: {{newReviewFinancial.secondaryFileName}}</label>
                 </div>
                 <div class="col-md-12">
-                  <label>Secondary Upload Path:</label>
+                  <label>Secondary Upload Path: {{newReviewFinancial.secondaryUploadedPath}}</label>
                 </div>
               </div>
               <div class="row">
@@ -247,7 +274,7 @@
                     <button class="btn btn-sm btn-block btn-primary me-3">Mark it as reviewed</button>
                 </div>
                 <div class="col-md-8 text-end">
-                    <button class="btn btn-sm btn-primary me-3">Update</button>
+                    <button class="btn btn-sm btn-primary me-3" (click)="updateAdminFinancialsByInput()">Update</button>
                     <button class="btn btn-sm btn-danger">Discard</button>
                 </div>
               </div>

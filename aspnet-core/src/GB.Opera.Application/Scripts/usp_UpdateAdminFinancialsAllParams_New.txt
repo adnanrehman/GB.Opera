@@ -1,0 +1,110 @@
+﻿ 
+
+Create PROCEDURE [dbo].[usp_UpdateAdminFinancialsAllParams_New]
+(
+@NewReviewFinancialID bigint,
+@FinancialsID bigint,
+@IsAudited bit,
+@IsActive bit,
+@AsOfDate smalldatetime,
+@PeriodTypeID smallint,
+@Year smallint,
+@QPeriod varchar(4),
+@QPeriodID smallint,
+@IsYearly bit, 
+@EntryUser uniqueidentifier,
+@ReEntryUser uniqueidentifier,
+@StatusID smallint,
+@UploadedPath varchar(200),
+@FileName varchar(150),
+@SecondaryUploadedPath varchar(200),
+@SecondaryFileName varchar(150), 
+@Remarks varchar(200),
+@ARemarks nvarchar(200),
+@FinancialEntryTypeID smallint,
+@PeriodNote varchar(150),
+@APeriodNote nvarchar(150)
+)
+AS
+begin
+SET NOCOUNT ON 
+
+
+UPDATE [opera].[dbo].[Financials]
+		SET [AsOfDate] = @AsOfDate,
+			[PeriodTypeID] = @PeriodTypeID,
+			IsAudited=@IsAudited,
+			IsActive=@IsActive
+
+WHERE	FinancialsID=@FinancialsID
+
+
+UPDATE [opera].[dbo].[FinancialsQYPeriods]
+   SET [Year] = @Year
+      ,[QPeriodID] = @QPeriodID
+      ,[IsYearly] = @IsYearly
+	  ,[PeriodNote] = @PeriodNote
+      ,[APeriodNote] = @APeriodNote
+
+WHERE	FinancialsID=@FinancialsID
+
+if exists(select FinancialsID from [UserFinancials] where FinancialsID=@FinancialsID and NewReviewFinancialID=@NewReviewFinancialID)
+begin
+UPDATE [opera].[dbo].[UserFinancials]
+      Set  [gbEntryUser] =@EntryUser
+          ,[gbReEntryUser] =@ReEntryUser
+
+WHERE	FinancialsID=@FinancialsID and NewReviewFinancialID=@NewReviewFinancialID
+end
+else
+begin
+INSERT INTO [opera].[dbo].[UserFinancials]
+           ([FinancialsID]
+           ,[NewReviewFinancialID]
+           ,[gbEntryUser]
+           ,[gbReEntryUser])
+     VALUES
+          (@FinancialsID,@NewReviewFinancialID,@EntryUser,@ReEntryUser)
+end
+
+
+
+UPDATE [opera].[dbo].[FinancialStatusRemarks]
+	SET	 [StatusID] = @StatusID
+		,[Remarks] = @Remarks
+		,[ARemarks] =@ARemarks
+
+WHERE	NewReviewFinancialID=@NewReviewFinancialID
+
+--FinancialsID=@FinancialsID 
+
+/*
+UPDATE [opera].[dbo].[NewReviewFinancials]
+   SET 
+      //,[FinancialEntryTypeID] = <FinancialEntryTypeID, smallint,>
+      ,[UploadedDate] = <UploadedDate, smalldatetime,>
+      ,[UploadedPath] = <UploadedPath, varchar(200),>
+      ,[FileName] = <FileName, varchar(150),>
+      ,[SecondaryUploadedPath] = <SecondaryUploadedPath, varchar(200),>
+      ,[SecondaryFileName] = <SecondaryFileName, varchar(150),>
+ WHERE <Search Conditions,,>
+
+*/
+
+
+
+
+
+
+end
+
+
+
+
+
+
+
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+

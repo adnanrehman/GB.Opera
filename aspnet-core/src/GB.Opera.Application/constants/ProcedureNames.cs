@@ -77,6 +77,9 @@ namespace GB.Opera.constants
         public const string usp_InsertUpdateFinancialValues = "usp_InsertUpdateFinancialValues";
         public const string usp_InsertUpdateFinancialCommentsStatus_New = "usp_InsertUpdateFinancialCommentsStatus_New";
         public const string usp_InsertFinReviewFromEntry_New = "usp_InsertFinReviewFromEntry_New";
+        public const string usp_getCompAdminFinancials = "usp_getCompAdminFinancials";
+        public const string usp_UpdateAdminFinancialsAllParams_New = "usp_UpdateAdminFinancialsAllParams_New";
+        public const string usp_UpdateFinancialRateChanges = "usp_UpdateFinancialRateChanges";
     }
 }
  
