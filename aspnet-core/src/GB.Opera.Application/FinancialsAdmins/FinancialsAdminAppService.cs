@@ -59,7 +59,7 @@ namespace FinancialsAdmins
                 parameters.Add("@FinancialsID", financialId);
                 parameters.Add("@Rate", rate);;
 
-                await _connection.QuerySingleAsync(ProcedureNames.usp_UpdateFinancialRateChanges, parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_UpdateFinancialRateChanges, parameters, commandType: CommandType.StoredProcedure);
 
             }
             catch (Exception ex)
@@ -98,7 +98,7 @@ namespace FinancialsAdmins
                 parameters.Add("@PeriodNote", input.PeriodNote);
                 parameters.Add("@APeriodNote", input.APeriodNote);
 
-                await _connection.QuerySingleAsync(ProcedureNames.usp_UpdateAdminFinancialsAllParams_New, parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_UpdateAdminFinancialsAllParams_New, parameters, commandType: CommandType.StoredProcedure);
 
             }
             catch (Exception ex)

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from "primeng/dropdown"; 
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
@@ -10,41 +10,73 @@ import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PermissionService } from '@abp/ng.core';
 import { Financial_CompQnetP } from 'src/app/services/permissions';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { InputTextModule } from 'primeng/inputtext';
+import { ListboxModule } from 'primeng/listbox';
+import { CompaniesQNetProfitDto, CompaniesQNetProfitService } from '@proxy/companies-qnet-profits';
+import { CommonService } from '@proxy/commons';
+import * as moment from 'moment';
+import Swal from 'sweetalert2';
  
 @Component({
   selector: 'app-comp-qnet-p',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,
-    ImageModule,FileUploadModule,TabViewModule,CheckboxModule ,CommonModule],
+  imports: [
+    CommonModule,
+    TableModule,
+    TabViewModule,
+    AutoCompleteModule,
+    FormsModule,
+    DropdownModule,
+    CalendarModule,
+    ImageModule,
+    FileUploadModule,
+    NgFor,
+    CheckboxModule,
+    ThemeSharedModule,
+    ReactiveFormsModule,
+    ListboxModule,
+    InputTextModule,
+  ],
   templateUrl: './comp-qnet-p.component.html',
   styleUrl: './comp-qnet-p.component.scss'
 })
 export class CompQnetPComponent {
-
-  filteredCountries: any[];
-  companies: any[] = [ 
-    { ticker: "AlAWWAL",aod:"03-31-18",yr:"2018",pr:"Q1",eu:"5161616.36",reu:"m sami",qp:"1 month" }, 
-    { ticker: "AlAWWAL",aod:"02-12-18",yr:"2018",pr:"Q1",eu:"5161616.36",reu:"m sami",qp:"9 month" }, 
-    { ticker: "AlAWWAL",aod:"02-15-18",yr:"2018",pr:"Q1",eu:"5161616.36",reu:"m sami",qp:"6 month" }, 
-    { ticker: "AlAWWAL",aod:"02-18-18",yr:"2018",pr:"Q1",eu:"5161616.36",reu:"m sami",qp:"8 month" }, 
-    { ticker: "AlAWWAL",aod:"01-22-18",yr:"2018",pr:"Q1",eu:"5161616.36",reu:"m sami",qp:"2 month" }, 
-    { ticker: "AlAWWAL",aod:"01-01-18",yr:"2018",pr:"Q1",eu:"5161616.36",reu:"m sami",qp:"3 month" }, 
-  ];
-  markets = [ 
-    { name: "TASI" }, 
-    { name: "ReactJS" }, 
-    { name: "Angular" }, 
-    { name: "Bootstrap" }, 
-    { name: "PrimeNG" }, 
-  ];
+  loading: boolean = false;
+  headerValue: any;
+  selectedItem: any;
+  suggestions: any[] = [];
+  sectorID: number;
+  stockMarketID: number;
+  companyID: number;
+  rate:number = 0;
+  stockMarkets = [];
+  companyMarketSectors = [];
+  companiesTickers = [];
+  periodTypes = [];
+  qPeriods = [];
+  divindedDates = [];
+  companiesQNetProfits:CompaniesQNetProfitDto[] = [];
+  companiesQNetProfit : CompaniesQNetProfitDto = {
+    compQNProfitID: 0,
+    companyID: 0,
+    year: 0,
+    qPeriodID: 0,
+    periodTypeID: 0,
+    isYearly: false,
+    netProfit: 0
+  }
   permission: {
     create: boolean;
     edit: boolean,
     delete: boolean
   }
   constructor( 
-    private permissionService: PermissionService){
+    private permissionService: PermissionService,
+    private commonService: CommonService,
+    private companiesQNetProfitService: CompaniesQNetProfitService,
+  ){
    this.permission = {
      create: false,
      edit : false,
@@ -61,12 +93,121 @@ export class CompQnetPComponent {
     if (this.permissionService.getGrantedPolicy(Financial_CompQnetP + '.Delete')) {
       this.permission.delete = true;
     }
-    this.filteredCountries = [
-      {name: "RIBL",code:'rible'},
-      {name: "Suadia Arabia",code:'KSA'},
-      {name: "Dubai",code:'UAE'},
-      {name: "IRAN",code:'IR'},
-    ]
+
+    this.getStockMarkets();
+  }
+
+  search(event: AutoCompleteCompleteEvent) {
+    this.loading = true;
+    this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
+      this.suggestions = res;
+      this.loading = false;
+    });
+  }
+
+  onSelect(event: any) {
+    debugger;
+    this.loading = true;
+    debugger;
+    this.stockMarketID = event.value.stockMarketID;
+    this.sectorID = event.value.sectorID;
+    this.companyID = event.value.companyID
+    this.getCompMSectorsByMarketID();
+    this.loading = false;
+  }
+
+  getStockMarkets() {
+    this.commonService.getCompStockMarkets().subscribe(res => {
+      this.stockMarkets = res;
+    });
+  }
+
+  getCompMSectorsByMarketID() {
+    debugger;
+    this.loading = true;
+    this.commonService.getCompMSectorsByMarketID(this.stockMarketID).subscribe(res => {
+      this.companyMarketSectors = res.sectors;
+      if (this.companyMarketSectors.length > 0) this.getSectorCompaniesBySectorIDAndStockMarketID();
+      else this.loading = false;
+    });
+  }
+
+  getSectorCompaniesBySectorIDAndStockMarketID() {
+    debugger;
+    if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
+      this.sectorID = this.companyMarketSectors[0].sectorID;
+    this.commonService
+      .getCompaniesForQNPBySectorIDAndMarketID(this.sectorID, this.stockMarketID)
+      .subscribe(res => {
+        this.companiesTickers = res.companies;
+        this.periodTypes = res.periodTypes;
+        this.qPeriods = res.qPeriods;
+        if (this.companiesTickers.length > 0) this.getCompaniesQNetProfitsByCompanyID();
+        else this.loading = false;
+      });
+  }
+
+  getCompaniesQNetProfitsByCompanyID() {
+    debugger;
+    if (this.companyID == undefined && this.companiesTickers.length > 0)
+      this.companyID = this.companiesTickers[0].companyID;
+    this.companiesQNetProfitService
+      .getCompaniesQNetProfitsByCompanyID(this.companyID)
+      .subscribe(res => {
+        debugger;
+        this.companiesQNetProfits = res.companiesQNetProfits;
+        if (this.companiesQNetProfits.length > 0)
+          this.handleCompaniesQNetProfit(this.companiesQNetProfits[0]);
+        else this.loading = false;
+      });
+  }
+
+  handleCompaniesQNetProfit(companiesQNetProfit: CompaniesQNetProfitDto) {
+    debugger;
+    this.companiesQNetProfit = companiesQNetProfit;
+    if(this.companiesQNetProfit.asOfDate)
+      this.companiesQNetProfit.asOfDate = moment(this.companiesQNetProfit.asOfDate).format("MM/DD/YYYY")
+    if(this.companiesQNetProfit.announcementDate)
+      this.companiesQNetProfit.announcementDate = moment(this.companiesQNetProfit.announcementDate).format("MM/DD/YYYY")
+    this.loading = false;
+  }
+
+  addNewCompaniesQNetProfit() {
+    this.companiesQNetProfit = {
+      compQNProfitID: 0,
+      companyID: 0,
+      year: 0,
+      qPeriodID: 0,
+      periodTypeID: 0,
+      isYearly: false,
+      netProfit: 0
+    };
+  }
+
+  insertUpdateCalculateCompQuartersNetProfitByInput() {
+    debugger;
+    this.loading = true;
+    this.companiesQNetProfit.companyID = this.companyID;
+    this.companiesQNetProfit.asOfDate = moment(this.companiesQNetProfit.asOfDate).format();
+    this.companiesQNetProfit.announcementDate = moment(this.companiesQNetProfit.announcementDate).format();
+    this.companiesQNetProfitService.insertUpdateCalculateCompQuartersNetProfitByInput(this.companiesQNetProfit).subscribe(res => {
+      debugger;
+      if (this.companiesQNetProfit.compQNProfitID > 0) {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.companiesQNetProfit.remarks + ' updated successfully', icon: 'success', });
+      }
+      else {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.companiesQNetProfit.remarks + ' created successfully', icon: 'success', });
+      }
+      this.addNewCompaniesQNetProfit();
+      this.getCompaniesQNetProfitsByCompanyID();
+      this.loading = false;
+    },
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
   }
 
 }

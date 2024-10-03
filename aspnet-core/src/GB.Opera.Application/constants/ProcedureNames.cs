@@ -83,6 +83,10 @@ namespace GB.Opera.constants
         public const string usp_getHistoricalCashDividends = "usp_getHistoricalCashDividends";
         public const string usp_InsetUpdateHistoricalCashDividends = "usp_InsetUpdateHistoricalCashDividends";
         public const string usp_InsertUpdateCashDividendsDates = "usp_InsertUpdateCashDividendsDates";
+        public const string usp_getCompaniesQNetProfits = "usp_getCompaniesQNetProfits";
+        public const string usp_InsertUpdateCalculateCompQuartersNetProfit = "usp_InsertUpdateCalculateCompQuartersNetProfit";
+        public const string usp_getCurrentDividends = "usp_getCurrentDividends";
+        public const string usp_insertUpdateCurrentDividends = "usp_insertUpdateCurrentDividends";
     }
 }
  
