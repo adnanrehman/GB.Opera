@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Volo.Abp.Application.Services;
 
-namespace GB.Opera.Entry
+namespace Entry
 {
     public class EntryAppService : ApplicationService, IEntryAppService
     {

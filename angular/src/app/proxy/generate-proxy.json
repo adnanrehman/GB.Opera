@@ -4447,6 +4447,430 @@
             }
           }
         },
+        "Entry.EntryAppService": {
+          "controllerName": "Entry",
+          "controllerGroupName": "Entry",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Entry.EntryAppService",
+          "interfaces": [
+            {
+              "type": "Entry.IEntryAppService",
+              "name": "IEntryAppService",
+              "methods": [
+                {
+                  "name": "GetStatusFinancials",
+                  "parametersOnMethod": [
+                    {
+                      "name": "userId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
+                    "typeSimple": "[Entry.StatusFinancialsDto]"
+                  }
+                },
+                {
+                  "name": "InsertUpdateFinancialValues",
+                  "parametersOnMethod": [
+                    {
+                      "name": "list",
+                      "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                      "typeSimple": "[Entry.FinancialsDetailDto]",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "InsertUpdateFinancialCommentsStatus",
+                  "parametersOnMethod": [
+                    {
+                      "name": "list",
+                      "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                      "typeSimple": "[Entry.FinancialsDetailDto]",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "userID",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "InsertUpdateComitChanges",
+                  "parametersOnMethod": [
+                    {
+                      "name": "dto",
+                      "typeAsString": "Entry.AsofDatesFinancialDto, GB.Opera.Application.Contracts",
+                      "type": "Entry.AsofDatesFinancialDto",
+                      "typeSimple": "Entry.AsofDatesFinancialDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "userID",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetStatusFinancialsByUserId": {
+              "uniqueName": "GetStatusFinancialsByUserId",
+              "name": "GetStatusFinancials",
+              "httpMethod": "GET",
+              "url": "api/app/entry/status-financials/{userId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "userId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "userId",
+                  "name": "userId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
+                "typeSimple": "[Entry.StatusFinancialsDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.IEntryAppService"
+            },
+            "GetCompanyAccountsByInput": {
+              "uniqueName": "GetCompanyAccountsByInput",
+              "name": "GetCompanyAccounts",
+              "httpMethod": "GET",
+              "url": "api/app/entry/company-accounts",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Entry.CompanyAccountsInputDto, GB.Opera.Application.Contracts",
+                  "type": "Entry.CompanyAccountsInputDto",
+                  "typeSimple": "Entry.CompanyAccountsInputDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "FinancialsID",
+                  "jsonName": null,
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "NewReviewFinancialID",
+                  "jsonName": null,
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "IsNew",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "CompanyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Entry.CompanyAccountsDto",
+                "typeSimple": "Entry.CompanyAccountsDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.EntryAppService"
+            },
+            "GetAsofDatesFinancialsByInput": {
+              "uniqueName": "GetAsofDatesFinancialsByInput",
+              "name": "GetAsofDatesFinancials",
+              "httpMethod": "GET",
+              "url": "api/app/entry/asof-dates-financials",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Entry.AsofDatesFinancialInputDto, GB.Opera.Application.Contracts",
+                  "type": "Entry.AsofDatesFinancialInputDto",
+                  "typeSimple": "Entry.AsofDatesFinancialInputDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "FinancialsID",
+                  "jsonName": null,
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "IsNew",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "CompanyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Entry.AsofDatesFinancialDto",
+                "typeSimple": "Entry.AsofDatesFinancialDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.EntryAppService"
+            },
+            "InsertUpdateFinancialValuesByList": {
+              "uniqueName": "InsertUpdateFinancialValuesByList",
+              "name": "InsertUpdateFinancialValues",
+              "httpMethod": "POST",
+              "url": "api/app/entry/update-financial-values",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "list",
+                  "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                  "typeSimple": "[Entry.FinancialsDetailDto]",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "list",
+                  "name": "list",
+                  "jsonName": null,
+                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                  "typeSimple": "[Entry.FinancialsDetailDto]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.IEntryAppService"
+            },
+            "InsertUpdateFinancialCommentsStatusByListAndUserID": {
+              "uniqueName": "InsertUpdateFinancialCommentsStatusByListAndUserID",
+              "name": "InsertUpdateFinancialCommentsStatus",
+              "httpMethod": "POST",
+              "url": "api/app/entry/update-financial-comments-status",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "list",
+                  "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                  "typeSimple": "[Entry.FinancialsDetailDto]",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "userID",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "list",
+                  "name": "list",
+                  "jsonName": null,
+                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                  "typeSimple": "[Entry.FinancialsDetailDto]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "userID",
+                  "name": "userID",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.IEntryAppService"
+            },
+            "InsertUpdateComitChangesByDtoAndUserID": {
+              "uniqueName": "InsertUpdateComitChangesByDtoAndUserID",
+              "name": "InsertUpdateComitChanges",
+              "httpMethod": "POST",
+              "url": "api/app/entry/update-comit-changes",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "dto",
+                  "typeAsString": "Entry.AsofDatesFinancialDto, GB.Opera.Application.Contracts",
+                  "type": "Entry.AsofDatesFinancialDto",
+                  "typeSimple": "Entry.AsofDatesFinancialDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "userID",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "dto",
+                  "name": "dto",
+                  "jsonName": null,
+                  "type": "Entry.AsofDatesFinancialDto",
+                  "typeSimple": "Entry.AsofDatesFinancialDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "userID",
+                  "name": "userID",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.IEntryAppService"
+            }
+          }
+        },
         "EstimatesandForecasts.EstimatesandForecastAppService": {
           "controllerName": "EstimatesandForecast",
           "controllerGroupName": "EstimatesandForecast",
@@ -5552,430 +5976,6 @@
               },
               "allowAnonymous": null,
               "implementFrom": "GB.Opera.EndOfDay.IEndofDayAppService"
-            }
-          }
-        },
-        "GB.Opera.Entry.EntryAppService": {
-          "controllerName": "Entry",
-          "controllerGroupName": "Entry",
-          "isRemoteService": true,
-          "isIntegrationService": false,
-          "apiVersion": null,
-          "type": "GB.Opera.Entry.EntryAppService",
-          "interfaces": [
-            {
-              "type": "Entry.IEntryAppService",
-              "name": "IEntryAppService",
-              "methods": [
-                {
-                  "name": "GetStatusFinancials",
-                  "parametersOnMethod": [
-                    {
-                      "name": "userId",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
-                    "typeSimple": "[Entry.StatusFinancialsDto]"
-                  }
-                },
-                {
-                  "name": "InsertUpdateFinancialValues",
-                  "parametersOnMethod": [
-                    {
-                      "name": "list",
-                      "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
-                      "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                      "typeSimple": "[Entry.FinancialsDetailDto]",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Void",
-                    "typeSimple": "System.Void"
-                  }
-                },
-                {
-                  "name": "InsertUpdateFinancialCommentsStatus",
-                  "parametersOnMethod": [
-                    {
-                      "name": "list",
-                      "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
-                      "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                      "typeSimple": "[Entry.FinancialsDetailDto]",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "userID",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Void",
-                    "typeSimple": "System.Void"
-                  }
-                },
-                {
-                  "name": "InsertUpdateComitChanges",
-                  "parametersOnMethod": [
-                    {
-                      "name": "dto",
-                      "typeAsString": "Entry.AsofDatesFinancialDto, GB.Opera.Application.Contracts",
-                      "type": "Entry.AsofDatesFinancialDto",
-                      "typeSimple": "Entry.AsofDatesFinancialDto",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "userID",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Void",
-                    "typeSimple": "System.Void"
-                  }
-                }
-              ]
-            }
-          ],
-          "actions": {
-            "GetStatusFinancialsByUserId": {
-              "uniqueName": "GetStatusFinancialsByUserId",
-              "name": "GetStatusFinancials",
-              "httpMethod": "GET",
-              "url": "api/app/entry/status-financials/{userId}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "userId",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "userId",
-                  "name": "userId",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
-                "typeSimple": "[Entry.StatusFinancialsDto]"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Entry.IEntryAppService"
-            },
-            "GetCompanyAccountsByInput": {
-              "uniqueName": "GetCompanyAccountsByInput",
-              "name": "GetCompanyAccounts",
-              "httpMethod": "GET",
-              "url": "api/app/entry/company-accounts",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "Entry.CompanyAccountsInputDto, GB.Opera.Application.Contracts",
-                  "type": "Entry.CompanyAccountsInputDto",
-                  "typeSimple": "Entry.CompanyAccountsInputDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "FinancialsID",
-                  "jsonName": null,
-                  "type": "System.Int64",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "NewReviewFinancialID",
-                  "jsonName": null,
-                  "type": "System.Int64",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "IsNew",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "CompanyID",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Entry.CompanyAccountsDto",
-                "typeSimple": "Entry.CompanyAccountsDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "GB.Opera.Entry.EntryAppService"
-            },
-            "GetAsofDatesFinancialsByInput": {
-              "uniqueName": "GetAsofDatesFinancialsByInput",
-              "name": "GetAsofDatesFinancials",
-              "httpMethod": "GET",
-              "url": "api/app/entry/asof-dates-financials",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "Entry.AsofDatesFinancialInputDto, GB.Opera.Application.Contracts",
-                  "type": "Entry.AsofDatesFinancialInputDto",
-                  "typeSimple": "Entry.AsofDatesFinancialInputDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "FinancialsID",
-                  "jsonName": null,
-                  "type": "System.Int64",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "IsNew",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "CompanyID",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Entry.AsofDatesFinancialDto",
-                "typeSimple": "Entry.AsofDatesFinancialDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "GB.Opera.Entry.EntryAppService"
-            },
-            "InsertUpdateFinancialValuesByList": {
-              "uniqueName": "InsertUpdateFinancialValuesByList",
-              "name": "InsertUpdateFinancialValues",
-              "httpMethod": "POST",
-              "url": "api/app/entry/update-financial-values",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "list",
-                  "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
-                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                  "typeSimple": "[Entry.FinancialsDetailDto]",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "list",
-                  "name": "list",
-                  "jsonName": null,
-                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                  "typeSimple": "[Entry.FinancialsDetailDto]",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Entry.IEntryAppService"
-            },
-            "InsertUpdateFinancialCommentsStatusByListAndUserID": {
-              "uniqueName": "InsertUpdateFinancialCommentsStatusByListAndUserID",
-              "name": "InsertUpdateFinancialCommentsStatus",
-              "httpMethod": "POST",
-              "url": "api/app/entry/update-financial-comments-status",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "list",
-                  "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
-                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                  "typeSimple": "[Entry.FinancialsDetailDto]",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "userID",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "list",
-                  "name": "list",
-                  "jsonName": null,
-                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                  "typeSimple": "[Entry.FinancialsDetailDto]",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "userID",
-                  "name": "userID",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Entry.IEntryAppService"
-            },
-            "InsertUpdateComitChangesByDtoAndUserID": {
-              "uniqueName": "InsertUpdateComitChangesByDtoAndUserID",
-              "name": "InsertUpdateComitChanges",
-              "httpMethod": "POST",
-              "url": "api/app/entry/update-comit-changes",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "dto",
-                  "typeAsString": "Entry.AsofDatesFinancialDto, GB.Opera.Application.Contracts",
-                  "type": "Entry.AsofDatesFinancialDto",
-                  "typeSimple": "Entry.AsofDatesFinancialDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "userID",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "dto",
-                  "name": "dto",
-                  "jsonName": null,
-                  "type": "Entry.AsofDatesFinancialDto",
-                  "typeSimple": "Entry.AsofDatesFinancialDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "userID",
-                  "name": "userID",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Entry.IEntryAppService"
             }
           }
         },
@@ -7378,6 +7378,132 @@
               },
               "allowAnonymous": null,
               "implementFrom": "News.INewsAppService"
+            }
+          }
+        },
+        "Reviewers.ReviewerAppService": {
+          "controllerName": "Reviewer",
+          "controllerGroupName": "Reviewer",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Reviewers.ReviewerAppService",
+          "interfaces": [
+            {
+              "type": "Reviewers.IReviewerAppService",
+              "name": "IReviewerAppService",
+              "methods": [
+                {
+                  "name": "GetStatusFinancials",
+                  "parametersOnMethod": [
+                    {
+                      "name": "userId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
+                    "typeSimple": "[Entry.StatusFinancialsDto]"
+                  }
+                },
+                {
+                  "name": "GetReviewReport",
+                  "parametersOnMethod": [
+                    {
+                      "name": "financialsID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.String",
+                    "typeSimple": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetStatusFinancialsByUserId": {
+              "uniqueName": "GetStatusFinancialsByUserId",
+              "name": "GetStatusFinancials",
+              "httpMethod": "GET",
+              "url": "api/app/reviewer/status-financials/{userId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "userId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "userId",
+                  "name": "userId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
+                "typeSimple": "[Entry.StatusFinancialsDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Reviewers.IReviewerAppService"
+            },
+            "GetReviewReportByFinancialsID": {
+              "uniqueName": "GetReviewReportByFinancialsID",
+              "name": "GetReviewReport",
+              "httpMethod": "GET",
+              "url": "api/app/reviewer/review-report",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "financialsID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "financialsID",
+                  "name": "financialsID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.String",
+                "typeSimple": "string"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Reviewers.IReviewerAppService"
             }
           }
         }

@@ -38,4 +38,11 @@ public class ImportController : AbpController
         return Json(data);
     }
 
+    //private void SaveFileStream(String path, Stream stream)
+    //{
+    //    var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+    //    stream.CopyTo(fileStream);
+    //    fileStream.Dispose();
+    //}
+
 }

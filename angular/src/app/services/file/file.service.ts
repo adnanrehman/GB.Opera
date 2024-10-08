@@ -21,5 +21,19 @@ export class FileService {
      return this.http.post<Response>(`${environment.apis.default.url}/File/UploadFile`, formData);
    }
 
+   public getReviewReport(financialsID: any):Observable<any> {
+    let formData: FormData = new FormData();
+    formData.append('financialsID', financialsID);
+    return this.http.post<any>(`${environment.apis.default.url}/File/GetReviewReport`, formData);
+  }
+
+  public DocumentsDownload(fileUrl: string) {
+    return this.http.get(`${environment.apis.default.url}` + "/File/DocumentsDownload?fileUrl=" + fileUrl, {
+        reportProgress: true,
+        observe: 'events',
+        responseType: 'blob'
+    });
+}
+
 
 }

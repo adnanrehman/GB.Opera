@@ -26,5 +26,6 @@ import * as HistoricalCashDividends from './historical-cash-dividends';
 import * as Lhruploads from './lhruploads';
 import * as News from './news';
 import * as OfficialsIndics from './officials-indics';
+import * as Reviewers from './reviewers';
 import * as Uploads from './uploads';
-export { AccountsClassifications, AgencyRatings, Books, Commons, Companies, CompaniesQnetProfits, CompanyAccounts, CompanyFactOrders, CompanyManagements, CompanyMutualFundSettings, CompanyMutualFunds, CompanyOwnershipFacts, CompanyOwnerships, CompanyPsraws, CorporateAnnouncements, CountryAccounts, CountryFactOrders, CurrentDividends, EndOfDay, Entry, EstimatesandForecasts, FinancialsAdmins, GbFacts, GbOwnerShips, HistoricalCashDividends, Lhruploads, News, OfficialsIndics, Uploads };
+export { AccountsClassifications, AgencyRatings, Books, Commons, Companies, CompaniesQnetProfits, CompanyAccounts, CompanyFactOrders, CompanyManagements, CompanyMutualFundSettings, CompanyMutualFunds, CompanyOwnershipFacts, CompanyOwnerships, CompanyPsraws, CorporateAnnouncements, CountryAccounts, CountryFactOrders, CurrentDividends, EndOfDay, Entry, EstimatesandForecasts, FinancialsAdmins, GbFacts, GbOwnerShips, HistoricalCashDividends, Lhruploads, News, OfficialsIndics, Reviewers, Uploads };
