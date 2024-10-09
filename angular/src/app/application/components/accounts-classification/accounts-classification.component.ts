@@ -14,11 +14,12 @@ import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { PermissionService } from '@abp/ng.core';
 import { Application_AccountsClassification } from 'src/app/services/permissions';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
 @Component({
   selector: 'app-accounts-classification',
   standalone: true,
   //imports :[TreeSelectModule],
-  imports: [TreeModule, TooltipModule, CommonModule, FormsModule,NgIf],
+  imports: [TreeModule, TooltipModule, CommonModule, FormsModule,NgIf,ThemeSharedModule],
   templateUrl: './accounts-classification.component.html',
   styleUrl: './accounts-classification.component.scss'
 })
@@ -28,6 +29,7 @@ export class AccountsClassificationComponent {
   tree: TreeNode[];
   data: TreeNode[];
   ref!: DynamicDialogRef;
+  loading = false;
   treeData = [];
   acFactsDtos: ACFactsDtos[];
   gbFactListDto: GbFactListDto[];
@@ -52,6 +54,7 @@ export class AccountsClassificationComponent {
 
   fetchAccountsTreeData(): void {
     debugger; // For debugging purposes
+    this.loading = true;
     this.accountClassificationService.getAllACFactsMappings().subscribe(res => {
       console.log('Tree res:', res);
 
@@ -88,6 +91,7 @@ export class AccountsClassificationComponent {
       // Assign the final tree data to gbFactListDto
       this.acFactsDtos = treeData;
       console.log('Tree Data:', this.acFactsDtos);
+      this.loading = false;
     });
   }
 
@@ -110,6 +114,7 @@ export class AccountsClassificationComponent {
 
   fetchTreeData(): void {
     debugger; // For debugging purposes
+    this.loading = true;
     this.gnfactservice.getAllFactsMappings().subscribe(res => {
       console.log('Tree res:', res);
 
@@ -147,6 +152,7 @@ export class AccountsClassificationComponent {
       // Assign the final tree data to gbFactListDto
       this.gbFactListDto = treeData;
       console.log('Tree Data:', this.gbFactListDto);
+      this.loading = false;
     });
   }
 

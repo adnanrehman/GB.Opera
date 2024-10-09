@@ -6,11 +6,12 @@ import { GbFactService } from '@proxy/gb-facts/gb-fact.service';
 import Swal from 'sweetalert2';
 import { PermissionService } from '@abp/ng.core';
 import { Application_GbFacts } from 'src/app/services/permissions';
+import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-gb-facts-account-detail',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule,NgIf],
   templateUrl: './gb-facts-account-detail.component.html',
   styleUrl: './gb-facts-account-detail.component.scss'
   
@@ -44,6 +45,7 @@ export class GbFactsAccountDetailComponent {
   }
 
   ngOnInit() {
+    debugger;
     if (this.permissionService.getGrantedPolicy(Application_GbFacts + '.Create')) {
       this.permission.create = true;
     }

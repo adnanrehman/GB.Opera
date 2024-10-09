@@ -1,3 +1,4 @@
+<div class="container ps-2" [abpLoading]="loading">
 <form #template="ngForm"> 
 <div class="row">
   
@@ -5,7 +6,7 @@
       <div class="card">
         <div class="card-body p-1">
           <div class="row">
-      <p-tree [value]="acFactsDtos" selectionMode="single" (onNodeSelect)="onNodeClick($event)">
+      <p-tree [value]="acFactsDtos" selectionMode="single" [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px" (onNodeSelect)="onNodeClick($event)">
         <ng-template let-node pTemplate="default">
           <span pTooltip="{{ node.aAcFact }}" tooltipPosition="top">
             
@@ -17,22 +18,17 @@
         </div>
     </div>
     </div>
-
-
-
-
-
-
     <div class="col-sm-6">
       <div class="card">
         <div class="card-body p-1">
           <div class="row">
+            <div class="col-md-10"></div>
       <div class="col-md-2">
-        <button type="submit" *ngIf="permission.create" class="btn btn-success btn-sm me-1"  (click)="addSelectedNodeToFacts( )"  ><span class="text-white"> <i class="fa fa-save"></i>Save</span></button>
-    </div>
+        <button type="submit" *ngIf="permission.create" class="btn btn-success btn-sm "  (click)="addSelectedNodeToFacts( )"  ><span class="text-white"> <i class="fa fa-save me-2"></i>Save</span></button>
+      </div>
       <!-- Tree 2 -->
        
-      <p-tree [value]="gbFactListDto" selectionMode="checkbox" [(selection)]="selectedNodes" (onNodeSelect)="onNodeSelect($event)">
+      <p-tree [value]="gbFactListDto" [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px" selectionMode="checkbox" [(selection)]="selectedNodes" (onNodeSelect)="onNodeSelect($event)">
         <ng-template let-node pTemplate="default">
           <span pTooltip="{{ node.agbFact }}" tooltipPosition="top">
             <p-checkbox [value]="node"></p-checkbox>
@@ -48,4 +44,4 @@
   
   </div>
 </form> 
-  
+</div>

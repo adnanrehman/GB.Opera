@@ -10,18 +10,21 @@ import { GbFactListDto } from '@proxy/gb-facts/models';
 import { SignalNode } from '@angular/core/primitives/signals';
 import { PermissionService } from '@abp/ng.core';
 import { Application_GbFacts } from 'src/app/services/permissions';
+import { CommonModule, NgIf } from '@angular/common';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
 
 
 @Component({
   selector: 'app-gb-facts',
   standalone: true,
-  imports: [TreeModule],
+  imports: [TreeModule,ThemeSharedModule,CommonModule,NgIf],
   templateUrl: './gb-facts.component.html',
   styleUrl: './gb-facts.component.scss'
 })
 export class GbFactsComponent {
 
   data: TreeNode[];
+  loading = false;
   cols: any[];
   ref!: DynamicDialogRef;
   treeData = [];
@@ -46,6 +49,7 @@ export class GbFactsComponent {
 
   fetchTreeData(): void {
     debugger; // For debugging purposes
+    this.loading = true;
     this.gnfactservice.getAllFactsMappings().subscribe(res => {
       console.log('Tree res:', res);
 
@@ -81,6 +85,7 @@ export class GbFactsComponent {
       // Assign the final tree data to gbFactListDto
       this.gbFactListDto = treeData;
       console.log('Tree Data:', this.gbFactListDto);
+      this.loading = false;
     });
   }
 

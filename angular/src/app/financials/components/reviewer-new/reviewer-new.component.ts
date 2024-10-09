@@ -75,9 +75,11 @@ export class ReviewerNewComponent {
   }
 
   getStatusFinancialsByUserId() {
+    this.loading = true;
     this.reviewerService.getStatusFinancialsByUserId(this.userId).subscribe(res => {
       this.statusFinancials = res;
       this.statusFinancialsFilterData = res;
+      this.loading = false;
     });
   }
 

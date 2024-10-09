@@ -1,9 +1,9 @@
 
-
+<div class="container ps-2" [abpLoading]="loading">
 <div class="row">
      
     <div class="col-sm-11">
-        <p-tree [value]="gbOwnerShip" selectionMode="single" 
+        <p-tree [value]="gbOwnerShip" selectionMode="single"  [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px"
         (onNodeSelect)="onNodeClick($event)" class="w-full md:w-30rem" [filter]="true" filterMode="strict" filterPlaceholder="Search Ownership" > 
         <ng-template let-node pTemplate="default">
 
@@ -17,4 +17,5 @@
     <div class="col-sm-1 mt-1">
         <a class="btn btn-primary"  (click)="fetchgbOwnerShipTreeData()"><i class="fa fa-plus fa-sm me-2"></i>Reset</a>
     </div>
-    </div>
+</div>
+</div>

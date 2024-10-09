@@ -9,16 +9,18 @@ import { GbOwnerShip, GbOwnerShipService } from '@proxy/gb-owner-ships';
 import { TooltipModule } from 'primeng/tooltip';
 import { PermissionService } from '@abp/ng.core';
 import { Application_Ownership } from 'src/app/services/permissions';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
 @Component({
   selector: 'app-ownership',
   standalone: true,
-  imports: [TreeModule,TooltipModule,CommonModule],
+  imports: [TreeModule,TooltipModule,CommonModule,NgIf,ThemeSharedModule],
   templateUrl: './ownership.component.html',
   styleUrl: './ownership.component.scss'
 })
 export class OwnershipComponent {
   data: TreeNode[]; 
+  loading=false;
   ref!: DynamicDialogRef;
   gbOwnerShip: GbOwnerShip[];
   permission: {
@@ -50,7 +52,7 @@ export class OwnershipComponent {
   }
 
   fetchgbOwnerShipTreeData(): void {
-    
+    this.loading = true;
     this.gbOwnerShipService.getAllFactsOwnershipMappings().subscribe(res => {
       console.log('Tree res:', res);
       
@@ -87,6 +89,7 @@ export class OwnershipComponent {
       // Assign the final tree data to gbFactListDto
       this.gbOwnerShip = treeData;
       console.log('Tree Data:', this.gbOwnerShip);
+      this.loading = false;
     });
   }
   onNodeClick(event: any) {
