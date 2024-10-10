@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
@@ -13,11 +13,16 @@ import { OfficialIndicsService } from '@proxy/officials-indics';
 import { PermissionService } from '@abp/ng.core';
 import { PriceAndIndices_Official } from 'src/app/services/permissions';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { ImportService } from 'src/app/services/import/import.service';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { DialogModule } from 'primeng/dialog';
+import { CommonService } from '@proxy/commons';
 @Component({
   selector: 'app-official',
   standalone: true,
-  imports: [TableModule, AutoCompleteModule, FormsModule, DropdownModule,
-     CalendarModule, ImageModule, FileUploadModule, TabViewModule, RadioButtonModule,CommonModule],
+  imports: [TableModule,AutoCompleteModule, FormsModule,  DialogModule,  ThemeSharedModule,
+    DropdownModule,CalendarModule,ImageModule,FileUploadModule,TabViewModule,RadioButtonModule,CommonModule ],
   templateUrl: './official.component.html',
   styleUrl: './official.component.scss'
 })
@@ -28,16 +33,23 @@ export class OfficialComponent {
     delete: boolean
   }
   filteredCountries: any[];
+  selectedItem: any;
+  suggestions: any[] = [];
   markets = [];
   selectedMarketID: number | null = null;
   selectedDate: string | null = null;
   ingredient: any;
+  importFile:any;
+  loading: boolean = false;
+  showImportPriceModal: boolean = false;
   OfficailIndics: any[] = [];
   data: any[] = [
     { sm: "TASI", tick: "", op: "8.0200", hp: "7.9000", lp: "8.0000", cp: "8.0200", tv: "80933", tv2: "641389.7800", tr: "138", lcp: "8.0200", },
 
   ];
   constructor(private endofDayService: EndofDayService,
+    private commonService: CommonService,
+    public importService: ImportService,
     private officialIndicsService : OfficialIndicsService , private permissionService: PermissionService) { 
       this.permission = {
         create: false,
@@ -51,6 +63,23 @@ export class OfficialComponent {
       this.markets = res;
     });
   }
+
+  search(event: AutoCompleteCompleteEvent) {
+    this.loading = true;
+    this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
+      this.suggestions = res;
+      this.loading = false;
+    });
+  }
+
+  onSelect(event: any) {
+    this.loading = true;
+    debugger;
+    this.selectedMarketID = event.value.stockMarketID;
+    this.getEPfficail();
+    this.loading = false;
+  }
+
   onDropdownChange(event: any) {
     this.selectedMarketID = event.value;
     console.log('Selected Market ID:', this.selectedMarketID);
@@ -110,6 +139,39 @@ export class OfficialComponent {
     } else {
       console.error('Selected date or market ID is not defined.');
     }
+  }
+
+  showImportModel(){
+    this.showImportPriceModal =true;
+  }
+  onFileChange(event:any){
+    this.importFile = event.target.files[0];
+    console.log(event);
+  }
+  
+  importOfficialIndices(){
+    this.loading = true;
+    const formData = new FormData();
+    formData.append('file', this.importFile);
+    this.importService.importOfficialIndices(formData).subscribe(res => {
+      debugger;
+      if(res == "1")  {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: ' file imported successfully', icon: 'success', });
+        this.showImportPriceModal = false;
+        this.importFile = null;
+      }        
+      else    {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Error!', text: res, icon: 'error', });
+      }
+  
+      this.loading = false;
+    },
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
   }
   
 }

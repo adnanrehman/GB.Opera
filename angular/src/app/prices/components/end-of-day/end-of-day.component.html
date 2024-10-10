@@ -1,4 +1,4 @@
-<div class="container ms-2" [abpLoading]="loading">
+<div class="container ms-2" [abpLoading]="loading" [abpLoading]="loading">
   <div class="row mb-2">
     <div class="card">
       <div class="card-body p-2">
@@ -11,10 +11,10 @@
                   [inputStyle]="{ width: '100%' }">
                 </p-autoComplete>
               </div>
-              <div class="col-md-4">
-                <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+              <div class="col-md-4 text-end">
+                <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
                 <a href="#" *ngIf="permission.create"  class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
-                <a href="#" *ngIf="permission.create"  class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
+                <a href="#" *ngIf="permission.create"  class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
                 <a href="#" *ngIf="permission.create" (click)="showImportModel()"  class="btn btn-primary btn-sm me-1"><i class="fa fa-document"></i> Import Prices</a>
               </div>
             </div>

@@ -88,6 +88,7 @@ namespace GB.Opera.constants
         public const string usp_getCurrentDividends = "usp_getCurrentDividends";
         public const string usp_insertUpdateCurrentDividends = "usp_insertUpdateCurrentDividends";
         public const string RPT_ReviewReportQuarterlyNew = "RPT_ReviewReportQuarterlyNew";
+        public const string usp_InsertOfficialIndices = "usp_InsertOfficialIndices";
     }
 }
  
