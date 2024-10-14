@@ -33,7 +33,7 @@
                     <h6> {{countryName}} Accounts</h6>
                     <div class="card">
                         <div class="card-body p-1">
-                          <p-tree [value]="ESDFacts" selectionMode="checkbox" (onNodeUnselect)="onNodeUnselect($event)" [(selection)]="selectedNodes" (onNodeSelect)="onNodeSelect($event)">
+                          <p-tree [value]="ESDFacts" [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px"  selectionMode="checkbox" (onNodeUnselect)="onNodeUnselect($event)" [(selection)]="selectedNodes" (onNodeSelect)="onNodeSelect($event)">
                             <ng-template let-node pTemplate="default">
                               <span pTooltip="{{ node.aCountryCustomFactName }}" tooltipPosition="top">
                                 <p-checkbox [value]="node"></p-checkbox>

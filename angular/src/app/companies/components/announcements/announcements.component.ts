@@ -16,6 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule, NgFor } from '@angular/common';
 import { PermissionService } from '@abp/ng.core';
 import { Company_Announcements } from 'src/app/services/permissions';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-announcements',
@@ -173,6 +174,8 @@ export class AnnouncementsComponent {
     debugger;
     // this.corporateAnnouncement.announcedDateTime = this.corporateAnnouncement.announcedDate;
     this.corporateAnnouncementActivation = this.corporateAnnouncement.isActive ? 1 : 0;
+    if(this.corporateAnnouncement.announcedDate)
+      this.corporateAnnouncement.announcedDate = moment(this.corporateAnnouncement.announcedDate).format("MM/DD/YYYY")
     this.loading = false;
   }
 
@@ -191,6 +194,7 @@ export class AnnouncementsComponent {
     debugger;
     this.loading = true;
     this.corporateAnnouncement.isActive = this.corporateAnnouncementActivation == 1 ? true : false;
+    this.corporateAnnouncement.announcedDate = moment(this.corporateAnnouncement.announcedDate).format();
     // this.corporateAnnouncement.announcedDate = this.corporateAnnouncement.announcedDateTime;
     this.corporateAnnouncement.ticker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker
     this.corporateAnnouncementService.createOrUpdateCorporateAnnouncementByModel(this.corporateAnnouncement).subscribe(res => {

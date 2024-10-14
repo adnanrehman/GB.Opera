@@ -40,7 +40,7 @@
           
           <form #companyForm="ngForm" (ngSubmit)="createOrUpdateCompany()">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-9">
                 <app-company-autocomplete (dataEventAutoComplete)="handleDataFromAutoCompelete($event)"></app-company-autocomplete>
                 <!-- <p-autoComplete
                   [(ngModel)]="selectedItem"
@@ -53,14 +53,14 @@
                 >
                 </p-autoComplete> -->
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3 text-end">
                 <a (click)="addNewCompany()" class="btn btn-primary btn-sm me-1"
                   ><i class="fa fa-plus"></i> Add New</a
                 >
                 <button type="submit" *ngIf="permission.create"  [attr.disabled]="!companyForm.valid ? true : null" class="btn btn-success btn-sm me-1"
                   ><i class="fa fa-save"></i> Save</button
                 >
-                <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit" *ngIf="permission.create" ></i> Update</a>
+                <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit" *ngIf="permission.create" ></i> Update</a> -->
                 <!-- <p-fileUpload
                 chooseLabel="Upload Beta"
                 styleClass="p-button-sm text-end"
@@ -405,6 +405,7 @@
               <p-table
                 #dt
                 [value]="companies"
+                [scrollable]="true" scrollHeight="20rem" 
                 [tableStyle]="{ 'max-height': '20rem' }"
                 responsiveLayout="stack"
                 styleClass="p-datatable-strip"

@@ -70,7 +70,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body p-1">
-                          <p-tree [value]="factsOwnershipMappings" [(selection)] ="selectedNode" selectionMode="single" (onNodeSelect)="onNodeClick($event)">
+                          <p-tree [value]="factsOwnershipMappings" [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px"  [(selection)] ="selectedNode" selectionMode="single" (onNodeSelect)="onNodeClick($event)">
                             <ng-template let-node pTemplate="default" >
                               <span pTooltip="{{ node.aGbOwnership }}" tooltipPosition="top">
                                 
