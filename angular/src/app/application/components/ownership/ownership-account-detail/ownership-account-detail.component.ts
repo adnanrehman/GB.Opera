@@ -1,4 +1,5 @@
 import { PermissionService } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GbOwnerShips } from '@proxy';
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-ownership-account-detail',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './ownership-account-detail.component.html',
   styleUrl: './ownership-account-detail.component.scss'
 })
@@ -46,10 +47,10 @@ export class OwnershipAccountDetailComponent {
     if (this.permissionService.getGrantedPolicy(Application_Ownership + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(Application_Ownership + '.Delete')) {
       this.permission.delete = true;
     }
     if (this.config.data.obj,this.config.data.text) {

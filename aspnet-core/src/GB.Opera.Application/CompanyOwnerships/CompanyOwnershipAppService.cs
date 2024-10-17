@@ -115,7 +115,6 @@ namespace CompanyOwnerships
                 parameters.Add("@Description", model.Description);
                 parameters.Add("@ADescription", model.ADescription);
                 parameters.Add("@IsActive", true);
-                parameters.Add("@CreationDate", DateTime.Now);
 
                 await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateSistorCompanies, parameters, commandType: CommandType.StoredProcedure);
                 return model;
@@ -140,7 +139,6 @@ namespace CompanyOwnerships
                 parameters.Add("@Description", model.Description);
                 parameters.Add("@ADescription", model.ADescription);
                 parameters.Add("@IsActive", true);
-                parameters.Add("@CreationDate", DateTime.Now);
 
                 await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateCompaniesProducts, parameters, commandType: CommandType.StoredProcedure);
                 return model;
@@ -167,7 +165,6 @@ namespace CompanyOwnerships
                 parameters.Add("@AReason", model.AReason);
                 parameters.Add("@Description", model.Description);
                 parameters.Add("@ADescription", model.ADescription);
-                parameters.Add("@CreationDate", DateTime.Now);
                 parameters.Add("@IsActive", true);
 
                 await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateRawMaterials, parameters, commandType: CommandType.StoredProcedure);
@@ -191,7 +188,6 @@ namespace CompanyOwnerships
                 parameters.Add("@PermittedDate", model.PermittedDate);
                 parameters.Add("@Description", model.Description);
                 parameters.Add("@ADescription", model.ADescription);
-                parameters.Add("@CreationDate", DateTime.Now);
                 parameters.Add("@IsActive", true);
 
                 await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateForeignInvementOptions, parameters, commandType: CommandType.StoredProcedure);
@@ -214,7 +210,6 @@ namespace CompanyOwnerships
                 parameters.Add("@ANote", model.ANote);
                 parameters.Add("@Description", model.Description);
                 parameters.Add("@ADescription", model.ADescription);
-                parameters.Add("@CreationDate", DateTime.Now);
                 parameters.Add("@IsActive", true);
 
                 await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateMiscNotes, parameters, commandType: CommandType.StoredProcedure);

@@ -114,7 +114,6 @@ export class GbFactsAccountDetailComponent {
           text: "Error While Saveing",
           icon: 'error'
         });
-        this.closeModal();
        // alert("Save error: " + err.message); // Display error message to user
       }
     });

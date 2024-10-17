@@ -138,7 +138,7 @@ export class GbFactsComponent {
     });
     this.ref.onClose.subscribe((template: any) => {
       // this.getAll({});
-      //this.fetchTreeData();
+      // this.fetchTreeData();
     });
   }
 

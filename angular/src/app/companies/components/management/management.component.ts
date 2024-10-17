@@ -714,6 +714,7 @@ export class ManagementComponent {
   createOrUpdateCompanyProjects() {
     this.loading = true;
     this.companyProject.active = this.companyProjectActivation == 1 ? true : false;
+    this.companyProject.projectStatus = "New"
     if (this.companyProject.companyID == 0) this.companyProject.companyID = this.companyID;
     this.companyManagmentService
       .createOrUpdateCompanyProjectsByModel(this.companyProject)
