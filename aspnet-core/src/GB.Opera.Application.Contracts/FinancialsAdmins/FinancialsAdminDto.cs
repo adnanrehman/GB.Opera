@@ -21,8 +21,8 @@ namespace FinancialsAdmins
         public string? QPeriod { get; set; }
         public int QPeriodID { get; set; }
         public bool? IsYearly { get; set; }
-        public int? EntryUser { get; set; }
-        public int? ReEntryUser { get; set; }
+        public Guid? EntryUser { get; set; }
+        public Guid? ReEntryUser { get; set; }
         public int? StatusID { get; set; }
         public string? UploadedPath { get; set; }
         public string? FileName { get; set; }

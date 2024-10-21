@@ -6389,6 +6389,23 @@
                     "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.MFundPrices>",
                     "typeSimple": "[GB.Opera.OfficialsIndics.MFundPrices]"
                   }
+                },
+                {
+                  "name": "ImportOfficialIndices",
+                  "parametersOnMethod": [
+                    {
+                      "name": "filePath",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.String",
+                    "typeSimple": "string"
+                  }
                 }
               ]
             }
@@ -6610,6 +6627,43 @@
               "returnValue": {
                 "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.MFundPrices>",
                 "typeSimple": "[GB.Opera.OfficialsIndics.MFundPrices]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.OfficialsIndics.IOfficialIndicsAppService"
+            },
+            "ImportOfficialIndicesByFilePath": {
+              "uniqueName": "ImportOfficialIndicesByFilePath",
+              "name": "ImportOfficialIndices",
+              "httpMethod": "POST",
+              "url": "api/app/official-indics/import-official-indices",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "filePath",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "filePath",
+                  "name": "filePath",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.String",
+                "typeSimple": "string"
               },
               "allowAnonymous": null,
               "implementFrom": "GB.Opera.OfficialsIndics.IOfficialIndicsAppService"
@@ -7423,8 +7477,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "System.String",
-                    "typeSimple": "string"
+                    "type": "Reviewers.ReviewReportOutputDto",
+                    "typeSimple": "Reviewers.ReviewReportOutputDto"
                   }
                 }
               ]
@@ -7499,8 +7553,8 @@
                 }
               ],
               "returnValue": {
-                "type": "System.String",
-                "typeSimple": "string"
+                "type": "Reviewers.ReviewReportOutputDto",
+                "typeSimple": "Reviewers.ReviewReportOutputDto"
               },
               "allowAnonymous": null,
               "implementFrom": "Reviewers.IReviewerAppService"
@@ -19909,8 +19963,8 @@
         {
           "name": "EntryUser",
           "jsonName": null,
-          "type": "System.Int32?",
-          "typeSimple": "number?",
+          "type": "System.Guid?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -19921,8 +19975,8 @@
         {
           "name": "ReEntryUser",
           "jsonName": null,
-          "type": "System.Int32?",
-          "typeSimple": "number?",
+          "type": "System.Guid?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -23037,6 +23091,165 @@
           "jsonName": null,
           "type": "System.Boolean?",
           "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Reviewers.ReviewerDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "ReviewerID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Reviewers.ReviewReportDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Ticker",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AsOfDate",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Account",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Value",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Year",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "QPeriod",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Reviewers.ReviewReportOutputDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Reviewers",
+          "jsonName": null,
+          "type": "[Reviewers.ReviewerDto]",
+          "typeSimple": "[Reviewers.ReviewerDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ReviewersNew",
+          "jsonName": null,
+          "type": "[Reviewers.ReviewerDto]",
+          "typeSimple": "[Reviewers.ReviewerDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IncomeStatement",
+          "jsonName": null,
+          "type": "[Reviewers.ReviewReportDto]",
+          "typeSimple": "[Reviewers.ReviewReportDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "BalanceSheet",
+          "jsonName": null,
+          "type": "[Reviewers.ReviewReportDto]",
+          "typeSimple": "[Reviewers.ReviewReportDto]",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

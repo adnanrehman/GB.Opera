@@ -34,7 +34,7 @@ begin
 
 set @isNew='true'
 
-INSERT INTO [opera].[dbo].[Financials]
+INSERT INTO [Financials]
            ([CompanyID]
            ,[AsOfDate]
            ,[PeriodTypeID]
@@ -45,7 +45,7 @@ INSERT INTO [opera].[dbo].[Financials]
 
 set @FinancialsID=@@identity
 
-INSERT INTO [opera].[dbo].[FinancialsQYPeriods]
+INSERT INTO [FinancialsQYPeriods]
            ([CompanyID]
            ,[FinancialsID]
            ,[Year]
@@ -79,7 +79,7 @@ end
 --set @UploadedPath=@UploadedPath +'\' + @SPFilename
 
 
-INSERT INTO [opera].[dbo].[NewReviewFinancials]
+INSERT INTO [NewReviewFinancials]
            ([FinancialsID]
            ,[FinancialEntryTypeID]
            ,[UploadedDate]
@@ -100,7 +100,7 @@ set @NewReviewID=@@identity
 exec usp_InsertUpdateFinancialCommentsStatus @NewReviewID,1,@FinancialsID,@Remarks,@ARemarks,@UserID
 
 --
-UPDATE [opera].[dbo].[FinancialsQYPeriods]
+UPDATE [FinancialsQYPeriods]
    SET   [IsYearly] = @IsYearly
 WHERE CompanyID=@CompanyID and FinancialsID=@FinancialsID
 

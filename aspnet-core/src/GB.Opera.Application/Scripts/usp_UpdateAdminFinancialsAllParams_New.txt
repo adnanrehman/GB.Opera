@@ -30,7 +30,7 @@ begin
 SET NOCOUNT ON 
 
 
-UPDATE [opera].[dbo].[Financials]
+UPDATE [Financials]
 		SET [AsOfDate] = @AsOfDate,
 			[PeriodTypeID] = @PeriodTypeID,
 			IsAudited=@IsAudited,
@@ -39,7 +39,7 @@ UPDATE [opera].[dbo].[Financials]
 WHERE	FinancialsID=@FinancialsID
 
 
-UPDATE [opera].[dbo].[FinancialsQYPeriods]
+UPDATE [FinancialsQYPeriods]
    SET [Year] = @Year
       ,[QPeriodID] = @QPeriodID
       ,[IsYearly] = @IsYearly
@@ -50,7 +50,7 @@ WHERE	FinancialsID=@FinancialsID
 
 if exists(select FinancialsID from [UserFinancials] where FinancialsID=@FinancialsID and NewReviewFinancialID=@NewReviewFinancialID)
 begin
-UPDATE [opera].[dbo].[UserFinancials]
+UPDATE [UserFinancials]
       Set  [gbEntryUser] =@EntryUser
           ,[gbReEntryUser] =@ReEntryUser
 
@@ -58,7 +58,7 @@ WHERE	FinancialsID=@FinancialsID and NewReviewFinancialID=@NewReviewFinancialID
 end
 else
 begin
-INSERT INTO [opera].[dbo].[UserFinancials]
+INSERT INTO [UserFinancials]
            ([FinancialsID]
            ,[NewReviewFinancialID]
            ,[gbEntryUser]
@@ -69,7 +69,7 @@ end
 
 
 
-UPDATE [opera].[dbo].[FinancialStatusRemarks]
+UPDATE [FinancialStatusRemarks]
 	SET	 [StatusID] = @StatusID
 		,[Remarks] = @Remarks
 		,[ARemarks] =@ARemarks
@@ -79,7 +79,7 @@ WHERE	NewReviewFinancialID=@NewReviewFinancialID
 --FinancialsID=@FinancialsID 
 
 /*
-UPDATE [opera].[dbo].[NewReviewFinancials]
+UPDATE [NewReviewFinancials]
    SET 
       //,[FinancialEntryTypeID] = <FinancialEntryTypeID, smallint,>
       ,[UploadedDate] = <UploadedDate, smalldatetime,>

@@ -12,7 +12,7 @@ declare @FinancialsID bigint
 
 Select @FinancialsID=FinancialsID from [NewReviewFinancials] where [NewReviewFinancialID]=@NewReviewFinancialID
 
-UPDATE [opera].[dbo].[NewReviewFinancials]
+UPDATE [NewReviewFinancials]
    SET 
     
       [UploadedPath] = @UploadedPath
@@ -21,7 +21,7 @@ UPDATE [opera].[dbo].[NewReviewFinancials]
  WHERE [NewReviewFinancialID]=@NewReviewFinancialID
 
 --Insert Users
-INSERT INTO [opera].[dbo].[UserFinancials]
+INSERT INTO [UserFinancials]
            ([FinancialsID]
            ,[NewReviewFinancialID]
            ,[EntryUser]

@@ -1,3 +1,4 @@
+import type { ReviewReportOutputDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { StatusFinancialsDto } from '../entry/models';
@@ -10,9 +11,8 @@ export class ReviewerService {
   
 
   getReviewReportByFinancialsID = (financialsID: number, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, string>({
+    this.restService.request<any, ReviewReportOutputDto>({
       method: 'GET',
-      responseType: 'text',
       url: '/api/app/reviewer/review-report',
       params: { financialsID },
     },

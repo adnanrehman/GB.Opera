@@ -20,8 +20,8 @@ export interface NewReviewFinancialDto {
   qPeriod?: string;
   qPeriodID: number;
   isYearly?: boolean;
-  entryUser?: number;
-  reEntryUser?: number;
+  entryUser?: string;
+  reEntryUser?: string;
   statusID?: number;
   uploadedPath?: string;
   fileName?: string;

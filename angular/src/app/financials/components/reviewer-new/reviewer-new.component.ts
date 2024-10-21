@@ -92,7 +92,7 @@ export class ReviewerNewComponent {
 
   generateReport(){
     this.loading = true;
-    this.fileService.getReviewReport(43418).subscribe(res => {
+    this.fileService.getReviewReport(this.statusFinanial.financialsID).subscribe(res => {
       this.loading = false;
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:'Report genrated successfully', icon: 'success', });
       debugger;

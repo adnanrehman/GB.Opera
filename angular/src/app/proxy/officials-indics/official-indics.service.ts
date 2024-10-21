@@ -60,6 +60,16 @@ export class OfficialIndicsService {
       params: { priceDate: PriceDate },
     },
     { apiName: this.apiName,...config });
+  
+
+  importOfficialIndicesByFilePath = (filePath: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, string>({
+      method: 'POST',
+      responseType: 'text',
+      url: '/api/app/official-indics/import-official-indices',
+      params: { filePath },
+    },
+    { apiName: this.apiName,...config });
 
   constructor(private restService: RestService) {}
 }

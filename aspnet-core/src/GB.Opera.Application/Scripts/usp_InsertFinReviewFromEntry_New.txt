@@ -15,7 +15,7 @@ begin
 
 if not exists(select FinancialDetailID from FinancialsEntryInReview where FinancialDetailID=@FinancialDetailID and IsActive='true')
 begin
-INSERT INTO [opera].[dbo].[FinancialsEntryInReview]
+INSERT INTO [FinancialsEntryInReview]
            ([FinancialsID]
            ,[FinancialDetailID]
            ,[UserID]

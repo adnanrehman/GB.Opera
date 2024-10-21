@@ -11,7 +11,7 @@ ALTER procedure [dbo].[usp_InsertUpdateFinRemarksLog]
 
 as
 
-INSERT INTO [opera].[dbo].[FinRemarksLog]
+INSERT INTO [FinRemarksLog]
            ([FinancialsID]
            ,[NewReviewFinancialID]
            ,[FormType]
