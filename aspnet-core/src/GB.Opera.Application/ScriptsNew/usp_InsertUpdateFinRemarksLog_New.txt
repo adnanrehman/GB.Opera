@@ -1,0 +1,29 @@
+ 
+ALTER procedure [dbo].[usp_InsertUpdateFinRemarksLog_New]
+(
+@FinancialsID bigint
+,@NewReviewFinancialID bigint 
+,@FormType varchar(20)
+,@UserID uniqueidentifier
+,@Remarks varchar(1000)
+,@ARemarks nvarchar(1000)
+)
+
+as
+
+INSERT INTO [FinRemarksLog]
+           ([FinancialsID]
+           ,[NewReviewFinancialID]
+           ,[FormType]
+           ,[UserID]
+           ,[Remarks]
+           ,[ARemarks]
+           ,[Date],gbuserId)
+     VALUES
+           (@FinancialsID
+           ,@NewReviewFinancialID
+		   ,@FormType
+           ,null
+           ,@Remarks
+           ,@ARemarks
+           ,getdate(),@UserID)

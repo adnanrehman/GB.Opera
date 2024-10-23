@@ -29,7 +29,7 @@ namespace FinancialsAdmins
         {
             try
             {
-                var reader = await _connection.QueryMultipleAsync(ProcedureNames.usp_getCompAdminFinancials,
+                var reader = await _connection.QueryMultipleAsync(ProcedureNames.usp_getCompAdminFinancials_New,
                     param: new { @CompanyID = companyID },
                 commandType: CommandType.StoredProcedure);
                 var output = new NewFinancialReviewOutputDto();

@@ -71,7 +71,7 @@ namespace GB.Opera.AccountsClassifications
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<GbAcFactsAccount>(
-                sql: "usp_GetAccFactbyId",
+                sql: "usp_GetAccFactbyId_New",
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );

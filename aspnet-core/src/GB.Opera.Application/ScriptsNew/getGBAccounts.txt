@@ -1,0 +1,10 @@
+ 
+Alter PROCEDURE [dbo].[getGBAccounts] 
+(
+@GBFactID smallint
+
+)
+AS
+
+
+select g.*,ParentID from GBFacts  g left  join [FactsMapping] f on  g.GBFactID=f.GBFactID where g.GBFactID=@GBFactID

@@ -52,10 +52,10 @@ namespace GB.Opera.constants
         public const string usp_InsetUpdateEstimatesandForecasts = "usp_InsetUpdateEstimatesandForecasts";
         public const string GetGBFactsData = "GetGBFactsData";
         public const string usp_AddUpdateGBFact = "usp_AddUpdateGBFact";
-        public const string getGBAccounts = "getGBAccounts";
+        public const string getGBAccounts_New = "getGBAccounts_New";
         public const string usp_getAllFactsOwnershipMappings = "usp_getAllFactsOwnershipMappings";
         public const string usp_AddUpdateGBOwnership = "usp_AddUpdateGBOwnership";
-        public const string usp_GetGBOwnershipbyId = "usp_GetGBOwnershipbyId";
+        public const string usp_GetGBOwnershipbyId_New = "usp_GetGBOwnershipbyId_New";
         public const string usp_deleteOwnershipById = "usp_deleteOwnershipById";
         public const string usp_getCompStockMarkets = "usp_getCompStockMarkets";
         public const string usp_getCompaniesFromMarket = "usp_getCompaniesFromMarket";
@@ -67,8 +67,8 @@ namespace GB.Opera.constants
         public const string usp_getAllFundPrices = "usp_getAllFundPrices";
         public const string usp_getCompaniesFinanicalTickers = "usp_getCompaniesFinanicalTickers";
         public const string usp_getEntryReEntryUsers_New = "usp_getEntryReEntryUsers_New";
-        public const string usp_getCompanyLatestFinanicals = "usp_getCompanyLatestFinanicals";
-        public const string usp_InsertPrice = "InsertPrice";
+        public const string usp_getCompanyLatestFinanicals_New = "usp_getCompanyLatestFinanicals_New";
+        public const string usp_InsertPrice_New = "InsertPrice_New";
         public const string usp_getStatusFinancials_New = "usp_getStatusFinancials_New";
         public const string usp_getCompaniesAccounts = "usp_getCompaniesAccounts";
         public const string usp_getAsofDatesFinancials = "usp_getAsofDatesFinancials";
@@ -77,7 +77,7 @@ namespace GB.Opera.constants
         public const string usp_InsertUpdateFinancialValues = "usp_InsertUpdateFinancialValues";
         public const string usp_InsertUpdateFinancialCommentsStatus_New = "usp_InsertUpdateFinancialCommentsStatus_New";
         public const string usp_InsertFinReviewFromEntry_New = "usp_InsertFinReviewFromEntry_New";
-        public const string usp_getCompAdminFinancials = "usp_getCompAdminFinancials";
+        public const string usp_getCompAdminFinancials_New = "usp_getCompAdminFinancials_New";
         public const string usp_UpdateAdminFinancialsAllParams_New = "usp_UpdateAdminFinancialsAllParams_New";
         public const string usp_UpdateFinancialRateChanges = "usp_UpdateFinancialRateChanges";
         public const string usp_getHistoricalCashDividends = "usp_getHistoricalCashDividends";

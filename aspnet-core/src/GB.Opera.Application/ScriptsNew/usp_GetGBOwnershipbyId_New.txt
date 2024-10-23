@@ -1,0 +1,9 @@
+Create procedure [usp_GetGBOwnershipbyId_New]  
+@GBOwnershipID smallint  
+as  
+  
+begin   
+  
+Select f.*,ParentID from [GBOwnership] f inner join  [OwnershipMapping] m on f.GBOwnershipID=m.GBOwnershipID  
+Where f.GBOwnershipID=@GBOwnershipID  
+End

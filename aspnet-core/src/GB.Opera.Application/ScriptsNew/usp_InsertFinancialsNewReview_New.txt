@@ -1,0 +1,112 @@
+ 
+
+Alter  PROCEDURE [dbo].[usp_InsertFinancialsNewReview_New]
+(
+@FinancialsID bigint,
+@CompanyID smallint,
+@AsOfDate smalldatetime, 
+@PeriodTypeID smallint, 
+@FinancialEntryTypeID smallint, 
+--@UploadedPath varchar(200),   File path will be updated from opera share point after bieng saved.
+@UserID uniqueidentifier, 
+@Remarks varchar(200), 
+@ARemarks nvarchar(200),
+@Year smallint,
+@QPeriodID smallint,
+@IsYearly bit,
+@PeriodNote varchar(150),
+@APeriodNote nvarchar(150)
+)
+AS
+
+SET NOCOUNT ON 
+
+Declare @NewReviewID bigint
+
+Declare @SPFilename varchar(200)
+declare @isNew bit
+set @isNew='false'
+set @SPFilename=''
+--set @SPFilename=Cast(Month(@AsOfDate) as varchar) +'-'+ Cast(Day(@AsOfDate) as varchar) +'-' +Cast(Year(@AsOfDate) as varchar) 
+
+if not exists(select FinancialsID from [Financials] where FinancialsID=@FinancialsID )
+begin
+
+set @isNew='true'
+
+INSERT INTO [Financials]
+           ([CompanyID]
+           ,[AsOfDate]
+           ,[PeriodTypeID]
+           ,[IsAudited]
+           ,[IsActive])
+     VALUES
+           (@CompanyID,@AsOfDate,@PeriodTypeID,'false','true')
+
+set @FinancialsID=@@identity
+
+INSERT INTO [FinancialsQYPeriods]
+           ([CompanyID]
+           ,[FinancialsID]
+           ,[Year]
+           ,[QPeriodID]
+           ,[IsYearly]
+           ,[PeriodNote]
+           ,[APeriodNote])
+     VALUES (@CompanyID,@FinancialsID,@Year,@QPeriodID,@IsYearly,@PeriodNote,@APeriodNote)
+
+
+end
+
+
+
+
+
+if (@isNew='false')
+begin
+Declare @CountR smallint
+select @CountR=count(*) from [NewReviewFinancials] where [FinancialsID]=@FinancialsID and FinancialEntryTypeID=2
+set @CountR=@CountR+1
+set @SPFilename= @SPFilename + ' (Review ' + Cast(@CountR as varchar) + ')'
+end
+
+else
+begin
+set @SPFilename= @SPFilename + ' (New)'
+end
+
+
+--set @UploadedPath=@UploadedPath +'\' + @SPFilename
+
+
+INSERT INTO [NewReviewFinancials]
+           ([FinancialsID]
+           ,[FinancialEntryTypeID]
+           ,[UploadedDate]
+          -- ,[UploadedPath]  File path will be updated from opera share point after bieng saved.
+		  --  ,[FileName]
+          -- ,[UserID]
+          -- ,[Remarks]
+          -- ,[ARemarks]
+		   --,StatusID)
+			)
+		
+
+     VALUES
+           (@FinancialsID,@FinancialEntryTypeID,getdate())--,@UserID,@Remarks,@ARemarks,1)
+
+set @NewReviewID=@@identity
+
+exec usp_InsertUpdateFinancialCommentsStatus @NewReviewID,1,@FinancialsID,@Remarks,@ARemarks,@UserID
+
+--
+UPDATE [FinancialsQYPeriods]
+   SET   [IsYearly] = @IsYearly
+WHERE CompanyID=@CompanyID and FinancialsID=@FinancialsID
+
+--
+
+exec usp_getFinanicals @CompanyID
+
+select @FinancialsID as FinancialsID,@NewReviewID as NewReviewFinancialID,@AsOfDate as AsofDate, @SPFilename as FName
+--select @SPFilename as FName

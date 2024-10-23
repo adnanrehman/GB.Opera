@@ -81,7 +81,7 @@ namespace GbFacts
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<GbFactsAccount>(
-                sql: ProcedureNames.getGBAccounts,
+                sql: ProcedureNames.getGBAccounts_New,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );
