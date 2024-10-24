@@ -1,0 +1,63 @@
+﻿  
+  
+  
+  
+  
+  
+CREATE Procedure [dbo].[usp_getCountryGroupInfo_New]  
+AS  
+BEGIN  
+   
+  
+  
+SELECT [CountryGroupID]  
+      ,[CountryGroup]  
+      ,[ACountryGroup]  
+      ,[NumberOfCountries]  
+      ,[FormationDate]  
+      ,[Overview]  
+      ,[AOverview]  
+      ,[Description]  
+      ,[ADescription]  
+  ,[IsActive]  
+FROM[CountriesGroup]  
+  
+SELECT [SectorID]  
+      ,[Sector]  
+      ,[ASector]  
+FROM[Sectors]order by [Sector]  
+  
+SELECT [CapSizeID]  
+      ,[CapSize]  
+      ,[ACapSize]  
+  FROM[CapacitySizes]order by [CapSize]  
+  
+  
+SELECT     Sector AS GBSector, ASector AS AGBSector,GBSectorID ,IsCapSize,CountryGroupID   
+FROM         dbo.GBSectors INNER JOIN  
+                      dbo.Sectors ON dbo.GBSectors.SectorID = dbo.Sectors.SectorID where IsCapSize='false'  
+  
+  
+SELECT    CapSize AS GBSector,ACapSize AS AGBSector,GBSectorID,IsCapSize,CountryGroupID  
+FROM         dbo.GBSectors INNER JOIN  
+                         dbo.CapacitySizes ON dbo.GBSectors.SectorID = dbo.CapacitySizes.CapSizeID where dbo.GBSectors.IsCapSize='true'  
+  
+  
+  
+--SELECT [GBSectorID]  
+ --     ,[CountryGroupID]  
+ --     ,[GBSector]  
+ --     ,[AGBSector]  
+ --     ,[Description]  
+ --     ,[ADescription]  
+ --     ,[IsCapSize]  
+    
+--  FROM[GBSectors]  
+  
+  
+END  
+  
+  
+  
+  
+  

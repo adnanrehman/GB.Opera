@@ -3,7 +3,6 @@ import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { AgencyRatingDto } from '../agency-ratings/models';
 import type { CompanyDto } from '../companies/models';
-import type { CompanyCurrentValuesdtos } from '../company-current-values/models';
 
 @Injectable({
   providedIn: 'root',
@@ -102,15 +101,6 @@ export class CommonService {
       method: 'GET',
       url: '/api/app/common/companies-with-has-fund',
       params: { stockMarketID },
-    },
-    { apiName: this.apiName,...config });
-  
-
-  getCompanyCurrentValuesByCompanyID = (companyID: number, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, CompanyCurrentValuesdtos[]>({
-      method: 'GET',
-      url: '/api/app/common/company-current-values',
-      params: { companyID },
     },
     { apiName: this.apiName,...config });
   

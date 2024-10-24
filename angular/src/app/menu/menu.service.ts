@@ -137,7 +137,7 @@ constructor(){
       active: false
     },
     {
-      title: "Companies and Markets", permission: CompanyAndMarket, menuItems: [
+      title: "Countries and Markets", permission: CompanyAndMarket, menuItems: [
         {
           href: "country-group", title: "Country-Group", permission: CompanyAndMarket_CountryGroup, component: CountryGroupComponent,
           active: false

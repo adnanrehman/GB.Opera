@@ -1,0 +1,21 @@
+CREATE Procedure [dbo].[usp_InsertNewGBSector_New]  
+@CountryGroupID smallint,  
+@SectorID smallint,  
+@IsCapSize bit  
+AS  
+BEGIN  
+ INSERT INTO[GBSectors]  
+           ([CountryGroupID]  
+           ,[SectorID]  
+           ,[IsCapSize]  
+           )  
+     VALUES  
+           (@CountryGroupID ,  
+           @SectorID ,  
+   @IsCapSize   
+            )  
+  
+  
+select @@identity as GBSectorID  
+  
+END  
