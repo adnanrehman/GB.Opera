@@ -72,6 +72,13 @@ export interface CompanyWithHasFundDto {
   mfSubCategories: MFSubCategoryDto[];
 }
 
+export interface Companydto {
+  ticker?: string;
+  companyID: number;
+  stockMarketID: number;
+  sectorID: number;
+}
+
 export interface CountryDto {
   gccid: number;
   countryID: number;

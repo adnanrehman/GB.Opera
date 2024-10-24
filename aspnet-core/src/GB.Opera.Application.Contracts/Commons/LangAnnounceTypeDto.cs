@@ -30,4 +30,6 @@ namespace Commons
         public string? QPeriod { get; set; }
     }
 
+    
+
 }

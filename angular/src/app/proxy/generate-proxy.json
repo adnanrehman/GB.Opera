@@ -1845,6 +1845,58 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Commons.ICommonAppService"
+            },
+            "GetAllCompanies": {
+              "uniqueName": "GetAllCompanies",
+              "name": "GetAllCompanies",
+              "httpMethod": "GET",
+              "url": "api/app/common/companies",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.Commons.Companydto>",
+                "typeSimple": "[GB.Opera.Commons.Companydto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.CommonAppService"
+            },
+            "GetCompanyCurrentValuesByCompanyID": {
+              "uniqueName": "GetCompanyCurrentValuesByCompanyID",
+              "name": "GetCompanyCurrentValues",
+              "httpMethod": "GET",
+              "url": "api/app/common/company-current-values",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyID",
+                  "name": "companyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<CompanyCurrentValues.CompanyCurrentValuesdtos>",
+                "typeSimple": "[CompanyCurrentValues.CompanyCurrentValuesdtos]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.CommonAppService"
             }
           }
         },
@@ -2125,6 +2177,78 @@
               },
               "allowAnonymous": null,
               "implementFrom": "CompanyAccounts.ICompanyAccountAppService"
+            }
+          }
+        },
+        "CompanyCurrentValues.CompanyCurrentValuesAppService": {
+          "controllerName": "CompanyCurrentValues",
+          "controllerGroupName": "CompanyCurrentValues",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "CompanyCurrentValues.CompanyCurrentValuesAppService",
+          "interfaces": [
+            {
+              "type": "CompanyCurrentValues.ICompanyCurrentValuesAppService",
+              "name": "ICompanyCurrentValuesAppService",
+              "methods": [
+                {
+                  "name": "GetCompanyCurrentValues",
+                  "parametersOnMethod": [
+                    {
+                      "name": "companyID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<CompanyCurrentValues.CompanyCurrentValuesdtos>",
+                    "typeSimple": "[CompanyCurrentValues.CompanyCurrentValuesdtos]"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetCompanyCurrentValuesByCompanyID": {
+              "uniqueName": "GetCompanyCurrentValuesByCompanyID",
+              "name": "GetCompanyCurrentValues",
+              "httpMethod": "GET",
+              "url": "api/app/company-current-values/company-current-values",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyID",
+                  "name": "companyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<CompanyCurrentValues.CompanyCurrentValuesdtos>",
+                "typeSimple": "[CompanyCurrentValues.CompanyCurrentValuesdtos]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyCurrentValues.ICompanyCurrentValuesAppService"
             }
           }
         },
@@ -12230,6 +12354,135 @@
         }
       ]
     },
+    "CompanyCurrentValues.CompanyCurrentValuesdtos": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Market",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Ticker",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AsofDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NetProfit",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Revenues",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CashFlow",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "OwnerEquity",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TotalAssets",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CurrentDividends",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "OutstandingShares",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "CompanyFactOrders.CompanyFactOrderDto": {
       "baseType": null,
       "isEnum": false,
@@ -18738,6 +18991,63 @@
           "type": "System.Single",
           "typeSimple": "number",
           "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "GB.Opera.Commons.Companydto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Ticker",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "StockMarketID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SectorID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
           "minLength": null,
           "maxLength": null,
           "minimum": null,

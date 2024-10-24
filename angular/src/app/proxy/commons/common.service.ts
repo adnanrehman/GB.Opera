@@ -1,8 +1,9 @@
-import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, CompanyQNPDto, CompanyWithHasFundDto, CountryDto, ESDFactDto, FactsOwnershipMappingDto, GetNewsCatAndCountriesDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, ProductServiceRawDto, SectorDto, StockMarketDto } from './models';
+import type { CompDropdownDto, CompStockMarketDto, CompaniesTickerDto, CompanyQNPDto, CompanyWithHasFundDto, Companydto, CountryDto, ESDFactDto, FactsOwnershipMappingDto, GetNewsCatAndCountriesDto, LangAnnounceTypeDto, MarketLangAnnouncementDto, ProductServiceRawDto, SectorDto, StockMarketDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { AgencyRatingDto } from '../agency-ratings/models';
 import type { CompanyDto } from '../companies/models';
+import type { CompanyCurrentValuesdtos } from '../company-current-values/models';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,14 @@ export class CommonService {
       method: 'GET',
       url: '/api/app/common/agency-ratings',
       params: { isCredit },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getAllCompanies = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, Companydto[]>({
+      method: 'GET',
+      url: '/api/app/common/companies',
     },
     { apiName: this.apiName,...config });
   
@@ -93,6 +102,15 @@ export class CommonService {
       method: 'GET',
       url: '/api/app/common/companies-with-has-fund',
       params: { stockMarketID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getCompanyCurrentValuesByCompanyID = (companyID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, CompanyCurrentValuesdtos[]>({
+      method: 'GET',
+      url: '/api/app/common/company-current-values',
+      params: { companyID },
     },
     { apiName: this.apiName,...config });
   

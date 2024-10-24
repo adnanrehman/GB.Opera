@@ -13,6 +13,10 @@ using System.Text;
 using Volo.Abp.Data;
 using Companies;
 using AgencyRatings;
+using GB.Opera.Commons;
+ 
+using GB.Opera.constants;
+using CompanyCurrentValues;
 
 namespace Commons
 {
@@ -263,6 +267,15 @@ namespace Commons
             }
 
         }
+
+        public async Task<List<Companydto>> GetAllCompanies()
+        {
+            var data = (await _connection.QueryAsync<Companydto>(sql: "[usp_getAllCompanies]", commandType: CommandType.StoredProcedure)).ToList();
+
+            return data;
+        }
+
+     
 
 
 

@@ -1,5 +1,6 @@
 ﻿using AgencyRatings;
 using Companies;
+ 
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,6 +30,7 @@ namespace Commons
         Task<List<CountryDto>> GetCountriesForIndicators();
         Task<AgencyRatingDto> GetAgencyRatings(bool isCredit);
         Task<GetNewsCatAndCountriesDto> GetNewsCatAndCountries();
+         
 
 
     }

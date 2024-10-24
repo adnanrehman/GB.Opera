@@ -1,0 +1,309 @@
+ 
+
+ALTER PROCEDURE [dbo].[usp_CompanyCurrentValues]
+(
+@CompanyID smallint
+
+)
+AS
+SET NOCOUNT ON 
+
+
+Declare @Market	varchar(200)
+
+Declare @Ticker	varchar(50)
+Declare @AsofDate	smalldatetime
+Declare @NetProfit	decimal(16, 4)
+Declare @Revenues	decimal(16, 4)	
+Declare @CashFlow	decimal(16, 4)	
+Declare @OwnersEquity	decimal(16, 4)
+Declare @TotalAssets	decimal(16, 4)
+Declare @CurrentDividends	decimal(16, 4)	
+Declare @OutstandingShares	int	
+
+Declare @FinID bigint
+
+--set @FinID= dbo.[getFinIDFromCompanyID] (@CompanyID)
+select  top 1 @FinID=FinancialsID  from FinancialsQYPeriods where CompanyID=@CompanyID order by Year desc,QPeriodID desc
+--special logic for current dividends
+Declare @FininID bigint
+select top 1 @FininID=FinancialsID from FinancialsQYPeriods where CompanyID=@CompanyID and IsYearly=1 
+order by Year Desc
+
+
+Declare @Multipler int,@MarketID as smallint
+SELECT	@MarketID=StockMarketID from dbo.Companies where CompanyID=@CompanyID
+
+set @Multipler=1
+
+
+if(@MarketID=4)
+set @Multipler=1000
+
+
+declare @RevenueAccountName varchar(200),@OSS int,@CUR varchar(20)
+
+set @RevenueAccountName=dbo.getCompanyRevenueFactName(@CompanyID);
+declare @Year smallint,@Period smallint
+
+
+SELECT     TOP (1) @Year=dbo.FinancialsQYPeriods.Year, @Period=dbo.FinancialsQYPeriods.QPeriodID
+FROM         dbo.FinancialsDetails INNER JOIN
+                      dbo.FinancialsQYPeriods ON dbo.FinancialsDetails.FinancialDetailID = dbo.FinancialsQYPeriods.FinancialsID CROSS JOIN
+                      dbo.CompQuartersNetProfit
+WHERE     (dbo.FinancialsQYPeriods.CompanyID = @CompanyID)
+ORDER BY dbo.FinancialsQYPeriods.Year DESC, dbo.FinancialsQYPeriods.QPeriodID DESC
+
+
+declare @SelectFromQNet smallint
+set @SelectFromQNet=0
+
+
+if exists(
+select top(1) [dbo].[CompQuartersNetProfit].Year  FROM [opera].[dbo].[CompQuartersNetProfit]
+
+
+ where [opera].[dbo].[CompQuartersNetProfit].CompanyID=@CompanyID and (([dbo].[CompQuartersNetProfit].QPeriodID>@Period and [dbo].[CompQuartersNetProfit].Year>=@year) or ([dbo].[CompQuartersNetProfit].QPeriodID<=@Period and [dbo].[CompQuartersNetProfit].Year>@year))        order by Year Desc , [dbo].[CompQuartersNetProfit].QPeriodID desc
+)
+begin
+set @SelectFromQNet=1
+
+end
+
+
+
+if(@SelectFromQNet=1)
+begin
+
+
+
+SELECT top(@SelectFromQNet)   dbo.Companies.Company + ' (' + dbo.Companies.Ticker + ')' AS Market, dbo.Companies.Ticker,[AsOfDate] as [AsOfDate]
+,(dbo.[getCVNetProfitTTMFromQNet]( dbo.Companies.CompanyID,'Net Profit',[NetProfit],[CompQuartersNetProfit].QPeriodID,[Year]) /dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler  [NetProfit]
+,(dbo.[getCVNetProfitTTMFromQNet]( dbo.Companies.CompanyID,'Revenues',[Revenues],[CompQuartersNetProfit].QPeriodID,[Year])/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler as [Revenues]
+,(dbo.[getCVNetProfitTTMFromQNet]( dbo.Companies.CompanyID,'Cash Flow TTM',null,[CompQuartersNetProfit].QPeriodID,[Year])/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler as [CashFlow]
+,(dbo.[getCVNetProfitTTMFromQNet]( dbo.Companies.CompanyID,'Owners Equity',[OwnersEquity],[CompQuartersNetProfit].QPeriodID,[Year])/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler as [OwnersEquity]
+,(dbo.[getCVNetProfitTTMFromQNet]( dbo.Companies.CompanyID,'Total Assets',[TotalAssets],[CompQuartersNetProfit].QPeriodID,[Year])/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler as [TotalAssets]
+,((1.0*[CurrentDividend]) /dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler as CurrentDividends
+,dbo.CompanyFinancialOverview.OutstandingShares
+
+FROM [opera].[dbo].[CompQuartersNetProfit] inner join 
+Companies on
+[opera].[dbo].[CompQuartersNetProfit].CompanyID=Companies.CompanyID 
+inner join  dbo.QPeriodTypes ON [dbo].[CompQuartersNetProfit].QPeriodID = dbo.QPeriodTypes.QPeriodID
+INNER JOIN
+                      dbo.CompanyFinancialOverview ON dbo.Companies.CompanyID = dbo.CompanyFinancialOverview.CompanyID
+LEFT OUTER JOIN
+                      dbo.CurrentDividends ON dbo.Companies.CompanyID = dbo.CurrentDividends.CompanyID
+where [opera].[dbo].[CompQuartersNetProfit].CompanyID=@CompanyID  and Companies.SectorID<>21 order by Year Desc , [dbo].[CompQuartersNetProfit].QPeriodID desc
+
+
+--Populate and save
+
+SELECT top(@SelectFromQNet)   @Market=dbo.Companies.Company + ' (' + dbo.Companies.Ticker + ')' , @Ticker= dbo.Companies.Ticker,@AsofDate=[AsOfDate] 
+,@NetProfit=(dbo.[getCVNetProfitTTMFromQNet]( dbo.Companies.CompanyID,'Net Profit',[NetProfit],[CompQuartersNetProfit].QPeriodID,[Year]) /dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler 
+,@Revenues=(dbo.[getCVNetProfitTTMFromQNet]( dbo.Companies.CompanyID,'Revenues',[Revenues],[CompQuartersNetProfit].QPeriodID,[Year])/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler 
+,@CashFlow=(dbo.[getCVNetProfitTTMFromQNet]( dbo.Companies.CompanyID,'Cash Flow TTM',null,[CompQuartersNetProfit].QPeriodID,[Year])/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler
+,@OwnersEquity=(dbo.[getCVNetProfitTTMFromQNet]( dbo.Companies.CompanyID,'Owners Equity',[OwnersEquity],[CompQuartersNetProfit].QPeriodID,[Year])/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler
+,@TotalAssets=(dbo.[getCVNetProfitTTMFromQNet]( dbo.Companies.CompanyID,'Total Assets',[TotalAssets],[CompQuartersNetProfit].QPeriodID,[Year])/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler
+,@CurrentDividends=((1.0*[CurrentDividend]) /dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler
+,@OutstandingShares=dbo.CompanyFinancialOverview.OutstandingShares
+
+FROM [opera].[dbo].[CompQuartersNetProfit] inner join 
+Companies on
+[opera].[dbo].[CompQuartersNetProfit].CompanyID=Companies.CompanyID 
+inner join  dbo.QPeriodTypes ON [dbo].[CompQuartersNetProfit].QPeriodID = dbo.QPeriodTypes.QPeriodID
+INNER JOIN
+                      dbo.CompanyFinancialOverview ON dbo.Companies.CompanyID = dbo.CompanyFinancialOverview.CompanyID
+LEFT OUTER JOIN
+                      dbo.CurrentDividends ON dbo.Companies.CompanyID = dbo.CurrentDividends.CompanyID
+where [opera].[dbo].[CompQuartersNetProfit].CompanyID=@CompanyID  and Companies.SectorID<>21 order by Year Desc , [dbo].[CompQuartersNetProfit].QPeriodID desc
+
+
+
+
+end
+else
+begin
+
+SELECT     dbo.Companies.Company + ' (' + dbo.Companies.Ticker + ')' AS Market, dbo.Companies.Ticker,
+dbo.getAsofDateFromFinID(dbo.[getLatestCompanyQuarter] (dbo.Companies.CompanyID)) as AsofDate,
+(dbo.[getCVNetProfitTTM]( dbo.Companies.CompanyID,'Net Profit')/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler as [NetProfit],
+(dbo.[getCVNetProfitTTM]( dbo.Companies.CompanyID,'Revenue')/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler as Revenues,
+(dbo.[getCVNetProfitTTM]( dbo.Companies.CompanyID,'Cash Flow TTM')/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler as [CashFlow],
+(dbo.[getCVNetProfitTTM]( dbo.Companies.CompanyID,'Owners Equity')/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler as [OwnersEquity],
+(dbo.[getCVNetProfitTTM]( dbo.Companies.CompanyID,'Total Assets')/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler as [TotalAssets],
+((1.0*[CurrentDividend]) /dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler as CurrentDividends,
+dbo.CompanyFinancialOverview.OutstandingShares
+
+ FROM         dbo.Companies INNER JOIN
+                      dbo.CompanyFinancialOverview ON dbo.Companies.CompanyID = dbo.CompanyFinancialOverview.CompanyID LEFT OUTER JOIN
+                      dbo.CurrentDividends ON dbo.Companies.CompanyID = dbo.CurrentDividends.CompanyID
+where dbo.Companies.CompanyID=@CompanyID and Companies.SectorID<>21
+
+
+--pop
+SELECT     @Market= dbo.Companies.Company + ' (' + dbo.Companies.Ticker + ')' ,@Ticker= dbo.Companies.Ticker,
+@AsofDate=dbo.getAsofDateFromFinID(dbo.[getLatestCompanyQuarter] (dbo.Companies.CompanyID)),
+@NetProfit=(dbo.[getCVNetProfitTTM]( dbo.Companies.CompanyID,'Net Profit')/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler ,
+@Revenues=(dbo.[getCVNetProfitTTM]( dbo.Companies.CompanyID,'Revenue')/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler,
+@CashFlow=(dbo.[getCVNetProfitTTM]( dbo.Companies.CompanyID,'Cash Flow TTM')/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler ,
+@OwnersEquity=(dbo.[getCVNetProfitTTM]( dbo.Companies.CompanyID,'Owners Equity')/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler,
+@TotalAssets=(dbo.[getCVNetProfitTTM]( dbo.Companies.CompanyID,'Total Assets')/dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler,
+@CurrentDividends=((1.0*[CurrentDividend]) /dbo.CompanyFinancialOverview.OutstandingShares)*@Multipler,
+@OutstandingShares=dbo.CompanyFinancialOverview.OutstandingShares
+
+ FROM         dbo.Companies INNER JOIN
+                      dbo.CompanyFinancialOverview ON dbo.Companies.CompanyID = dbo.CompanyFinancialOverview.CompanyID LEFT OUTER JOIN
+                      dbo.CurrentDividends ON dbo.Companies.CompanyID = dbo.CurrentDividends.CompanyID
+where dbo.Companies.CompanyID=@CompanyID and Companies.SectorID<>21
+
+end
+
+
+
+exec [usp_UpdateCVRawDataAndGenerateRC] @CompanyID
+
+
+--Before Creating [usp_UpdateCVRawDataAndGenerateRC] for Prices--
+-- Following Logic embedded in usp_UpdateCVRawDataAndGenerateRC
+/* 
+--select @Market,@Ticker,@AsofDate,@NetProfit,@Revenues,@CashFlow,@OwnersEquity,@TotalAssets,@CurrentDividends,@OutstandingShares	
+
+--Latest Price for Ratio Comparison
+Declare @CPrice decimal(16,4)
+select  top(1) @CPrice= ClosingPrice from Prices where CompanyID=@CompanyID order by PriceDate desc
+
+--set @CPrice=(select  top(1) ClosingPrice from Prices where CompanyID=@CompanyID
+--and (  CONVERT(CHAR(24),PriceDate,103)=CONVERT(CHAR(24),@AsofDateLatestForPriceDate,103) or PriceDate< @AsofDateLatestForPriceDate)
+--order by PriceDate desc)
+
+Declare @USDR decimal (16,4)
+
+select top 1 @USDR=Exchange from CurrencyExchange where CurrencyFrom=1 and 
+CurrencyTo=(select FinancialCurrencyID from Companies where CompanyID=@CompanyID)
+order by Date Desc
+
+
+if exists(select CompanyID from CompaniesCVArchives where CompanyID=@CompanyID)
+begin
+
+
+--Declare @NPPossibleAccount varchar(100)
+--Declare @RevenuePossibleAccount varchar(100)
+
+--select * from CompanyDefaultFacts where GBFact in ('Net Profit','Gross Profit')
+
+
+UPDATE [opera].[dbo].[CompaniesCVArchives]
+   SET [Market] = @Market
+      ,[CompanyID] = @CompanyID
+      ,[Ticker] = @Ticker
+      ,[AsofDate] = @AsofDate
+      ,[Net Profit] = @NetProfit
+      ,[Revenues] = @Revenues 
+      ,[Cash Flow] = @CashFlow 
+      ,[Owners Equity] = @OwnersEquity 
+      ,[Total Assets] = @TotalAssets 
+      ,[CurrentDividends] = @CurrentDividends 
+      ,[OutstandingShares] = @OutstandingShares 
+      ,[FNetProfit] = [dbo].getFactValueTTMFromFinID (@FinID,'Net Profit') / @USDR --[dbo].[getFactValueFromFinID] (@FinID,'Net Profit') * @USDR
+	  ,[FRevenue]= [dbo].getFactValueTTMFromFinID (@FinID,'Revenues')  / @USDR
+      ,[FOwnersEquity] = [dbo].[getFactValueFromFinID] (@FinID,'Owners Equity') / @USDR
+      ,[FCashFlow] = ([dbo].getFactValueTTMFromFinID(@FinID,'Net Profit')  +  [dbo].[getDepreciationAmortizationTTMFromFinID](@FinID)) / @USDR
+      ,[FCurrentDividends] =[dbo].[getFactValueFromFinID] (@FininID,'Total Dividends') / @USDR
+      ,[FTotalDividends] = [dbo].[getFactValueFromFinID] (@FininID,'Total Dividends') / @USDR
+	  ,[FNPYearly] = [dbo].[getFactValueFromFinID] (@FininID,'Net Profit') / @USDR
+      ,[FTotalAssets] =[dbo].[getFactValueFromFinID] (@FinID,'Total Assets') / @USDR
+      ,[FCurrentAssets] =[dbo].[getFactValueFromFinID] (@FinID,'Current Assets') / @USDR
+      ,[FAccountReceivable] =[dbo].[getFactValueFromFinID] (@FinID,'Account Receivable') / @USDR
+      ,[FCurrentLiabilities] = [dbo].[getFactValueFromFinID] (@FinID,'Current Liabilities') / @USDR
+      ,[FInventories] = [dbo].[getFactValueFromFinID] (@FinID,'Inventories') / @USDR
+      ,[FLoans] =[dbo].[getFactValueFromFinID] (@FinID,'Loans') / @USDR
+      ,[FDeposits] =[dbo].[getFactValueFromFinID] (@FinID,'Deposits') / @USDR
+      ,[FTotalLiabilities] =[dbo].[getFactValueFromFinID] (@FinID,'Total Liabilities')  / @USDR
+      ,[FLongTermDebts] =[dbo].[getFactValueFromFinID] (@FinID,'Long Term Debts') / @USDR
+	  ,CPrice=@CPrice 
+	  ,MarketCap=(@CPrice * @OutstandingShares) / @USDR
+		,KPrice	= @CPrice / 1000
+ WHERE CompanyID=@CompanyID
+
+end
+
+else
+begin 
+INSERT INTO [opera].[dbo].[CompaniesCVArchives]
+           ([Market]
+           ,[CompanyID]
+           ,[Ticker]
+           ,[AsofDate]
+           ,[Net Profit]
+           ,[Revenues]
+           ,[Cash Flow]
+           ,[Owners Equity]
+           ,[Total Assets]
+           ,[CurrentDividends]
+           ,[OutstandingShares]
+		,[FNetProfit] 
+		,[FRevenue]
+		,[FOwnersEquity] 
+		,[FCashFlow] 
+		  ,[FCurrentDividends] 
+		,[FTotalDividends]
+		,FNPYearly
+		,[FTotalAssets] 
+		,[FCurrentAssets] 
+      ,[FAccountReceivable] 
+      ,[FCurrentLiabilities] 
+      ,[FInventories] 
+      ,[FLoans] 
+      ,[FDeposits] 
+      ,[FTotalLiabilities] 
+      ,[FLongTermDebts] 
+	  ,CPrice
+	  ,MarketCap
+	  ,KPrice
+)
+     VALUES
+           (@Market,@CompanyID,@Ticker,@AsofDate,@NetProfit ,@Revenues ,@CashFlow ,@OwnersEquity ,@TotalAssets ,@CurrentDividends  , @OutstandingShares
+           ,[dbo].getFactValueTTMFromFinID (@FinID,'Net Profit') / @USDR,
+           [dbo].getFactValueTTMFromFinID (@FinID,'Revenues') / @USDR,
+           [dbo].[getFactValueFromFinID] (@FinID,'Owners Equity') / @USDR,
+           ([dbo].getFactValueTTMFromFinID(@FinID,'Net Profit')  +  [dbo].[getDepreciationAmortizationTTMFromFinID](@FinID)) / @USDR,
+           [dbo].[getFactValueFromFinID] (@FininID,'Total Dividends') / @USDR,
+           [dbo].[getFactValueFromFinID] (@FininID,'Total Dividends') / @USDR,
+           [dbo].[getFactValueFromFinID] (@FininID,'Net Profit') / @USDR,
+           [dbo].[getFactValueFromFinID] (@FinID,'Total Assets') / @USDR,
+           [dbo].[getFactValueFromFinID] (@FinID,'Current Assets') / @USDR,
+           [dbo].[getFactValueFromFinID] (@FinID,'Account Receivable') / @USDR,
+           [dbo].[getFactValueFromFinID] (@FinID,'Current Liabilities') / @USDR,
+           [dbo].[getFactValueFromFinID] (@FinID,'Inventories') / @USDR,
+           [dbo].[getFactValueFromFinID] (@FinID,'Loans') / @USDR,
+           [dbo].[getFactValueFromFinID] (@FinID,'Deposits') / @USDR ,
+           [dbo].[getFactValueFromFinID] (@FinID,'Total Liabilities') / @USDR,
+           [dbo].[getFactValueFromFinID] (@FinID,'Long Term Debts') / @USDR,@CPrice,(@CPrice * @OutstandingShares) / @USDR,@CPrice/1000)
+
+
+end
+
+update [CompaniesCVArchives]
+set FCAssetsLessInvents = ((select FCurrentAssets -  FInventories from [CompaniesCVArchives] where CompanyID=@CompanyID)/@USDR)
+where CompanyID=@CompanyID
+
+
+update [CompaniesCVArchives]
+set FLiquidAssets = (select (FCurrentAssets - FAccountReceivable - FInventories) from [CompaniesCVArchives] where CompanyID=@CompanyID)
+where CompanyID=@CompanyID
+
+--
+
+if( cast([dbo].[getMarketIDFromCompID](@CompanyID) as smallint)=4)
+begin
+update [CompaniesCVArchives]
+set MarketCap = ((KPrice * @OutstandingShares) / @USDR)
+where CompanyID=@CompanyID
+end
+
+-- Update Ratio Comparison for this Company
+exec [RCCompaniesRatios] @CompanyID
+
+*/
