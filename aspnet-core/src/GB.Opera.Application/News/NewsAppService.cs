@@ -80,7 +80,7 @@ namespace News
                 parameters.Add("@ForSocialNetworks", input.ForSocialNetworks);
                 parameters.Add("@IsGulfbaseNews", input.IsGulfbaseNews);
 
-                await _connection.ExecuteAsync("USP_GBN_InsertUpdateNews", parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync("USP_GBN_InsertUpdateNews_New", parameters, commandType: CommandType.StoredProcedure);
 
                 return input;
             }

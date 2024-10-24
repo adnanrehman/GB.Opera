@@ -90,7 +90,7 @@ export class ArabicComponent {
     }
     this.getStockMarkets();
     this.getNewsCatAndCountries();
-    this.stockMarketID = 0;
+    // this.stockMarketID = 0;
     this.getNewsArabs();
   }
 
@@ -116,6 +116,7 @@ export class ArabicComponent {
   getStockMarkets() {
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
+      if (this.stockMarkets.length > 0) this.stockMarketID = this.stockMarkets[0].stockMarketID; this.getStockMarketSectorsByStockMarketID();
     });
   }
 
@@ -142,7 +143,10 @@ export class ArabicComponent {
     this.loading = true;
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
-      if (this.companyMarketSectors.length > 0) this.getSectorCompaniesBySectorIDAndStockMarketID();
+      if (this.companyMarketSectors.length > 0){
+        this.sectorID = this.companyMarketSectors[0].sectorID;
+        this.getSectorCompaniesBySectorIDAndStockMarketID();
+      } 
       else this.loading = false;
     });
   }
@@ -155,7 +159,7 @@ export class ArabicComponent {
       .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        // if (this.companiesTickers.length > 0) this.companyID = this.companiesTickers[0].companyID
+        if (this.companiesTickers.length > 0) this.companyID = this.companiesTickers[0].companyID
         this.loading = false;
       });
   }

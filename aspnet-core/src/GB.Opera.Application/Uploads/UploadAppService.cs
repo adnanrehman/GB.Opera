@@ -68,7 +68,7 @@ namespace GB.Opera.Uploads
         {
             try
             {
-                var data = (await _connection.QueryAsync<UploadFinancialListDto>(sql: ProcedureNames.usp_getCompanyLatestFinanicals,
+                var data = (await _connection.QueryAsync<UploadFinancialListDto>(sql: ProcedureNames.usp_getCompanyLatestFinanicals_New,
                                 param: new { CompanyID  = CompanyID },
                                 commandType: CommandType.StoredProcedure)).ToList();
                 return data;

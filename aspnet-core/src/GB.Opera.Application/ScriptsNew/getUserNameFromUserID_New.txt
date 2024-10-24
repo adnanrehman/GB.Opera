@@ -1,0 +1,19 @@
+  
+Create FUNCTION [dbo].[getUserNameFromUserID_New]
+(
+@UserID uniqueidentifier
+	
+)
+RETURNS varchar(50)
+AS
+
+BEGIN
+declare @UserName varchar(100)
+select @UserName = UserName  from AbpUsers where Id=@UserID
+return @UserName
+end
+
+
+
+
+

@@ -230,7 +230,7 @@ namespace CompanyManagements
                 parameters.Add("@ParValuePerShare", model.ParValuePerShare);
                 parameters.Add("@TreasuryStocks", model.TreasuryStocks);
                 parameters.Add("@Beta", model.Beta);
-                parameters.Add("@CreationDate", model.CreationDate);
+                parameters.Add("@CreationDate", DateTime.Now);
                 parameters.Add("@IsActive", true);
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
 

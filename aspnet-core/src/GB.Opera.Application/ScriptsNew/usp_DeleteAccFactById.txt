@@ -1,0 +1,10 @@
+Create procedure usp_DeleteAccFactById
+@ACFactId smallint
+
+as 
+begin
+
+Delete from ACFactsMapping WHere ACFactID=@ACFactId
+
+DElete from ACFacts Where  ACFactID=@ACFactId
+end

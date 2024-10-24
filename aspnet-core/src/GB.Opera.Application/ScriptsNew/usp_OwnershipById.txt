@@ -1,0 +1,10 @@
+create procedure [dbo].[usp_deleteOwnershipById]
+@OwnershipId smallint
+
+as 
+begin
+
+Delete from [OwnershipMapping] WHere GBOwnershipID=@OwnershipId
+
+DElete from [GBOwnership] Where  GBOwnershipID=@OwnershipId
+end

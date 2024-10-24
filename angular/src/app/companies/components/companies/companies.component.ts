@@ -54,6 +54,7 @@ export class CompaniesComponent {
   @Input() sectorIDinput;
   filteredCountries: any[];
   items: any[] = [];
+  clickedIndex = 0;
   selectedItem: any;
   loading:boolean = false;
   suggestions: any[] = [];

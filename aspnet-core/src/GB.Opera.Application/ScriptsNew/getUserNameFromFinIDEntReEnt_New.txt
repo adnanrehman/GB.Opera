@@ -1,0 +1,27 @@
+ 
+--select [dbo].[getUserNameFromFinIDEntReEnt](34)
+Create FUNCTION [dbo].[getUserNameFromFinIDEntReEnt_New]
+(
+@FinancialsID bigint,
+@IsEntry bit
+)
+RETURNS varchar(50)
+AS
+
+BEGIN
+declare @UserName varchar(100)
+
+if(@IsEntry='true')
+begin
+select @UserName = UserName  from AbpUsers where Id in (select gbEntryUser  from UserFinancials where FinancialsID=@FinancialsID)
+end
+else
+
+begin
+select @UserName = UserName  from AbpUsers where Id in (select  gbReEntryUser  from UserFinancials where FinancialsID=@FinancialsID)
+end
+
+return @UserName
+end
+
+

@@ -2054,6 +2054,132 @@
             }
           }
         },
+        "CompaniesQNetProfits.CompaniesQNetProfitAppService": {
+          "controllerName": "CompaniesQNetProfit",
+          "controllerGroupName": "CompaniesQNetProfit",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "CompaniesQNetProfits.CompaniesQNetProfitAppService",
+          "interfaces": [
+            {
+              "type": "GB.Opera.CompaniesQNetProfits.ICompaniesQNetProfitAppService",
+              "name": "ICompaniesQNetProfitAppService",
+              "methods": [
+                {
+                  "name": "GetCompaniesQNetProfits",
+                  "parametersOnMethod": [
+                    {
+                      "name": "companyID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "CompaniesQNetProfits.CompaniesQNetProfitListDto",
+                    "typeSimple": "CompaniesQNetProfits.CompaniesQNetProfitListDto"
+                  }
+                },
+                {
+                  "name": "InsertUpdateCalculateCompQuartersNetProfit",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "CompaniesQNetProfits.CompaniesQNetProfitDto, GB.Opera.Application.Contracts",
+                      "type": "CompaniesQNetProfits.CompaniesQNetProfitDto",
+                      "typeSimple": "CompaniesQNetProfits.CompaniesQNetProfitDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetCompaniesQNetProfitsByCompanyID": {
+              "uniqueName": "GetCompaniesQNetProfitsByCompanyID",
+              "name": "GetCompaniesQNetProfits",
+              "httpMethod": "GET",
+              "url": "api/app/companies-qNet-profit/companies-qNet-profits",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyID",
+                  "name": "companyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "CompaniesQNetProfits.CompaniesQNetProfitListDto",
+                "typeSimple": "CompaniesQNetProfits.CompaniesQNetProfitListDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.CompaniesQNetProfits.ICompaniesQNetProfitAppService"
+            },
+            "InsertUpdateCalculateCompQuartersNetProfitByInput": {
+              "uniqueName": "InsertUpdateCalculateCompQuartersNetProfitByInput",
+              "name": "InsertUpdateCalculateCompQuartersNetProfit",
+              "httpMethod": "POST",
+              "url": "api/app/companies-qNet-profit/update-calculate-comp-quarters-net-profit",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "CompaniesQNetProfits.CompaniesQNetProfitDto, GB.Opera.Application.Contracts",
+                  "type": "CompaniesQNetProfits.CompaniesQNetProfitDto",
+                  "typeSimple": "CompaniesQNetProfits.CompaniesQNetProfitDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "CompaniesQNetProfits.CompaniesQNetProfitDto",
+                  "typeSimple": "CompaniesQNetProfits.CompaniesQNetProfitDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.CompaniesQNetProfits.ICompaniesQNetProfitAppService"
+            }
+          }
+        },
         "CompanyAccounts.CompanyAccountAppService": {
           "controllerName": "CompanyAccount",
           "controllerGroupName": "CompanyAccount",
@@ -4319,6 +4445,556 @@
             }
           }
         },
+        "CurrentDividends.CurrentDividendAppService": {
+          "controllerName": "CurrentDividend",
+          "controllerGroupName": "CurrentDividend",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "CurrentDividends.CurrentDividendAppService",
+          "interfaces": [
+            {
+              "type": "CurrentDividends.ICurrentDividendAppService",
+              "name": "ICurrentDividendAppService",
+              "methods": [
+                {
+                  "name": "GetCurrentDividends",
+                  "parametersOnMethod": [
+                    {
+                      "name": "stockMarketID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<CurrentDividends.CurrentDividendDto>",
+                    "typeSimple": "[CurrentDividends.CurrentDividendDto]"
+                  }
+                },
+                {
+                  "name": "InsertUpdateCurrentDividends",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "System.Collections.Generic.List`1[[CurrentDividends.CurrentDividendDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<CurrentDividends.CurrentDividendDto>",
+                      "typeSimple": "[CurrentDividends.CurrentDividendDto]",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetCurrentDividendsByStockMarketID": {
+              "uniqueName": "GetCurrentDividendsByStockMarketID",
+              "name": "GetCurrentDividends",
+              "httpMethod": "GET",
+              "url": "api/app/current-dividend/current-dividends",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "stockMarketID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "stockMarketID",
+                  "name": "stockMarketID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<CurrentDividends.CurrentDividendDto>",
+                "typeSimple": "[CurrentDividends.CurrentDividendDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CurrentDividends.ICurrentDividendAppService"
+            },
+            "InsertUpdateCurrentDividendsByInput": {
+              "uniqueName": "InsertUpdateCurrentDividendsByInput",
+              "name": "InsertUpdateCurrentDividends",
+              "httpMethod": "POST",
+              "url": "api/app/current-dividend/update-current-dividends",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "System.Collections.Generic.List`1[[CurrentDividends.CurrentDividendDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<CurrentDividends.CurrentDividendDto>",
+                  "typeSimple": "[CurrentDividends.CurrentDividendDto]",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "System.Collections.Generic.List<CurrentDividends.CurrentDividendDto>",
+                  "typeSimple": "[CurrentDividends.CurrentDividendDto]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CurrentDividends.ICurrentDividendAppService"
+            }
+          }
+        },
+        "Entry.EntryAppService": {
+          "controllerName": "Entry",
+          "controllerGroupName": "Entry",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Entry.EntryAppService",
+          "interfaces": [
+            {
+              "type": "Entry.IEntryAppService",
+              "name": "IEntryAppService",
+              "methods": [
+                {
+                  "name": "GetStatusFinancials",
+                  "parametersOnMethod": [
+                    {
+                      "name": "userId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
+                    "typeSimple": "[Entry.StatusFinancialsDto]"
+                  }
+                },
+                {
+                  "name": "InsertUpdateFinancialValues",
+                  "parametersOnMethod": [
+                    {
+                      "name": "list",
+                      "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                      "typeSimple": "[Entry.FinancialsDetailDto]",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "InsertUpdateFinancialCommentsStatus",
+                  "parametersOnMethod": [
+                    {
+                      "name": "list",
+                      "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                      "typeSimple": "[Entry.FinancialsDetailDto]",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "userID",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "InsertUpdateComitChanges",
+                  "parametersOnMethod": [
+                    {
+                      "name": "dto",
+                      "typeAsString": "Entry.AsofDatesFinancialDto, GB.Opera.Application.Contracts",
+                      "type": "Entry.AsofDatesFinancialDto",
+                      "typeSimple": "Entry.AsofDatesFinancialDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "userID",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetStatusFinancialsByUserId": {
+              "uniqueName": "GetStatusFinancialsByUserId",
+              "name": "GetStatusFinancials",
+              "httpMethod": "GET",
+              "url": "api/app/entry/status-financials/{userId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "userId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "userId",
+                  "name": "userId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
+                "typeSimple": "[Entry.StatusFinancialsDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.IEntryAppService"
+            },
+            "GetCompanyAccountsByInput": {
+              "uniqueName": "GetCompanyAccountsByInput",
+              "name": "GetCompanyAccounts",
+              "httpMethod": "GET",
+              "url": "api/app/entry/company-accounts",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Entry.CompanyAccountsInputDto, GB.Opera.Application.Contracts",
+                  "type": "Entry.CompanyAccountsInputDto",
+                  "typeSimple": "Entry.CompanyAccountsInputDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "FinancialsID",
+                  "jsonName": null,
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "NewReviewFinancialID",
+                  "jsonName": null,
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "IsNew",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "CompanyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Entry.CompanyAccountsDto",
+                "typeSimple": "Entry.CompanyAccountsDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.EntryAppService"
+            },
+            "GetAsofDatesFinancialsByInput": {
+              "uniqueName": "GetAsofDatesFinancialsByInput",
+              "name": "GetAsofDatesFinancials",
+              "httpMethod": "GET",
+              "url": "api/app/entry/asof-dates-financials",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Entry.AsofDatesFinancialInputDto, GB.Opera.Application.Contracts",
+                  "type": "Entry.AsofDatesFinancialInputDto",
+                  "typeSimple": "Entry.AsofDatesFinancialInputDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "FinancialsID",
+                  "jsonName": null,
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "IsNew",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "CompanyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Entry.AsofDatesFinancialDto",
+                "typeSimple": "Entry.AsofDatesFinancialDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.EntryAppService"
+            },
+            "InsertUpdateFinancialValuesByList": {
+              "uniqueName": "InsertUpdateFinancialValuesByList",
+              "name": "InsertUpdateFinancialValues",
+              "httpMethod": "POST",
+              "url": "api/app/entry/update-financial-values",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "list",
+                  "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                  "typeSimple": "[Entry.FinancialsDetailDto]",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "list",
+                  "name": "list",
+                  "jsonName": null,
+                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                  "typeSimple": "[Entry.FinancialsDetailDto]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.IEntryAppService"
+            },
+            "InsertUpdateFinancialCommentsStatusByListAndUserID": {
+              "uniqueName": "InsertUpdateFinancialCommentsStatusByListAndUserID",
+              "name": "InsertUpdateFinancialCommentsStatus",
+              "httpMethod": "POST",
+              "url": "api/app/entry/update-financial-comments-status",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "list",
+                  "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                  "typeSimple": "[Entry.FinancialsDetailDto]",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "userID",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "list",
+                  "name": "list",
+                  "jsonName": null,
+                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
+                  "typeSimple": "[Entry.FinancialsDetailDto]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "userID",
+                  "name": "userID",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.IEntryAppService"
+            },
+            "InsertUpdateComitChangesByDtoAndUserID": {
+              "uniqueName": "InsertUpdateComitChangesByDtoAndUserID",
+              "name": "InsertUpdateComitChanges",
+              "httpMethod": "POST",
+              "url": "api/app/entry/update-comit-changes",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "dto",
+                  "typeAsString": "Entry.AsofDatesFinancialDto, GB.Opera.Application.Contracts",
+                  "type": "Entry.AsofDatesFinancialDto",
+                  "typeSimple": "Entry.AsofDatesFinancialDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "userID",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "dto",
+                  "name": "dto",
+                  "jsonName": null,
+                  "type": "Entry.AsofDatesFinancialDto",
+                  "typeSimple": "Entry.AsofDatesFinancialDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "userID",
+                  "name": "userID",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Entry.IEntryAppService"
+            }
+          }
+        },
         "EstimatesandForecasts.EstimatesandForecastAppService": {
           "controllerName": "EstimatesandForecast",
           "controllerGroupName": "EstimatesandForecast",
@@ -4442,6 +5118,214 @@
               },
               "allowAnonymous": null,
               "implementFrom": "EstimatesandForecasts.IEstimatesandForecastAppService"
+            }
+          }
+        },
+        "FinancialsAdmins.FinancialsAdminAppService": {
+          "controllerName": "FinancialsAdmin",
+          "controllerGroupName": "FinancialsAdmin",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "FinancialsAdmins.FinancialsAdminAppService",
+          "interfaces": [
+            {
+              "type": "FinancialsAdmins.IFinancialsAdminAppService",
+              "name": "IFinancialsAdminAppService",
+              "methods": [
+                {
+                  "name": "GetNewFinancialReviews",
+                  "parametersOnMethod": [
+                    {
+                      "name": "companyID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "FinancialsAdmins.NewFinancialReviewOutputDto",
+                    "typeSimple": "FinancialsAdmins.NewFinancialReviewOutputDto"
+                  }
+                },
+                {
+                  "name": "UpdateAdminFinancials",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "FinancialsAdmins.NewReviewFinancialDto, GB.Opera.Application.Contracts",
+                      "type": "FinancialsAdmins.NewReviewFinancialDto",
+                      "typeSimple": "FinancialsAdmins.NewReviewFinancialDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "UpdateFinancialRateChanges",
+                  "parametersOnMethod": [
+                    {
+                      "name": "financialId",
+                      "typeAsString": "System.Int64, System.Private.CoreLib",
+                      "type": "System.Int64",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "rate",
+                      "typeAsString": "System.Decimal, System.Private.CoreLib",
+                      "type": "System.Decimal",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetNewFinancialReviewsByCompanyID": {
+              "uniqueName": "GetNewFinancialReviewsByCompanyID",
+              "name": "GetNewFinancialReviews",
+              "httpMethod": "GET",
+              "url": "api/app/financials-admin/new-financial-reviews",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyID",
+                  "name": "companyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "FinancialsAdmins.NewFinancialReviewOutputDto",
+                "typeSimple": "FinancialsAdmins.NewFinancialReviewOutputDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "FinancialsAdmins.IFinancialsAdminAppService"
+            },
+            "UpdateFinancialRateChangesByFinancialIdAndRate": {
+              "uniqueName": "UpdateFinancialRateChangesByFinancialIdAndRate",
+              "name": "UpdateFinancialRateChanges",
+              "httpMethod": "PUT",
+              "url": "api/app/financials-admin/financial-rate-changes/{financialId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "financialId",
+                  "typeAsString": "System.Int64, System.Private.CoreLib",
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "rate",
+                  "typeAsString": "System.Decimal, System.Private.CoreLib",
+                  "type": "System.Decimal",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "financialId",
+                  "name": "financialId",
+                  "jsonName": null,
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "rate",
+                  "name": "rate",
+                  "jsonName": null,
+                  "type": "System.Decimal",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "FinancialsAdmins.IFinancialsAdminAppService"
+            },
+            "UpdateAdminFinancialsByInput": {
+              "uniqueName": "UpdateAdminFinancialsByInput",
+              "name": "UpdateAdminFinancials",
+              "httpMethod": "PUT",
+              "url": "api/app/financials-admin/admin-financials",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "FinancialsAdmins.NewReviewFinancialDto, GB.Opera.Application.Contracts",
+                  "type": "FinancialsAdmins.NewReviewFinancialDto",
+                  "typeSimple": "FinancialsAdmins.NewReviewFinancialDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "FinancialsAdmins.NewReviewFinancialDto",
+                  "typeSimple": "FinancialsAdmins.NewReviewFinancialDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "FinancialsAdmins.IFinancialsAdminAppService"
             }
           }
         },
@@ -5219,430 +6103,6 @@
             }
           }
         },
-        "GB.Opera.Entry.EntryAppService": {
-          "controllerName": "Entry",
-          "controllerGroupName": "Entry",
-          "isRemoteService": true,
-          "isIntegrationService": false,
-          "apiVersion": null,
-          "type": "GB.Opera.Entry.EntryAppService",
-          "interfaces": [
-            {
-              "type": "Entry.IEntryAppService",
-              "name": "IEntryAppService",
-              "methods": [
-                {
-                  "name": "GetStatusFinancials",
-                  "parametersOnMethod": [
-                    {
-                      "name": "userId",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
-                    "typeSimple": "[Entry.StatusFinancialsDto]"
-                  }
-                },
-                {
-                  "name": "InsertUpdateFinancialValues",
-                  "parametersOnMethod": [
-                    {
-                      "name": "list",
-                      "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
-                      "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                      "typeSimple": "[Entry.FinancialsDetailDto]",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Void",
-                    "typeSimple": "System.Void"
-                  }
-                },
-                {
-                  "name": "InsertUpdateFinancialCommentsStatus",
-                  "parametersOnMethod": [
-                    {
-                      "name": "list",
-                      "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
-                      "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                      "typeSimple": "[Entry.FinancialsDetailDto]",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "userID",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Void",
-                    "typeSimple": "System.Void"
-                  }
-                },
-                {
-                  "name": "InsertUpdateComitChanges",
-                  "parametersOnMethod": [
-                    {
-                      "name": "dto",
-                      "typeAsString": "Entry.AsofDatesFinancialDto, GB.Opera.Application.Contracts",
-                      "type": "Entry.AsofDatesFinancialDto",
-                      "typeSimple": "Entry.AsofDatesFinancialDto",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "userID",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Void",
-                    "typeSimple": "System.Void"
-                  }
-                }
-              ]
-            }
-          ],
-          "actions": {
-            "GetStatusFinancialsByUserId": {
-              "uniqueName": "GetStatusFinancialsByUserId",
-              "name": "GetStatusFinancials",
-              "httpMethod": "GET",
-              "url": "api/app/entry/status-financials/{userId}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "userId",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "userId",
-                  "name": "userId",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
-                "typeSimple": "[Entry.StatusFinancialsDto]"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Entry.IEntryAppService"
-            },
-            "GetCompanyAccountsByInput": {
-              "uniqueName": "GetCompanyAccountsByInput",
-              "name": "GetCompanyAccounts",
-              "httpMethod": "GET",
-              "url": "api/app/entry/company-accounts",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "Entry.CompanyAccountsInputDto, GB.Opera.Application.Contracts",
-                  "type": "Entry.CompanyAccountsInputDto",
-                  "typeSimple": "Entry.CompanyAccountsInputDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "FinancialsID",
-                  "jsonName": null,
-                  "type": "System.Int64",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "NewReviewFinancialID",
-                  "jsonName": null,
-                  "type": "System.Int64",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "IsNew",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "CompanyID",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Entry.CompanyAccountsDto",
-                "typeSimple": "Entry.CompanyAccountsDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "GB.Opera.Entry.EntryAppService"
-            },
-            "GetAsofDatesFinancialsByInput": {
-              "uniqueName": "GetAsofDatesFinancialsByInput",
-              "name": "GetAsofDatesFinancials",
-              "httpMethod": "GET",
-              "url": "api/app/entry/asof-dates-financials",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "Entry.AsofDatesFinancialInputDto, GB.Opera.Application.Contracts",
-                  "type": "Entry.AsofDatesFinancialInputDto",
-                  "typeSimple": "Entry.AsofDatesFinancialInputDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "FinancialsID",
-                  "jsonName": null,
-                  "type": "System.Int64",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "IsNew",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "CompanyID",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Entry.AsofDatesFinancialDto",
-                "typeSimple": "Entry.AsofDatesFinancialDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "GB.Opera.Entry.EntryAppService"
-            },
-            "InsertUpdateFinancialValuesByList": {
-              "uniqueName": "InsertUpdateFinancialValuesByList",
-              "name": "InsertUpdateFinancialValues",
-              "httpMethod": "POST",
-              "url": "api/app/entry/update-financial-values",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "list",
-                  "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
-                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                  "typeSimple": "[Entry.FinancialsDetailDto]",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "list",
-                  "name": "list",
-                  "jsonName": null,
-                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                  "typeSimple": "[Entry.FinancialsDetailDto]",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Entry.IEntryAppService"
-            },
-            "InsertUpdateFinancialCommentsStatusByListAndUserID": {
-              "uniqueName": "InsertUpdateFinancialCommentsStatusByListAndUserID",
-              "name": "InsertUpdateFinancialCommentsStatus",
-              "httpMethod": "POST",
-              "url": "api/app/entry/update-financial-comments-status",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "list",
-                  "typeAsString": "System.Collections.Generic.List`1[[Entry.FinancialsDetailDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
-                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                  "typeSimple": "[Entry.FinancialsDetailDto]",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "userID",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "list",
-                  "name": "list",
-                  "jsonName": null,
-                  "type": "System.Collections.Generic.List<Entry.FinancialsDetailDto>",
-                  "typeSimple": "[Entry.FinancialsDetailDto]",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "userID",
-                  "name": "userID",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Entry.IEntryAppService"
-            },
-            "InsertUpdateComitChangesByDtoAndUserID": {
-              "uniqueName": "InsertUpdateComitChangesByDtoAndUserID",
-              "name": "InsertUpdateComitChanges",
-              "httpMethod": "POST",
-              "url": "api/app/entry/update-comit-changes",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "dto",
-                  "typeAsString": "Entry.AsofDatesFinancialDto, GB.Opera.Application.Contracts",
-                  "type": "Entry.AsofDatesFinancialDto",
-                  "typeSimple": "Entry.AsofDatesFinancialDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "userID",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "dto",
-                  "name": "dto",
-                  "jsonName": null,
-                  "type": "Entry.AsofDatesFinancialDto",
-                  "typeSimple": "Entry.AsofDatesFinancialDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "userID",
-                  "name": "userID",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Entry.IEntryAppService"
-            }
-          }
-        },
         "GB.Opera.GbOwnerShips.GbOwnerShipAppService": {
           "controllerName": "GbOwnerShip",
           "controllerGroupName": "GbOwnerShip",
@@ -6053,6 +6513,23 @@
                     "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.MFundPrices>",
                     "typeSimple": "[GB.Opera.OfficialsIndics.MFundPrices]"
                   }
+                },
+                {
+                  "name": "ImportOfficialIndices",
+                  "parametersOnMethod": [
+                    {
+                      "name": "filePath",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.String",
+                    "typeSimple": "string"
+                  }
                 }
               ]
             }
@@ -6274,6 +6751,43 @@
               "returnValue": {
                 "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.MFundPrices>",
                 "typeSimple": "[GB.Opera.OfficialsIndics.MFundPrices]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.OfficialsIndics.IOfficialIndicsAppService"
+            },
+            "ImportOfficialIndicesByFilePath": {
+              "uniqueName": "ImportOfficialIndicesByFilePath",
+              "name": "ImportOfficialIndices",
+              "httpMethod": "POST",
+              "url": "api/app/official-indics/import-official-indices",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "filePath",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "filePath",
+                  "name": "filePath",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.String",
+                "typeSimple": "string"
               },
               "allowAnonymous": null,
               "implementFrom": "GB.Opera.OfficialsIndics.IOfficialIndicsAppService"
@@ -6683,6 +7197,132 @@
             }
           }
         },
+        "HistoricalCashDividends.HistoricalCashDividendAppService": {
+          "controllerName": "HistoricalCashDividend",
+          "controllerGroupName": "HistoricalCashDividend",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "HistoricalCashDividends.HistoricalCashDividendAppService",
+          "interfaces": [
+            {
+              "type": "HistoricalCashDividends.IHistoricalCashDividendAppService",
+              "name": "IHistoricalCashDividendAppService",
+              "methods": [
+                {
+                  "name": "GetHistoricalCashDividends",
+                  "parametersOnMethod": [
+                    {
+                      "name": "companyID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "HistoricalCashDividends.HistoricalCashDividendListDto",
+                    "typeSimple": "HistoricalCashDividends.HistoricalCashDividendListDto"
+                  }
+                },
+                {
+                  "name": "InsetUpdateHistoricalCashDividends",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "HistoricalCashDividends.CreateHistoricalCashDividendDto, GB.Opera.Application.Contracts",
+                      "type": "HistoricalCashDividends.CreateHistoricalCashDividendDto",
+                      "typeSimple": "HistoricalCashDividends.CreateHistoricalCashDividendDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetHistoricalCashDividendsByCompanyID": {
+              "uniqueName": "GetHistoricalCashDividendsByCompanyID",
+              "name": "GetHistoricalCashDividends",
+              "httpMethod": "GET",
+              "url": "api/app/historical-cash-dividend/historical-cash-dividends",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyID",
+                  "name": "companyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "HistoricalCashDividends.HistoricalCashDividendListDto",
+                "typeSimple": "HistoricalCashDividends.HistoricalCashDividendListDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "HistoricalCashDividends.IHistoricalCashDividendAppService"
+            },
+            "InsetUpdateHistoricalCashDividendsByInput": {
+              "uniqueName": "InsetUpdateHistoricalCashDividendsByInput",
+              "name": "InsetUpdateHistoricalCashDividends",
+              "httpMethod": "POST",
+              "url": "api/app/historical-cash-dividend/inset-update-historical-cash-dividends",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "HistoricalCashDividends.CreateHistoricalCashDividendDto, GB.Opera.Application.Contracts",
+                  "type": "HistoricalCashDividends.CreateHistoricalCashDividendDto",
+                  "typeSimple": "HistoricalCashDividends.CreateHistoricalCashDividendDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "HistoricalCashDividends.CreateHistoricalCashDividendDto",
+                  "typeSimple": "HistoricalCashDividends.CreateHistoricalCashDividendDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "HistoricalCashDividends.IHistoricalCashDividendAppService"
+            }
+          }
+        },
         "News.NewsAppService": {
           "controllerName": "News",
           "controllerGroupName": "News",
@@ -6916,6 +7556,132 @@
               },
               "allowAnonymous": null,
               "implementFrom": "News.INewsAppService"
+            }
+          }
+        },
+        "Reviewers.ReviewerAppService": {
+          "controllerName": "Reviewer",
+          "controllerGroupName": "Reviewer",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Reviewers.ReviewerAppService",
+          "interfaces": [
+            {
+              "type": "Reviewers.IReviewerAppService",
+              "name": "IReviewerAppService",
+              "methods": [
+                {
+                  "name": "GetStatusFinancials",
+                  "parametersOnMethod": [
+                    {
+                      "name": "userId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
+                    "typeSimple": "[Entry.StatusFinancialsDto]"
+                  }
+                },
+                {
+                  "name": "GetReviewReport",
+                  "parametersOnMethod": [
+                    {
+                      "name": "financialsID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Reviewers.ReviewReportOutputDto",
+                    "typeSimple": "Reviewers.ReviewReportOutputDto"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetStatusFinancialsByUserId": {
+              "uniqueName": "GetStatusFinancialsByUserId",
+              "name": "GetStatusFinancials",
+              "httpMethod": "GET",
+              "url": "api/app/reviewer/status-financials/{userId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "userId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "userId",
+                  "name": "userId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Entry.StatusFinancialsDto>",
+                "typeSimple": "[Entry.StatusFinancialsDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Reviewers.IReviewerAppService"
+            },
+            "GetReviewReportByFinancialsID": {
+              "uniqueName": "GetReviewReportByFinancialsID",
+              "name": "GetReviewReport",
+              "httpMethod": "GET",
+              "url": "api/app/reviewer/review-report",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "financialsID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "financialsID",
+                  "name": "financialsID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Reviewers.ReviewReportOutputDto",
+                "typeSimple": "Reviewers.ReviewReportOutputDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Reviewers.IReviewerAppService"
             }
           }
         }
@@ -12276,6 +13042,429 @@
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompaniesQNetProfits.CompaniesQNetProfitDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CompQNProfitID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Year",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "QPeriodID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AsOfDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PeriodTypeID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsYearly",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NetProfit",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PreviousNP",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NetProfitChange",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "EPS",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PE",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "FiveYearGrowth",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AnnouncementDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Remarks",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ARemarks",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "OwnersEquity",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PreviousOwnersEquity",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "OwnersEquityChange",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TotalAssets",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PreviousTotalAssets",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TotalAssetsChange",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Revenues",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PreviousRevenues",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "RevenuesChange",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Ticker",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "QPeriod",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Period",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompaniesQNetProfits.CompaniesQNetProfitListDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CompaniesQNetProfits",
+          "jsonName": null,
+          "type": "[CompaniesQNetProfits.CompaniesQNetProfitDto]",
+          "typeSimple": "[CompaniesQNetProfits.CompaniesQNetProfitDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CurrencyOutstandings",
+          "jsonName": null,
+          "type": "[CompaniesQNetProfits.CurrencyOutstandingDto]",
+          "typeSimple": "[CompaniesQNetProfits.CurrencyOutstandingDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CompaniesQNetProfits.CurrencyOutstandingDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Currency",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ADescription",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "OutstandingShares",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -17682,6 +18871,75 @@
         }
       ]
     },
+    "CurrentDividends.CurrentDividendDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CurrentDividendID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CurrentDividend",
+          "jsonName": null,
+          "type": "System.Int64?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Remarks",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Ticker",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "Entry.AsOfDateDto": {
       "baseType": null,
       "isEnum": false,
@@ -18735,6 +19993,438 @@
         },
         {
           "name": "Source",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "FinancialsAdmins.NewFinancialReviewOutputDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "NewReviewFinancials",
+          "jsonName": null,
+          "type": "[FinancialsAdmins.NewReviewFinancialDto]",
+          "typeSimple": "[FinancialsAdmins.NewReviewFinancialDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PeriodTypes",
+          "jsonName": null,
+          "type": "[Commons.PeriodTypeDto]",
+          "typeSimple": "[Commons.PeriodTypeDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "QPeriods",
+          "jsonName": null,
+          "type": "[Commons.QPeriodDto]",
+          "typeSimple": "[Commons.QPeriodDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "EntryUsers",
+          "jsonName": null,
+          "type": "[FinancialsAdmins.UserDto]",
+          "typeSimple": "[FinancialsAdmins.UserDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ReEntryUsers",
+          "jsonName": null,
+          "type": "[FinancialsAdmins.UserDto]",
+          "typeSimple": "[FinancialsAdmins.UserDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Statuses",
+          "jsonName": null,
+          "type": "[FinancialsAdmins.StatusDto]",
+          "typeSimple": "[FinancialsAdmins.StatusDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "FinancialsAdmins.NewReviewFinancialDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "NewReviewFinancialID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "FinancialsID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsAudited",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AsOfDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PeriodTypeID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Year",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "QPeriod",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "QPeriodID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsYearly",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "EntryUser",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ReEntryUser",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "StatusID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "UploadedPath",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "FileName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SecondaryUploadedPath",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SecondaryFileName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Remarks",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ARemarks",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "FinancialEntryTypeID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PeriodNote",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "APeriodNote",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "FinancialsAdmins.StatusDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "StatusID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Status",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "FinancialsAdmins.UserDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "UserID",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "UserName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "UserType",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -21033,6 +22723,504 @@
         }
       ]
     },
+    "HistoricalCashDividends.CashDivDateDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CashDivID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "DateSelection",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CashDivDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "HistoricalCashDividends.CreateHistoricalCashDividendDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "HistoricalCashDividend",
+          "jsonName": null,
+          "type": "HistoricalCashDividends.HistoricalCashDividendDto",
+          "typeSimple": "HistoricalCashDividends.HistoricalCashDividendDto",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CashDivDates",
+          "jsonName": null,
+          "type": "[HistoricalCashDividends.CashDivDateDto]",
+          "typeSimple": "[HistoricalCashDividends.CashDivDateDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "HistoricalCashDividends.EPeriodDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "ExtraPeriodID",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "EPeriod",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "HistoricalCashDividends.HistoricalCashDividendDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CashDivID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ExtraPeriodID",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "OtherPeriod",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AOtherPeriod",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Year",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Remarks",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ARemarks",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TotalAmount",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PerShareAmount",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TreasuryShares",
+          "jsonName": null,
+          "type": "System.Int64?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "OutstandingShares",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SourceID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CashDivDates",
+          "jsonName": null,
+          "type": "[HistoricalCashDividends.CashDivDateDto]",
+          "typeSimple": "[HistoricalCashDividends.CashDivDateDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AsOf",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AnnouncedOn",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ApprovedOn",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "DueOn",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "XDividendDate",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AsOfDateTime",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AnnouncedOnDateTime",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ApprovedOnDateTime",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "DueOnDateTime",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "XDividendDateTime",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "HistoricalCashDividends.HistoricalCashDividendListDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "HistoricalCashDividends",
+          "jsonName": null,
+          "type": "[HistoricalCashDividends.HistoricalCashDividendDto]",
+          "typeSimple": "[HistoricalCashDividends.HistoricalCashDividendDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CashDivDates",
+          "jsonName": null,
+          "type": "[HistoricalCashDividends.CashDivDateDto]",
+          "typeSimple": "[HistoricalCashDividends.CashDivDateDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "EPeriods",
+          "jsonName": null,
+          "type": "[HistoricalCashDividends.EPeriodDto]",
+          "typeSimple": "[HistoricalCashDividends.EPeriodDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Sources",
+          "jsonName": null,
+          "type": "[HistoricalCashDividends.SourceDto]",
+          "typeSimple": "[HistoricalCashDividends.SourceDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "HistoricalCashDividends.SourceDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "SourceID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Source",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "News.NewsDto": {
       "baseType": null,
       "isEnum": false,
@@ -21213,6 +23401,165 @@
           "jsonName": null,
           "type": "System.Boolean?",
           "typeSimple": "boolean?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Reviewers.ReviewerDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "ReviewerID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Reviewers.ReviewReportDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Ticker",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AsOfDate",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Account",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Value",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Year",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "QPeriod",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Reviewers.ReviewReportOutputDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Reviewers",
+          "jsonName": null,
+          "type": "[Reviewers.ReviewerDto]",
+          "typeSimple": "[Reviewers.ReviewerDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ReviewersNew",
+          "jsonName": null,
+          "type": "[Reviewers.ReviewerDto]",
+          "typeSimple": "[Reviewers.ReviewerDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IncomeStatement",
+          "jsonName": null,
+          "type": "[Reviewers.ReviewReportDto]",
+          "typeSimple": "[Reviewers.ReviewReportDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "BalanceSheet",
+          "jsonName": null,
+          "type": "[Reviewers.ReviewReportDto]",
+          "typeSimple": "[Reviewers.ReviewReportDto]",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

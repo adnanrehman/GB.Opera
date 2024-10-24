@@ -112,7 +112,7 @@ namespace GB.Opera.EndOfDay
                                     parameters.Add("@LastClosedPrice", null);
                                     parameters.Add("@LastUpdated", DateTime.Now);
                                     parameters.Add("@IsActive", true);
-                                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice, parameters, commandType: CommandType.StoredProcedure);
+                                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice_New, parameters, commandType: CommandType.StoredProcedure);
 
                                 }
                                 else

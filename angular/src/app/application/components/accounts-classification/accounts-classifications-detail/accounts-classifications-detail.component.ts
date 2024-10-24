@@ -30,7 +30,7 @@ export class AccountsClassificationsDetailComponent {
  
   }
   closeModal(): void {
-    this.modalref.close();
+    this.modalref.close(true);
   }
   ngOnInit() {
     debugger;
@@ -81,7 +81,8 @@ export class AccountsClassificationsDetailComponent {
     });
   }
   Cancel() {
-    this.closeModal();
+    this.modalref.close(false);
+
   }
 
   addAccounts() {

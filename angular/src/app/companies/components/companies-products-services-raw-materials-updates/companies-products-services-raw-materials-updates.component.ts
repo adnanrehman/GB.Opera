@@ -49,6 +49,7 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
   selectedItem: any;
   suggestions: any[] = [];
   sectorID: number;
+  clickedIndex = 0;
   stockMarketID: number;
   companyID: number;
   productServiceRawID: number;
@@ -119,7 +120,7 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
       this.permission.delete = true;
     }
     this.getMarketLangAnnouncements();
-    this.stockMarketID = 0;
+    // this.stockMarketID = 0;
     this.fetchTreeData();
   }
 
@@ -186,6 +187,7 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
   getMarketLangAnnouncements() {
     this.commonService.getMarketLangAnnouncements().subscribe(res => {
       this.marketLangAnnouncement = res;
+      if (this.marketLangAnnouncement.length > 0) this.stockMarketID = this.marketLangAnnouncement[0].stockMarketID; this.getCompMarketSectorsByMarketID();
     });
   }
 
@@ -194,7 +196,10 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
     this.loading = true;
     this.commonService.getCompMarketSectorsByMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
-      if (this.companyMarketSectors.length > 0) this.getCompaniesTickersBySectorIDAndMarketID();
+      if (this.companyMarketSectors.length > 0){
+        this.sectorID = this.companyMarketSectors[0].sectorID;
+        this.getCompaniesTickersBySectorIDAndMarketID();
+      } 
       else this.loading = false;
     });
   }
@@ -207,7 +212,10 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
       .getCompaniesTickersBySectorIDAndMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        if (this.companiesTickers.length > 0) this.getCompanyPSRawsByProductServiceRawIDAndCompanyID();
+        if (this.companiesTickers.length > 0){
+          this.companyID = this.companiesTickers[0].companyID;
+          this.getCompanyPSRawsByProductServiceRawIDAndCompanyID();
+        } 
         else this.loading = false;
       });
   }

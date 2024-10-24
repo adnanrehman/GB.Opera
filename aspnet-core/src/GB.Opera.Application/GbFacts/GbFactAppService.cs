@@ -44,8 +44,12 @@ namespace GbFacts
 
       
             var gbFactList = new List<GbFactListDto>();
+            var gbAccount = new GbFactListDto();
+            gbAccount.GBFact = "GB Account";
+            gbAccount.ParentId = -1;
+            gbFactList.Add(gbAccount);
 
-           
+
             while (!results.IsConsumed)
             {
                 var resultSet = await results.ReadAsync<GbFactListDto>();
@@ -81,7 +85,7 @@ namespace GbFacts
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<GbFactsAccount>(
-                sql: ProcedureNames.getGBAccounts,
+                sql: ProcedureNames.getGBAccounts_New,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );

@@ -17,7 +17,7 @@ SET NOCOUNT ON;
 if Not exists(select [FinancialsID] from [FinancialStatusRemarks] where [FinancialsID]=@FinancialsID and [NewReviewFinancialID]=@NewReviewFinancialID )
 begin
 
-INSERT INTO [opera].[dbo].[FinancialStatusRemarks]
+INSERT INTO [FinancialStatusRemarks]
            ([NewReviewFinancialID]
 		   ,[FinancialsID]
            ,[StatusID]
@@ -33,7 +33,7 @@ end
 else
 begin
 
-UPDATE [opera].[dbo].[FinancialStatusRemarks]
+UPDATE [FinancialStatusRemarks]
    SET [StatusID] = @NewReviewStatusID
       ,[Remarks] = @Remarks
       ,[ARemarks] = @ARemarks
@@ -49,7 +49,7 @@ Delete from [FinancialsMatching] where NewReviewFinancialID=@NewReviewFinancialI
 
 Delete from SubFinancialsMatching where [FinancialsID]=@FinancialsID 
 /*
-UPDATE [opera].[dbo].[NewReviewFinancials]
+UPDATE [NewReviewFinancials]
    SET 
       [StatusID] = @NewReviewStatus
  

@@ -83,7 +83,7 @@ export class AccountsCustomOrderComponent {
       this.permission.delete = true;
     }
     this.getStockMarkets();
-    this.stockMarketID = 0;
+    // this.stockMarketID = 0;
   }
 
   search(event: AutoCompleteCompleteEvent) {
@@ -108,6 +108,7 @@ export class AccountsCustomOrderComponent {
   getStockMarkets() {
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
+      if (this.stockMarkets.length > 0) this.stockMarketID = this.stockMarkets[0].stockMarketID; this.getStockMarketSectorsByStockMarketID();
     });
   }
 
@@ -116,7 +117,10 @@ export class AccountsCustomOrderComponent {
     this.loading = true;
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
-      if (this.companyMarketSectors.length > 0) this.getSectorCompaniesBySectorIDAndStockMarketID();
+      if (this.companyMarketSectors.length > 0) {
+        this.sectorID = this.companyMarketSectors[0].sectorID; 
+      this.getSectorCompaniesBySectorIDAndStockMarketID();
+      }
       else this.loading = false;
     });
   }
@@ -129,7 +133,10 @@ export class AccountsCustomOrderComponent {
       .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        if (this.companiesTickers.length > 0) this.getCompaniesFactOrdersByCompanyID();
+        if (this.companiesTickers.length > 0){
+          this.companyID = this.companiesTickers[0].companyID;
+          this.getCompaniesFactOrdersByCompanyID();
+        } 
         else this.loading = false;
       });
   }

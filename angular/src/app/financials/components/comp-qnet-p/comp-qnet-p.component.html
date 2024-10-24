@@ -1,326 +1,417 @@
-<div class="container ms-2">
-    <div class="row mb-2">
-      <div class="col-md-3">
-        <div class="row mb-2">
-          <div class="col-md-12">
-            <p-dropdown
-              [options]="markets"
-              placeholder="Select a Market"
-              optionLabel="name"
-              [style]="{ width: '100%' }"
-              [showClear]="true"
-            >
-            </p-dropdown>
-          </div>
-          <div class="col-md-12 mt-2">
-            <p-dropdown
-              [options]="markets"
-              placeholder="Select a Sector"
-              optionLabel="name"
-              [style]="{ width: '100%' }"
-              [showClear]="true"
-            >
-            </p-dropdown>
-          </div>
+<div class="container ms-2" [abpLoading]="loading">
+  <div class="row mb-2">
+    <div class="col-md-3">
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <p-dropdown
+            [options]="stockMarkets"
+            [(ngModel)]="stockMarketID"
+            name="stockMarketID"
+            placeholder="Select a Market"
+            optionLabel="abbr"
+            optionValue="stockMarketID"
+            (ngModelChange)="getCompMSectorsByMarketID()"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <h6>Companies</h6>
-            <div class="card">
-              <div class="card-body p-0">
-                <h6 class="selector p-1 mb-1 border-bottom">ACDB</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">AVD</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">HGFA</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">KJUYA</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">ADEF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">DDEDW</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDAD</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">DFES</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDEDFE</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SDEFDF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">HTHFF</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">NJLKNL</h6>
-                <h6 class="selector p-1 mb-1 border-bottom">SFFDF</h6>
-              </div>
-            </div>
-          </div>
+        <div class="col-md-12 mt-2">
+          <p-dropdown
+            [options]="companyMarketSectors"
+            [(ngModel)]="sectorID"
+            name="sectorID"
+            placeholder="Select a Sector"
+            optionLabel="sector"
+            optionValue="sectorID"
+            (ngModelChange)="getSectorCompaniesBySectorIDAndStockMarketID()"
+            [style]="{ width: '100%' }"
+            [showClear]="true"
+          >
+          </p-dropdown>
         </div>
       </div>
-      <div class="col-md-9">
-        <div class="card">
-          <div class="card-body p-2">
-            <div class="row">
-              <div class="col-md-8">
-                <p-autoComplete
-                    [suggestions]="filteredCountries"
-                    field="name"
-                    placeholder="Search the Companies and select"
-                    [style]="{ width: '100%' }"
-                    [inputStyle]="{ width: '100%' }"
-                  >
-                  </p-autoComplete>
-              </div>
-              <div class="col-md-4 text-end">
-                <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
-                <a href="#" *ngIf="permission.create" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
-                <a href="#" *ngIf="permission.create"  class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
-              </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h6 class="p-1 mb-1">Companies</h6>
+          <p-listbox
+            [options]="companiesTickers"
+            [(ngModel)]="companyID"
+            name="companyID"
+            optionLabel="ticker"
+            (click)="getCompaniesQNetProfitsByCompanyID()"
+            optionValue="companyID"
+            [style]="{ width: '100%' }"
+            [listStyle]="{ 'max-height': '30rem' }"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body p-2">
+          <div class="row">
+            <div class="col-md-8">
+              <p-autoComplete
+                [(ngModel)]="selectedItem"
+                [ngModelOptions]="{ standalone: true }"
+                (onSelect)="onSelect($event)"
+                [suggestions]="suggestions"
+                (completeMethod)="search($event)"
+                [style]="{ width: '100%' }"
+                field="company"
+                [inputStyle]="{ width: '100%' }"
+              >
+              </p-autoComplete>
             </div>
-            <div class="d-flex flex-row mt-2">
-              <div class="p-2">
-                <label class="col-form-label">Quarters</label>
-                <p-dropdown
-                  [options]="markets"
-                  placeholder="Select a Quarters"
-                  optionLabel="name"
-                  [style]="{ width: '100%' }"
-                  [showClear]="true"
-                >
-                </p-dropdown>
-              </div>
-              <div class="p-2">
-                <label class="col-form-label">Year</label>
-                <p-dropdown
-                  [options]="markets"
-                  placeholder="Select a Year"
-                  optionLabel="name"
-                  [style]="{ width: '100%' }"
-                  [showClear]="true"
-                >
-                </p-dropdown>
-              </div>
-              <div class="p-2">
-                <label class="col-form-label">As Of Date</label>
-              <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
-              </div>
-              <div class="p-2">
-                <label class="col-form-label">Period</label>
-                <p-dropdown
-                  [options]="markets"
-                  placeholder="Select a Period"
-                  optionLabel="name"
-                  [style]="{ width: '100%' }"
-                  [showClear]="true"
-                >
-                </p-dropdown>
-              </div>
-              <div class="p-2">
-                <label class="col-form-label">Set as</label>
-                <p>
-                  <p-checkbox value="New York" inputId="ny" />
-                  <label for="ny" class="col-form-label">Yearly</label>
-                </p>                
-              </div>
+            <div class="col-md-4 text-end">
+              <a
+                href="JavaScript:void(0)"
+                (click)="addNewCompaniesQNetProfit()"
+                class="btn btn-primary btn-sm me-1"
+                ><i class="fa fa-plus"></i> Add New</a
+              >
+              <a
+                href="JavaScript:void(0)"
+                (click)="insertUpdateCalculateCompQuartersNetProfitByInput()"
+                *ngIf="permission.create"
+                class="btn btn-success btn-sm me-1"
+                ><i class="fa fa-save"></i> Save</a
+              >
+              <!-- <a href="#" *ngIf="permission.create"  class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
             </div>
-            <div class="card">
-                <div class="card-body p-2">
-                    <h6>Net Profit</h6>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label class="col-form-label">Announced Date</label>
-                                    <p-calendar [style]="{ width: '100%' }" placeholder="Select a Announced Date" />
-                                </div> 
-                                <div class="col-md-12">
-                                    <label class="col-form-label">Net Profit</label>
-                                    <input
-                                      autofocus
-                                      type="text"
-                                      class="form-control"
-                                      name="Company"
-                                      placeholder="Net Profit"
-                                    />
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="col-form-label">Revenues</label>
-                                    <input
-                                      autofocus
-                                      type="text"
-                                      class="form-control"
-                                      name="Company"
-                                      placeholder="Revenues"
-                                    />
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="col-form-label">Total Assets</label>
-                                    <input
-                                      autofocus
-                                      type="text"
-                                      class="form-control"
-                                      name="Company"
-                                      placeholder="Total Assets"
-                                    />
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="col-md-3">
-                            <div class="row">
-                                <div class="col-md-12">
-
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="col-form-label">Prev:</label>
-                                    <input
-                                      autofocus
-                                      type="text"
-                                      class="form-control"
-                                      name="Company"
-                                      placeholder="846548.448"
-                                    />
-                                    <input
-                                      autofocus
-                                      type="text"
-                                      class="form-control"
-                                      name="Company"
-                                      placeholder="56156165165.24"
-                                    />
-                                    <input
-                                      autofocus
-                                      type="text"
-                                      class="form-control"
-                                      name="Company"
-                                      placeholder="6551561.2185"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label class="col-form-label">Remarks</label>
-                                    <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
-                                    </textarea>
-                                  </div>
-                                  <div class="col-md-12">
-                                    <label class="col-form-label">Remarks (AR)</label>
-                                    <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
-                                    </textarea>
-                                  </div>
-                            </div>
-                        </div>
+          </div>
+          <div class="d-flex flex-row mt-2">
+            <div class="p-2">
+              <label class="col-form-label">Quarters</label>
+              <p-dropdown
+                [options]="qPeriods"
+                [(ngModel)]="companiesQNetProfit.qPeriodID"
+                [ngModelOptions]="{ standalone: true }"
+                name="qPeriodID"
+                placeholder="Select a Quarters"
+                optionLabel="qPeriod"
+                optionValue="qPeriodID"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="p-2">
+              <label class="col-form-label">Year</label>
+              <p-calendar
+                [style]="{ width: '100%' }"
+                dataType="string"
+                [showIcon]="true"
+                [(ngModel)]="companiesQNetProfit.year"
+                name="year"
+                view="year"
+                dateFormat="yy"
+                placeholder="Select a Year"
+              />
+            </div>
+            <div class="p-2">
+              <label class="col-form-label">As Of Date</label>
+              <p-calendar
+                [style]="{ width: '100%' }"
+                dataType="string"
+                [showIcon]="true"
+                [(ngModel)]="companiesQNetProfit.asOfDate"
+                name="asOfDate"
+                placeholder="Select a Date"
+              />
+            </div>
+            <div class="p-2">
+              <label class="col-form-label">Period</label>
+              <p-dropdown
+                [options]="periodTypes"
+                [(ngModel)]="companiesQNetProfit.periodTypeID"
+                [ngModelOptions]="{ standalone: true }"
+                name="periodTypeID"
+                placeholder="Select a Period"
+                optionLabel="period"
+                optionValue="periodTypeID"
+                [style]="{ width: '100%' }"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="p-2">
+              <label class="col-form-label">Set as</label>
+              <p>
+                <p-checkbox
+                  [(ngModel)]="companiesQNetProfit.isYearly"
+                  name="isYearly"
+                  [binary]="true"
+                  inputId="binary"
+                />
+                <label for="ny" class="col-form-label">Yearly</label>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body p-2">
+              <h6>Net Profit</h6>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="col-form-label">Announced Date</label>
+                      <p-calendar
+                        [style]="{ width: '100%' }"
+                        dataType="string"
+                        [showIcon]="true"
+                        [(ngModel)]="companiesQNetProfit.announcementDate"
+                        name="announcementDate"
+                      />
                     </div>
-                </div>
-            </div>
-            <div class="card mt-2">
-                <div class="card-body p-2">
-                    <h6>Ratios</h6>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="col-form-label">Prevoius Net Profit</label>
-                            <input
-                              autofocus
-                              type="text"
-                              class="form-control"
-                              name="Company"
-                              placeholder="2+6516156.2165"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <label class="col-form-label">Net Profit Change (%)</label>
-                            <input
-                              autofocus
-                              type="text"
-                              class="form-control"
-                              name="Company"
-                              placeholder="27.82"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <label class="col-form-label">TTM Net Profit</label>
-                            <input
-                              autofocus
-                              type="text"
-                              class="form-control"
-                              name="Company"
-                              placeholder="76516156.2165"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <label class="col-form-label">EPS</label>
-                            <input
-                              autofocus
-                              type="text"
-                              class="form-control"
-                              name="Company"
-                              placeholder="586156.2165"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <label class="col-form-label">PE</label>
-                            <input
-                              autofocus
-                              type="text"
-                              class="form-control"
-                              name="Company"
-                              placeholder="18.2165"
-                            />
-                        </div>
-                        <div class="col-md-4">
-                            <label class="col-form-label">5 Year Growth</label>
-                            <input
-                              autofocus
-                              type="text"
-                              class="form-control"
-                              name="Company"
-                              placeholder="5 Year Growth"
-                            />
-                        </div>
+                    <div class="col-md-12">
+                      <label class="col-form-label">Net Profit</label>
+                      <input
+                        autofocus
+                        type="number"
+                        step=".0001"
+                        [(ngModel)]="companiesQNetProfit.netProfit"
+                        [ngModelOptions]="{ standalone: true }"
+                        name="netProfit"
+                        class="form-control"
+                        placeholder="Net Profit"
+                      />
                     </div>
-                </div>
-            </div>
-            <div class="card mt-2">
-                <div class="card-body p-2">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="col-form-label">Earning Announcement</label>
-                            <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
-                            </textarea>
-                          </div>
-                          <div class="col-md-12">
-                            <label class="col-form-label">Earning Announcement (AR)</label>
-                            <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
-                            </textarea>
-                          </div>
+                    <div class="col-md-12">
+                      <label class="col-form-label">Revenues</label>
+                      <input
+                        autofocus
+                        type="number"
+                        step=".0001"
+                        [(ngModel)]="companiesQNetProfit.revenues"
+                        [ngModelOptions]="{ standalone: true }"
+                        name="revenues"
+                        class="form-control"
+                        placeholder="Revenues"
+                      />
                     </div>
+                    <div class="col-md-12">
+                      <label class="col-form-label">Total Assets</label>
+                      <input
+                        autofocus
+                        type="number"
+                        step=".0001"
+                        [(ngModel)]="companiesQNetProfit.totalAssets"
+                        [ngModelOptions]="{ standalone: true }"
+                        name="totalAssets"
+                        class="form-control"
+                        placeholder="Total Assets"
+                      />
+                    </div>
+                  </div>
                 </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                  <p-table #dt [value]="companies" [tableStyle]="{ 'max-height': '20rem' }" responsiveLayout="stack" styleClass="p-datatable-strip">
-                  <ng-template pTemplate="header">
-                    <tr>
-                      <th></th>
-                      <th>Ticker</th>
-                      <th>As Of Date</th>
-                      <th>Year</th>
-                      <th>Q Period</th>
-                      <th>Period</th>
-                      <th>Is Yearly</th>
-                      <th>Net Profit</th>
-                      <th>Announcement Date</th>
-                    </tr>
-                  </ng-template>
-                  <ng-template pTemplate="body" let-item>
-                    <tr>
-                      <td></td>
-                      <td>{{item.ticker}}</td>
-                      <td>{{item.aod}}</td>
-                      <td>{{item.yr}}</td>
-                      <td>{{item.pr}}</td>
-                      <td>{{item.qp}}</td>
-                      <td class="text-center"><p-checkbox value="New York" inputId="ny" /></td>
-                      <td>{{item.eu}}</td>
-                      <td>{{item.aod}}</td>
-                    </tr>
-                  </ng-template>
-                </p-table>
+                <div class="col-md-3">
+                  <div class="row">
+                    <div class="col-md-12"></div>
+                    <div class="col-md-12">
+                      <label class="col-form-label">Prev:</label>
+                      <input
+                        autofocus
+                        type="number"
+                        step=".0001"
+                        [(ngModel)]="companiesQNetProfit.previousTotalAssets"
+                        [ngModelOptions]="{ standalone: true }"
+                        name="previousTotalAssets"
+                        class="form-control"
+                        placeholder="Previous Total Assets"
+                      />
+                      <input
+                        autofocus
+                        type="number"
+                        step=".0001"
+                        [(ngModel)]="companiesQNetProfit.previousOwnersEquity"
+                        [ngModelOptions]="{ standalone: true }"
+                        name="previousOwnersEquity"
+                        class="form-control"
+                        placeholder="Previous Owners Equity"
+                      />
+                      <input
+                        autofocus
+                        type="number"
+                        step=".0001"
+                        [(ngModel)]="companiesQNetProfit.previousRevenues"
+                        [ngModelOptions]="{ standalone: true }"
+                        name="previousRevenues"
+                        class="form-control"
+                        placeholder="Previous Revenues"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="col-form-label">Remarks</label>
+                      <textarea
+                        rows="3"
+                        class="form-control"
+                        [(ngModel)]="companiesQNetProfit.remarks" name="remarks"
+                        placeholder="Describe Overview here..."
+                      >
+                      </textarea>
+                    </div>
+                    <div class="col-md-12">
+                      <label class="col-form-label">Remarks (AR)</label>
+                      <textarea
+                        rows="3"
+                        class="form-control"
+                        [(ngModel)]="companiesQNetProfit.aRemarks" name="aRemarks"
+                        placeholder="Describe Overview here..."
+                      >
+                      </textarea>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
+          </div>
+          <div class="card mt-2">
+            <div class="card-body p-2">
+              <h6>Ratios</h6>
+              <div class="row">
+                <div class="col-md-4">
+                  <label class="col-form-label">Prevoius Net Profit</label>
+                  <input
+                    autofocus
+                    type="number"
+                    step=".0001"
+                    [(ngModel)]="companiesQNetProfit.previousNP"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="previousNP"
+                    class="form-control"
+                    placeholder="Prevoius Net Profit"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="col-form-label">Net Profit Change (%)</label>
+                  <input
+                    autofocus
+                    type="number"
+                    step=".0001"
+                    [(ngModel)]="companiesQNetProfit.netProfitChange"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="netProfitChange"
+                    class="form-control"
+                    placeholder="Net Profit Change (%)"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="col-form-label">TTM Net Profit</label>
+                  <input
+                    autofocus
+                    type="number"
+                    step=".0001"
+                    [(ngModel)]="companiesQNetProfit.netProfit"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="netProfit"
+                    class="form-control"
+                    placeholder="TTM Net Profit"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="col-form-label">EPS</label>
+                  <input
+                    autofocus
+                    type="number"
+                    step=".0001"
+                    [(ngModel)]="companiesQNetProfit.eps"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="eps"
+                    placeholder="EPS"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="col-form-label">PE</label>
+                  <input
+                    autofocus
+                    type="number"
+                    step=".0001"
+                    [(ngModel)]="companiesQNetProfit.pe"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="pe"
+                    class="form-control"
+                    name="Company"
+                    placeholder="PE"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="col-form-label">5 Year Growth</label>
+                  <input
+                    autofocus
+                    type="number"
+                    step=".0001"
+                    [(ngModel)]="companiesQNetProfit.fiveYearGrowth"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="fiveYearGrowth"
+                    class="form-control"
+                    placeholder="5 Year Growth"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mt-2">
+            <div class="card-body p-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="col-form-label">Earning Announcement</label>
+                  <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                  </textarea>
+                </div>
+                <div class="col-md-12">
+                  <label class="col-form-label">Earning Announcement (AR)</label>
+                  <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <p-table
+                #dt
+                [value]="companiesQNetProfits"
+                [scrollable]="true"
+                scrollHeight="20rem"
+                responsiveLayout="stack"
+                styleClass="p-datatable-gridlines"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Ticker</th>
+                    <th>As Of Date</th>
+                    <th>Year</th>
+                    <th>Q Period</th>
+                    <th>Period</th>
+                    <th>Is Yearly</th>
+                    <th>Net Profit</th>
+                    <th>Announcement Date</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                  <tr (click)="handleCompaniesQNetProfit(item)">
+                    <td>{{ item.ticker }}</td>
+                    <td>{{ item.asOfDate | date : 'MM/dd/yyyy' }}</td>
+                    <td>{{ item.year }}</td>
+                    <td>{{ item.qPeriod }}</td>
+                    <td>{{ item.period }}</td>
+                    <td class="text-center"><p-checkbox value="Yearly" [(ngModel)]="item.isYearly" [binary]="true" inputId="binary" /></td>
+                    <td>{{ item.netProfit }}</td>
+                    <td>{{ item.announcementDate | date : 'MM/dd/yyyy' }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Volo.Abp.Application.Services;
 
-namespace GB.Opera.Entry
+namespace Entry
 {
     public class EntryAppService : ApplicationService, IEntryAppService
     {
@@ -103,12 +103,21 @@ namespace GB.Opera.Entry
         {
             foreach (var item in list)
             {
-                var parameters = new DynamicParameters();
-                parameters.Add("@FinancialDetailID", item.FinancialDetailId);
-                parameters.Add("@UserID", userID);
-                parameters.Add("@FinancialsID", item.FinancialsID);
+                try
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@FinancialDetailID", item.FinancialDetailId);
+                    parameters.Add("@UserID", userID);
+                    parameters.Add("@FinancialsID", item.FinancialsID);
 
-                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialCommentsStatus_New, parameters, commandType: CommandType.StoredProcedure);
+                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialCommentsStatus_New, parameters, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+
             }
         }
 

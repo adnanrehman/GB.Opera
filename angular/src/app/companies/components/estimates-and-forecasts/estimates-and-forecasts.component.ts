@@ -44,6 +44,7 @@ export class EstimatesAndForecastsComponent {
   loading: boolean = false;
   headerValue: any;
   selectedItem: any;
+  clickedIndex = 0;
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
@@ -95,7 +96,7 @@ export class EstimatesAndForecastsComponent {
       this.permission.delete = true;
     }
     this.getStockMarkets();
-    this.stockMarketID = 0;
+    // this.stockMarketID = 0;
   }
 
   search(event: AutoCompleteCompleteEvent) {
@@ -120,6 +121,7 @@ export class EstimatesAndForecastsComponent {
   getStockMarkets() {
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
+      if (this.stockMarkets.length > 0) this.stockMarketID = this.stockMarkets[0].stockMarketID; this.getStockMarketSectorsByStockMarketID();
     });
   }
 
@@ -128,7 +130,10 @@ export class EstimatesAndForecastsComponent {
     this.loading = true;
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
-      if (this.companyMarketSectors.length > 0) this.getSectorCompaniesBySectorIDAndStockMarketID();
+      if (this.companyMarketSectors.length > 0){
+        this.sectorID = this.companyMarketSectors[0].sectorID;
+        this.getSectorCompaniesBySectorIDAndStockMarketID();
+      } 
       else this.loading = false;
     });
   }
@@ -143,7 +148,10 @@ export class EstimatesAndForecastsComponent {
         this.companiesTickers = res.companies;
         this.periodTypes = res.periodTypes;
         this.qPeriods = res.qPeriods;
-        if (this.companiesTickers.length > 0) this.getEstimatesandForecastsByCompanyID();
+        if (this.companiesTickers.length > 0) {
+          this.companyID = this.companiesTickers[0].companyID;
+          this.getEstimatesandForecastsByCompanyID();
+        }
         else this.loading = false;
       });
   }

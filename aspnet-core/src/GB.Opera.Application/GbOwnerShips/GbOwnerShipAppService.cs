@@ -81,7 +81,7 @@ namespace GB.Opera.GbOwnerShips
 
             // Execute the stored procedure and retrieve data using Dapper
             var data = await _connection.QueryAsync<GbOwnerShip>(
-                sql: ProcedureNames.usp_GetGBOwnershipbyId,
+                sql: ProcedureNames.usp_GetGBOwnershipbyId_New,
                 param: parameters,
                 commandType: CommandType.StoredProcedure
             );

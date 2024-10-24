@@ -58,6 +58,7 @@ export class ManagementComponent {
   selectedItem: any;
   suggestions: any[] = [];
   sectorID: number;
+  clickedIndex = 0;
   stockMarketID: number;
   companyID: number;
   marketLangAnnouncement = [];
@@ -175,7 +176,7 @@ export class ManagementComponent {
       this.permission.delete = true;
     }
     this.getMarketLangAnnouncements();
-    this.stockMarketID = 0;
+    // this.stockMarketID = 0;
   }
 
   search(event: AutoCompleteCompleteEvent) {
@@ -200,6 +201,7 @@ export class ManagementComponent {
   getMarketLangAnnouncements() {
     this.commonService.getMarketLangAnnouncements().subscribe(res => {
       this.marketLangAnnouncement = res;
+      if (this.marketLangAnnouncement.length > 0) this.stockMarketID = this.marketLangAnnouncement[0].stockMarketID; this.getCompMarketSectorsByMarketID();
     });
   }
 
@@ -208,7 +210,10 @@ export class ManagementComponent {
     this.loading = true;
     this.commonService.getCompMarketSectorsByMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
-      if (this.companyMarketSectors.length > 0) this.getCompaniesTickersBySectorIDAndMarketID();
+      if (this.companyMarketSectors.length > 0){
+        this.sectorID = this.companyMarketSectors[0].sectorID;
+        this.getCompaniesTickersBySectorIDAndMarketID();
+      } 
       else this.loading = false;
     });
   }
@@ -221,7 +226,10 @@ export class ManagementComponent {
       .getCompaniesTickersBySectorIDAndMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        if (this.companiesTickers.length > 0) this.getCompanyManagements();
+        if (this.companiesTickers.length > 0){
+          this.companyID = this.companiesTickers[0].companyID;
+          this.getCompanyManagements();
+        } 
         else this.loading = false;
       });
   }
@@ -714,6 +722,7 @@ export class ManagementComponent {
   createOrUpdateCompanyProjects() {
     this.loading = true;
     this.companyProject.active = this.companyProjectActivation == 1 ? true : false;
+    this.companyProject.projectStatus = "New"
     if (this.companyProject.companyID == 0) this.companyProject.companyID = this.companyID;
     this.companyManagmentService
       .createOrUpdateCompanyProjectsByModel(this.companyProject)

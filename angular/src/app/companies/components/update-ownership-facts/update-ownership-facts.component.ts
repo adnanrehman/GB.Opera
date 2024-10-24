@@ -49,6 +49,7 @@ export class UpdateOwnershipFactsComponent {
   selectedItem: any;
   suggestions: any[] = [];
   sectorID: number;
+  clickedIndex = 0;
   stockMarketID: number;
   companyID: number;
   marketLangAnnouncement = [];
@@ -95,7 +96,7 @@ export class UpdateOwnershipFactsComponent {
       this.permission.delete = true;
     }
     this.getMarketLangAnnouncements();
-    this.stockMarketID = 0;
+    // this.stockMarketID = 0;
     this.fetchTreeData();
   }
 
@@ -136,6 +137,7 @@ export class UpdateOwnershipFactsComponent {
       // Assign the final tree data to gbFactListDto
       this.factsOwnershipMappings = treeData;
       console.log('Tree Data:', this.factsOwnershipMappings);
+      if (this.marketLangAnnouncement.length > 0) this.stockMarketID = this.marketLangAnnouncement[0].stockMarketID; this.getCompMarketSectorsByMarketID();
     });
   }
 
@@ -161,6 +163,7 @@ export class UpdateOwnershipFactsComponent {
   getMarketLangAnnouncements() {
     this.commonService.getMarketLangAnnouncements().subscribe(res => {
       this.marketLangAnnouncement = res;
+      
     });
   }
 
@@ -169,7 +172,10 @@ export class UpdateOwnershipFactsComponent {
     this.loading = true;
     this.commonService.getCompMarketSectorsByMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
-      if (this.companyMarketSectors.length > 0) this.getCompaniesTickersBySectorIDAndMarketID();
+      if (this.companyMarketSectors.length > 0) {
+        this.sectorID = this.companyMarketSectors[0].sectorID;
+        this.getCompaniesTickersBySectorIDAndMarketID();
+      }
       else this.loading = false;
     });
   }
@@ -182,7 +188,10 @@ export class UpdateOwnershipFactsComponent {
       .getCompaniesTickersBySectorIDAndMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        if (this.companiesTickers.length > 0) this.getCompaniesFactsByCompanyID();
+        if (this.companiesTickers.length > 0) {
+          this.companyID = this.companiesTickers[0].companyID;
+          this.getCompaniesFactsByCompanyID();
+        }
         else this.loading = false;
       });
   }

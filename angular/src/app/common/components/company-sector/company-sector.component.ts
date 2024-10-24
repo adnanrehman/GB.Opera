@@ -28,12 +28,13 @@ export class CompanySectorComponent {
 
   ngOnInit() {
     this.getCompStockMarkets();
-    this.stockMarketID = 0;
+    // this.stockMarketID = 0;
   }
 
   getCompStockMarkets() {
     this.commonService.getCompStockMarkets().subscribe(res => {
       this.markets = res;
+      if (this.markets.length > 0) this.stockMarketID = this.markets[0].stockMarketID; this.fillCompByMarketId();
     });
   }
 
@@ -41,6 +42,7 @@ export class CompanySectorComponent {
     this.commonService.getCompMSectorsByMarketID(this.stockMarketID).subscribe(res => {
       debugger;
       this.marketSectors = res.marketSectors;
+      if (this.marketSectors.length > 0) this.sectorID = this.marketSectors[0].sectorID; this.getCompanies();
     });
   }
 

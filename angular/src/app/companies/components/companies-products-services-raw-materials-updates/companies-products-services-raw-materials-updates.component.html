@@ -172,8 +172,8 @@
                           <th>Active</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-item>
-                        <tr (click)="handlePSRCompanyProduct(item)"> 
+                      <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr (click)="handlePSRCompanyProduct(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}"> 
                           <td>{{ item.capacityPerAnnum }}</td>
                           <td>{{ item.productionStart | date: 'dd/MM/yyyy' }}</td>
                           <td>{{ item.description }}</td>
@@ -285,8 +285,8 @@
                           <th>Active</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-item>
-                        <tr (click)="handlePSRCompanyService(item)"> 
+                      <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr (click)="handlePSRCompanyService(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}"> 
                           <td>{{ item.serviceRange }}</td>
                           <td>{{ item.serviceStart | date: 'dd/MM/yyyy' }}</td>
                           <td>{{ item.description }}</td>
@@ -412,8 +412,8 @@
                           <th>Active</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-item>
-                        <tr (click)="handlePSRCompanyRawMaterial(item)"> 
+                      <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr (click)="handlePSRCompanyRawMaterial(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}"> 
                           <td>{{ item.usePerAnnum }}</td>
                           <td>{{ item.suppliers }}</td>
                           <td>{{ item.aSuppliers }}</td>

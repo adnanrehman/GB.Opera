@@ -16,6 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule, NgFor } from '@angular/common';
 import { PermissionService } from '@abp/ng.core';
 import { Company_Announcements } from 'src/app/services/permissions';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-announcements',
@@ -43,6 +44,7 @@ export class AnnouncementsComponent {
   loading: boolean = false;
   headerValue: any;
   selectedItem: any;
+  clickedIndex = 0;
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
@@ -120,6 +122,7 @@ export class AnnouncementsComponent {
   getStockMarkets() {
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
+      if (this.stockMarkets.length > 0) this.stockMarketID = this.stockMarkets[0].stockMarketID; this.getStockMarketSectorsByStockMarketID();
     });
   }
 
@@ -135,7 +138,10 @@ export class AnnouncementsComponent {
     this.loading = true;
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
-      if (this.companyMarketSectors.length > 0) this.getSectorCompaniesBySectorIDAndStockMarketID();
+      if (this.companyMarketSectors.length > 0) {
+        this.sectorID = this.companyMarketSectors[0].sectorID;
+        this.getSectorCompaniesBySectorIDAndStockMarketID();
+      }
       else this.loading = false;
     });
   }
@@ -148,7 +154,10 @@ export class AnnouncementsComponent {
       .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        if (this.companiesTickers.length > 0) this.getCorporateAnnouncements();
+        if (this.companiesTickers.length > 0) {
+          this.companyID = this.companiesTickers[0].companyID;
+          this.getCorporateAnnouncements();
+        }
         else this.loading = false;
       });
   }
@@ -173,6 +182,8 @@ export class AnnouncementsComponent {
     debugger;
     // this.corporateAnnouncement.announcedDateTime = this.corporateAnnouncement.announcedDate;
     this.corporateAnnouncementActivation = this.corporateAnnouncement.isActive ? 1 : 0;
+    if(this.corporateAnnouncement.announcedDate)
+      this.corporateAnnouncement.announcedDate = moment(this.corporateAnnouncement.announcedDate).format("MM/DD/YYYY")
     this.loading = false;
   }
 
@@ -191,6 +202,7 @@ export class AnnouncementsComponent {
     debugger;
     this.loading = true;
     this.corporateAnnouncement.isActive = this.corporateAnnouncementActivation == 1 ? true : false;
+    this.corporateAnnouncement.announcedDate = moment(this.corporateAnnouncement.announcedDate).format();
     // this.corporateAnnouncement.announcedDate = this.corporateAnnouncement.announcedDateTime;
     this.corporateAnnouncement.ticker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker
     this.corporateAnnouncementService.createOrUpdateCorporateAnnouncementByModel(this.corporateAnnouncement).subscribe(res => {

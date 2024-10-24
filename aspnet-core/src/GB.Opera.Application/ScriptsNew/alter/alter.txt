@@ -1,0 +1,31 @@
+
+Alter Table FinancialStatusRemarks add gbuserId uniqueidentifier
+
+Alter Table [FinRemarksLog] add gbuserId uniqueidentifier
+
+
+
+
+ ALter Table UserFinancials add gbEntryUser uniqueidentifier
+
+ 
+ ALter Table UserFinancials add gbReEntryUser uniqueidentifier
+
+
+ 
+ALTER TABLE  FinRemarksLog
+ALTER COLUMN UserID smallint NULL;
+
+ALTER TABLE  UserFinancials
+ALTER COLUMN EntryUser smallint NULL;
+
+
+ALTER TABLE   [UserFinancials]
+ALTER COLUMN ReEntryUser smallint NULL;
+
+Alter Table FinancialsEntryInReview add gbuserId uniqueidentifier
+
+ALTER TABLE [FinancialsEntryInReview]
+ALTER COLUMN UserID SMALLINT NULL;
+
+

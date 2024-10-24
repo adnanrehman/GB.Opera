@@ -1,0 +1,62 @@
+﻿ALTER PROCEDURE [dbo].[usp_getCompAdminFinancials]
+(
+@CompanyID smallint
+)
+AS
+begin
+SET NOCOUNT ON 
+
+--SELECT DISTINCT 
+--                      dbo.NewReviewFinancials.NewReviewFinancialID, dbo.Financials.FinancialsID,dbo.Financials.IsAudited,dbo.Financials.IsActive, dbo.Financials.AsOfDate, dbo.Financials.PeriodTypeID, 
+--                      dbo.FinancialsQYPeriods.Year, dbo.QPeriodTypes.QPeriod, dbo.FinancialsQYPeriods.QPeriodID, dbo.FinancialsQYPeriods.IsYearly, 
+--                      dbo.UserFinancials.EntryUser, dbo.UserFinancials.ReEntryUser, dbo.FinancialStatusRemarks.StatusID, dbo.NewReviewFinancials.UploadedPath, 
+--                      dbo.NewReviewFinancials.FileName, dbo.NewReviewFinancials.SecondaryUploadedPath, dbo.NewReviewFinancials.SecondaryFileName, 
+--                      dbo.FinancialStatusRemarks.Remarks,dbo.FinancialStatusRemarks.ARemarks, dbo.NewReviewFinancials.FinancialEntryTypeID,FinancialsQYPeriods.PeriodNote,FinancialsQYPeriods.APeriodNote
+--FROM         dbo.Financials INNER JOIN
+--                      dbo.FinancialsQYPeriods ON dbo.Financials.FinancialsID = dbo.FinancialsQYPeriods.FinancialsID INNER JOIN
+--                      dbo.QPeriodTypes ON dbo.FinancialsQYPeriods.QPeriodID = dbo.QPeriodTypes.QPeriodID INNER JOIN
+--                      dbo.NewReviewFinancials ON dbo.Financials.FinancialsID = dbo.NewReviewFinancials.FinancialsID INNER JOIN
+--                      dbo.FinancialStatusRemarks ON 
+--                      dbo.NewReviewFinancials.NewReviewFinancialID = dbo.FinancialStatusRemarks.NewReviewFinancialID LEFT OUTER JOIN
+--                      dbo.UserFinancials ON dbo.FinancialsQYPeriods.FinancialsID = dbo.UserFinancials.FinancialsID
+--
+--WHERE     (dbo.Financials.CompanyID = @CompanyID)
+--ORDER BY dbo.FinancialsQYPeriods.Year DESC, dbo.FinancialsQYPeriods.QPeriodID
+
+
+
+
+
+SELECT DISTINCT               dbo.NewReviewFinancials.NewReviewFinancialID, dbo.Financials.FinancialsID, dbo.Financials.IsAudited, dbo.Financials.IsActive, 
+                      dbo.Financials.AsOfDate, dbo.Financials.PeriodTypeID, dbo.FinancialsQYPeriods.Year, dbo.QPeriodTypes.QPeriod, 
+                      dbo.FinancialsQYPeriods.QPeriodID, dbo.FinancialsQYPeriods.IsYearly, dbo.UserFinancials.gbEntryUser, dbo.UserFinancials.gbReEntryUser, 
+                      dbo.FinancialStatusRemarks.StatusID, dbo.NewReviewFinancials.UploadedPath, dbo.NewReviewFinancials.FileName, 
+                      dbo.NewReviewFinancials.SecondaryUploadedPath, dbo.NewReviewFinancials.SecondaryFileName, dbo.FinancialStatusRemarks.Remarks, 
+                      dbo.FinancialStatusRemarks.ARemarks, dbo.NewReviewFinancials.FinancialEntryTypeID, dbo.FinancialsQYPeriods.PeriodNote, 
+                      dbo.FinancialsQYPeriods.APeriodNote
+FROM         dbo.Financials INNER JOIN
+                      dbo.FinancialsQYPeriods ON dbo.Financials.FinancialsID = dbo.FinancialsQYPeriods.FinancialsID INNER JOIN
+                      dbo.QPeriodTypes ON dbo.FinancialsQYPeriods.QPeriodID = dbo.QPeriodTypes.QPeriodID INNER JOIN
+                      dbo.NewReviewFinancials ON dbo.Financials.FinancialsID = dbo.NewReviewFinancials.FinancialsID INNER JOIN
+                      dbo.FinancialStatusRemarks ON 
+                      dbo.NewReviewFinancials.NewReviewFinancialID = dbo.FinancialStatusRemarks.NewReviewFinancialID LEFT OUTER JOIN
+                      dbo.UserFinancials ON dbo.NewReviewFinancials.NewReviewFinancialID = dbo.UserFinancials.NewReviewFinancialID
+WHERE     (dbo.Financials.CompanyID = @CompanyID)
+ORDER BY dbo.FinancialsQYPeriods.Year DESC, dbo.FinancialsQYPeriods.QPeriodID
+
+
+Select PeriodTypeID,Period from PeriodTypes 
+
+Select QPeriodID,QPeriod from QPeriodTypes
+
+exec [usp_getEntryReEntryUsers_New]
+
+SELECT     StatusID, Status
+FROM       dbo.Status
+
+end
+
+
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
