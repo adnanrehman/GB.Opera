@@ -358,8 +358,8 @@
                             <th>Gulf Update</th>
                           </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-item>
-                          <tr (click)="handleManagement(item)">
+                        <ng-template pTemplate="body" let-item let-i="rowIndex">
+                          <tr (click)="handleManagement(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                             <td>{{ item.chairman }}</td>
                             <td>{{ item.managingDirector }}</td>
                             <td>{{ item.since | date: 'dd/MM/yyyy' }}</td>
@@ -472,8 +472,8 @@
                           <th>Gulf Base Update</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-item>
-                        <tr (click)="handleseniorManagement(item)">
+                      <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr (click)="handleseniorManagement(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                           <td>{{item.title}}</td>
                           <td>{{item.seniorManagement}}</td>
                           <td>{{item.since | date: 'dd/MM/yyyy'}}</td>
@@ -585,8 +585,8 @@
                           <th>Gulf Base Update</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-item>
-                        <tr (click)="handleauditor(item)">
+                      <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr (click)="handleauditor(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                           <td>{{item.title}}</td>
                           <td>{{item.auditor}}</td>
                           <td>{{item.since | date: 'dd/MM/yyyy'}}</td>
@@ -711,8 +711,8 @@
                           <th>Custom Order</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-item>
-                        <tr (click)="handleboardMember(item)">
+                      <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr (click)="handleboardMember(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                           <td>{{item.title}}</td>
                           <td>{{item.boardMember}}</td>
                           <td>{{item.since | date: 'dd/MM/yyyy'}}</td>
@@ -933,8 +933,8 @@
                             <th>Region</th>
                           </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-item>
-                          <tr (click)="handleBranch(item)">
+                        <ng-template pTemplate="body" let-item let-i="rowIndex">
+                          <tr (click)="handleBranch(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                             <td>{{item.branchName}}</td>
                             <td>{{item.city}}</td>
                             <td>{{item.telephone}}</td>
@@ -1075,8 +1075,8 @@
                           <th>Gulf Base Update</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-item>
-                        <tr (click)="handlecompanyFinancialOverview(item)">
+                      <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr (click)="handlecompanyFinancialOverview(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                           <td>{{item.listedDate | date: 'dd/MM/yyyy'}}</td>
                           <td>{{item.paidupCapital}}</td>
                           <td>{{item.outstandingShares}}</td>
@@ -1279,8 +1279,8 @@
                             <th>Region</th>
                           </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-item>
-                          <tr (click)="handlecontactInfo(item)">
+                        <ng-template pTemplate="body" let-item let-i="rowIndex">
+                          <tr (click)="handlecontactInfo(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                             <td>{{item.branchName}}</td>
                             <td>{{item.city}}</td>
                             <td>{{item.telephone}}</td>
@@ -1385,8 +1385,8 @@
                           <th>Description</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-item>
-                        <tr (click)="handlecompanyProject(item)">
+                      <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr (click)="handlecompanyProject(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                           <td>{{item.name}}</td>
                           <td>{{item.status}}</td>
                           <td>{{item.startDate  | date: 'dd/MM/yyyy'}}</td>

@@ -31,7 +31,10 @@ namespace GB.Opera.AccountsClassifications
 
 
             var ACFactsFactList = new List<ACFactsDtos>();
-
+            var gbAccount = new ACFactsDtos();
+            gbAccount.AcFact = "Account Classifications Account";
+            gbAccount.ParentId = -1;
+            ACFactsFactList.Add(gbAccount);
 
             while (!results.IsConsumed)
             {

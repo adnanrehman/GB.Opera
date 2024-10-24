@@ -66,6 +66,7 @@ export class AccountsClassificationComponent {
           label: item.acFact || '', // Assign gbFact to label or default to empty string
           parent: null,
           Tooltip: item.aAcFact,
+          expanded:item.parentId == -1 ? true : false,
           children: []
         };
         idMap[newItem.acFactId] = newItem;
@@ -75,16 +76,16 @@ export class AccountsClassificationComponent {
       // Build the tree structure
       let treeData = [];
       this.acFactsDtos.forEach(item => {
-        if (item.parentId === 0) {
+        if(item.parentId === -1){
           treeData.push(item);
-        } else {
+        }else{
           let parentItem = idMap[item.parentId];
-          if (parentItem) {
-            parentItem.children.push(item);
-            item = parentItem;
-          } else {
-            console.error(`Parent id ${item.parentId} not found in idMap.`);
-          }
+            if (parentItem) {
+              parentItem.children.push(item);
+              item = parentItem;
+            } else {
+              console.error(`Parent id ${item.parentId} not found in idMap.`);
+            }
         }
       });
 
@@ -126,6 +127,7 @@ export class AccountsClassificationComponent {
           label: item.gbFact || '', // Assign gbFact to label or default to empty string
           Tooltip: item.agbFact,
           leaf: item.agbFact,
+          expanded:item.parentId == -1 ? true : false,
           parent: null,
           children: []
         };
@@ -136,16 +138,16 @@ export class AccountsClassificationComponent {
       // Build the tree structure
       let treeData = [];
       this.gbFactListDto.forEach(item => {
-        if (item.parentId === 0) {
+        if(item.parentId === -1){
           treeData.push(item);
-        } else {
+        }else{
           let parentItem = idMap[item.parentId];
-          if (parentItem) {
-            parentItem.children.push(item);
-            item = parentItem;
-          } else {
-            console.error(`Parent id ${item.parentId} not found in idMap.`);
-          }
+            if (parentItem) {
+              parentItem.children.push(item);
+              item = parentItem;
+            } else {
+              console.error(`Parent id ${item.parentId} not found in idMap.`);
+            }
         }
       });
 
@@ -170,8 +172,8 @@ export class AccountsClassificationComponent {
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
-      // this.getAll({});
-      //this.fetchTreeData();
+      if(template)
+        this.fetchAccountsTreeData();
     });
   }
 
@@ -188,7 +190,8 @@ export class AccountsClassificationComponent {
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
-
+      if(template)
+        this.fetchAccountsTreeData();
     });
 
   }
@@ -196,16 +199,38 @@ export class AccountsClassificationComponent {
   onNodeClick(event: any) {
     // Handle single click logic here
     console.log('Node clicked:', event.node);
-    if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
+    debugger;
+    if(event.node.parentId != -1){
+      const element = event.originalEvent.currentTarget; 
+      element.addEventListener('dblclick', () => {
+        this.editHeader(event);
+      });
+        
+    }
 
+    if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
       console.log('Ctrl or Command + Click');
       this.addAccount(event);
-    } else {
-
-
-      this.editHeader(event);
     }
+    
+   
   }
+
+  // onNodeClick(event: any) {
+  //   // Handle single click logic here
+  //   console.log('Node clicked:', event.node);
+  //   if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
+
+  //     console.log('Ctrl or Command + Click');
+  //     this.addAccount(event);
+  //   } else {
+
+
+  //     this.editHeader(event);
+  //   }
+  // }
+
+  
 
   onNodeSelect(event: { originalEvent: Event, node: TreeNode }): void {
 

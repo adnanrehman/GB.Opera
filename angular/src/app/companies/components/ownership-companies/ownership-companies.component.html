@@ -248,8 +248,8 @@
                           <th>Customer Order</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-item>
-                        <tr (click)="handleSubsidiary(item)">
+                      <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr (click)="handleSubsidiary(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                           <td>{{ item.subsidiaryCompany }}</td>
                           <td>{{ item.share }}</td>
                           <td>{{ item.principalActivity }}</td>
@@ -349,8 +349,8 @@
                           <th>Relation</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-item>
-                        <tr (click)="handlesiterCompany(item)">
+                      <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr (click)="handlesiterCompany(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                           <td>{{ item.sisterCompany }}</td>
                           <td>{{ item.relation }}</td>
                         </tr>
@@ -469,8 +469,8 @@
                           <th>Last Product</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-item>
-                        <tr (click)="handlecompanyproduct(item)">
+                      <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr (click)="handlecompanyproduct(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                           <td>{{ item.companyProduct }}</td>
                           <td>{{ item.launchDate | date: 'dd/MM/yyyy' }}</td>
                           <td>{{ item.lastProduct }}</td>
@@ -632,8 +632,8 @@
                             <th>Last Provider</th>
                           </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-item>
-                          <tr (click)="handleCompanyRawMaterial(item)">
+                        <ng-template pTemplate="body" let-item let-i="rowIndex">
+                          <tr (click)="handleCompanyRawMaterial(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                             <td>{{ item.rawMaterial }}</td>
                             <td>{{ item.currentProvider }}</td>
                             <td>{{ item.lastProvider }}</td>
@@ -746,8 +746,8 @@
                             <th>Permitted Share to Arab Nationals</th>
                           </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-item>
-                          <tr (click)="handlecompanyFIP(item)">
+                        <ng-template pTemplate="body" let-item let-i="rowIndex">
+                          <tr (click)="handlecompanyFIP(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                             <td>{{ item.permittedSharesToForeigners }}</td>
                             <td>{{ item.permittedSharesToGCCNationals }}</td>
                             <td>{{ item.permittedSharesToArabNationals }}</td>
@@ -826,8 +826,8 @@
                             <th>Note</th>
                           </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-item>
-                          <tr (click)="handlemiscNote(item)">
+                        <ng-template pTemplate="body" let-item let-i="rowIndex">
+                          <tr (click)="handlemiscNote(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                             <td>{{ item.date | date: 'dd/MM/yyyy' }}</td>
                             <td>{{ item.note }}</td>
                           </tr>

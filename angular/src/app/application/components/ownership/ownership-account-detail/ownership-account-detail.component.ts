@@ -128,11 +128,11 @@ export class OwnershipAccountDetailComponent {
   }
 
   closeModal(): void {
-    this.modalref.close();
+    this.modalref.close(true);
   }
 
   Cancel() {
-    this.closeModal();
+    this.modalref.close(false);
   }
 
   deleteAccount(){

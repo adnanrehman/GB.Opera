@@ -44,8 +44,12 @@ namespace GbFacts
 
       
             var gbFactList = new List<GbFactListDto>();
+            var gbAccount = new GbFactListDto();
+            gbAccount.GBFact = "GB Account";
+            gbAccount.ParentId = -1;
+            gbFactList.Add(gbAccount);
 
-           
+
             while (!results.IsConsumed)
             {
                 var resultSet = await results.ReadAsync<GbFactListDto>();

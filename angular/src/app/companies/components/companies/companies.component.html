@@ -431,8 +431,8 @@
                     <th>English</th>
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-item>
-                  <tr (click)="handleCompany(item)">
+                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                  <tr (click)="handleCompany(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                     <td>{{ item.company }}</td>
                     <td>{{ item.ticker }}</td>
                     <td>{{ item.establishmentDate }}</td>

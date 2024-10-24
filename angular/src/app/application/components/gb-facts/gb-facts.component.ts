@@ -60,6 +60,7 @@ export class GbFactsComponent {
           ...item,
           label: item.gbFact || '', // Assign gbFact to label or default to empty string
           parent: null,
+          expanded:item.parentId == -1 ? true : false,
           children: []
         };
         idMap[newItem.gbFactID] = newItem;
@@ -69,17 +70,18 @@ export class GbFactsComponent {
       // Build the tree structure
       let treeData = [];
       this.gbFactListDto.forEach(item => {
-        if (item.parentId === 0) {
+        if(item.parentId === -1){
           treeData.push(item);
-        } else {
+        }else{
           let parentItem = idMap[item.parentId];
-          if (parentItem) {
-            parentItem.children.push(item);
-            item = parentItem;
-          } else {
-            console.error(`Parent id ${item.parentId} not found in idMap.`);
-          }
+            if (parentItem) {
+              parentItem.children.push(item);
+              item = parentItem;
+            } else {
+              console.error(`Parent id ${item.parentId} not found in idMap.`);
+            }
         }
+        
       });
 
       // Assign the final tree data to gbFactListDto
@@ -119,7 +121,8 @@ export class GbFactsComponent {
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
-      this.fetchTreeData();
+      if(template)
+        this.fetchTreeData();
     });
 
   }
@@ -137,23 +140,47 @@ export class GbFactsComponent {
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
-      // this.getAll({});
-      // this.fetchTreeData();
+      if(template){
+        this.fetchTreeData();
+      }
     });
+  }
+
+  findItemById(items: any[], gbFactID: number): number | null {
+    for (const item of items) {
+      if (item.gbFactID === gbFactID) {
+        return item; // Return the ID if the name matches
+      }
+
+      // If the item has children, search recursively
+      if (item.children) {
+        const foundId = this.findItemById(item.children, gbFactID);
+        if (foundId !== null) {
+          return foundId; // Return the ID if found in children
+        }
+      }
+    }
+    return null; // Return null if no match is found
   }
 
   onNodeClick(event: any) {
     // Handle single click logic here
     console.log('Node clicked:', event.node);
-    if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
+    debugger;
+    if(event.node.parentId != -1){
+      const element = event.originalEvent.currentTarget; 
+      element.addEventListener('dblclick', () => {
+        this.editHeader(event);
+      });
+        
+    }
 
+    if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
       console.log('Ctrl or Command + Click');
       this.addAccount(event);
-    } else {
-
-
-      this.editHeader(event);
     }
+    
+   
   }
 
 

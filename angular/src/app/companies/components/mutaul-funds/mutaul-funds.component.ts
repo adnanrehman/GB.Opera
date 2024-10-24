@@ -114,7 +114,7 @@ export class MutaulFundsComponent {
       this.permission.delete = true;
     }
     this.getStockMarkets();
-    this.stockMarketID = 0;
+    // this.stockMarketID = 0;
   }
 
   search(event: AutoCompleteCompleteEvent) {
@@ -137,6 +137,7 @@ export class MutaulFundsComponent {
   getStockMarkets() {
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
+      if (this.stockMarkets.length > 0) this.stockMarketID = this.stockMarkets[0].stockMarketID; this.getCompaniesWithHasFundByStockMarketID();
     });
   }
 
@@ -155,7 +156,10 @@ export class MutaulFundsComponent {
       this.mfClassifications = res.mfClassifications;
       this.mfCategories = res.mfCategories;
       this.mfSubCategories = res.mfSubCategories;
-      if (this.companies.length > 0) this.getCompanyMutualFundsByCompanyID();
+      if (this.companies.length > 0) {
+        this.companyID = this.companies[0].companyID;
+        this.getCompanyMutualFundsByCompanyID();
+      }
       else this.loading = false;
     });
   }

@@ -1,4 +1,10 @@
 ::ng-deep tr:hover {
+    color:black;
     background-color: #ece8e8;
     cursor: pointer;
+}
+
+::ng-deep .row-active{
+    color: #ffffff;
+    background: #007bff;
 }
