@@ -1,0 +1,68 @@
+  
+  
+  
+  
+CREATE Procedure [dbo].[usp_InsertCGroup_New]  
+  @CountryGroupID smallint,  
+  @CountryGroup varchar(50),  
+  @ACountryGroup nvarchar(50),  
+  @NumberOfCountries smallint,  
+  @FormationDate smalldatetime,  
+  @Overview varchar(1200),  
+  @AOverview nvarchar(1200),  
+  @Description varchar(50),  
+  @ADescription nvarchar(50),  
+        @IsActive bit   
+  
+AS  
+BEGIN  
+ if not exists(select CountryGroup from [CountriesGroup] where CountryGroupID=@CountryGroupID )  
+begin  
+ INSERT INTO[CountriesGroup]  
+           ([CountryGroup]  
+           ,[ACountryGroup]  
+           ,[NumberOfCountries]  
+           ,[FormationDate]  
+           ,[Overview]  
+           ,[AOverview]  
+           ,[Description]  
+           ,[ADescription]  
+           ,[CreationDate]  
+   ,[IsActive])  
+     VALUES  
+          (@CountryGroup ,  
+           @ACountryGroup ,  
+           @NumberOfCountries ,  
+           @FormationDate ,  
+           @Overview ,  
+           @AOverview ,  
+           @Description ,  
+           @ADescription ,  
+           getDate() ,  
+   @IsActive)  
+select @@identity as AddedID  
+end  
+  
+else  
+begin  
+  
+UPDATE[CountriesGroup]  
+   SET [CountryGroup]=@CountryGroup   
+           ,[ACountryGroup]=   @ACountryGroup  
+           ,[NumberOfCountries]=@NumberOfCountries  
+           ,[FormationDate]=@FormationDate  
+           ,[Overview]= @Overview  
+           ,[AOverview]=@AOverview   
+           ,[Description]=@Description  
+           ,[ADescription]=@ADescription  
+           ,[IsActive]=@IsActive  
+   
+ WHERE CountryGroupID=@CountryGroupID  
+  
+select @CountryGroupID as AddedID   
+  
+end  
+END  
+  
+  
+  

@@ -1,158 +1,157 @@
-<div class="container ms-2">
-    <div class="row mb-2">
-        <div class="col-md-3">
-            
-            <div class="row">
-              <div class="col-md-12">
-                 
-                 
-                <div class="card">
-                    <div class="card-body p-0">
-                <div class="card">
-                  <div class="card-body p-0">
-                    <h6 class="selector p-1 mb-1 border-bottom">GCC</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Europe</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Asia</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Americas</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">The World</h6>
-                  </div>
-                </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-9">
-           
-            <div class="card">
-            
-              <div class="card-body p-2">
-                <div class="row">
-                  <div class="col-md-8">
-                    <p-autoComplete
+<div class="container ms-2" [abpLoading]="loading">
+  <div class="row mb-2">
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-12">
+          <h6 class="p-1 mb-1">Countries</h6>
+          <p-listbox
+            [options]="countryGroups"
+            [(ngModel)]="countryGroupID"
+            name="countryGroupID"
+            optionLabel="countryGroup"
+            optionValue="countryGroupID"
+            (click)="handleCountryGroup()"
+            [style]="{ width: '100%' }"
+            [listStyle]="{ 'max-height': '30rem' }"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body p-2">
+          <div class="row">
+            <div class="col-md-8">
+              <!-- <p-autoComplete
                     [suggestions]="filteredCountries"
                       field="name"
                       placeholder="Search the GCC"
                       [style]="{ width: '100%' }"
                       [inputStyle]="{ width: '100%' }"
                     >
-                    </p-autoComplete>
-                  </div>
-                  <div class="col-md-4">
-               <a href="#"  class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
-              <a href="#" *ngIf="permission.create" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
-              <a href="#" *ngIf="permission.create" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a>
-  
-           
-                  </div>
-                </div>
+                    </p-autoComplete> -->
+            </div>
+            <div class="col-md-4">
+              <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" *ngIf="permission.create" (click)="insertCountryGroup()" class="btn btn-success btn-sm me-1"
+                ><i class="fa fa-save"></i> Save</a
+              >
+              <!-- <a href="#" *ngIf="permission.create" class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
+            </div>
+          </div>
 
           <div class="row mt-2">
             <div class="row">
               <div class="col-md-6">
-                <label class="col-form-label col-4">GB Name </label>
+                <label class="col-form-label col-4">Country Group </label>
                 <input
                   autofocus
+                  [(ngModel)]="countryGroup.countryGroup"
+                  [ngModelOptions]="{ standalone: true }"
                   type="text"
                   class="form-control"
-                  name="Company"
-                  placeholder="GB Name"
+                  name="countryGroup"
+                  placeholder="Country Group"
                 />
-                
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Country Group (AR)</label>
+                <input
+                  autofocus
+                  [(ngModel)]="countryGroup.aCountryGroup"
+                  [ngModelOptions]="{ standalone: true }"
+                  type="text"
+                  class="form-control"
+                  name="aCountryGroup"
+                  placeholder="Country Group (AR)"
+                />
               </div>
               <div class="col-md-6">
                 <label class="col-form-label col-4">Countries #</label>
                 <input
                   autofocus
+                  [(ngModel)]="countryGroup.numberOfCountries"
+                  [ngModelOptions]="{ standalone: true }"
                   type="number"
                   class="form-control"
-                  name="Company"
+                  name="numberOfCountries"
                   placeholder="Country"
                 />
-                
               </div>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="row">
               <div class="col-md-6">
                 <label class="col-form-label col-4">Formation Date </label>
-                <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date" />
-                
+                <p-calendar
+                [style]="{ width: '100%' }"
+                required="true"
+                dataType="string"
+                dateFormat="mm/dd/yy"
+                [showIcon]="true"
+                [(ngModel)]="countryGroup.formationDate"
+                name="formationDate"
+                placeholder="Select a Formation Date"
+              />
               </div>
               <div class="col-md-6">
                 <label class="col-form-label col-4">Description</label>
-                <textarea rows="2" class="form-control" placeholder="Describe here...">
-                </textarea>
-                
+                <textarea rows="2" class="form-control" [(ngModel)]="countryGroup.description" name="description"
+                [ngModelOptions]="{ standalone: true }" placeholder="Describe here..."> </textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Description (AR)</label>
+                <textarea rows="2" class="form-control" [(ngModel)]="countryGroup.aDescription" name="aDescription"
+                [ngModelOptions]="{ standalone: true }" placeholder="Describe here..."> </textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Overview</label>
+                <textarea rows="2" class="form-control" [(ngModel)]="countryGroup.overview" name="overview"
+                [ngModelOptions]="{ standalone: true }" placeholder="Describe here..."> </textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label col-4">Overview (AR)</label>
+                <textarea rows="2" class="form-control" [(ngModel)]="countryGroup.aOverview" name="aOverview"
+                [ngModelOptions]="{ standalone: true }" placeholder="Describe here..."> </textarea>
               </div>
               <div class="col-md-6">
                 <label class="col-form-label col-4">Active</label>
                 <p-dropdown
-                      [options]="active"
-                      placeholder="Select a Active Type"
-                      optionLabel="Active"
-                      [style]="{ width: '100%' }"
-                      [showClear]="true"
+                    [(ngModel)]="countryGroupActivation"
+                    [ngModelOptions]="{ standalone: true }"
+                    [options]="activationDropdown"
+                    placeholder="Select a Company Activation"
+                    optionLabel="displayText"
+                    optionValue="value"
+                    [style]="{ width: '100%' }"
+                    [showClear]="true"
                     >
                     </p-dropdown>
-                
-              </div>
-              <div class="col-md-6">
-                <label class="col-form-label col-4">OverView</label>
-                <textarea rows="4" class="form-control" placeholder="OverView here...">
-                </textarea>
-                
-              </div>
-              <div class="col-md-6">
-              
-                 
-                <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add Sector</a>
-              
-                
               </div>
             </div>
           </div>
-          </div>
-           </div>
-            <div class="card">
-              <div class="card-body p-2">
-                <h6>Add Caps</h6>
-                <p-tree [value]="Caps" selectionMode="checkbox"  ></p-tree>
-              </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body p-2">
+          <h6>Add Caps</h6>
+          <div class="row">
+            <div class="col-md-3" *ngFor="let item of capSizes">
+              <p-checkbox name="group" [value]="item" [(ngModel)]="selectedCapsizess" [inputId]="item.sectorID"></p-checkbox>
+              <label [for]="item.sectorID">{{ item.capSize }}</label>
             </div>
-            <div class="card">
-              <div class="card-body p-2">
-                <h6>GB Sector</h6>
-                 
-                <div class="row">
-                  <!-- <p-tree [value]="GBSector" selectionMode="checkbox"></p-tree> -->
-                  <div class="col-md-3">
-                    <p-checkbox name="groupname" value="val1" label="Agriculture & Food Industries"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Banking"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Banking & Financial"  ></p-checkbox>
-                  </div>
-                  <div class="col-md-3">
-                    <p-checkbox name="groupname" value="val1" label="Banking & Investment"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Banks"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Bank & Financial Service"  ></p-checkbox>
-                  </div>
-                  <div class="col-md-3">
-                    <p-checkbox name="groupname" value="val1" label="Basic Metrial"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Building & Construction"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Capital Goods"  ></p-checkbox>
-                  </div>
-                </div>
-                 
-              </div>
-            </div>
-            
-            
-            
           </div>
-            
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body p-2">
+          <h6>GB Sector</h6>
+          <div class="row">
+            <div class="col-md-4" *ngFor="let item of sectors">
+              <p-checkbox name="group2" [value]="item" [(ngModel)]="selectedSectors" [inputId]="item.sectorID"></p-checkbox>
+              <label [for]="item.sectorID">{{ item.sector }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-
-

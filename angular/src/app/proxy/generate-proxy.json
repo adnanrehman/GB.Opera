@@ -4408,6 +4408,101 @@
             }
           }
         },
+        "CountryGroups.CountryGroupAppService": {
+          "controllerName": "CountryGroup",
+          "controllerGroupName": "CountryGroup",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "CountryGroups.CountryGroupAppService",
+          "interfaces": [
+            {
+              "type": "CountryGroups.ICountryGroupAppService",
+              "name": "ICountryGroupAppService",
+              "methods": [
+                {
+                  "name": "GetCountryGroups",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "CountryGroups.CountryGroupInputDto",
+                    "typeSimple": "CountryGroups.CountryGroupInputDto"
+                  }
+                },
+                {
+                  "name": "InsertCountryGroup",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "CountryGroups.InsertCountryGroupDto, GB.Opera.Application.Contracts",
+                      "type": "CountryGroups.InsertCountryGroupDto",
+                      "typeSimple": "CountryGroups.InsertCountryGroupDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetCountryGroups": {
+              "uniqueName": "GetCountryGroups",
+              "name": "GetCountryGroups",
+              "httpMethod": "GET",
+              "url": "api/app/country-group/country-groups",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "CountryGroups.CountryGroupInputDto",
+                "typeSimple": "CountryGroups.CountryGroupInputDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CountryGroups.ICountryGroupAppService"
+            },
+            "InsertCountryGroupByModel": {
+              "uniqueName": "InsertCountryGroupByModel",
+              "name": "InsertCountryGroup",
+              "httpMethod": "POST",
+              "url": "api/app/country-group/country-group",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "CountryGroups.InsertCountryGroupDto, GB.Opera.Application.Contracts",
+                  "type": "CountryGroups.InsertCountryGroupDto",
+                  "typeSimple": "CountryGroups.InsertCountryGroupDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "CountryGroups.InsertCountryGroupDto",
+                  "typeSimple": "CountryGroups.InsertCountryGroupDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CountryGroups.ICountryGroupAppService"
+            }
+          }
+        },
         "CurrentDividends.CurrentDividendAppService": {
           "controllerName": "CurrentDividend",
           "controllerGroupName": "CurrentDividend",
@@ -18890,6 +18985,342 @@
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CountryGroups.CountryGroupDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CountryGroupID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CountryGroup",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ACountryGroup",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NumberOfCountries",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "FormationDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Overview",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AOverview",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Description",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ADescription",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CreationDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CountryGroups.CountryGroupInputDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CountryGroups",
+          "jsonName": null,
+          "type": "[CountryGroups.CountryGroupDto]",
+          "typeSimple": "[CountryGroups.CountryGroupDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Sectors",
+          "jsonName": null,
+          "type": "[Commons.SectorDto]",
+          "typeSimple": "[Commons.SectorDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CapSizes",
+          "jsonName": null,
+          "type": "[Commons.CapSizeDto]",
+          "typeSimple": "[Commons.CapSizeDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GBSectors",
+          "jsonName": null,
+          "type": "[CountryGroups.GBSectorDto]",
+          "typeSimple": "[CountryGroups.GBSectorDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GBCapSizes",
+          "jsonName": null,
+          "type": "[CountryGroups.GBSectorDto]",
+          "typeSimple": "[CountryGroups.GBSectorDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CountryGroups.GBSectorDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "GBSectorID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SectorID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GBSector",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AGBSector",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsCapSize",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CountryGroupID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "CountryGroups.InsertCountryGroupDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "CountryGroup",
+          "jsonName": null,
+          "type": "CountryGroups.CountryGroupDto",
+          "typeSimple": "CountryGroups.CountryGroupDto",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GBSectors",
+          "jsonName": null,
+          "type": "[CountryGroups.GBSectorDto]",
+          "typeSimple": "[CountryGroups.GBSectorDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GBCapSizes",
+          "jsonName": null,
+          "type": "[CountryGroups.GBSectorDto]",
+          "typeSimple": "[CountryGroups.GBSectorDto]",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
