@@ -93,6 +93,7 @@ namespace GB.Opera.constants
         public const string usp_getCountryGroupInfo_New = "usp_getCountryGroupInfo_New";
         public const string usp_InsertCGroup_New = "usp_InsertCGroup_New";
         public const string usp_InsertNewGBSector_New = "usp_InsertNewGBSector_New";
+        public const string usp_getMarketsInfo = "usp_getMarketsInfo";
     }
 }
  

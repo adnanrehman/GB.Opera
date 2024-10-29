@@ -10,24 +10,16 @@
                     <div class="card-body p-0">
                 <div class="card">
                   <div class="card-body p-0">
-                    <h6 class="selector p-1 mb-1 border-bottom">Abu Dhabi Securities Exchange</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Bahrain Stock Exchange</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Bombay Stock Exchange</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">CBOE</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Deutscher Aktien IndeX</h6>
-
-                    <h6 class="selector p-1 mb-1 border-bottom">Dow Jones Industrial Average</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Dubai Financial Market</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Hong Kong Stock Market</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Kuala Lumpur Stock Exchange</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Kuwait Stock Exchange</h6>
-
+                    <p-listbox
+                    [options]="Stockmarket"
                     
-                    <h6 class="selector p-1 mb-1 border-bottom">London Stock Exchange</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Madrid Stock Market</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Mexico Stock Market</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Muscat Securities Market</h6>
-                    <h6 class="selector p-1 mb-1 border-bottom">Nomu - Parallel Market</h6>
+                    name="stockMarketID"
+                    
+                    optionLabel="stockMarket"
+                    optionValue="stockMarketID"
+                    [style]="{ width: '100%' }"
+                    [listStyle]="{ 'max-height': '30rem' }"
+                  />
                   </div>
                 </div>
                   </div>
@@ -66,11 +58,14 @@
               <div class="col-md-6">
                 <label class="col-form-label col-4">GB Country Groups </label>
                 <p-dropdown
-                [options]="GbName"
+                [options]="CountryGroup"
+                [(ngModel)]="countryGroupID"
                 placeholder="Select  GB Country Group"
-                optionLabel="name"
+                optionLabel="countryGroup"
+              optionValue="countryGroupID"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
+                (ngModelChange)="getCountryByGroupId()"
               >
               </p-dropdown>
                 
@@ -78,11 +73,13 @@
               <div class="col-md-6">
                 <label class="col-form-label col-4">Country</label>
                 <p-dropdown
-                [options]="Country"
+                [options]="CountrySelect"
                 placeholder="Select  Country Group"
-                optionLabel="name"
+                optionLabel="country"
+                optionValue="countryID"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
+               
               >
               </p-dropdown>
                 
@@ -155,7 +152,8 @@
                 <p-dropdown
                 [options]="Currency"
                 placeholder="Select Currency"
-                optionLabel="name"
+                optionLabel="currency"
+                optionValue="currencyID"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
               >
