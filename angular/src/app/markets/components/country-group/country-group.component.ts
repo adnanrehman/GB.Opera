@@ -11,7 +11,7 @@ import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PermissionService } from '@abp/ng.core';
 import { CompanyAndMarket_CountryGroup } from 'src/app/services/permissions';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
@@ -20,9 +20,13 @@ import { CountryGroupDto, CountryGroupService, GBSectorDto, InsertCountryGroupDt
 import { CapSizeDto, SectorDto } from '@proxy/commons';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @Component({
      imports: [
       CommonModule,
+      NgFor,
+      NgIf,
       TableModule,
       TabViewModule,
       AutoCompleteModule,
@@ -32,7 +36,6 @@ import Swal from 'sweetalert2';
       ImageModule,
       FileUploadModule,
       CheckboxModule,
-      NgFor,
       ThemeSharedModule,
       ReactiveFormsModule,
       ListboxModule,
@@ -124,9 +127,13 @@ export class CountryGroupComponent {
     this.countryGroupActivation = this.countryGroup.isActive ? 1 : 0;
     this.countryGroup.formationDate = moment(this.countryGroup.formationDate).format("MM/DD/YYYY");
     var filterList = this.gbCapSizes.filter(f => f.countryGroupID == this.countryGroup.countryGroupID);
-    this.selectedCapsizess = filterList.map(item => ({countryGroupId: item.countryGroupID, sectorID: this.capSizes.find(f => f.capSize.toUpperCase() == item.gbSector.toUpperCase()).capSizeID,isCapSize:true}))
+    this.capSizes.forEach(element => {
+      if(filterList.find(f => f.gbSector.toUpperCase() == element.capSize.toUpperCase()))
+          this.selectedCapsizess.push(element);
+    });
+    // this.selectedCapsizess = filterList;
     var filterListNew = this.gbSectors.filter(f => f.countryGroupID == this.countryGroup.countryGroupID);
-    this.selectedSectors = filterListNew.map(item => ({countryGroupId: item.countryGroupID, sectorID: this.sectors.find(f => f.sector.toUpperCase() == item.gbSector.toUpperCase()).sectorID,isCapSize:false}))
+    this.selectedSectors = filterListNew;
     this.loading = false;
   }
 

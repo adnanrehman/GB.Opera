@@ -38,12 +38,15 @@
 .p-accordion-header-link {
   cursor: pointer;
   display: flex;
+  padding: 10px !important;
+  font-size: 0.8rem !important;
   align-items: center;
   -webkit-user-select: none;
   user-select: none;
   position: relative;
   text-decoration: none;
   background: #212529 !important;
+  border-top: 1px solid #4a4b4b  !important;
   color: white !important;
 }
 
@@ -69,10 +72,21 @@
 
 }
 
+.p-accordion .p-accordion-header {
+  border-top: 1px solid #4a4b4b  !important;
+}
+
 .p-tabview-nav-link {
   color: #495057 !important;
   text-decoration: none !important;
   white-space: nowrap;
+  font-size: 0.8rem !important;
+  padding: 10px !important;
+}
+
+.p-treenode-label{
+  font-size: 0.8rem !important;
+  padding: 0px !important;
 }
 
 .navbar-dark, .navbar[data-bs-theme=dark] {
@@ -183,6 +197,8 @@ p-accordion {
 
 .nav-link{
   cursor:  pointer !important;
+  font-size: 0.8rem !important;
+  padding: 5px !important;
 }
 
 .p-autocomplete-panel .p-autocomplete-items {
@@ -209,5 +225,9 @@ p-accordion {
 
 .p-datepicker-trigger{
   font-size: 0rem !important;
+}
+
+label{
+  font-size: 0.8rem !important;
 }
   

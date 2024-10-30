@@ -79,6 +79,7 @@ namespace News
                 parameters.Add("@Islamic", input.Islamic);
                 parameters.Add("@ForSocialNetworks", input.ForSocialNetworks);
                 parameters.Add("@IsGulfbaseNews", input.IsGulfbaseNews);
+                parameters.Add("@GulfBaseSectorID", 0);
 
                 await _connection.ExecuteAsync("USP_GBN_InsertUpdateNews_New", parameters, commandType: CommandType.StoredProcedure);
 

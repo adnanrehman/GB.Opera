@@ -135,8 +135,8 @@
           <h6>Add Caps</h6>
           <div class="row">
             <div class="col-md-3" *ngFor="let item of capSizes">
-              <p-checkbox name="group" [value]="item" [(ngModel)]="selectedCapsizess" [inputId]="item.sectorID"></p-checkbox>
-              <label [for]="item.sectorID">{{ item.capSize }}</label>
+              <p-checkbox name="group1" [value]="item" [(ngModel)]="selectedCapsizess" [inputId]="item.capSize"></p-checkbox>
+              <label [for]="item.capSize">{{ item.capSize }}</label>
             </div>
           </div>
         </div>
@@ -146,8 +146,8 @@
           <h6>GB Sector</h6>
           <div class="row">
             <div class="col-md-4" *ngFor="let item of sectors">
-              <p-checkbox name="group2" [value]="item" [(ngModel)]="selectedSectors" [inputId]="item.sectorID"></p-checkbox>
-              <label [for]="item.sectorID">{{ item.sector }}</label>
+              <p-checkbox name="group2" [value]="item" [(ngModel)]="selectedSectors" [inputId]="item.sector"></p-checkbox>
+              <label [for]="item.sector">{{ item.sector }}</label>
             </div>
           </div>
         </div>
