@@ -27,6 +27,8 @@ import * as GbFacts from './gb-facts';
 import * as GbOwnerShips from './gb-owner-ships';
 import * as HistoricalCashDividends from './historical-cash-dividends';
 import * as Lhruploads from './lhruploads';
+import * as MarketSector from './market-sector';
+import * as MarketSectors from './market-sectors';
 import * as News from './news';
 import * as OfficialsIndics from './officials-indics';
 import * as Reviewers from './reviewers';
