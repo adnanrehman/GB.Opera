@@ -79,13 +79,13 @@ namespace GB.Opera.OfficialsIndics
         public async Task<List<MFundCompanies>>  GetMFundCompanies()
         {
             // Execute the stored procedure and retrieve MFundCompanies data using Dapper
-            var data = await _connection.QueryAsync<MFundCompanies>(
+            var data = (await _connection.QueryAsync<MFundCompanies>(
                 sql: ProcedureNames.usp_getMFundCompanies, // Use the correct stored procedure name
                 param: null,
                 commandType: CommandType.StoredProcedure
-            );
+            )).ToList();
 
-            return data.ToList();
+            return data;
         }
 
         public async Task<List<MFunds>>  GetAllFunds(Int16 CompanyID)

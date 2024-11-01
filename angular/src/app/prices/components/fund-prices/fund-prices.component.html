@@ -1,4 +1,4 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
   <div class="row mb-2">
     <div class="card">
       <div class="card-body p-2">
@@ -7,22 +7,25 @@
             <div class="row">
               <div class="col-md-8">
                 <p-autoComplete
-                  [suggestions]="filteredCountries"
-                  field="name"
-                  placeholder="Search the Companies and select"
-                  [style]="{ width: '100%' }"
-                  [inputStyle]="{ width: '100%' }"
+                [(ngModel)]="selectedItem"
+                [ngModelOptions]="{ standalone: true }"
+                (onSelect)="onSelect($event)"
+                [suggestions]="suggestions"
+                (completeMethod)="search($event)"
+                [style]="{ width: '100%' }"
+                field="company"
+                [inputStyle]="{ width: '100%' }"
                 >
                 </p-autoComplete>
               </div>
               <div class="col-md-4">
-                <a href="#" class="btn btn-primary btn-sm me-1"
+                <a href="JavaScript:void(0)" class="btn btn-primary btn-sm me-1" (click)="addNewFundPrice()"
                   ><i class="fa fa-plus"></i> Add New</a
                 >
-                <a href="#" *ngIf="permission.create"  class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
-                <a href="#" *ngIf="permission.create"  class="btn btn-primary btn-sm me-1"
+                <a href="JavaScript:void(0)" *ngIf="permission.create" (click)="insertMFundPrice()"  class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+                <!-- <a href="#" *ngIf="permission.create"  class="btn btn-primary btn-sm me-1"
                   ><i class="fa fa-edit"></i> Update</a
-                >
+                > -->
               </div>
             </div>
             <div class="row mt-2">
@@ -30,12 +33,14 @@
                 <label class="col-form-label">Fund Manger</label>
                 <p-dropdown
                   [options]="markets"
+                  [(ngModel)]="companyID"
+                  [ngModelOptions]="{ standalone: true }"
                   placeholder="Select a Fund Manger"
                   optionLabel="ticker"
                   optionValue="companyID"
                   [style]="{ width: '100%' }"
                   [showClear]="true"
-                  (onChange)="onDropdownChange($event)"
+                  (onChange)="usp_getAllFunds()"
                 >
                 </p-dropdown>
               </div>
@@ -43,90 +48,93 @@
                 <label class="col-form-label">Funds</label>
                 <p-dropdown
                   [options]="funds"
+                  [(ngModel)]="fundID"
+                  [ngModelOptions]="{ standalone: true }"
                   placeholder="Select a Funds"
                   optionLabel="shortName"
                   optionValue="mFundID"
                   [style]="{ width: '100%' }"
                   [showClear]="true"
-                  (onChange)="onDropdownFundChnage($event)"
+                  (onChange)="usp_getAllFundPrices()"
                 >
                 </p-dropdown>
               </div>
               <div class="col-md-4">
                 <label class="col-form-label">Date</label>
-                <p-calendar
-  #calendar
-  [style]="{ width: '100%' }"
-  
-   
-></p-calendar>
+                <p-calendar dataType="string" [style]="{ width: '100%' }" required="true" [(ngModel)]="fundPrice.priceDate" name="priceDate" [showIcon]="true" placeholder="Select a Date" />
               </div>
-              <div class="col-md-4">
-                <p-checkbox
-                #checkbox
-                binary="true"   
-                inputId="ny"
-                value="Yes"
-               
-                [(ngModel)]="checkboxState"
-              ></p-checkbox>
-                <label for="ny" class="col-form-label">Active</label>
-              </div>
+
               <div class="col-md-4">
                 <label class="col-form-label col-4">Price</label>
                 <input
                   autofocus
-                  type="text"
-                  
+                  [(ngModel)]="fundPrice.closingPrice"
+                  [ngModelOptions]="{ standalone: true }"
                   class="form-control col-8"
-                  name="price"
+                  type="number" step="2"
+                  name="closingPrice"
                   placeholder="price"
                   id="closingPrice"
                   #priceInput
                    
                 />
               </div>
+              <div class="col-md-4 mt-4">
+                <p-checkbox
+                #checkbox
+                binary="true"   
+                inputId="ny"
+                [(ngModel)]="fundPrice.isActive"
+              ></p-checkbox>
+                <label for="ny" class="col-form-label">Active</label>
+              </div>
             </div>
-            <div class="row mt-2">
+            <!-- <div class="row mt-2">
                 <div class="col-md-12 text-end">
                     <button class="btn btn-sm btn-primary">Refresh Gulfbase</button>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                  <!-- <h6>Ratings:</h6> -->
-                  <div class="card">
-                    <div class="card-body p-0" style="height: 150px;background-color: darkgrey;">
-                      <p-table
-                        #dt [value]="data"
-                        [tableStyle]="{ 'max-height': '20rem' }"
-                        responsiveLayout="stack"
-                        styleClass="p-datatable-strip"
-                      >
-                        <ng-template pTemplate="header">
-                          <tr>
-                            <th>Date</th>
-                            <th>Closing Price</th>
-                            <th>Trading Value</th>
-                            <th>last Closing Price</th>
-                            <th>isActive/th>
-                          </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-item>
-                          <tr>
-                            <td>{{item.priceDate}}</td>
+            </div> -->
+            <div class="row mt-2">
+              <div class="col-md-12">
+                <p-table
+                  #dt
+                  [value]="fundPrices"
+              [scrollable]="true" scrollHeight="20rem" 
+              [tableStyle]="{ 'max-height': '20rem' }"
+              responsiveLayout="stack"
+              styleClass="p-datatable-strip"
+                >
+                  <ng-template pTemplate="caption">
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                      <div class="mr-auto p-2">
+                        <span>
+                          <h5>Fund Prices</h5>
+                        </span>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>Date</th>
+                      <th>Closing Price</th>
+                      <th>Trading Value</th>
+                      <th>last Closing Price</th>
+                      <th>isActive</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr (click)="handleFundPrice(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
+                      <td>{{item.priceDate | date: 'dd/MM/yyyy'}}</td>
                             <td>{{item.closingPrice}}</td>
                             <td>{{item.tradingVolume}}</td>
                             <td>{{item.lastClosePrice}}</td>
                             <td><input class="form-check-input" [(ngModel)]="item.isActive" name="isActive"
                               [ngModelOption]="{ standalone: true }" PInputText type="checkbox"></td>
-                          </tr>
-                        </ng-template>
-                      </p-table>
-                    </div>
-                  </div>
-                </div>
+                    </tr>
+                  </ng-template>
+                </p-table>
               </div>
+            </div>
           </div>
         </div>
       </div>

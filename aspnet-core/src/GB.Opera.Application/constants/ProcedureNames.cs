@@ -99,6 +99,7 @@ namespace GB.Opera.constants
         public const string usp_InsertBanks = "usp_InsertBanks";
         public const string usp_InsertBrokers = "usp_InsertBrokers";
         public const string usp_InsertEconomicIndicators = "usp_InsertEconomicIndicators";
+        public const string usp_InsertMFundPrices = "usp_InsertMFundPrices";
     }
 }
  

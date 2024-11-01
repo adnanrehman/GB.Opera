@@ -5675,6 +5675,78 @@
             }
           }
         },
+        "FundPrices.FundPriceAppService": {
+          "controllerName": "FundPrice",
+          "controllerGroupName": "FundPrice",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "FundPrices.FundPriceAppService",
+          "interfaces": [
+            {
+              "type": "FundPrices.IFundPriceAppService",
+              "name": "IFundPriceAppService",
+              "methods": [
+                {
+                  "name": "InsertMFundPrices",
+                  "parametersOnMethod": [
+                    {
+                      "name": "model",
+                      "typeAsString": "GB.Opera.OfficialsIndics.MFundPrices, GB.Opera.Application.Contracts",
+                      "type": "GB.Opera.OfficialsIndics.MFundPrices",
+                      "typeSimple": "GB.Opera.OfficialsIndics.MFundPrices",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "InsertMFundPricesByModel": {
+              "uniqueName": "InsertMFundPricesByModel",
+              "name": "InsertMFundPrices",
+              "httpMethod": "POST",
+              "url": "api/app/fund-price/m-fund-prices",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "model",
+                  "typeAsString": "GB.Opera.OfficialsIndics.MFundPrices, GB.Opera.Application.Contracts",
+                  "type": "GB.Opera.OfficialsIndics.MFundPrices",
+                  "typeSimple": "GB.Opera.OfficialsIndics.MFundPrices",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "model",
+                  "name": "model",
+                  "jsonName": null,
+                  "type": "GB.Opera.OfficialsIndics.MFundPrices",
+                  "typeSimple": "GB.Opera.OfficialsIndics.MFundPrices",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "FundPrices.IFundPriceAppService"
+            }
+          }
+        },
         "GB.Opera.AccountsClassifications.AccountClassificationAppService": {
           "controllerName": "AccountClassification",
           "controllerGroupName": "AccountClassification",
