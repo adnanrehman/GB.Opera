@@ -112,6 +112,7 @@ export class CountryGroupComponent {
       this.gbCapSizes = res.gbCapSizes;
       this.loading = false;
       if (this.countryGroups.length > 0) {
+        if(!this.countryGroupID)
         this.countryGroupID = this.countryGroups[0].countryGroupID;
         this.handleCountryGroup()
         this.loading = false;
@@ -127,13 +128,9 @@ export class CountryGroupComponent {
     this.countryGroupActivation = this.countryGroup.isActive ? 1 : 0;
     this.countryGroup.formationDate = moment(this.countryGroup.formationDate).format("MM/DD/YYYY");
     var filterList = this.gbCapSizes.filter(f => f.countryGroupID == this.countryGroup.countryGroupID);
-    this.capSizes.forEach(element => {
-      if(filterList.find(f => f.gbSector.toUpperCase() == element.capSize.toUpperCase()))
-          this.selectedCapsizess.push(element);
-    });
-    // this.selectedCapsizess = filterList;
+    this.selectedCapsizess = filterList.map(item => ({capSizeID: this.capSizes.find(f => f.capSize.toUpperCase() == item.gbSector.toUpperCase()).capSizeID,capSize:item.gbSector}));
     var filterListNew = this.gbSectors.filter(f => f.countryGroupID == this.countryGroup.countryGroupID);
-    this.selectedSectors = filterListNew;
+    this.selectedSectors = filterListNew.map(item => ({sectorID: this.sectors.find(f => f.sector.toUpperCase() == item.gbSector.toUpperCase()).sectorID,sector:item.gbSector,aSector: this.sectors.find(f => f.sector.toUpperCase() == item.gbSector.toUpperCase()).aSector}));
     this.loading = false;
   }
 
@@ -150,8 +147,12 @@ export class CountryGroupComponent {
     this.countryGroup.isActive = this.countryGroupActivation == 1 ? true : false;
     this.countryGroup.formationDate = moment(this.countryGroup.formationDate).format();
     this.insertCountryGroupmodel.countryGroup = this.countryGroup;
-    this.insertCountryGroupmodel.gbSectors = this.selectedSectors;
+    this.insertCountryGroupmodel.gbSectors = this.selectedSectors; 
+    this.selectedCapsizess.forEach(item => {
+      item.sectorID = item.capSizeID
+    });   
     this.insertCountryGroupmodel.gbCapSizes = this.selectedCapsizess;
+    
     this.countryGroupService.insertCountryGroupByModel(this.insertCountryGroupmodel).subscribe(res => {
       debugger;
       if (this.countryGroup.countryGroupID > 0) {
@@ -162,6 +163,7 @@ export class CountryGroupComponent {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.countryGroup.countryGroup + ' created successfully', icon: 'success', });
         this.addNewCountryGroup();
       }
+      this.getCountryGroups()
       // this.handleCorporateAnnouncement(this.corporateAnnouncement);
 
       this.loading = false;
