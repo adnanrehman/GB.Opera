@@ -21,6 +21,7 @@ namespace GB.Opera.OfficialsIndics
         public   Task<List<MFundPrices>> GetAllFundPrices(Int64 MFundID);
 
         Task<string> ImportOfficialIndices(string filePath);
+        Task<string> ImportGlobalIndices(string filePath);
 
 
     }

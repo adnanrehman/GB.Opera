@@ -105,30 +105,30 @@ constructor(){
           href: "ownership", title: "Ownership", permission: Application_Ownership, component: OwnershipComponent,
           active: false
         },
-        {
-          href: "reports", title: "Reports", permission: Application_Reports, component: ReportsComponent,
-          active: false
-        },
+        // {
+        //   href: "reports", title: "Reports", permission: Application_Reports, component: ReportsComponent,
+        //   active: false
+        // },
         {
           href: "lhsc-upload", title: "LHSC Upload", permission: Application_LhscUpload, component: LhscUploadComponent,
           active: false
         },
-        {
-          href: "gbir", title: "GBIR", permission: Application_Gbir, component: GbirComponent,
-          active: false
-        },
-        {
-          href: "gbir-universal-facts", title: "GBIR Universal Facts", permission: Application_GbUniversalFacts, component: GbUniversalFactsComponent,
-          active: false
-        },
-        {
-          href: "gbir-universal-facts-view", title: "GBIR Universal Facts View", permission: Application_GbFacts, component: GbUniversalFactsViewComponent,
-          active: false
-        },
-        {
-          href: "products-services-and-raw-materials", title: "Products Services And Raw Materials", permission: Application_ProductsServicesAndRawMaterials, component: ProductsServicesAndRawMaterialsComponent,
-          active: false
-        },
+        // {
+        //   href: "gbir", title: "GBIR", permission: Application_Gbir, component: GbirComponent,
+        //   active: false
+        // },
+        // {
+        //   href: "gbir-universal-facts", title: "GBIR Universal Facts", permission: Application_GbUniversalFacts, component: GbUniversalFactsComponent,
+        //   active: false
+        // },
+        // {
+        //   href: "gbir-universal-facts-view", title: "GBIR Universal Facts View", permission: Application_GbFacts, component: GbUniversalFactsViewComponent,
+        //   active: false
+        // },
+        // {
+        //   href: "products-services-and-raw-materials", title: "Products Services And Raw Materials", permission: Application_ProductsServicesAndRawMaterials, component: ProductsServicesAndRawMaterialsComponent,
+        //   active: false
+        // },
         {
           href: "economic-and-statistical-data", title: "Economic and Statistical Data", permission: Application_EconomicAndStatisticalData, component: EconomicAndStatisticalDataComponent,
           active: false
@@ -146,14 +146,14 @@ constructor(){
           href: "countries", title: "Countries", permission: CompanyAndMarket_Country, component: CountriesComponent,
           active: false
         },
-        {
-          href: "country-profile-admin", title: "Country Profile (Admin)", permission: Application_GbFacts, component: CountryProfileAdminComponent,
-          active: false
-        },
-        {
-          href: "country-profile", title: "Country Profile", permission: CompanyAndMarket_CountryProfile, component: CountryProfileComponent,
-          active: false
-        },
+        // {
+        //   href: "country-profile-admin", title: "Country Profile (Admin)", permission: Application_GbFacts, component: CountryProfileAdminComponent,
+        //   active: false
+        // },
+        // {
+        //   href: "country-profile", title: "Country Profile", permission: CompanyAndMarket_CountryProfile, component: CountryProfileComponent,
+        //   active: false
+        // },
         {
           href: "market-sector", title: "Market-Sector", permission: CompanyAndMarket_MarketSector, component: MarketSectorComponent,
           active: false
@@ -191,10 +191,10 @@ constructor(){
           href: "mutaul-funds-settings", title: "Mutual Funds Settings", permission: Company_MutaulFundsSettings, component: MutaulFundsSettingsComponent,
           active: false
         },
-        {
-          href: "ipos", title: "IPOs", permission: Company_Ipos, component: IposComponent,
-          active: false
-        },
+        // {
+        //   href: "ipos", title: "IPOs", permission: Company_Ipos, component: IposComponent,
+        //   active: false
+        // },
         {
           href: "accounts", title: "Accounts", permission: Company_Accounts, component: AccountsComponent,
           active: false
@@ -212,10 +212,10 @@ constructor(){
           href: "estimates-and-forecasts", title: "Estimates and Forecasts", permission: Company_EstimatesAndForecasts, component: EstimatesAndForecastsComponent,
           active: false
         },
-        {
-          href: "companies-products-services-raw-materials-updates", title: "Companies Products Services Raw Materials Updates", permission: Company_CompaniesProductsServicesRawMaterialsUpdates, component: CompaniesProductsServicesRawMaterialsUpdatesComponent,
-          active: false
-        },
+        // {
+        //   href: "companies-products-services-raw-materials-updates", title: "Companies Products Services Raw Materials Updates", permission: Company_CompaniesProductsServicesRawMaterialsUpdates, component: CompaniesProductsServicesRawMaterialsUpdatesComponent,
+        //   active: false
+        // },
         {
           href: "country-accounts", title: "Country Accounts", permission: Company_CountryAccounts, component: CountryAccountsComponent,
           active: false
@@ -278,10 +278,10 @@ constructor(){
           href: "official", title: "Official", permission: PriceAndIndices_Official, component: OfficialComponent,
           active: false
         },
-        {
-          href: "gulfbase-price", title: "Gulfbase (Price)", permission: PriceAndIndices_GulfbasePrice, component: GulfbasePriceComponent,
-          active: false
-        },
+        // {
+        //   href: "gulfbase-price", title: "Gulfbase (Price)", permission: PriceAndIndices_GulfbasePrice, component: GulfbasePriceComponent,
+        //   active: false
+        // },
         {
           href: "global-indices", title: "Global Indices", permission: PriceAndIndices_GlobalIndices, component: GlobalIndicesComponent,
           active: false

@@ -85,66 +85,99 @@ namespace Entry
         
         public async Task InsertUpdateFinancialValues(List<FinancialsDetailDto> list)
         {
-            foreach (var item in list)
+            _connection.Open();
+            using (var transaction = _connection.BeginTransaction())
             {
-                var parameters = new DynamicParameters();
-                parameters.Add("@FinancialDetailID", item.FinancialDetailId);
-                parameters.Add("@GBFactID", item.GBFactID);
-                parameters.Add("@ParentID", item.ParentID);
-                parameters.Add("@GBFact", item.GBFact);
-                parameters.Add("@Value", item.Value);
-                parameters.Add("@FinancialsID", item.FinancialsID);
+                try
+                {
+                    foreach (var item in list)
+                    {
+                        var parameters = new DynamicParameters();
+                        parameters.Add("@FinancialDetailID", item.FinancialDetailId);
+                        parameters.Add("@GBFactID", item.GBFactID);
+                        parameters.Add("@ParentID", item.ParentID);
+                        parameters.Add("@GBFact", item.GBFact);
+                        parameters.Add("@Value", item.Value);
+                        parameters.Add("@FinancialsID", item.FinancialsID);
 
-                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialValues, parameters, commandType: CommandType.StoredProcedure);
-            }    
+                        await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialValues, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+                    }
+                    await transaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    throw ex;
+                }
+            }
+                
         }
 
         public async Task InsertUpdateFinancialCommentsStatus(List<FinancialsDetailDto> list, Guid userID)
         {
-            foreach (var item in list)
+            _connection.Open();
+            using (var transaction = _connection.BeginTransaction())
             {
                 try
                 {
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@FinancialDetailID", item.FinancialDetailId);
-                    parameters.Add("@UserID", userID);
-                    parameters.Add("@FinancialsID", item.FinancialsID);
+                    foreach (var item in list)
+                    {
+                        var parameters = new DynamicParameters();
+                        parameters.Add("@FinancialDetailID", item.FinancialDetailId);
+                        parameters.Add("@UserID", userID);
+                        parameters.Add("@FinancialsID", item.FinancialsID);
 
-                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialCommentsStatus_New, parameters, commandType: CommandType.StoredProcedure);
+                        await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialCommentsStatus_New, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+                    }
+                    await transaction.CommitAsync();
                 }
                 catch (Exception ex)
                 {
-
+                    await transaction.RollbackAsync();
                     throw ex;
                 }
-
             }
+
         }
 
         public async Task InsertUpdateComitChanges(AsofDatesFinancialDto dto, Guid userID)
         {
-            foreach (var item in dto.FinancialsDetails)
+            _connection.Open();
+            using (var transaction = _connection.BeginTransaction())
             {
-                var parameters = new DynamicParameters();
-                parameters.Add("@FinancialDetailID", item.FinancialDetailId);
-                parameters.Add("@GBFactID", item.GBFactID);
-                parameters.Add("@ParentID", item.ParentID);
-                parameters.Add("@GBFact", item.GBFact);
-                parameters.Add("@Value", item.Value);
-                parameters.Add("@FinancialsID", item.FinancialsID);
+                try
+                {
+                    foreach (var item in dto.FinancialsDetails)
+                    {
+                        var parameters = new DynamicParameters();
+                        parameters.Add("@FinancialDetailID", item.FinancialDetailId);
+                        parameters.Add("@GBFactID", item.GBFactID);
+                        parameters.Add("@ParentID", item.ParentID);
+                        parameters.Add("@GBFact", item.GBFact);
+                        parameters.Add("@Value", item.Value);
+                        parameters.Add("@FinancialsID", item.FinancialsID);
 
-                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialValues, parameters, commandType: CommandType.StoredProcedure);
+                        await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialValues, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+                    }
+
+                    foreach (var item in dto.FinEntryInReviews)
+                    {
+                        var parameters = new DynamicParameters();
+                        parameters.Add("@FinancialDetailID", item.FinancialDetailID);
+                        parameters.Add("@UserID", userID);
+                        parameters.Add("@FinancialsID", item.FinancialsID);
+
+                        await _connection.ExecuteAsync(ProcedureNames.usp_InsertFinReviewFromEntry_New, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+                    }
+                    await transaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    throw ex;
+                }
             }
-
-            foreach (var item in dto.FinEntryInReviews)
-            {
-                var parameters = new DynamicParameters();
-                parameters.Add("@FinancialDetailID", item.FinancialDetailID);
-                parameters.Add("@UserID", userID);
-                parameters.Add("@FinancialsID", item.FinancialsID);
-
-                await _connection.ExecuteAsync(ProcedureNames.usp_InsertFinReviewFromEntry_New, parameters, commandType: CommandType.StoredProcedure);
-            }
+            
         }
     }
 }

@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using Volo.Abp.Application.Services;
 
 namespace GB.Opera.OfficialsIndics
@@ -123,61 +124,126 @@ namespace GB.Opera.OfficialsIndics
 
         public async Task<string> ImportOfficialIndices(string filePath)
         {
-            try
+            _connection.Open();
+            using (var transaction = _connection.BeginTransaction())
             {
-                var stockMarkets = await _connection.QueryAsync<StockMarketDto>($@"SELECT * FROM StockMarkets");
-                var Companies = await _connection.QueryAsync<SectorDto>($@"SELECT * FROM Sectors");
-
-                using (var package = new ExcelPackage(new FileInfo(filePath)))
+                try
                 {
-                    var worksheet = package.Workbook.Worksheets[0];
-                    var rowCount = worksheet.Dimension.Rows;
-                    var colCount = worksheet.Dimension.Columns;
+                    var stockMarkets = await _connection.QueryAsync<StockMarketDto>($@"SELECT * FROM StockMarkets", transaction: transaction);
+                    var Companies = await _connection.QueryAsync<SectorDto>($@"SELECT * FROM Sectors", transaction: transaction);
 
-                    for (int row = 2; row <= rowCount; row++)
+                    using (var package = new ExcelPackage(new FileInfo(filePath)))
                     {
-                        if (!string.IsNullOrEmpty(worksheet.Cells[row, 1].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 2].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 3].Text))
+                        var worksheet = package.Workbook.Worksheets[0];
+                        var rowCount = worksheet.Dimension.Rows;
+                        var colCount = worksheet.Dimension.Columns;
+
+                        for (int row = 2; row <= rowCount; row++)
                         {
-                            var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (worksheet.Cells[row, 2].Text).ToUpper()).FirstOrDefault();
-                            if (stockMarket != null)
+                            if (!string.IsNullOrEmpty(worksheet.Cells[row, 1].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 2].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 3].Text))
                             {
-                                var ticker = Companies.Where(f => f.Sector.ToUpper() == (worksheet.Cells[row, 1].Text).ToUpper()).FirstOrDefault();
-                                if (ticker != null)
+                                var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (worksheet.Cells[row, 2].Text).ToUpper()).FirstOrDefault();
+                                if (stockMarket != null)
                                 {
-                                    var parameters = new DynamicParameters();
-                                    parameters.Add("@StockMarket", worksheet.Cells[row, 2].Text);
-                                    parameters.Add("@Sector", worksheet.Cells[row, 1].Text);
-                                    parameters.Add("@Date", Convert.ToDateTime(worksheet.Cells[row, 3].Text));
-                                    parameters.Add("@Opening", Convert.ToDecimal(worksheet.Cells[row, 4].Text));
-                                    parameters.Add("@Highest", Convert.ToDecimal(worksheet.Cells[row, 5].Text));
-                                    parameters.Add("@Lowest", Convert.ToDecimal(worksheet.Cells[row, 6].Text));
-                                    parameters.Add("@Closing", Convert.ToDecimal(worksheet.Cells[row, 7].Text));
-                                    parameters.Add("@Volume", Convert.ToDecimal((worksheet.Cells[row, 8].Text).Replace(",", "")));
-                                    parameters.Add("@Transactions", Convert.ToDecimal((worksheet.Cells[row, 9].Text).Replace(",", "")));
-                                    parameters.Add("@TradingValue", Convert.ToDecimal((worksheet.Cells[row, 10].Text).Replace(",", "")));
-                                    parameters.Add("@PreviousClose", Convert.ToDecimal((worksheet.Cells[row, 11].Text).Replace(",", "")));
-                                    parameters.Add("@LastUpdated", DateTime.Now);
-                                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertOfficialIndices, parameters, commandType: CommandType.StoredProcedure);
+                                    var ticker = Companies.Where(f => f.Sector.ToUpper() == (worksheet.Cells[row, 1].Text).ToUpper()).FirstOrDefault();
+                                    if (ticker != null)
+                                    {
+                                        var parameters = new DynamicParameters();
+                                        parameters.Add("@StockMarket", worksheet.Cells[row, 2].Text);
+                                        parameters.Add("@Sector", worksheet.Cells[row, 1].Text);
+                                        parameters.Add("@Date", Convert.ToDateTime(worksheet.Cells[row, 3].Text));
+                                        parameters.Add("@Opening", Convert.ToDecimal(worksheet.Cells[row, 4].Text));
+                                        parameters.Add("@Highest", Convert.ToDecimal(worksheet.Cells[row, 5].Text));
+                                        parameters.Add("@Lowest", Convert.ToDecimal(worksheet.Cells[row, 6].Text));
+                                        parameters.Add("@Closing", Convert.ToDecimal(worksheet.Cells[row, 7].Text));
+                                        parameters.Add("@Volume", Convert.ToDecimal((worksheet.Cells[row, 8].Text).Replace(",", "")));
+                                        parameters.Add("@Transactions", Convert.ToDecimal((worksheet.Cells[row, 9].Text).Replace(",", "")));
+                                        parameters.Add("@TradingValue", Convert.ToDecimal((worksheet.Cells[row, 10].Text).Replace(",", "")));
+                                        parameters.Add("@PreviousClose", Convert.ToDecimal((worksheet.Cells[row, 11].Text).Replace(",", "")));
+                                        parameters.Add("@LastUpdated", DateTime.Now);
+                                        await _connection.ExecuteAsync(ProcedureNames.usp_InsertOfficialIndices, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+                                    }
+                                    else
+                                    {
+                                        return $@"{worksheet.Cells[row, 4].Text} not exist please first add this Sector";
+                                        await transaction.RollbackAsync();
+                                    }
                                 }
                                 else
                                 {
-                                    return $@"{worksheet.Cells[row, 4].Text} not exist please first add this Sector";
+                                    return $@"{worksheet.Cells[row, 5].Text} not exist please first add this Stock Market";
+                                    await transaction.RollbackAsync();
                                 }
                             }
-                            else
-                            {
-                                return $@"{worksheet.Cells[row, 5].Text} not exist please first add this Stock Market";
-                            }
-                        }
 
+                        }
+                        await transaction.CommitAsync();
+                        return "1";
                     }
-                    return "1";
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    return ex.Message;
                 }
             }
-            catch (Exception ex)
-            {
 
-                return ex.Message;
+        }
+
+        public async Task<string> ImportGlobalIndices(string filePath)
+        {
+            
+            _connection.Open();
+            using (var transaction = _connection.BeginTransaction())
+            {
+                try
+                {
+                    
+
+                    using (var package = new ExcelPackage(new FileInfo(filePath)))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+                        var rowCount = worksheet.Dimension.Rows;
+                        var colCount = worksheet.Dimension.Columns;
+
+                        for (int row = 2; row <= rowCount; row++)
+                        {
+                            if (!string.IsNullOrEmpty(worksheet.Cells[row, 1].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 2].Text))
+                            {
+                                var stockMarkets = await _connection.QueryAsync<StockMarketDto>($@"SELECT * FROM StockMarkets", transaction: transaction);
+                                var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (worksheet.Cells[row, 1].Text).ToUpper()).FirstOrDefault();
+                                if (stockMarket != null)
+                                {
+
+                                    var parameters = new DynamicParameters();
+                                    //parameters.Add("@StockMarket", worksheet.Cells[row, 2].Text);
+                                    parameters.Add("@StockMarket", worksheet.Cells[row, 1].Text);
+                                    parameters.Add("@Date", Convert.ToDateTime(worksheet.Cells[row, 2].Text));
+                                    parameters.Add("@Open", Convert.ToDecimal((worksheet.Cells[row, 3].Text).Replace(",", "")));
+                                    parameters.Add("@High", Convert.ToDecimal((worksheet.Cells[row, 4].Text).Replace(",", "")));
+                                    parameters.Add("@Low", Convert.ToDecimal((worksheet.Cells[row, 5].Text).Replace(",", "")));
+                                    parameters.Add("@Close", Convert.ToDecimal((worksheet.Cells[row, 6].Text).Replace(",", "")));
+                                    parameters.Add("@Volume", Convert.ToDecimal(worksheet.Cells[row, 7].Text));
+                                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertGlobalIndices, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+                                    
+                                }
+                                else
+                                {
+                                    await transaction.RollbackAsync();
+                                    return $@"{worksheet.Cells[row, 5].Text} not exist please first add this Stock Market";
+                                }
+                            }
+
+                        }
+                        await transaction.CommitAsync();
+                        return "1";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    return ex.Message;
+                }
             }
 
         }
