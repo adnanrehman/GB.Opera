@@ -89,7 +89,7 @@ namespace GB.Opera.MarketSectors
                     var parameters3 = new DynamicParameters();
                     parameters3.Add("@MarketCapID", item.MarketCapID);
                     parameters3.Add("@CapSizeID", item.CapSizeID);
-                    parameters3.Add("@StockMarketID", stockemarketid); ;
+                    parameters3.Add("@StockMarketID", stockemarketid); 
 
                     await _connection.ExecuteAsync(ProcedureNames.usp_InsertMarketCaps, parameters3, commandType: CommandType.StoredProcedure);
                 }
