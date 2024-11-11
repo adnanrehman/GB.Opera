@@ -8,5 +8,7 @@ namespace GB.Opera.MarketSector
     public  interface IMarketSectorAppService
     {
         public   Task<MarketSectorDto> GetMarketsInfo(Int16 MarketID);
+
+        public Task InsertCountryGroup(InsertmarketsectorDto model);
     }
 }

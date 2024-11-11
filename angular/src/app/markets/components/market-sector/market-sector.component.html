@@ -1,4 +1,4 @@
-<div class="container ms-2">
+<div class="container ms-2" [abpLoading]="loading">
     <div class="row mb-2">
         <div class="col-md-3">
             
@@ -19,6 +19,7 @@
                     optionValue="stockMarketID"
                     [style]="{ width: '100%' }"
                     [listStyle]="{ 'max-height': '30rem' }"
+                    (onChange)="onStockMarketChange($event)"
                   />
                   </div>
                 </div>
@@ -46,7 +47,9 @@
                   </div>
                   <div class="col-md-4">
                <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
-              <a href="#" *ngIf="permission.create"  class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+               <a href="#" *ngIf="permission.create" (click)="insertCountryGroup()" class="btn btn-success btn-sm me-1"
+               ><i class="fa fa-save" (click)="insertCurrencyGroup()"></i> Save</a
+             >
               
   
            
@@ -59,10 +62,11 @@
                 <label class="col-form-label col-4">GB Country Groups </label>
                 <p-dropdown
                 [options]="CountryGroup"
-                [(ngModel)]="countryGroupID"
+                [(ngModel)]="stockMarketID"
                 placeholder="Select  GB Country Group"
                 optionLabel="countryGroup"
               optionValue="countryGroupID"
+              
                 [style]="{ width: '100%' }"
                 [showClear]="true"
                 (ngModelChange)="getCountryByGroupId()"
@@ -79,7 +83,7 @@
                 optionValue="countryID"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
-               
+                [(ngModel)]="stockMarketById.countryID"
               >
               </p-dropdown>
                 
@@ -96,6 +100,7 @@
                 class="form-control"
                 name="MarketName"
                 placeholder="Market Name"
+                [(ngModel)]="stockMarketById.stockMarket"
               />
 
                <input
@@ -104,6 +109,7 @@
                     class="form-control mt-2"
                     name="MarketName"
                     placeholder="Market Name (AR)"
+                    [(ngModel)]="stockMarketById.aStockMarket"
                   />
                 
               </div>
@@ -115,6 +121,7 @@
                 class="form-control"
                 name="IndexName"
                 placeholder="Index Name"
+                [(ngModel)]="stockMarketById.indexName"
               />
 
                <input
@@ -123,6 +130,7 @@
                     class="form-control mt-2"
                     name="IndexName"
                     placeholder="Index Name (AR)"
+                    [(ngModel)]="stockMarketById.aIndexName"
                   />
                 
               </div>
@@ -134,6 +142,8 @@
                 class="form-control"
                 name="Abbr"
                 placeholder="Abbr"
+
+                [(ngModel)]="stockMarketById.abbr"
               />
 
                <input
@@ -142,6 +152,8 @@
                     class="form-control mt-2"
                     name="Abbr"
                     placeholder="Abbr (AR)"
+
+                    [(ngModel)]="stockMarketById.aAbbr"
                   />
                 
               </div>
@@ -156,23 +168,28 @@
                 optionValue="currencyID"
                 [style]="{ width: '100%' }"
                 [showClear]="true"
+                [(ngModel)]="stockMarketById.financialCurrencyID"
               >
               </p-dropdown>
               </div>
               <div class="col-md-6">
                 <label class="col-form-label col-4">Market Activation</label>
                 <p-dropdown
-                [options]="active"
-                placeholder="Select Currency"
-                optionLabel="name"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
-              >
-              </p-dropdown>
+                    [(ngModel)]="countryGroupActivation"
+                    [ngModelOptions]="{ standalone: true }"
+                    [options]="activationDropdown"
+                    placeholder="Select a Company Activation"
+                    optionLabel="displayText"
+                    optionValue="value"
+                    [style]="{ width: '100%' }"
+                    [showClear]="true"
+                    >
+                    </p-dropdown>
             </div>
             <div class="col-md-6">
                 <label class="col-form-label col-4">Description</label>
-                   <textarea rows="2" class="form-control" placeholder="Description here...">
+                   <textarea rows="2" class="form-control" placeholder="Description here..."
+                   [(ngModel)]="stockMarketById.description"  >
                 </textarea>  
             </div>
                 
@@ -189,15 +206,21 @@
              
               
                 <h6>Add Caps</h6>
-                <p-tree [value]="Caps" selectionMode="checkbox"  ></p-tree>
+                <div class="col-md-3" *ngFor="let item of capSizes">
+                  <p-checkbox name="group" [value]="item" [(ngModel)]="selectedCapsizess" 
+                  [inputId]="item.stockMarketID"></p-checkbox>
+                  <label [for]="item.stockMarketID">{{ item.capSize }}</label>
+                </div>
                
             
            </div>
            <div class="col-md-6">
-             
-                 
-                  <h6>GB Caps</h6>
-                  <p-tree [value]="Caps" selectionMode="checkbox"  ></p-tree>
+                            
+                  <!-- <h6>GB Caps</h6> -->
+                  <!-- <div class="col-md-3" *ngFor="let item of capSizes">
+                    <p-checkbox name="group" [value]="item" [(ngModel)]="selectedCapsizess" [inputId]="item.sectorID"></p-checkbox>
+                    <label [for]="item.sectorID">{{ item.capSize }}</label>
+                  </div> -->
                 
            </div>
             </div>
@@ -207,25 +230,15 @@
                 <h6>GB Sector</h6>
                 <div class="row">
                     <div class="col-md-6">
-                      <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Modify Sectors</a>
+                      <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Modify Sectors</a> -->
                      </div>
                 </div>
                 <div class="row">
                   <!-- <p-tree [value]="GBSector" selectionMode="checkbox"></p-tree> -->
-                  <div class="col-md-3">
-                    <p-checkbox name="groupname" value="val1" label="Agriculture & Food Industries"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Banking"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Banking & Financial"  ></p-checkbox>
-                  </div>
-                  <div class="col-md-3">
-                    <p-checkbox name="groupname" value="val1" label="Banking & Investment"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Banks"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Bank & Financial Service"  ></p-checkbox>
-                  </div>
-                  <div class="col-md-3">
-                    <p-checkbox name="groupname" value="val1" label="Basic Metrial"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Building & Construction"  ></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" label="Capital Goods"  ></p-checkbox>
+                  <div class="col-md-4" *ngFor="let item of sectors">
+                    <p-checkbox name="group2" [value]="item" [(ngModel)]="selectedmarketsector" 
+                    [inputId]="item.stockMarketID"></p-checkbox>
+                    <label [for]="item.stockMarketID">{{ item.sector }}</label>
                   </div>
                 </div>
               </div>
