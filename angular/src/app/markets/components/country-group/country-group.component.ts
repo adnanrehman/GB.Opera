@@ -11,7 +11,7 @@ import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PermissionService } from '@abp/ng.core';
 import { CompanyAndMarket_CountryGroup } from 'src/app/services/permissions';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
@@ -20,9 +20,13 @@ import { CountryGroupDto, CountryGroupService, GBSectorDto, InsertCountryGroupDt
 import { CapSizeDto, SectorDto } from '@proxy/commons';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @Component({
      imports: [
       CommonModule,
+      NgFor,
+      NgIf,
       TableModule,
       TabViewModule,
       AutoCompleteModule,
@@ -32,7 +36,6 @@ import Swal from 'sweetalert2';
       ImageModule,
       FileUploadModule,
       CheckboxModule,
-      NgFor,
       ThemeSharedModule,
       ReactiveFormsModule,
       ListboxModule,
@@ -109,6 +112,7 @@ export class CountryGroupComponent {
       this.gbCapSizes = res.gbCapSizes;
       this.loading = false;
       if (this.countryGroups.length > 0) {
+        if(!this.countryGroupID)
         this.countryGroupID = this.countryGroups[0].countryGroupID;
         this.handleCountryGroup()
         this.loading = false;
@@ -124,9 +128,9 @@ export class CountryGroupComponent {
     this.countryGroupActivation = this.countryGroup.isActive ? 1 : 0;
     this.countryGroup.formationDate = moment(this.countryGroup.formationDate).format("MM/DD/YYYY");
     var filterList = this.gbCapSizes.filter(f => f.countryGroupID == this.countryGroup.countryGroupID);
-    this.selectedCapsizess = filterList.map(item => ({countryGroupId: item.countryGroupID, sectorID: this.capSizes.find(f => f.capSize.toUpperCase() == item.gbSector.toUpperCase()).capSizeID,isCapSize:true}))
+    this.selectedCapsizess = filterList.map(item => ({capSizeID: this.capSizes.find(f => f.capSize.toUpperCase() == item.gbSector.toUpperCase()).capSizeID,capSize:item.gbSector}));
     var filterListNew = this.gbSectors.filter(f => f.countryGroupID == this.countryGroup.countryGroupID);
-    this.selectedSectors = filterListNew.map(item => ({countryGroupId: item.countryGroupID, sectorID: this.sectors.find(f => f.sector.toUpperCase() == item.gbSector.toUpperCase()).sectorID,isCapSize:false}))
+    this.selectedSectors = filterListNew.map(item => ({sectorID: this.sectors.find(f => f.sector.toUpperCase() == item.gbSector.toUpperCase()).sectorID,sector:item.gbSector,aSector: this.sectors.find(f => f.sector.toUpperCase() == item.gbSector.toUpperCase()).aSector}));
     this.loading = false;
   }
 
@@ -143,8 +147,12 @@ export class CountryGroupComponent {
     this.countryGroup.isActive = this.countryGroupActivation == 1 ? true : false;
     this.countryGroup.formationDate = moment(this.countryGroup.formationDate).format();
     this.insertCountryGroupmodel.countryGroup = this.countryGroup;
-    this.insertCountryGroupmodel.gbSectors = this.selectedSectors;
+    this.insertCountryGroupmodel.gbSectors = this.selectedSectors; 
+    this.selectedCapsizess.forEach(item => {
+      item.sectorID = item.capSizeID
+    });   
     this.insertCountryGroupmodel.gbCapSizes = this.selectedCapsizess;
+    
     this.countryGroupService.insertCountryGroupByModel(this.insertCountryGroupmodel).subscribe(res => {
       debugger;
       if (this.countryGroup.countryGroupID > 0) {
@@ -155,6 +163,7 @@ export class CountryGroupComponent {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.countryGroup.countryGroup + ' created successfully', icon: 'success', });
         this.addNewCountryGroup();
       }
+      this.getCountryGroups()
       // this.handleCorporateAnnouncement(this.corporateAnnouncement);
 
       this.loading = false;

@@ -31,19 +31,19 @@
                             <label class="col-form-label">Market</label>
                             <p-dropdown [options]="markets" [(ngModel)]="selectedMarketID"
                             [ngModelOptions]="{ standalone: true }" placeholder="Select a Market" optionLabel="abbr"
-                  optionValue="stockMarketID" [style]="{ width: '100%' }" [showClear]="true"
-                  (onChange)="onDropdownChange($event)">
+                  optionValue="stockMarketID" [style]="{ width: '100%' }" [showClear]="true">
                 </p-dropdown>
                           </div>
                           <div class="col-md-3">
                             <label class="col-form-label">Date</label>
-                            <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date"
-                  (onSelect)="onDateChange($event)"></p-calendar>
+                            <p-calendar dataType="string" [style]="{ width: '100%' }" (onSelect)="getEPfficail()" required="true" [(ngModel)]="selectedDate" name="selectedDate" [showIcon]="true" placeholder="Select a Date" />
+                            <!-- <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date"
+                  (onSelect)="onDateChange($event)"></p-calendar> -->
                           </div>
                           <div class="col-md-3">
                             <label class="col-form-label"> &nbsp;&nbsp;&nbsp;&nbsp; </label>
                             <br>
-                            <a class="btn btn-primary btn-sm me-1" (click)="getEPfficail()"> Refresh</a>
+                            <!-- <a class="btn btn-primary btn-sm me-1" (click)="getEPfficail()"> Refresh</a> -->
                           </div>
                       </div>
                       <div class="row">
@@ -115,7 +115,7 @@
       </div>
       <div class="row mb-2">
         <div class="col-12 text-center">
-          <button type="button" class="btn btn-danger mr-1" (click)="this.showImportPriceModal=false;">Close</button>
+          <button type="button" class="btn btn-danger me-1" (click)="this.showImportPriceModal=false;">Close</button>
           <button type="button" class="btn btn-success" (click)="importOfficialIndices()">Import</button>
         </div>
       </div>

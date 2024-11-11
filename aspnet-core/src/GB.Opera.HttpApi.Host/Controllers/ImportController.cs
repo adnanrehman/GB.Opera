@@ -61,4 +61,24 @@ public class ImportController : AbpController
         return Json(data);
     }
 
+    public async Task<ActionResult> ImportGlobalIndices(IFormFile file)
+    {
+        var uploadDirecotroy = "uploads/";
+        var uploadPath = Path.Combine(_env.WebRootPath, uploadDirecotroy);
+
+        if (!Directory.Exists(uploadPath))
+            Directory.CreateDirectory(uploadPath);
+
+        var fileName = file.FileName;
+        var filePath = Path.Combine(uploadPath, fileName);
+
+        using (System.IO.Stream stream = new FileStream(filePath, FileMode.Create))
+        {
+            file.CopyTo(stream);
+        }
+        var data = await _officialIndicsAppService.ImportGlobalIndices(filePath);
+
+        return Json(data);
+    }
+
 }

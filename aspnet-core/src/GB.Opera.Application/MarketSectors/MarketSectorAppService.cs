@@ -33,7 +33,7 @@ namespace GB.Opera.MarketSectors
                 var output = new MarketSectorDto
                 {
                      Countrygroup = reader.Read<CountryGroupsector>().ToList() ,
-                    Country = reader.Read<Countries>().ToList(),
+                    //Country = reader.Read<Countries>().ToList(),
                     CapacitySize = reader.Read<CapacitySizes>().ToList(),
                     StockMarket = reader.Read<StockMarkets>().ToList(),
                     StockMarketById = reader.Read<StockMarketByID>().ToList(),

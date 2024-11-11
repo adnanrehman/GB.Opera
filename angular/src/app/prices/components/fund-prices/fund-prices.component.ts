@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from "primeng/dropdown"; 
 import { Calendar, CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
@@ -9,52 +9,80 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { Checkbox, CheckboxModule } from 'primeng/checkbox';
-import { MFundPrices, OfficialIndicsService } from '@proxy/officials-indics';
+import { MFundCompanies, MFundPrices, MFunds, OfficialIndicsService } from '@proxy/officials-indics';
 import { PermissionService } from '@abp/ng.core';
 import { PriceAndIndices_FundPrices } from 'src/app/services/permissions';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { FundPriceService } from '@proxy/fund-prices';
+import { FundPrices } from '@proxy';
+import * as moment from 'moment';
+import Swal from 'sweetalert2';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { InputTextModule } from 'primeng/inputtext';
+import { ListboxModule } from 'primeng/listbox';
+import { TreeModule } from 'primeng/tree';
+import { CommonService } from '@proxy/commons';
 
 @Component({
   selector: 'app-fund-prices',
   standalone: true,
-  imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,
-    CalendarModule,ImageModule,FileUploadModule,TabViewModule,RadioButtonModule,CheckboxModule,CommonModule ],
+  imports: [
+    CommonModule,
+    NgFor,
+    NgIf,
+    TableModule,
+    TabViewModule,
+    AutoCompleteModule,
+    FormsModule,
+    DropdownModule,
+    CalendarModule,
+    ImageModule,
+    FileUploadModule,
+    CheckboxModule,
+    ThemeSharedModule,
+    ReactiveFormsModule,
+    ListboxModule,
+    InputTextModule,
+    TabViewModule, TreeModule
+  ],
   templateUrl: './fund-prices.component.html',
   styleUrl: './fund-prices.component.scss'
 })
 export class FundPricesComponent {
-  @ViewChild('priceInput') priceInput: ElementRef<HTMLInputElement>;
-  @ViewChild('calendar') calendar: Calendar;
-  @ViewChild('checkbox') checkbox: Checkbox;
-  filteredCountries: any[];
-  checkboxState: boolean;
+  loading:boolean = false;
+  selectedItem: any;
+  clickedIndex = 0;
+  suggestions: any[] = [];
   permission: {
     create: boolean;
     edit: boolean,
     delete: boolean
   }
-  ingredient:any;
-  markets:any;
-  funds:any;
-  data: MFundPrices[]
-  selectedMarketID: number | null = null;
-  selectedfunfId: number | null = null;
+  markets:MFundCompanies[] = [];
+  funds:MFunds[] = [];
+  fundPrices: MFundPrices[];
+  fundPrice : MFundPrices = {
+    mFundPriceID: 0,
+    mFundID: 0,
+    closingPrice: 0,
+    tradingVolume: 0,
+    lastClosePrice: 0,
+    isActive: false
+  }
+  fundID: number = 0;
+  companyID: number = 0;
   
-  constructor( private officialIndicsService : OfficialIndicsService,private permissionService: PermissionService) {
+  constructor( private officialIndicsService : OfficialIndicsService,
+    private commonService: CommonService,
+    private fundPriceService: FundPriceService,
+    private permissionService: PermissionService) {
     this.permission = {
       create: false,
       edit : false,
       delete  :false
     }
    }
-  ngAfterViewInit() {
-    this.usp_getAllFundPrices();
-  }
-  getMFundCompanies() {
-    this.officialIndicsService.getMFundCompanies().subscribe(res => {
-      this.markets = res;
-    });
-  }
+
   ngOnInit() { 
     if (this.permissionService.getGrantedPolicy(PriceAndIndices_FundPrices + '.Create')) {
       this.permission.create = true;
@@ -68,61 +96,116 @@ export class FundPricesComponent {
     this.getMFundCompanies();
      
   }
-  onDropdownChange(event: any) {
-    this.selectedMarketID = event.value;
+
+  search(event: AutoCompleteCompleteEvent) {
+    this.loading = true;
+    this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
+      this.suggestions = res;
+      this.loading = false;
+    });
+  }
+
+  onSelect(event: any) {
+    debugger;
+    this.loading = true;
+    debugger;
+    this.companyID = event.value.companyID;
     this.usp_getAllFunds();
-     
+    this.loading = false;
   }
-  onDropdownFundChnage(event: any) {
-    this.selectedfunfId = event.value;
-    this.usp_getAllFundPrices();
-     
-  }
-  usp_getAllFunds() {
-    this.officialIndicsService.getAllFundsByCompanyID(this.selectedMarketID).subscribe(res => {
-      this.funds = res;
-    });
-  }
-  usp_getAllFundPrices() {
-    this.officialIndicsService.getAllFundPricesByMFundID(this.selectedfunfId).subscribe(res => {
-      this.data = res;
-      this.updateInputValue();
-    });
-  }
-  updateInputValue() {
-    if (this.priceInput && this.data.length > 0) {
-      const firstItem = this.data[0];
 
-      // Setting price input value
-      const valueToSet = firstItem?.closingPrice != null ? firstItem.closingPrice.toString() : '';  
-      this.priceInput.nativeElement.value = valueToSet;
 
-      // Setting calendar value
-      if (this.calendar) {
-        const dateToSet = firstItem?.priceDate ? new Date(firstItem.priceDate) : null;
-        if (dateToSet instanceof Date && !isNaN(dateToSet.getTime())) {
-          // Set the calendar value after a short delay to ensure initialization
-          setTimeout(() => {
-            this.calendar.value = dateToSet;
-          }, 0);
-        } else {
-          console.error('Invalid date:', dateToSet);
-        }
+  getMFundCompanies() {
+    debugger;
+    this.loading =true;
+    this.officialIndicsService.getMFundCompanies().subscribe(res => {
+      this.markets = res;
+      if(this.markets.length > 0){
+        this.companyID = this.markets[0].companyID;
+        this.usp_getAllFunds();
+      }else{
+        this.loading =false;
       }
-      if (this.checkbox) {
-        // Convert isActive to boolean
-        let checkboxState: boolean;
-        if (typeof firstItem.isActive === 'string') {
-          checkboxState = firstItem.isActive === 'Yes';
-        } else if (typeof firstItem.isActive === 'boolean') {
-          checkboxState = firstItem.isActive;
-        } else {
-          checkboxState = false; // Default value if unknown type
+    });
+  }
+
+  usp_getAllFunds() {
+    this.loading =true;
+    this.officialIndicsService.getAllFundsByCompanyID(this.companyID).subscribe(res => {
+      this.funds = res;
+      if(this.funds.length > 0){
+        this.fundID = this.funds[0].mFundID;
+        this.usp_getAllFundPrices();
+      }else{
+        this.loading =false;
+      }
+    });
+  }
+
+  usp_getAllFundPrices() {
+    this.loading =true;
+    this.officialIndicsService.getAllFundPricesByMFundID(this.fundID).subscribe(res => {
+      this.fundPrices = res;
+      if(this.fundPrices.length > 0) this.handleFundPrice(this.fundPrices[0])
+        else
+      this.loading =false;
+    });
+  }
+
+  handleFundPrice(fundPrice: MFundPrices) {
+    this.fundPrice = fundPrice;
+    if(this.fundPrice.priceDate)
+      this.fundPrice.priceDate = moment(this.fundPrice.priceDate).format("MM/DD/YYYY")
+    this.loading = false;
+  }
+
+  addNewFundPrice() {
+    this.fundPrice = {
+      mFundPriceID: 0,
+      mFundID: 0,
+      closingPrice: 0,
+      tradingVolume: 0,
+      lastClosePrice: 0,
+      isActive: false
+    };
+  }
+
+  insertMFundPrice() {
+    debugger;
+    this.loading = true;
+    
+    if(!this.fundID || this.fundID == 0){
+      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Error!', text: 'please select fund', icon: 'error', });
+      this.loading = false;
+    }else if(!this.fundPrice.priceDate){
+      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Error!', text: 'please select Date', icon: 'error', });
+      this.loading = false;
+    }
+    else{
+      this.fundPrice.mFundID = this.fundID;
+      this.fundPrice.priceDate = moment(this.fundPrice.priceDate).format();
+      this.fundPriceService.insertMFundPricesByModel(this.fundPrice).subscribe(res => {
+        debugger;
+        if (this.fundPrice.mFundPriceID > 0) {
+          Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.fundPrice.closingPrice + ' updated successfully', icon: 'success', });
+          this.addNewFundPrice();
+        }
+        else {
+          Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.fundPrice.closingPrice + ' created successfully', icon: 'success', });
+          this.addNewFundPrice();
         }
   
-        // Set the checkbox state
-        this.checkboxState = checkboxState;
-      }
+        this.loading = false;
+      },
+        error => {
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+        });
+    }
+      
+
   }
-}
+
 }

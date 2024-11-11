@@ -6,10 +6,17 @@
           <div class="card-body p-2">
             <div class="row">
               <div class="col-md-8">
-                <p-autoComplete [suggestions]="filteredCountries" field="name"
-                  placeholder="Search the Companies and select" [style]="{ width: '100%' }"
-                  [inputStyle]="{ width: '100%' }">
-                </p-autoComplete>
+                <p-autoComplete
+                          [(ngModel)]="selectedItem"
+                          [ngModelOptions]="{ standalone: true }"
+                          (onSelect)="onSelect($event)"
+                          [suggestions]="suggestions"
+                          (completeMethod)="search($event)"
+                          [style]="{ width: '100%' }"
+                          field="company"
+                          [inputStyle]="{ width: '100%' }"
+                        >
+                        </p-autoComplete>
               </div>
               <div class="col-md-4 text-end">
                 <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
@@ -22,21 +29,21 @@
               <h5>EOD Prices</h5>
               <div class="col-md-3">
                 <label class="col-form-label">Market</label>
-                <p-dropdown [options]="markets" placeholder="Select a Market" optionLabel="abbr"
-                  optionValue="stockMarketID" [style]="{ width: '100%' }" [showClear]="true"
-                  (onChange)="onDropdownChange($event)">
+                <p-dropdown [options]="markets" placeholder="Select a Market"  optionLabel="abbr" [(ngModel)]="selectedMarketID"
+                  optionValue="stockMarketID" [style]="{ width: '100%' }" [showClear]="true">
                 </p-dropdown>
               </div>
               <div class="col-md-3">
                 <label class="col-form-label">Date</label>
-                <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date"
-                  (onSelect)="onDateChange($event)"></p-calendar>
+                <p-calendar dataType="string" [style]="{ width: '100%' }" (onSelect)="getEodPrices()" required="true" [(ngModel)]="selectedDate" name="selectedDate" [showIcon]="true" placeholder="Select a Date" />
+                <!-- <p-calendar [style]="{ width: '100%' }" placeholder="Select a Date"
+                  (onSelect)="onDateChange($event)"></p-calendar> -->
               </div>
-              <div class="col-md-3">
+              <!-- <div class="col-md-3">
                 <label class="col-form-label"> &nbsp;&nbsp;&nbsp;&nbsp; </label>
                 <br>
                 <a class="btn btn-primary btn-sm me-1" (click)="getEodPrices()"> Refresh</a>
-              </div>
+              </div> -->
             </div>
             <div class="row">
               <div class="col-md-12">
@@ -108,7 +115,7 @@
     </div>
     <div class="row mb-2">
       <div class="col-12 text-center">
-        <button type="button" class="btn btn-danger mr-1" (click)="this.showImportPriceModal=false;">Close</button>
+        <button type="button" class="btn btn-danger me-1" (click)="this.showImportPriceModal=false;">Close</button>
         <button type="button" class="btn btn-success" (click)="ImportPrices()">Import</button>
       </div>
     </div>

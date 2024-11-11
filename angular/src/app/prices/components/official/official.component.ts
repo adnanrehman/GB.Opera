@@ -18,6 +18,7 @@ import { ImportService } from 'src/app/services/import/import.service';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { DialogModule } from 'primeng/dialog';
 import { CommonService } from '@proxy/commons';
+import * as moment from 'moment';
 @Component({
   selector: 'app-official',
   standalone: true,
@@ -37,7 +38,7 @@ export class OfficialComponent {
   suggestions: any[] = [];
   markets = [];
   selectedMarketID: number | null = null;
-  selectedDate: string | null = null;
+  selectedDate = moment(new Date()).format("MM/DD/YYYY")
   ingredient: any;
   importFile:any;
   loading: boolean = false;
@@ -61,6 +62,10 @@ export class OfficialComponent {
   getstockmarkets() {
     this.endofDayService.getAllGCCSector().subscribe(res => {
       this.markets = res;
+      if (this.markets.length > 0){
+        this.selectedMarketID = this.markets[0].stockMarketID;
+        this.getEPfficail();
+      } 
     });
   }
 
@@ -80,29 +85,30 @@ export class OfficialComponent {
     this.loading = false;
   }
 
-  onDropdownChange(event: any) {
-    this.selectedMarketID = event.value;
-    console.log('Selected Market ID:', this.selectedMarketID);
+  // onDropdownChange(event: any) {
+  //   this.selectedMarketID = event.value;
+  //   console.log('Selected Market ID:', this.selectedMarketID);
 
-  }
-  onDateChange(event: any) {
+  // }
 
-    console.log('Event:', event);  // Log event to check its structure
+  // onDateChange(event: any) {
 
-    const date = event; // Check if event.value is a Date object
+  //   console.log('Event:', event);  // Log event to check its structure
 
-    if (date instanceof Date) { // Ensure date is a Date object
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
+  //   const date = event; // Check if event.value is a Date object
 
-      this.selectedDate = `${year}-${month}-${day}`;
-      console.log('Selected Date:', this.selectedDate);
+  //   if (date instanceof Date) { // Ensure date is a Date object
+  //     const year = date.getFullYear();
+  //     const month = String(date.getMonth() + 1).padStart(2, '0');
+  //     const day = String(date.getDate()).padStart(2, '0');
 
-    } else {
-      console.error('Invalid date');
-    }
-  }
+  //     this.selectedDate = `${year}-${month}-${day}`;
+  //     console.log('Selected Date:', this.selectedDate);
+
+  //   } else {
+  //     console.error('Invalid date');
+  //   }
+  // }
   ngOnInit() {
     if (this.permissionService.getGrantedPolicy(PriceAndIndices_Official + '.Create')) {
       this.permission.create = true;
@@ -117,10 +123,14 @@ export class OfficialComponent {
 
   }
   getEPfficail() {
+    this.loading = true;
+    this.selectedDate = moment(this.selectedDate).format("YYYY-MM-DD");
     if (this.selectedDate && this.selectedMarketID) {
       this.officialIndicsService.getOfficialIndicsByPriceDateAndStockMarketID(this.selectedDate, this.selectedMarketID)
         .subscribe({
           next: (res) => {
+            this.selectedDate = moment(this.selectedDate).format("MM/DD/YYYY");
+            this.loading = false;
             // Check if res is an array and map items with boolean conversion
             if (Array.isArray(res)) {
               this.OfficailIndics = res.map(item => ({
@@ -134,9 +144,11 @@ export class OfficialComponent {
           },
           error: (err) => {
             console.error('Error fetching EOD prices:', err); // Handle errors
+            this.loading = false;
           }
         });
     } else {
+      this.loading = false
       console.error('Selected date or market ID is not defined.');
     }
   }
@@ -159,6 +171,7 @@ export class OfficialComponent {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: ' file imported successfully', icon: 'success', });
         this.showImportPriceModal = false;
         this.importFile = null;
+        this.getEPfficail();
       }        
       else    {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Error!', text: res, icon: 'error', });
