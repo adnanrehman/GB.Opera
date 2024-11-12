@@ -1,4 +1,4 @@
-Create procedure [usp_GetAccFactbyId]
+Create procedure [usp_GetAccFactbyId_New]
 @ACFactId smallint
 as
 
