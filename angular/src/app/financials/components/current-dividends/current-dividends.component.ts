@@ -99,6 +99,10 @@ export class CurrentDividendsComponent {
   getStockMarkets() {
     this.commonService.getMarketLangAnnouncements().subscribe(res => {
       this.stockMarkets = res;
+      if(this.stockMarkets.length > 0){
+        this.stockMarketID = this.stockMarkets[0].stockMarketID;
+        this.getCurrentDividendsByStockMarketID();
+      }
     });
   }
 

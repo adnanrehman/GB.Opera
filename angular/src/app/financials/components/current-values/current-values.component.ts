@@ -64,6 +64,10 @@ export class CurrentValuesComponent {
   getStockMarkets() {
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
+      if(this.stockMarkets.length > 0){
+        this.stockMarketID = this.stockMarkets[0].stockMarketID;
+        this.getStockMarketSectorsByStockMarketID();
+      }
     });
   }
 

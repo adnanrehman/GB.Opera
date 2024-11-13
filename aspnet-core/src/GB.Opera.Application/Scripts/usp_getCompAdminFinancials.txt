@@ -1,4 +1,4 @@
-﻿ALTER PROCEDURE [dbo].[usp_getCompAdminFinancials]
+﻿ALTER PROCEDURE [dbo].[usp_getCompAdminFinancials_New]
 (
 @CompanyID smallint
 )

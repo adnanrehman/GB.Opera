@@ -1,4 +1,3 @@
-
 ALTER PROCEDURE [dbo].[usp_getCompAdminFinancials_New]
 (
 @CompanyID smallint
@@ -30,7 +29,7 @@ SET NOCOUNT ON
 
 SELECT DISTINCT               dbo.NewReviewFinancials.NewReviewFinancialID, dbo.Financials.FinancialsID, dbo.Financials.IsAudited, dbo.Financials.IsActive, 
                       dbo.Financials.AsOfDate, dbo.Financials.PeriodTypeID, dbo.FinancialsQYPeriods.Year, dbo.QPeriodTypes.QPeriod, 
-                      dbo.FinancialsQYPeriods.QPeriodID, dbo.FinancialsQYPeriods.IsYearly, dbo.UserFinancials.EntryUser, dbo.UserFinancials.ReEntryUser, 
+                      dbo.FinancialsQYPeriods.QPeriodID, dbo.FinancialsQYPeriods.IsYearly, dbo.UserFinancials.gbEntryUser as EntryUser, dbo.UserFinancials.gbReEntryUser as ReEntryUser, 
                       dbo.FinancialStatusRemarks.StatusID, dbo.NewReviewFinancials.UploadedPath, dbo.NewReviewFinancials.FileName, 
                       dbo.NewReviewFinancials.SecondaryUploadedPath, dbo.NewReviewFinancials.SecondaryFileName, dbo.FinancialStatusRemarks.Remarks, 
                       dbo.FinancialStatusRemarks.ARemarks, dbo.NewReviewFinancials.FinancialEntryTypeID, dbo.FinancialsQYPeriods.PeriodNote, 

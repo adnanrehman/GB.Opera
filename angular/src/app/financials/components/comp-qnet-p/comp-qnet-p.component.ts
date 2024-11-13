@@ -46,6 +46,7 @@ export class CompQnetPComponent {
   loading: boolean = false;
   headerValue: any;
   selectedItem: any;
+  clickedIndex = 0;
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
@@ -119,6 +120,10 @@ export class CompQnetPComponent {
   getStockMarkets() {
     this.commonService.getCompStockMarkets().subscribe(res => {
       this.stockMarkets = res;
+      if(this.stockMarkets.length > 0){
+        this.stockMarketID = this.stockMarkets[0].stockMarketID;
+        this.getCompMSectorsByMarketID();
+      }
     });
   }
 
@@ -126,9 +131,12 @@ export class CompQnetPComponent {
     debugger;
     this.loading = true;
     this.commonService.getCompMSectorsByMarketID(this.stockMarketID).subscribe(res => {
-      this.companyMarketSectors = res.sectors;
-      if (this.companyMarketSectors.length > 0) this.getSectorCompaniesBySectorIDAndStockMarketID();
-      else this.loading = false;
+      this.companyMarketSectors = res.marketSectors;
+      if (this.companyMarketSectors.length > 0) {
+        this.sectorID = this.companyMarketSectors[0].sectorID;
+        this.getSectorCompaniesBySectorIDAndStockMarketID();
+      }
+      else {this.loading = false;}
     });
   }
 

@@ -17,6 +17,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { CommonService } from '@proxy/commons';
 import { FinancialsAdminService, NewReviewFinancialDto } from '@proxy/financials-admins';
 import Swal from 'sweetalert2';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-financials-admin',
@@ -45,6 +46,7 @@ export class FinancialsAdminComponent {
   loading: boolean = false;
   headerValue: any;
   selectedItem: any;
+  clickedIndex = 0;
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
@@ -118,6 +120,10 @@ export class FinancialsAdminComponent {
   getStockMarkets() {
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
+      if(this.stockMarkets.length > 0){
+        this.stockMarketID = this.stockMarkets[0].stockMarketID;
+        this.getStockMarketSectorsByStockMarketID();
+      }
     });
   }
 
@@ -133,6 +139,7 @@ export class FinancialsAdminComponent {
 
   getSectorCompaniesBySectorIDAndStockMarketID() {
     debugger;
+    this.loading =true;
     if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
       this.sectorID = this.companyMarketSectors[0].sectorID;
     this.commonService
@@ -146,6 +153,7 @@ export class FinancialsAdminComponent {
 
   getNewFinancialReviewsByCompanyID() {
     debugger;
+    this.loading =true;
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
     this.financialsAdminService
@@ -166,12 +174,15 @@ export class FinancialsAdminComponent {
 
   handleNewReviewFinancial(newReviewFinancial: NewReviewFinancialDto) {
     this.newReviewFinancial = newReviewFinancial;
+    if(this.newReviewFinancial.asOfDate)
+      this.newReviewFinancial.asOfDate = moment(this.newReviewFinancial.asOfDate).format("MM/DD/YYYY")
     this.loading = false;
   }
 
   updateAdminFinancialsByInput() {
     debugger;
     this.loading = true;
+    this.newReviewFinancial.asOfDate = moment(this.newReviewFinancial.asOfDate).format();
     this.financialsAdminService.updateAdminFinancialsByInput(this.newReviewFinancial).subscribe(res => {
       debugger;
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newReviewFinancial.qPeriod + ' updated successfully', icon: 'success', });

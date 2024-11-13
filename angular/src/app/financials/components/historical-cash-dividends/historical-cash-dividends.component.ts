@@ -46,6 +46,7 @@ export class HistoricalCashDividendsComponent {
   loading: boolean = false;
   headerValue: any;
   selectedItem: any;
+  clickedIndex = 0;
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
@@ -120,6 +121,10 @@ export class HistoricalCashDividendsComponent {
   getStockMarkets() {
     this.commonService.getCompStockMarkets().subscribe(res => {
       this.stockMarkets = res;
+      if(this.stockMarkets.length > 0){
+        this.stockMarketID = this.stockMarkets[0].stockMarketID;
+        this.getCompMSectorsByMarketID();
+      }
     });
   }
 
@@ -127,8 +132,10 @@ export class HistoricalCashDividendsComponent {
     debugger;
     this.loading = true;
     this.commonService.getCompMSectorsByMarketID(this.stockMarketID).subscribe(res => {
-      this.companyMarketSectors = res.sectors;
-      if (this.companyMarketSectors.length > 0) this.getSectorCompaniesBySectorIDAndStockMarketID();
+      this.companyMarketSectors = res.marketSectors;
+      if (this.companyMarketSectors.length > 0) {
+        this.getSectorCompaniesBySectorIDAndStockMarketID()
+      }
       else this.loading = false;
     });
   }
@@ -159,9 +166,9 @@ export class HistoricalCashDividendsComponent {
         this.ePeriods = res.ePeriods;
         this.sources = res.sources;
         this.loading = false;
-        // if (this.historicalCashDividends.length > 0)
-        //   this.handleHistoricalCashDividend(this.historicalCashDividends[0]);
-        // else this.loading = false;
+        if (this.historicalCashDividends.length > 0)
+          this.handleHistoricalCashDividend(this.historicalCashDividends[0]);
+        else this.loading = false;
       });
   }
 

@@ -185,7 +185,8 @@
                 <label class="col-form-label">Total Amount</label>
                 <input
                   autofocus
-                  type="text"
+                  type="number"
+                  step="any"
                   [(ngModel)]="historicalCashDividend.totalAmount"
                   [ngModelOptions]="{ standalone: true }"
                   name="totalAmount"
@@ -224,7 +225,8 @@
                 <label class="col-form-label">Per Share Amount</label>
                 <input
                   autofocus
-                  type="text"
+                  type="number"
+                  step="any"
                   [(ngModel)]="historicalCashDividend.perShareAmount"
                   [ngModelOptions]="{ standalone: true }"
                   name="perShareAmount"
@@ -264,7 +266,8 @@
                 <label class="col-form-label">Treasury Share</label>
                 <input
                   autofocus
-                  type="text"
+                  type="number"
+                  step="any"
                   [(ngModel)]="historicalCashDividend.treasuryShares"
                   [ngModelOptions]="{ standalone: true }"
                   name="treasuryShares"
@@ -305,8 +308,8 @@
                     <th>SourceID</th>
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-item>
-                  <tr (click)="handleHistoricalCashDividend(item)">
+                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                  <tr (click)="handleHistoricalCashDividend(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                     <td>{{ item.year }}</td>
                     <td>{{ item.remarks }}</td>
                     <td>{{ item.totalAmount }}</td>
