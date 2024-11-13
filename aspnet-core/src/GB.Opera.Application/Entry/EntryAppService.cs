@@ -53,7 +53,7 @@ namespace Entry
         @CompanyID = input.CompanyID
     },
     commandType: CommandType.StoredProcedure,
-    commandTimeout: 120 // Increase timeout to 120 seconds (default is 30)
+    commandTimeout: 180 // Increase timeout to 120 seconds (default is 30)
 );
                 var output = new CompanyAccountsDto();
                 output.FinancialsDetails = reader.Read<FinancialsDetailDto>().OrderBy(f => f.CustomOrder).ToList();
@@ -78,7 +78,7 @@ namespace Entry
                 var reader = await _connection.QueryMultipleAsync(ProcedureNames.usp_getAsofDatesFinancials,
                     param: new { @FinancialsID = input.FinancialsID, @IsNew = false, @CompanyID = input.CompanyID },
                 commandType: CommandType.StoredProcedure,
-                 commandTimeout: 120);
+                 commandTimeout: 180);
                 var output = new AsofDatesFinancialDto();
                 output.FinancialsDetails = reader.Read<FinancialsDetailDto>().OrderBy(f => f.CustomOrder).ToList();
                 output.FinEntryInReviews = reader.Read<FinEntryInReviewDto>().ToList();

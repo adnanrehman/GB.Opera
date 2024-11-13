@@ -68,18 +68,27 @@ namespace GB.Opera.AccountsClassifications
 
         public async Task<List<GbAcFactsAccount>> GetAacfactByid(short ACFactId)
         {
-            // Define the parameters for the stored procedure
-            var parameters = new DynamicParameters();
-            parameters.Add("@ACFactId ", ACFactId, DbType.Int16);
+            try
+            {
+                // Define the parameters for the stored procedure
+                var parameters = new DynamicParameters();
+                parameters.Add("@ACFactId ", ACFactId, DbType.Int16);
 
-            // Execute the stored procedure and retrieve data using Dapper
-            var data = await _connection.QueryAsync<GbAcFactsAccount>(
-                sql: "usp_GetAccFactbyId_New",
-                param: parameters,
-                commandType: CommandType.StoredProcedure
-            );
+                // Execute the stored procedure and retrieve data using Dapper
+                var data = await _connection.QueryAsync<GbAcFactsAccount>(
+                    sql: "usp_GetAccFactbyId_New",
+                    param: parameters,
+                    commandType: CommandType.StoredProcedure
+                );
 
-            return data.ToList();
+                return data.ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         public async Task<int> DeleteAacfactById(short ACFactId)

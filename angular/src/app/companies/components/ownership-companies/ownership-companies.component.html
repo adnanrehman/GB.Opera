@@ -652,7 +652,8 @@
                           [(ngModel)]="companyFIP.permittedSharesToForeigners"
                           [ngModelOptions]="{ standalone: true }"
                           pInputText
-                          type="text"
+                          type="number"
+                                step="any"
                           class="form-control"
                           name="permittedSharesToForeigners"
                           placeholder="Permitted Share to Foreigners"
@@ -665,7 +666,8 @@
                           [(ngModel)]="companyFIP.permittedSharesToGCCNationals"
                           [ngModelOptions]="{ standalone: true }"
                           pInputText
-                          type="text"
+                          type="number"
+                                step="any"
                           class="form-control"
                           name="permittedSharesToGCCNationals"
                           placeholder="Permitted Share to GCC Nationals"
@@ -678,7 +680,8 @@
                           [(ngModel)]="companyFIP.permittedSharesToArabNationals"
                           [ngModelOptions]="{ standalone: true }"
                           pInputText
-                          type="text"
+                          type="number"
+                                step="any"
                           class="form-control"
                           name="permittedSharesToArabNationals"
                           placeholder="Permitted Share to Arab Nationals"
