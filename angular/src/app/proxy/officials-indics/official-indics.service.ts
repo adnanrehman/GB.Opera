@@ -62,6 +62,16 @@ export class OfficialIndicsService {
     { apiName: this.apiName,...config });
   
 
+  importGlobalIndicesByFilePath = (filePath: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, string>({
+      method: 'POST',
+      responseType: 'text',
+      url: '/api/app/official-indics/import-global-indices',
+      params: { filePath },
+    },
+    { apiName: this.apiName,...config });
+  
+
   importOfficialIndicesByFilePath = (filePath: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, string>({
       method: 'POST',

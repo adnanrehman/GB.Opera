@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GB.Opera.MarketSector
 {
-    public  class Countries
+    public  class Countriesdto
     {
         public Int16? CountryID { get; set; }
         public string?   Country { get; set; }

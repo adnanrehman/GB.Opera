@@ -45,18 +45,28 @@ namespace GB.Opera.CurrenciesExchange
 
         public async Task usp_InsertCurrencyExchange(List<CurrencyExchangeDto> list)
         {
-            foreach (var item in list)
+            try
             {
-                var parameters = new DynamicParameters();
-               
-                parameters.Add("@From", item.CurrencyFrom);
-                parameters.Add("@To", item.CurrencyTo);
-                parameters.Add("@Exchange", item.Exchange);
-                parameters.Add("@Date", item.Date);
-                
+                foreach (var item in list)
+                {
+                    var parameters = new DynamicParameters();
 
-                await _connection.ExecuteAsync(ProcedureNames.usp_InsertCurrencyExchange, parameters, commandType: CommandType.StoredProcedure);
+                    parameters.Add("@From", item.CurrencyFrom);
+                    parameters.Add("@To", item.CurrencyTo);
+                    parameters.Add("@Exchange", item.Exchange);
+                    parameters.Add("@Date", item.Date);
+
+
+                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertCurrencyExchange, parameters, commandType: CommandType.StoredProcedure);
+                }
+
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
     }
 }

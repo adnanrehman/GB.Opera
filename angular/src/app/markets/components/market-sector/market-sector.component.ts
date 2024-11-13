@@ -105,12 +105,17 @@ export class MarketSectorComponent {
   getMarketsInfo(id:number) {
     this.loading = true;
     this.marketSectorService.getMarketsInfoByMarketID(id).subscribe(res => {
+      this.Stockmarket = res.stockMarket
+    //   const userJson = JSON.stringify(this.Stockmarket); 
+      // console.log('User JSON:', userJson);
+       
       this.CountryGroup = res.countrygroup;
       this.Country = res.country;
       this.Currency = res.currency;
-      this.Stockmarket = res.stockMarket
+      
       this.capSizes = res.capacitySize
       this.sectors = res.sector
+ 
 
       this.stockMarketById = { ...res.stockMarketById[0] };
       this.stockMarketID=this.stockMarketById.stockMarketID;
@@ -189,7 +194,7 @@ export class MarketSectorComponent {
       }
       else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!'  });
-        this.getMarketsInfo(0);
+       this.getMarketsInfo(0);
       }
       // this.handleCorporateAnnouncement(this.corporateAnnouncement);
 

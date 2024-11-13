@@ -77,7 +77,7 @@ namespace CompaniesQNetProfits
                 parameters.Add("@PreviousRevenues", input.PreviousRevenues);
                 parameters.Add("@RevenuesChange", input.RevenuesChange);
 
-                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateCalculateCompQuartersNetProfit, parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateCalculateCompQuartersNetProfit, parameters, commandType: CommandType.StoredProcedure,commandTimeout:120);
 
             }
             catch (Exception ex)

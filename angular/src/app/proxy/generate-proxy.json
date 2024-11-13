@@ -7200,6 +7200,23 @@
                     "type": "System.String",
                     "typeSimple": "string"
                   }
+                },
+                {
+                  "name": "ImportGlobalIndices",
+                  "parametersOnMethod": [
+                    {
+                      "name": "filePath",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.String",
+                    "typeSimple": "string"
+                  }
                 }
               ]
             }
@@ -7430,6 +7447,43 @@
               "name": "ImportOfficialIndices",
               "httpMethod": "POST",
               "url": "api/app/official-indics/import-official-indices",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "filePath",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "filePath",
+                  "name": "filePath",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.String",
+                "typeSimple": "string"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.OfficialsIndics.IOfficialIndicsAppService"
+            },
+            "ImportGlobalIndicesByFilePath": {
+              "uniqueName": "ImportGlobalIndicesByFilePath",
+              "name": "ImportGlobalIndices",
+              "httpMethod": "POST",
+              "url": "api/app/official-indics/import-global-indices",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
@@ -23387,7 +23441,7 @@
         }
       ]
     },
-    "GB.Opera.MarketSector.Countries": {
+    "GB.Opera.MarketSector.Countriesdto": {
       "baseType": null,
       "isEnum": false,
       "enumNames": null,
@@ -23691,8 +23745,8 @@
         {
           "name": "Country",
           "jsonName": null,
-          "type": "[GB.Opera.MarketSector.Countries]",
-          "typeSimple": "[GB.Opera.MarketSector.Countries]",
+          "type": "[GB.Opera.MarketSector.Countriesdto]",
+          "typeSimple": "[GB.Opera.MarketSector.Countriesdto]",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
