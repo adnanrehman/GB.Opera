@@ -5,14 +5,14 @@ export interface CapacitySizes {
 }
 
 export interface Countries {
-  countryID: number;
+  countryID?: number;
   country?: string;
-  countryGroupID: number;
+  countryGroupID?: number;
   abbr?: string;
 }
 
 export interface CountryGroupsector {
-  countryGroupID: number;
+  countryGroupID?: number;
   countryGroup?: string;
 }
 
@@ -26,6 +26,12 @@ export interface GBMarketCaps {
   gbMarketCapID: number;
   capSizeID: number;
   stockMarketID: number;
+}
+
+export interface InsertmarketsectorDto {
+  stockMarketByID: StockMarketByID;
+  marketsSector: MarketsSector[];
+  marketCaps: MarketCaps[];
 }
 
 export interface MarketCaps {
@@ -61,8 +67,8 @@ export interface Sectors {
 }
 
 export interface StockMarketByID {
-  stockMarketID: number;
-  countryID: number;
+  stockMarketID?: number;
+  countryID?: number;
   stockMarket?: string;
   aStockMarket?: string;
   abbr?: string;
@@ -71,8 +77,8 @@ export interface StockMarketByID {
   aIndexName?: string;
   description?: string;
   aDescription?: string;
-  isActive: boolean;
-  financialCurrencyID: number;
+  isActive?: boolean;
+  financialCurrencyID?: number;
 }
 
 export interface StockMarkets {

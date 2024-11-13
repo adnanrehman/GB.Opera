@@ -6,7 +6,7 @@ namespace GB.Opera.MarketSector
 {
     public  class CountryGroupsector
     {
-        public Int16 CountryGroupID { get; set; }
-        public string CountryGroup { get; set; }
+        public Int16? CountryGroupID { get; set; }
+        public string? CountryGroup { get; set; }
     }
 }

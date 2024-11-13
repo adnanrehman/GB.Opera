@@ -18,6 +18,7 @@ import * as Countries from './countries';
 import * as CountryAccounts from './country-accounts';
 import * as CountryFactOrders from './country-fact-orders';
 import * as CountryGroups from './country-groups';
+import * as CurrenciesExchange from './currencies-exchange';
 import * as CurrentDividends from './current-dividends';
 import * as EndOfDay from './end-of-day';
 import * as Entry from './entry';

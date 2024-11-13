@@ -1,0 +1,51 @@
+ 
+create PROCEDURE [dbo].[usp_InsertCurrencyExchange]
+		@From varchar(50),
+		@To varchar(50),
+		@Exchange smallmoney,
+		@Date smalldatetime
+         
+
+AS
+declare @CurrencyFromID smallint,
+ @CurrencyToID smallint,
+@CurrencyExchangeID smallint
+
+BEGIN
+	SELECT @CurrencyFromID=[CurrencyID] FROM  [dbo].[Currencies] where [Currency]=@From
+	SELECT @CurrencyToID=[CurrencyID] FROM [dbo].[Currencies] where [Currency]=@To
+
+
+if not exists(SELECT [CurrencyExchangeID] FROM  [dbo].[CurrencyExchange]where [CurrencyFrom]=@CurrencyFromID and [CurrencyTo]=@CurrencyToID and cast(CONVERT(varchar(8),dbo.CurrencyExchange.Date, 112) as smalldatetime)=@Date)
+begin
+INSERT INTO [CurrencyExchange]
+           ([CurrencyFrom]
+           ,[CurrencyTo]
+           ,[Exchange]
+			,[Date])
+     VALUES(@CurrencyFromID, 
+           @CurrencyToID, 
+           @Exchange,
+		   @Date )
+end
+else
+begin
+
+SELECT @CurrencyExchangeID= [CurrencyExchangeID] FROM [CurrencyExchange]where [CurrencyFrom]=@CurrencyFromID and [CurrencyTo]=@CurrencyToID and cast(CONVERT(varchar(8),dbo.CurrencyExchange.Date, 112) as smalldatetime)=@Date
+
+
+UPDATE[CurrencyExchange]
+   SET [CurrencyFrom] = @CurrencyFromID,
+      [CurrencyTo] =  @CurrencyToID, 
+      [Exchange] =  @Exchange
+ WHERE [CurrencyExchangeID]= @CurrencyExchangeID
+
+end
+
+
+END
+
+
+
+
+

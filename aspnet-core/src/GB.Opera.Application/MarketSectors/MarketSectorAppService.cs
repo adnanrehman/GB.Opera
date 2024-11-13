@@ -53,5 +53,54 @@ namespace GB.Opera.MarketSectors
             }
         }
 
+        public async Task InsertCountryGroup(InsertmarketsectorDto model)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@StockMarketID",null);
+                parameters.Add("@CountryID", model.stockMarketByID.CountryID);
+                parameters.Add("@StockMarket", model.stockMarketByID.StockMarket);
+                parameters.Add("@AStockMarket", model.stockMarketByID.AStockMarket);
+                parameters.Add("@Abbr", model.stockMarketByID.Abbr);
+                parameters.Add("@AAbbr", model.stockMarketByID.AAbbr);
+                parameters.Add("@IndexName", model.stockMarketByID.IndexName);
+                parameters.Add("@AIndexName", model.stockMarketByID.AIndexName);
+                parameters.Add("@Description", model.stockMarketByID.Description);
+                parameters.Add("@ADescription", model.stockMarketByID.ADescription);
+                parameters.Add("@IsActive", model.stockMarketByID.IsActive);
+                parameters.Add("@FinancialCurrencyID", model.stockMarketByID.FinancialCurrencyID);
+
+                //await _connection.ExecuteAsync(ProcedureNames.usp_InsertCGroup_New, parameters, commandType: CommandType.StoredProcedure);
+                var stockemarketid = await _connection.QuerySingleAsync<int>(ProcedureNames.usp_InsertMarketInfo, parameters, commandType: CommandType.StoredProcedure);
+
+                foreach (var item in model.marketsSector)
+                {
+                    var parameters2 = new DynamicParameters();
+                    parameters2.Add("@MarketSectorID", item.MarketSectorID);
+                    parameters2.Add("@SectorID", item.SectorID);
+                    parameters2.Add("@StockMarketID", stockemarketid);
+
+                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertMarketSectors, parameters2, commandType: CommandType.StoredProcedure);
+                }
+
+                foreach (var item in model.marketCaps)
+                {
+                    var parameters3 = new DynamicParameters();
+                    parameters3.Add("@MarketCapID", item.MarketCapID);
+                    parameters3.Add("@CapSizeID", item.CapSizeID);
+                    parameters3.Add("@StockMarketID", stockemarketid); 
+
+                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertMarketCaps, parameters3, commandType: CommandType.StoredProcedure);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
     }
 }

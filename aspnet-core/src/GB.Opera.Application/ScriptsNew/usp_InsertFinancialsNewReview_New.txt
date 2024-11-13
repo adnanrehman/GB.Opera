@@ -1,6 +1,5 @@
  
-
-Alter  PROCEDURE [dbo].[usp_InsertFinancialsNewReview_New]
+ALTER  PROCEDURE [dbo].[usp_InsertFinancialsNewReview_New]
 (
 @FinancialsID bigint,
 @CompanyID smallint,
@@ -18,8 +17,7 @@ Alter  PROCEDURE [dbo].[usp_InsertFinancialsNewReview_New]
 @APeriodNote nvarchar(150)
 )
 AS
-
-SET NOCOUNT ON 
+ 
 
 Declare @NewReviewID bigint
 
@@ -34,7 +32,7 @@ begin
 
 set @isNew='true'
 
-INSERT INTO [Financials]
+INSERT INTO  [Financials]
            ([CompanyID]
            ,[AsOfDate]
            ,[PeriodTypeID]
@@ -45,7 +43,7 @@ INSERT INTO [Financials]
 
 set @FinancialsID=@@identity
 
-INSERT INTO [FinancialsQYPeriods]
+INSERT INTO  [FinancialsQYPeriods]
            ([CompanyID]
            ,[FinancialsID]
            ,[Year]
@@ -97,16 +95,16 @@ INSERT INTO [NewReviewFinancials]
 
 set @NewReviewID=@@identity
 
-exec usp_InsertUpdateFinancialCommentsStatus @NewReviewID,1,@FinancialsID,@Remarks,@ARemarks,@UserID
+exec usp_InsertUpdateFinancialCommentsStatus_new @NewReviewID,1,@FinancialsID,@Remarks,@ARemarks,@UserID
 
 --
-UPDATE [FinancialsQYPeriods]
+UPDATE  [FinancialsQYPeriods]
    SET   [IsYearly] = @IsYearly
 WHERE CompanyID=@CompanyID and FinancialsID=@FinancialsID
 
 --
 
-exec usp_getFinanicals @CompanyID
+ --exec usp_getFinanicals @CompanyID
 
 select @FinancialsID as FinancialsID,@NewReviewID as NewReviewFinancialID,@AsOfDate as AsofDate, @SPFilename as FName
 --select @SPFilename as FName
