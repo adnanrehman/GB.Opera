@@ -31,6 +31,7 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.OpenIddict;
 
 namespace GB.Opera;
 
@@ -57,6 +58,18 @@ public class OperaHttpApiHostModule : AbpModule
                 options.UseLocalServer();
                 options.UseAspNetCore();
             });
+
+        });
+
+        PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
+        {
+            options.AddDevelopmentEncryptionAndSigningCertificate = false;
+        });
+
+        PreConfigure<OpenIddictServerBuilder>(builder =>
+        {
+            builder.AddEphemeralEncryptionKey();
+            builder.AddEphemeralSigningKey();
         });
     }
 
@@ -184,6 +197,7 @@ public class OperaHttpApiHostModule : AbpModule
 
         if (env.IsDevelopment())
         {
+
             app.UseDeveloperExceptionPage();
         }
 
