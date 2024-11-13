@@ -11,7 +11,7 @@ namespace GB.Opera.MarketSector
         public MarketSectorDto()
         {
             Countrygroup = new List<CountryGroupsector>();
-            Country = new List<Countries>();
+            Country = new List<Countriesdto>();
             CapacitySize = new List<CapacitySizes>();
             StockMarket = new List<StockMarkets>();
             StockMarketById = new List<StockMarketByID>();
@@ -23,7 +23,7 @@ namespace GB.Opera.MarketSector
         }
 
         public List<CountryGroupsector> Countrygroup { get; set; }
-        public List<Countries> Country { get; set; }
+        public List<Countriesdto> Country { get; set; }
         public List<CapacitySizes> CapacitySize { get; set; }
         public List<StockMarkets> StockMarket { get; set; }
         public List<StockMarketByID> StockMarketById { get; set; }

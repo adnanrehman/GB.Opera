@@ -4,7 +4,7 @@ export interface CapacitySizes {
   capSize?: string;
 }
 
-export interface Countries {
+export interface Countriesdto {
   countryID?: number;
   country?: string;
   countryGroupID?: number;
@@ -43,7 +43,7 @@ export interface MarketCaps {
 
 export interface MarketSectorDto {
   countrygroup: CountryGroupsector[];
-  country: Countries[];
+  country: Countriesdto[];
   capacitySize: CapacitySizes[];
   stockMarket: StockMarkets[];
   stockMarketById: StockMarketByID[];

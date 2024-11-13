@@ -49,11 +49,11 @@ namespace Reviewers
             {
                 var reader = await _connection.QueryMultipleAsync(ProcedureNames.RPT_ReviewReportQuarterlyNew,
                     param: new { FinancialsID = financialsID },
-                    commandType: CommandType.StoredProcedure);
+                    commandType: CommandType.StoredProcedure,commandTimeout:300);
 
                 var output = new ReviewReportOutputDto();
-                output.Reviewers = reader.Read<ReviewerDto>().Take(0).ToList();
-                output.ReviewersNew = reader.Read<ReviewerDto>().Take(0).ToList();
+              //  output.Reviewers = reader.Read<ReviewerDto>().Take(0).ToList();
+               // output.ReviewersNew = reader.Read<ReviewerDto>().Take(0).ToList();
                 output.IncomeStatement = reader.Read<ReviewReportDto>().ToList();
                 output.BalanceSheet = reader.Read<ReviewReportDto>().ToList();
                 return output;

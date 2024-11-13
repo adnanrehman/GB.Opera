@@ -114,8 +114,7 @@ export class CurrencyExchangeComponent {
 
 
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-
-      console.log('Imported JSON Data:', jsonData);
+ 
 
 
       const formattedData = jsonData.slice(1).map((row: any) => {
