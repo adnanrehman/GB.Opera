@@ -1,4 +1,4 @@
-import { AuthService, PermissionService } from '@abp/ng.core';
+import { AuthService, ConfigStateService, PermissionService } from '@abp/ng.core';
 import { Component, ComponentFactoryResolver, ElementRef, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { GbFactsComponent } from '../application/components/gb-facts/gb-facts.component';
 import { AccountsClassificationComponent } from '../application/components/accounts-classification/accounts-classification.component';
@@ -22,6 +22,7 @@ import { MenuService } from '../menu/menu.service';
 export class HomeComponent {
   tabs: any[] = [];
   menus: any[] = [];
+  userRoles: any[] = [];
   selectedIndex = 0;
   activeTab!:string;
   navbarCollapsed = true;
@@ -44,6 +45,7 @@ export class HomeComponent {
 
   constructor(private authService: AuthService,
     private tabService: TabService,
+    private config: ConfigStateService,
     private permissionService: PermissionService,
     private menuService: MenuService,
     private spinner: NgxSpinnerService,
@@ -72,6 +74,7 @@ export class HomeComponent {
 
   ngOnInit(){
     this.spinner.show();
+    this.loadUserRoles();
     this.tabService.tabs$.subscribe(tabs => {
       this.tabs = tabs;
       this.spinner.hide();
@@ -90,6 +93,16 @@ export class HomeComponent {
       });
       this.spinner.hide();
     }); 
+  }
+
+  loadUserRoles (){
+    debugger;
+    const currentUser = this.config.getOne("currentUser");
+    this.userRoles = currentUser.roles;
+  }
+
+  isInRole(roleName: string): boolean {
+    return this.userRoles.includes(roleName);
   }
 
   addinTab(type:string){

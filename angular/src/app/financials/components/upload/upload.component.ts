@@ -133,6 +133,10 @@ getEntryusers()
   getStockMarkets() {
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
+      if(this.stockMarkets.length > 0){
+        this.stockMarketID = this.stockMarkets[0].stockMarketID;
+        this.getStockMarketSectorsByStockMarketID();
+      }
     });
   }
 
@@ -162,6 +166,7 @@ getEntryusers()
   }  
   
   getSectorCompaniesBySectorIDAndStockMarketID() {
+    this.loading = true;
     if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
       this.sectorID = this.companyMarketSectors[0].sectorID;
     this.commonService
@@ -175,6 +180,7 @@ getEntryusers()
   }
 
   getFinancialsBycompanyIdByCompanyID() {
+    this.loading = true;
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
     this.uploadService

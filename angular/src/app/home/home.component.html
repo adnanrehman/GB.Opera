@@ -24,19 +24,19 @@
       </ng-template>
 
       </p-accordionTab>
-    <p-accordionTab>
+    <p-accordionTab >
       <ng-template pTemplate="header">Administration</ng-template>
       <ng-template pTemplate="content" >
         <ul class="nav flex-column bg-nav text-white w-100">
-          <li href="javascript:;" routerLink="/identity/roles" class="nav-link text-white">
+          <li href="javascript:;" routerLink="/identity/roles" class="nav-link text-white" *ngIf="isInRole('admin')">
             <i class="fa fa-id-card-o"></i>
             <span class="mx-2 text-white">Roles</span>
           </li>
-          <li href="javascript:;" routerLink="/identity/users" class="nav-link text-white">
+          <li href="javascript:;" routerLink="/identity/users" class="nav-link text-white" *ngIf="isInRole('admin')">
             <i class="fa fa-id-card-o"></i>
             <span class="mx-2 text-white">Users</span>
           </li>
-          <li href="javascript:;" routerLink="/tenant-management/tenants" class="nav-link text-white">
+          <li href="javascript:;" routerLink="/tenant-management/tenants" class="nav-link text-white" *ngIf="isInRole('admin')">
             <i class="fa fa-users"></i>
             <span class="mx-2 text-white">Tenants</span>
           </li>

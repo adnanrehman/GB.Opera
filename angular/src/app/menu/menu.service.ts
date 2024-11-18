@@ -224,14 +224,14 @@ constructor(){
           href: "country-accounts-facts-order", title: "Country Accounts Facts Order", permission: Company_CountryAccountsFactsOrder, component: CountryAccountsFactsOrderComponent,
           active: false
         },
-        {
-          href: "agencies-rating", title: "Agencies Rating", permission: Company_AgenciesRating, component: AgenciesRatingComponent,
-          active: false
-        },
-        {
-          href: "companies-agencies-and-ratings", title: "Companies Agencies and Ratings", permission: Company_CompaniesAgenciesAndRatings, component: CompaniesAgenciesAndRatingsComponent,
-          active: false
-        },
+        // {
+        //   href: "agencies-rating", title: "Agencies Rating", permission: Company_AgenciesRating, component: AgenciesRatingComponent,
+        //   active: false
+        // },
+        // {
+        //   href: "companies-agencies-and-ratings", title: "Companies Agencies and Ratings", permission: Company_CompaniesAgenciesAndRatings, component: CompaniesAgenciesAndRatingsComponent,
+        //   active: false
+        // },
       ],
       active: false
     },
