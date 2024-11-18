@@ -58,7 +58,7 @@ namespace GB.Opera.MarketSectors
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@StockMarketID",null);
+                parameters.Add("@StockMarketID", model.stockMarketByID.StockMarketID);
                 parameters.Add("@CountryID", model.stockMarketByID.CountryID);
                 parameters.Add("@StockMarket", model.stockMarketByID.StockMarket);
                 parameters.Add("@AStockMarket", model.stockMarketByID.AStockMarket);
