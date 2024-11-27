@@ -51,7 +51,7 @@ export class GbFactsComponent {
     debugger; // For debugging purposes
     this.loading = true;
     this.gnfactservice.getAllFactsMappings().subscribe(res => {
-      console.log('Tree res:', res);
+       
 
       // Initialize idMap and gbFactListDto
       let idMap = {};
@@ -165,8 +165,10 @@ export class GbFactsComponent {
 
   onNodeClick(event: any) {
     // Handle single click logic here
-    console.log('Node clicked:', event.node);
-    debugger;
+    console.log('Node clicked:', event);
+   
+    
+     
     if(event.node.parentId != -1){
       const element = event.originalEvent.currentTarget; 
       element.addEventListener('dblclick', () => {
@@ -184,6 +186,5 @@ export class GbFactsComponent {
   }
 
 
-
-
+ 
 }

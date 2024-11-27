@@ -519,7 +519,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-4">
-                    <label class="col-form-label">Inception Fee</label>
+                    <label class="col-form-label">Inception Price</label>
                     <p-inputNumber
                       autofocus
                       [(ngModel)]="companyMutualFund.priceAtInception"
@@ -527,7 +527,7 @@
                       mode="decimal"
                       class="form-control"
                       name="priceAtInception"
-                      placeholder="Inception Fee"
+                      placeholder="Inception Price"
                       ></p-inputNumber>
                   </div>
                   <div class="col-md-4">
@@ -579,6 +579,39 @@
                       pInputText type="checkbox" />
                       <label class="form-check-label" for="defaultCheck3">Active</label>
                     </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Date  of Inception </label>
+                    <p-calendar dataType="string" [style]="{ width: '100%' }"   required="true" [(ngModel)]="companyMutualFund.dateOfInception" 
+                    name="selectedDate" [showIcon]="true" placeholder="Select a Date" />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Mini Intial Subs:</label>
+                    <p-inputNumber
+                      autofocus
+                      [(ngModel)]="companyMutualFund.minimumInitialSubscription"
+                      [ngModelOptions]="{ standalone: true }"
+                      
+                      mode="decimal"
+                      class="form-control"
+                      name="fundAssets"
+                      placeholder="Fund Assets"
+                      ></p-inputNumber>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Portfolio Type</label>
+                    <p-dropdown
+                      [options]="portfolioTypes"
+                      required="true"
+                      [(ngModel)]="companyMutualFund.portfolioTypeID"
+                      [ngModelOptions]="{ standalone: true }"
+                      placeholder="Select a portfolioTypeID"
+                      optionLabel="portfolioType"
+                      optionValue="portfolioTypeID"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
                   </div>
                 </div>
               </p-tabPanel>

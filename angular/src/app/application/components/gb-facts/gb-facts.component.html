@@ -3,8 +3,10 @@
 <div class="col-sm-11">
     <p-tree [value]="gbFactListDto" selectionMode="single"
     class="w-full md:w-30rem" [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px"
-    [filter]="true" filterMode="strict" filterPlaceholder="Search GB Facts"
-    (onNodeSelect)="onNodeClick($event)"
+    [filter]="true" filterMode="contains" filterPlaceholder="Search GB Facts"
+    
+    (onNodeSelect)="onNodeClick($event)" 
+    
     >
 </p-tree>
 

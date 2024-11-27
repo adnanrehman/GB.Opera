@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { PermissionService } from '@abp/ng.core';
 import { Company_MutaulFunds } from 'src/app/services/permissions';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-mutaul-funds',
@@ -42,6 +43,7 @@ import { Company_MutaulFunds } from 'src/app/services/permissions';
   styleUrl: './mutaul-funds.component.scss'
 })
 export class MutaulFundsComponent {
+  selectedDate = moment(new Date()).format("MM/DD/YYYY")
   loading: boolean = false;
   selectedItem: any;
   suggestions: any[] = [];
