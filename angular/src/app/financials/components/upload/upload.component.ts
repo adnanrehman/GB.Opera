@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from "primeng/dropdown"; 
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
@@ -53,6 +53,8 @@ export class UploadComponent {
     delete: boolean
   }
   stockMarkets = [];
+  selectedItem: any;
+  suggestions: any[] = [];
   filteredCountries: any[];
   companyMarketSectors = [];
   newsEngs: NewsDto[] = [];
@@ -115,6 +117,24 @@ export class UploadComponent {
     
   }
 
+  search(event: AutoCompleteCompleteEvent) {
+    this.loading = true;
+    this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
+      this.suggestions = res;
+      this.loading = false;
+    });
+  }
+
+  onSelect(event: any) {
+    debugger;
+    this.loading = true;
+    this.stockMarketID = event.value.stockMarketID;
+    this.sectorID = event.value.sectorID;
+    this.companyID = event.value.companyID;
+    this.getStockMarkets();
+    this.loading = false;
+  }
+
 
 getEntryusers()
 {
@@ -134,6 +154,7 @@ getEntryusers()
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
       if(this.stockMarkets.length > 0){
+        if(!this.stockMarketID)
         this.stockMarketID = this.stockMarkets[0].stockMarketID;
         this.getStockMarketSectorsByStockMarketID();
       }
@@ -166,9 +187,13 @@ getEntryusers()
   }  
   
   getSectorCompaniesBySectorIDAndStockMarketID() {
+    debugger;
     this.loading = true;
-    if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
+    if (this.companyMarketSectors.length > 0){
+      if(!this.sectorID)
       this.sectorID = this.companyMarketSectors[0].sectorID;
+    }
+      
     this.commonService
       .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
@@ -181,8 +206,11 @@ getEntryusers()
 
   getFinancialsBycompanyIdByCompanyID() {
     this.loading = true;
-    if (this.companyID == undefined && this.companiesTickers.length > 0)
+    if (this.companiesTickers.length > 0){
+      if(!this.companyID)
       this.companyID = this.companiesTickers[0].companyID;
+    }
+      
     this.uploadService
       .getFinancialsBycompanyIdByCompanyID(this.companyID)
       .subscribe(res => {

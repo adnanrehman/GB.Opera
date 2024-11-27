@@ -131,6 +131,7 @@ export class EstimatesAndForecastsComponent {
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
       if (this.companyMarketSectors.length > 0){
+        if(!this.sectorID)
         this.sectorID = this.companyMarketSectors[0].sectorID;
         this.getSectorCompaniesBySectorIDAndStockMarketID();
       } 
@@ -149,6 +150,7 @@ export class EstimatesAndForecastsComponent {
         this.periodTypes = res.periodTypes;
         this.qPeriods = res.qPeriods;
         if (this.companiesTickers.length > 0) {
+          if(!this.companyID)
           this.companyID = this.companiesTickers[0].companyID;
           this.getEstimatesandForecastsByCompanyID();
         }

@@ -157,6 +157,7 @@ export class MutaulFundsComponent {
       this.mfCategories = res.mfCategories;
       this.mfSubCategories = res.mfSubCategories;
       if (this.companies.length > 0) {
+        if(!this.companyID)
         this.companyID = this.companies[0].companyID;
         this.getCompanyMutualFundsByCompanyID();
       }

@@ -29,6 +29,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { FinancialsAdminComponent } from 'src/app/financials/components/financials-admin/financials-admin.component';
 import { PermissionService } from '@abp/ng.core';
 import { Company_Management } from 'src/app/services/permissions';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-management',
@@ -211,7 +212,8 @@ export class ManagementComponent {
     this.commonService.getCompMarketSectorsByMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
       if (this.companyMarketSectors.length > 0){
-        this.sectorID = this.companyMarketSectors[0].sectorID;
+        if(!this.sectorID)
+          this.sectorID = this.companyMarketSectors[0].sectorID;
         this.getCompaniesTickersBySectorIDAndMarketID();
       } 
       else this.loading = false;
@@ -227,6 +229,7 @@ export class ManagementComponent {
       .subscribe(res => {
         this.companiesTickers = res;
         if (this.companiesTickers.length > 0){
+          if(!this.companyID)
           this.companyID = this.companiesTickers[0].companyID;
           this.getCompanyManagements();
         } 
@@ -236,6 +239,7 @@ export class ManagementComponent {
 
   getCompanyManagements() {
     debugger;
+    this.loading = true;
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
     this.companyManagmentService
@@ -262,7 +266,22 @@ export class ManagementComponent {
     this.projectStatuses = companyManagement.projectStatuses;
     this.loading = false;
     if (this.managements.length > 0) this.handleManagement(this.managements[0]);
-    else this.loading = false;
+    else this.addNewManagement;
+    if (this.seniorManagements.length > 0) this.handleseniorManagement(this.seniorManagements[0]);
+    else this.addNewManagement;
+    if (this.boardMembers.length > 0) this.handleboardMember(this.boardMembers[0]);
+    else this.addNewManagement;
+    if (this.auditors.length > 0) this.handleauditor(this.auditors[0]);
+    else this.addNewCompanyManagement;
+    if (this.branches.length > 0) this.handleBranch(this.branches[0]);
+    else this.addNewCompanyManagement;
+    if (this.companyFinancialOverviews.length > 0) this.handlecompanyFinancialOverview(this.companyFinancialOverviews[0]);
+    else this.addNewCompanyManagement;
+    if (this.contactInformations.length > 0) this.handlecontactInfo(this.contactInformations[0]);
+    else this.addNewCompanyManagement;
+    if (this.companyProjects.length > 0) this.handlecompanyProject(this.companyProjects[0]);
+    else this.addNewCompanyManagement;
+    this.loading = false;
   }
 
   handleManagement(management: ManagementDto) {
@@ -278,6 +297,10 @@ export class ManagementComponent {
   handleboardMember(boardMember: BoardMemberDto) {
     this.boardMember = boardMember;
     this.boardMemberActivation = this.boardMember.isActive ? 1 : 0;
+    if(this.boardMember.since)
+      this.boardMember.since = moment(this.boardMember.since).format("MM/DD/YYYY")
+    if(this.boardMember.till)
+      this.boardMember.till = moment(this.boardMember.till).format("MM/DD/YYYY")
   }
   handleauditor(auditor: AuditorDto) {
     this.auditor = auditor;
@@ -493,6 +516,8 @@ export class ManagementComponent {
   createOrUpdateBMembers() {
     this.loading = true;
     this.boardMember.isActive = this.boardMemberActivation == 1 ? true : false;
+    this.boardMember.since = moment(this.boardMember.since).format();
+    this.boardMember.till = moment(this.boardMember.till).format();
     if (this.boardMember.companyID == 0) this.boardMember.companyID = this.companyID;
     this.companyManagmentService.createOrUpdateBMembersByModel(this.boardMember).subscribe(
       res => {
