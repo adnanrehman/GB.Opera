@@ -6,7 +6,7 @@
       <div class="card">
         <div class="card-body p-1">
           <div class="row">
-      <p-tree [value]="acFactsDtos" selectionMode="single" [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px" (onNodeSelect)="onNodeClick($event)">
+      <p-tree [value]="acFactsDtos" selectionMode="single" [filter]="true" filterMode="contains" filterPlaceholder="Search Account Classification" [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px" (onNodeSelect)="onNodeClick($event)">
         <ng-template let-node pTemplate="default">
           <span pTooltip="{{ node.aAcFact }}" tooltipPosition="top">
             
@@ -28,7 +28,7 @@
       </div>
       <!-- Tree 2 -->
        
-      <p-tree [value]="gbFactListDto" [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px" selectionMode="checkbox" [(selection)]="selectedNodes" (onNodeSelect)="onNodeSelect($event)">
+      <p-tree [value]="gbFactListDto" [filter]="true" filterMode="contains" filterPlaceholder="Search GB Facts" [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px" selectionMode="checkbox" [(selection)]="selectedNodes" (onNodeSelect)="onNodeSelect($event)">
         <ng-template let-node pTemplate="default">
           <span pTooltip="{{ node.agbFact }}" tooltipPosition="top">
             <p-checkbox [value]="node"></p-checkbox>

@@ -65,6 +65,7 @@ export class AccountsClassificationComponent {
           ...item,
           label: item.acFact || '', // Assign gbFact to label or default to empty string
           parent: null,
+          key:item.acFact || '',
           Tooltip: item.aAcFact,
           expanded:item.parentId == -1 ? true : false,
           children: []
@@ -125,6 +126,7 @@ export class AccountsClassificationComponent {
         let newItem = {
           ...item,
           label: item.gbFact || '', // Assign gbFact to label or default to empty string
+          key:item.gbFact || '',
           Tooltip: item.agbFact,
           leaf: item.agbFact,
           expanded:item.parentId == -1 ? true : false,
