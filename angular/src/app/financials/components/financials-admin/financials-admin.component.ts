@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from "primeng/dropdown"; 
+import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -51,7 +51,7 @@ export class FinancialsAdminComponent {
   sectorID: number;
   stockMarketID: number;
   companyID: number;
-  rate:number = 0;
+  rate: number = 0;
   stockMarkets = [];
   companyMarketSectors = [];
   companiesTickers = [];
@@ -61,6 +61,7 @@ export class FinancialsAdminComponent {
   users: any[] = [];
   usersList: any[] = [];
   statuses: any[] = [];
+  years:string =''
   newReviewFinancial: NewReviewFinancialDto = {
     newReviewFinancialID: 0,
     financialsID: 0,
@@ -75,17 +76,17 @@ export class FinancialsAdminComponent {
     edit: boolean,
     delete: boolean
   }
-  constructor( 
+  constructor(
     private permissionService: PermissionService, private commonService: CommonService,
     private financialsAdminService: FinancialsAdminService
-  ){
-   this.permission = {
-     create: false,
-     edit : false,
-     delete  :false
-   }
+  ) {
+    this.permission = {
+      create: false,
+      edit: false,
+      delete: false
+    }
   }
-  ngOnInit() { 
+  ngOnInit() {
     if (this.permissionService.getGrantedPolicy(Financial_FinancialsAdmin + '.Create')) {
       this.permission.create = true;
     }
@@ -120,7 +121,7 @@ export class FinancialsAdminComponent {
   getStockMarkets() {
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
-      if(this.stockMarkets.length > 0){
+      if (this.stockMarkets.length > 0) {
         this.stockMarketID = this.stockMarkets[0].stockMarketID;
         this.getStockMarketSectorsByStockMarketID();
       }
@@ -139,7 +140,7 @@ export class FinancialsAdminComponent {
 
   getSectorCompaniesBySectorIDAndStockMarketID() {
     debugger;
-    this.loading =true;
+    this.loading = true;
     if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
       this.sectorID = this.companyMarketSectors[0].sectorID;
     this.commonService
@@ -153,7 +154,7 @@ export class FinancialsAdminComponent {
 
   getNewFinancialReviewsByCompanyID() {
     debugger;
-    this.loading =true;
+    this.loading = true;
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
     this.financialsAdminService
@@ -174,16 +175,107 @@ export class FinancialsAdminComponent {
 
   handleNewReviewFinancial(newReviewFinancial: NewReviewFinancialDto) {
     this.newReviewFinancial = newReviewFinancial;
-    if(this.newReviewFinancial.asOfDate)
+    if (this.newReviewFinancial.asOfDate)
       this.newReviewFinancial.asOfDate = moment(this.newReviewFinancial.asOfDate).format("MM/DD/YYYY")
     this.loading = false;
   }
 
   updateAdminFinancialsByInput() {
+    this.loading = true;
+
+    debugger;
+    // Perform the check before updating
+
+    if (this.years=="")
+    {
+      this.years=this.newReviewFinancial.year.toString()
+    }
+    this.financialsAdminService.checkfinancialyearByYearAndQPeriodIDAndCompanyID(
+        this.years,  
+        this.newReviewFinancial.qPeriodID,this.companyID
+       
+    ).subscribe(
+        (res: any) => {  // Make sure we handle the response type correctly
+            // Check if the response has an error message
+            if (res && res.errorMessage) {
+                // If there's an error message in the response, show it
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 4000,
+                    title: 'Error!',
+                    text: res.errorMessage || 'This period is already added in this year.',
+                    icon: 'error',
+                });
+                this.loading = false;  // Stop loading on error
+                return; // Stop the execution of the save process
+            }
+
+            // If no error message exists, proceed with the save operation
+            this.newReviewFinancial.asOfDate = moment(this.newReviewFinancial.asOfDate).format();
+
+            // Call the update method
+            this.financialsAdminService.updateAdminFinancialsByInput(this.newReviewFinancial).subscribe(
+                (updateRes) => {
+                    // Handle the successful update response
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 4000,
+                        title: 'Success!',
+                        text: `${this.newReviewFinancial.qPeriod} updated successfully`,
+                        icon: 'success',
+                    });
+
+                    // Optionally handle the updated financial review if needed (e.g., update UI)
+                    this.handleNewReviewFinancial(this.newReviewFinancial);
+                    this.loading = false;
+                },
+                (updateError) => {
+                    // Handle error from the update API call
+                    console.error('Error during update:', updateError);
+                    this.loading = false;
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 4000,
+                        title: 'Error!',
+                        text: 'There was an error updating the financial record.',
+                        icon: 'error',
+                    });
+                },
+                () => {
+                    // Cleanup if necessary (this will be called in both success and error cases of the update)
+                    this.loading = false;
+                }
+            );
+        },
+        (checkError) => {
+            // Handle error from the check service
+            this.loading = false;
+            console.error('Error during check: ', checkError);
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                title: 'Error!',
+                text: 'This period is already added in this year.',
+                icon: 'error',
+            });
+        }
+    );
+}
+
+
+
+  updateFinancialRateChangesByFinancialIdAndRate() {
     debugger;
     this.loading = true;
-    this.newReviewFinancial.asOfDate = moment(this.newReviewFinancial.asOfDate).format();
-    this.financialsAdminService.updateAdminFinancialsByInput(this.newReviewFinancial).subscribe(res => {
+    this.financialsAdminService.updateFinancialRateChangesByFinancialIdAndRate(this.newReviewFinancial.financialsID, this.rate).subscribe(res => {
       debugger;
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newReviewFinancial.qPeriod + ' updated successfully', icon: 'success', });
       this.handleNewReviewFinancial(this.newReviewFinancial);
@@ -197,20 +289,89 @@ export class FinancialsAdminComponent {
       });
   }
 
-  updateFinancialRateChangesByFinancialIdAndRate() {
-    debugger;
-    this.loading = true;
-    this.financialsAdminService.updateFinancialRateChangesByFinancialIdAndRate(this.newReviewFinancial.financialsID,this.rate).subscribe(res => {
-      debugger;
-      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newReviewFinancial.qPeriod + ' updated successfully', icon: 'success', });
-      this.handleNewReviewFinancial(this.newReviewFinancial);
-      this.loading = false;
-    },
-      error => {
-        this.loading = false;
-      },
-      () => {
-        this.loading = false;
-      });
+  deleteFinancial(financialsID: number): void {
+    // Show confirmation dialog first
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `You are about to delete the financial record with ID: ${financialsID}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Proceed with deletion if the user confirms
+        this.loading = true;
+
+        this.financialsAdminService.deleteFinancialByFinancialId(financialsID).subscribe(
+          (response) => {
+            // Assuming the response is successful
+            this.loading = false;
+
+            // Show success message
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 4000,
+              title: 'Success!',
+              text: `${financialsID} deleted successfully`,
+              icon: 'success',
+            });
+
+            // Handle after success
+            this.getNewFinancialReviewsByCompanyID();
+          },
+          (error) => {
+            this.loading = false;
+            // Show error message if the deletion fails
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 4000,
+              title: 'Error!',
+              text: 'There was an error deleting the financial record.',
+              icon: 'error',
+            });
+          }
+        );
+      } else {
+        // If the user cancels the deletion, you can show a cancellation message (optional)
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 4000,
+          title: 'Cancelled',
+          text: 'The financial record was not deleted.',
+          icon: 'info',
+        });
+      }
+    });
+  }
+
+
+  onQPeriodChange(event: any) {
+    // Log the selected Q Period to the console (optional)
+    console.log('Selected Q Period:', event.value);
+
+    // Implement logic for the "Yearly" checkbox based on selected Q Period
+    if (event.value === 4) {
+      // Enable "Yearly" checkbox when Q4 is selected
+      
+      this.newReviewFinancial.isYearly = true;
+    } else {
+      // Disable "Yearly" checkbox when any other period is selected
+     
+      this.newReviewFinancial.isYearly = false;
+
+    }
+  }
+  onYearChange(event: any) {
+   
+    this.years= event;// Logs the selected year as a string (e.g., "24")
+   
   }
 }

@@ -106,5 +106,56 @@ namespace FinancialsAdmins
                 throw ex;
             }
         }
+
+        public async Task DeleteFinancial(long financialId)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@FinancialsID", financialId);
+
+                await _connection.ExecuteAsync(ProcedureNames.Deletefianancial, parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception before rethrowing it (assuming you have a logger)
+                
+                throw;
+            }
+        }
+
+        public async Task<string> Checkfinancialyear(string year, Int16 QPeriodID,Int16 CompanyID)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@year", year);
+                parameters.Add("@QPeriodID", QPeriodID);
+                parameters.Add("@CompanyID", CompanyID);
+
+                // This will check if the period is already added
+                var result = await _connection.ExecuteScalarAsync<string>(ProcedureNames.CheckFinancialsQYPeriods, parameters, commandType: CommandType.StoredProcedure);
+
+                // If the result is null or empty, it means the period is not yet added, so return null
+                if (string.IsNullOrEmpty(result))
+                {
+                    return null; // Period is not added
+                }
+
+                // If the period is already added, return the appropriate message
+                return "This period is already added in this year";
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("An error occurred while checking the financial period.", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("An unexpected error occurred.", ex);
+            }
+        }
+
+
+
     }
 }

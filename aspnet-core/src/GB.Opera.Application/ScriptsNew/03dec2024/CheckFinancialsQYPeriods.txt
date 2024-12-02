@@ -1,0 +1,20 @@
+Alter PROCEDURE [CheckFinancialsQYPeriods]
+    @year AS VARCHAR(4),
+    @QPeriodID AS SMALLINT,
+	@CompanyID as SMALLINT
+AS
+BEGIN
+    -- Check if the record already exists for the given year and QPeriodID
+    IF EXISTS (SELECT 1 FROM [FinancialsQYPeriods] WHERE [Year] = @year AND QPeriodID = @QPeriodID and  CompanyID=@CompanyID)
+    BEGIN
+        -- If the record exists, raise an error or return a message
+        RAISERROR('This period is already added in this year', 16, 1);
+        RETURN;
+    END
+    ELSE
+    BEGIN
+        -- If the record does not exist, proceed with other logic (if any)
+        -- You can insert data here or return a different message
+        PRINT 'No existing period for this year.';
+    END
+END

@@ -5672,6 +5672,120 @@
               },
               "allowAnonymous": null,
               "implementFrom": "FinancialsAdmins.IFinancialsAdminAppService"
+            },
+            "DeleteFinancialByFinancialId": {
+              "uniqueName": "DeleteFinancialByFinancialId",
+              "name": "DeleteFinancial",
+              "httpMethod": "DELETE",
+              "url": "api/app/financials-admin/financial/{financialId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "financialId",
+                  "typeAsString": "System.Int64, System.Private.CoreLib",
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "financialId",
+                  "name": "financialId",
+                  "jsonName": null,
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "FinancialsAdmins.FinancialsAdminAppService"
+            },
+            "CheckfinancialyearByYearAndQPeriodIDAndCompanyID": {
+              "uniqueName": "CheckfinancialyearByYearAndQPeriodIDAndCompanyID",
+              "name": "Checkfinancialyear",
+              "httpMethod": "POST",
+              "url": "api/app/financials-admin/checkfinancialyear",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "year",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "QPeriodID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "CompanyID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "year",
+                  "name": "year",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "QPeriodID",
+                  "name": "QPeriodID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "CompanyID",
+                  "name": "CompanyID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.String",
+                "typeSimple": "string"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "FinancialsAdmins.FinancialsAdminAppService"
             }
           }
         },

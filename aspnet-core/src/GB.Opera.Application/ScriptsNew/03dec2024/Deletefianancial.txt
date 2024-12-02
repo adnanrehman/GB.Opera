@@ -1,0 +1,15 @@
+Create Procedure Deletefianancial
+@FinancialsID as bigint
+
+as
+begin
+Delete From [FinancialStatusRemarks] Where FinancialsID=@FinancialsID
+Delete From [UserFinancials] Where FinancialsID=@FinancialsID
+Delete from [FinancialsQYPeriods]  Where FinancialsID=@FinancialsID
+ Delete from [Financials] Where FinancialsID=@FinancialsID
+
+  
+  
+
+
+end
