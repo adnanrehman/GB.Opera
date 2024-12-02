@@ -230,4 +230,14 @@ p-accordion {
 label{
   font-size: 0.8rem !important;
 }
+
+.p-tree .p-treenode-children .p-treenode {
+  border-left: 1px dashed black;
+}
+
+:host ::ng-deep .p-treenode {
+  border-left: 1px dashed black;
+}
+
+
   

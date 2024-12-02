@@ -19,6 +19,8 @@ import { CompanyAccountService, CompanyGBFactMappingDto } from '@proxy/company-a
 import Swal from 'sweetalert2';
 import { PermissionService } from '@abp/ng.core';
 import { Company_Accounts } from 'src/app/services/permissions';
+import { RenameAccountComponent } from './rename-account/rename-account.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-accounts',
@@ -51,6 +53,8 @@ export class AccountsComponent {
   sectorID: number;
   stockMarketID: number;
   companyID: number;
+  ref!: DynamicDialogRef;
+  companyTicker: string;
   marketLangAnnouncement = [];
   companyMarketSectors = [];
   companiesTickers = [];
@@ -67,6 +71,7 @@ export class AccountsComponent {
   }
   constructor(
     private commonService: CommonService,
+    private dialogService: DialogService,
     private companyAccountService: CompanyAccountService,
     private gbfactservice: GbFactService, private permissionService: PermissionService
 
@@ -175,6 +180,7 @@ export class AccountsComponent {
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID
+    this.companyTicker = event.value.ticker
     this.getCompMarketSectorsByMarketID();
     this.loading = false;
   }
@@ -211,6 +217,7 @@ export class AccountsComponent {
         if (this.companiesTickers.length > 0) {
           if(!this.companyID)
           this.companyID = this.companiesTickers[0].companyID;
+          this.companyTicker = this.companiesTickers[0].ticker;
           this.getCompaniesFactsByCompanyID();
         }
         else this.loading = false;
@@ -221,6 +228,7 @@ export class AccountsComponent {
     debugger; // For debugging purposes
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
+    this.companyTicker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker;
     this.companyAccountService.getCompaniesFactsByCompanyID(this.companyID).subscribe(res => {
       console.log('Tree res:', res);
       this.selectedNodes = [];
@@ -231,8 +239,12 @@ export class AccountsComponent {
 
   NodeSelection(list: any[], companyFacts: any[]) {
     for (let x of list) {
+      debugger;
       var gbFact = companyFacts.find(f => f.gbFactID == x.gbFactID);
       if (gbFact) {
+        if(gbFact.customFactName) x.label = gbFact.customFactName;
+        if(gbFact.aCustomFactName) x.aGbFact = gbFact.aCustomFactName;
+        
         this.selectedNodes.push(x);
       }
       if (x.children.length !== 0) {
@@ -248,11 +260,48 @@ export class AccountsComponent {
 
   }
 
-  onNodeSelect(event: { originalEvent: Event, node: TreeNode }): void {
+  onNodeSelect(event: { originalEvent: any, node: TreeNode }): void {
     debugger;
     this.selectedNode = event.node;
+    if(this.selectedNode){
+      if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
+        console.log('Ctrl or Command + Click');
+        this.renameFact(event);
+      }
+    }
     this.selectedNodes.push(event.node)
 
+  }
+
+  onNodeClick(event: any) {
+    // Handle single click logic here
+    console.log('Node clicked:', event);
+    if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
+      console.log('Ctrl or Command + Click');
+      this.renameFact(event);
+    }
+    
+   
+  }
+
+  renameFact(obj: any) {
+    debugger;
+    this.ref = this.dialogService.open(RenameAccountComponent, {
+      header: 'Rename Account',
+      data: {
+        obj: obj,
+        companyID: this.companyID,
+        text: "Rename Account",
+      },
+      width: '40%',
+      contentStyle: { "max-height": "1000px", "overflow": "auto" },
+      baseZIndex: 10000
+    });
+    this.ref.onClose.subscribe((template: any) => {
+      if(template){
+        this.fetchTreeData();
+      }
+    });
   }
 
   save() {

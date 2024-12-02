@@ -71,10 +71,13 @@
               </div>
             </div>
             <div class="row mt-2">
+              <div class="col-md-12">
+                <h5>{{companyTicker}} Accounts</h5>
+              </div>
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body p-1">
-                          <p-tree [value]="gbFactLists" [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px" selectionMode="checkbox" [(selection)]="selectedNodes" (onNodeSelect)="onNodeSelect($event)">
+                          <p-tree [value]="gbFactLists" [virtualScroll]="true" [filter]="true" filterMode="contains" filterPlaceholder="Search Accounts" virtualScrollItemSize="46" scrollHeight="480px" selectionMode="checkbox" [(selection)]="selectedNodes" (onNodeSelect)="onNodeSelect($event)">
                             <ng-template let-node pTemplate="default">
                               <span pTooltip="{{ node.aCustomFactName }}" tooltipPosition="top">
                                 <p-checkbox [value]="node"></p-checkbox>

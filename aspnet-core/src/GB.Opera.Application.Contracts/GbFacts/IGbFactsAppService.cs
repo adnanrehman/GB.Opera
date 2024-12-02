@@ -15,8 +15,10 @@ namespace GbFacts
         public   Task<List<GbFactListDto>> GetAllFactsMappings();
 
         public GbFactsAccount SaveUpdate(GbFactsAccount gbFact);
+        GbFactsAccount RenameFactByMenu(GbFactsAccount gbFact, int companyID);
 
-        public Task<List<GbFactsAccount>> GetgbfactByid(short GBFactID);
+
+		public Task<List<GbFactsAccount>> GetgbfactByid(short GBFactID);
 
 
     }

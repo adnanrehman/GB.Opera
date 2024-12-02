@@ -77,7 +77,23 @@ namespace GbFacts
             return gbFact;
         }
 
-        public async Task<List<GbFactsAccount>> GetgbfactByid(short GBFactID)
+		public GbFactsAccount RenameFactByMenu(GbFactsAccount gbFact,int companyID)
+		{
+
+			var parameters = new
+			{
+				GBFactID = gbFact.GBFactID,
+				CustomFactName = gbFact.GBFact,
+				ACustomFactName = gbFact.AGBFact,
+				CompanyID = companyID
+			};
+
+			_connection.Execute(ProcedureNames.usp_RenameFactByMenu, parameters, commandType: CommandType.StoredProcedure);
+
+			return gbFact;
+		}
+
+		public async Task<List<GbFactsAccount>> GetgbfactByid(short GBFactID)
         {
             // Define the parameters for the stored procedure
             var parameters = new DynamicParameters();

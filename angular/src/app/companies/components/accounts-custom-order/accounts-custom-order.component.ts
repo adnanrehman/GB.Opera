@@ -50,6 +50,7 @@ export class AccountsCustomOrderComponent {
   sectorID: number;
   stockMarketID: number;
   companyID: number;
+  companyTicker:string;
   stockMarkets = [];
   companyMarketSectors = [];
   companiesTickers = [];
@@ -137,6 +138,7 @@ export class AccountsCustomOrderComponent {
         if (this.companiesTickers.length > 0){
           if(!this.companyID)
           this.companyID = this.companiesTickers[0].companyID;
+          this.companyTicker = this.companiesTickers[0].ticker;
           this.getCompaniesFactOrdersByCompanyID();
         } 
         else this.loading = false;
@@ -147,6 +149,7 @@ export class AccountsCustomOrderComponent {
     debugger;
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
+    this.companyTicker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker;
     this.companyFactOrderService
       .getCompaniesFactOrdersByCompanyID(this.companyID)
       .subscribe(res => {

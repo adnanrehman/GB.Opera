@@ -52,6 +52,7 @@ namespace GB.Opera.constants
         public const string usp_InsetUpdateEstimatesandForecasts = "usp_InsetUpdateEstimatesandForecasts";
         public const string GetGBFactsData = "GetGBFactsData";
         public const string usp_AddUpdateGBFact = "usp_AddUpdateGBFact";
+        public const string usp_RenameFactByMenu = "usp_RenameFactByMenu";
         public const string getGBAccounts_New = "getGBAccounts_New";
         public const string usp_getAllFactsOwnershipMappings = "usp_getAllFactsOwnershipMappings";
         public const string usp_AddUpdateGBOwnership = "usp_AddUpdateGBOwnership";
