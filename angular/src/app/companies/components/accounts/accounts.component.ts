@@ -225,17 +225,62 @@ export class AccountsComponent {
   }
 
   getCompaniesFactsByCompanyID(): void {
-    debugger; // For debugging purposes
-    if (this.companyID == undefined && this.companiesTickers.length > 0)
-      this.companyID = this.companiesTickers[0].companyID;
-    this.companyTicker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker;
-    this.companyAccountService.getCompaniesFactsByCompanyID(this.companyID).subscribe(res => {
-      console.log('Tree res:', res);
-      this.selectedNodes = [];
-      this.NodeSelection(this.gbFactLists, res);
-      this.loading = false;
+    // Trigger SweetAlert with Yes/No options to confirm the action
+    Swal.fire({
+      title: 'Do you want to fetch company facts?',
+      text: 'Please confirm if you want to proceed with fetching the company facts.',
+      icon: 'info',
+      showConfirmButton: true,
+      confirmButtonText: 'Yes',
+      showCancelButton: true,
+      cancelButtonText: 'No',
+      allowOutsideClick: false // Prevent closing the alert while fetching data
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // User clicked 'Yes', proceed with the API call
+  
+        // Show loading message while fetching data
+        Swal.fire({
+          title: 'Fetching Company Facts...',
+          text: 'Please wait while we fetch the data...',
+          icon: 'info',
+          showConfirmButton: false,
+          allowOutsideClick: false
+        });
+  
+        // Check if companyID is undefined and if companiesTickers are available
+        if (this.companyID == undefined && this.companiesTickers.length > 0) {
+          this.companyID = this.companiesTickers[0].companyID;
+        }
+  
+        // Set the company ticker based on the companyID
+        this.companyTicker = this.companiesTickers.find(f => f.companyID == this.companyID)?.ticker;
+  
+        // Call the service to get the company facts by company ID
+        this.companyAccountService.getCompaniesFactsByCompanyID(this.companyID).subscribe(res => {
+          // Successfully fetched data
+          Swal.close(); // Close the loading alert
+  
+          console.log('Tree res:', res);
+          this.selectedNodes = [];
+          this.NodeSelection(this.gbFactLists, res);
+          this.loading = false;
+        }, error => {
+          // Handle error while fetching data
+          Swal.close(); // Close the loading alert
+          Swal.fire('Error', 'There was an issue fetching the company facts.', 'error');
+          console.error('Error fetching data', error);
+        });
+      } else {
+        // User clicked 'No' or dismissed the alert, cancel the action
+        console.log('User canceled the action.');
+        Swal.fire('Action canceled', 'You chose not to fetch the company facts.', 'info');
+      }
     });
   }
+  
+  
+  
 
   NodeSelection(list: any[], companyFacts: any[]) {
     for (let x of list) {

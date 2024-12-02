@@ -60,7 +60,7 @@ export class AccountsCustomOrderComponent {
     edit: boolean,
     delete: boolean
   }
-
+flgload:boolean=true
   constructor(
     private commonService: CommonService,
     private companyFactOrderService: CompanyFactOrderService, private permissionService: PermissionService
@@ -70,10 +70,12 @@ export class AccountsCustomOrderComponent {
       edit : false,
       delete  :false
     }
+    
    
   }
 
   ngOnInit() {
+    this.flgload=false
     if (this.permissionService.getGrantedPolicy(Company_AccountsCustomOrder + '.Create')) {
       this.permission.create = true;
     }
@@ -85,6 +87,7 @@ export class AccountsCustomOrderComponent {
     }
     this.getStockMarkets();
     // this.stockMarketID = 0;
+    
   }
 
   search(event: AutoCompleteCompleteEvent) {
@@ -145,19 +148,90 @@ export class AccountsCustomOrderComponent {
       });
   }
 
+  // getCompaniesFactOrdersByCompanyID() {
+     
+  //   if (this.companyID == undefined && this.companiesTickers.length > 0)
+  //     this.companyID = this.companiesTickers[0].companyID;
+  //   this.companyTicker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker;
+  //   this.companyFactOrderService
+  //     .getCompaniesFactOrdersByCompanyID(this.companyID)
+  //     .subscribe(res => {
+  //       debugger;
+  //       this.companyFactOrders = res;
+  //       this.loading = false;
+  //     });
+  // }
+
+  
+
   getCompaniesFactOrdersByCompanyID() {
-    debugger;
-    if (this.companyID == undefined && this.companiesTickers.length > 0)
-      this.companyID = this.companiesTickers[0].companyID;
-    this.companyTicker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker;
-    this.companyFactOrderService
-      .getCompaniesFactOrdersByCompanyID(this.companyID)
-      .subscribe(res => {
-        debugger;
-        this.companyFactOrders = res;
-        this.loading = false;
-      });
+    // Trigger SweetAlert before making the API call with Yes/No options
+    Swal.fire({
+      title: 'Loading company fact orders...',
+      text: 'Do you want to continue fetching the data?',
+      icon: 'info',
+      showConfirmButton: true,
+      confirmButtonText: 'Yes',
+      showCancelButton: true,
+      cancelButtonText: 'No',
+      allowOutsideClick: false // Prevent closing until the request is completed
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // User clicked 'Yes', proceed with fetching the data
+        console.log('User confirmed the action. Fetching company fact orders...');
+        
+        // Now show a loading message while making the API call
+        Swal.fire({
+          title: 'Loading...',
+          text: 'Please wait while we fetch the data.',
+          icon: 'info',
+          showConfirmButton: false,
+          allowOutsideClick: false
+        });
+  
+        this.companyFactOrderService
+          .getCompaniesFactOrdersByCompanyID(this.companyID)
+          .subscribe(
+            res => {
+              // Successfully fetched data, close the loading alert
+              Swal.close();
+              this.companyFactOrders = res;
+              this.loading = false;
+              console.log('Data fetched successfully', res);
+            },
+            error => {
+              // Handle error while fetching data
+              Swal.close(); // Close the loading alert
+              Swal.fire('Error', 'There was an issue fetching the company fact orders.', 'error');
+              console.error('Error fetching data', error);
+            }
+          );
+      } else if (result.isDismissed) {
+        // User clicked 'No' or dismissed the alert, handle cancellation
+        console.log('User canceled the action.');
+        Swal.fire('Action canceled', 'You chose not to fetch the company fact orders.', 'info');
+      }
+    });
   }
+  
+  
+  
+  // Function to fetch company fact orders
+ 
+  
+  // Function to fetch company fact orders
+ 
+  
+
+// Function to fetch company fact orders
+// fetchCompanyFactOrders() {
+//   this.companyFactOrderService
+//     .getCompaniesFactOrdersByCompanyID(this.companyID)
+//     .subscribe(res => {
+//       this.companyFactOrders = res;
+//       this.loading = false;
+//     });
+// }
   save() {
     debugger;
     this.loading = true;
