@@ -34,6 +34,16 @@ export class GbFactService {
     { apiName: this.apiName,...config });
   
 
+  renameFactByMenuByGbFactAndCompanyID = (gbFact: GbFactsAccount, companyID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, GbFactsAccount>({
+      method: 'POST',
+      url: '/api/app/gb-fact/rename-fact-by-menu',
+      params: { companyID },
+      body: gbFact,
+    },
+    { apiName: this.apiName,...config });
+  
+
   saveUpdateByGbFact = (gbFact: GbFactsAccount, config?: Partial<Rest.Config>) =>
     this.restService.request<any, GbFactsAccount>({
       method: 'POST',

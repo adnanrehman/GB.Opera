@@ -7909,6 +7909,31 @@
                   }
                 },
                 {
+                  "name": "RenameFactByMenu",
+                  "parametersOnMethod": [
+                    {
+                      "name": "gbFact",
+                      "typeAsString": "GB.Opera.GbFacts.GbFactsAccount, GB.Opera.Application.Contracts",
+                      "type": "GB.Opera.GbFacts.GbFactsAccount",
+                      "typeSimple": "GB.Opera.GbFacts.GbFactsAccount",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "companyID",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "GB.Opera.GbFacts.GbFactsAccount",
+                    "typeSimple": "GB.Opera.GbFacts.GbFactsAccount"
+                  }
+                },
+                {
                   "name": "GetgbfactByid",
                   "parametersOnMethod": [
                     {
@@ -7986,6 +8011,63 @@
                   "defaultValue": null,
                   "constraintTypes": null,
                   "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "GB.Opera.GbFacts.GbFactsAccount",
+                "typeSimple": "GB.Opera.GbFacts.GbFactsAccount"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GbFacts.IGbFactAppService"
+            },
+            "RenameFactByMenuByGbFactAndCompanyID": {
+              "uniqueName": "RenameFactByMenuByGbFactAndCompanyID",
+              "name": "RenameFactByMenu",
+              "httpMethod": "POST",
+              "url": "api/app/gb-fact/rename-fact-by-menu",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "gbFact",
+                  "typeAsString": "GB.Opera.GbFacts.GbFactsAccount, GB.Opera.Application.Contracts",
+                  "type": "GB.Opera.GbFacts.GbFactsAccount",
+                  "typeSimple": "GB.Opera.GbFacts.GbFactsAccount",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "companyID",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "gbFact",
+                  "name": "gbFact",
+                  "jsonName": null,
+                  "type": "GB.Opera.GbFacts.GbFactsAccount",
+                  "typeSimple": "GB.Opera.GbFacts.GbFactsAccount",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "companyID",
+                  "name": "companyID",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
                   "descriptorName": ""
                 }
               ],

@@ -162,7 +162,7 @@ namespace CompanyManagements
                 parameters.Add("@Since", model.Since);
                 parameters.Add("@Till", model.Till);
                 parameters.Add("@IsActive", model.IsActive);
-                parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
+                parameters.Add("@GulfbaseUpdateDate", model.BoardMemberID > 0 ? DateTime.Now : model.GulfbaseUpdateDate);
                 parameters.Add("@CustomOrder", model.CustomOrder);
 
                 await _connection.ExecuteAsync(ProcedureNames.usp_InsertBMembers, parameters, commandType: CommandType.StoredProcedure);
