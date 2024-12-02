@@ -60,6 +60,7 @@ export class GbFactsComponent {
           ...item,
           label: item.gbFact || '', // Assign gbFact to label or default to empty string
           parent: null,
+          key:item.gbFact || '',
           expanded:item.parentId == -1 ? true : false,
           children: []
         };
@@ -169,7 +170,7 @@ export class GbFactsComponent {
    
     
      
-    if(event.node.parentId != -1){
+    if(event.node.gbFact != "GB Account"){
       const element = event.originalEvent.currentTarget; 
       element.addEventListener('dblclick', () => {
         this.editHeader(event);

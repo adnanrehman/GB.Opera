@@ -182,7 +182,7 @@ export class AccountsComponent {
   getMarketLangAnnouncements() {
     this.commonService.getMarketLangAnnouncements().subscribe(res => {
       this.marketLangAnnouncement = res;
-      // if (this.marketLangAnnouncement.length > 0) this.stockMarketID = this.marketLangAnnouncement[0].stockMarketID; this.getCompMarketSectorsByMarketID();
+      if (this.marketLangAnnouncement.length > 0) this.stockMarketID = this.marketLangAnnouncement[0].stockMarketID; this.getCompMarketSectorsByMarketID();
     });
   }
 
@@ -192,7 +192,8 @@ export class AccountsComponent {
     this.commonService.getCompMarketSectorsByMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
       if (this.companyMarketSectors.length > 0) {
-        this.sectorID = this.companyMarketSectors[0].sectorID;
+        if(!this.sectorID)
+          this.sectorID = this.companyMarketSectors[0].sectorID;
         this.getCompaniesTickersBySectorIDAndMarketID();
       }
       else this.loading = false;
@@ -208,6 +209,7 @@ export class AccountsComponent {
       .subscribe(res => {
         this.companiesTickers = res;
         if (this.companiesTickers.length > 0) {
+          if(!this.companyID)
           this.companyID = this.companiesTickers[0].companyID;
           this.getCompaniesFactsByCompanyID();
         }

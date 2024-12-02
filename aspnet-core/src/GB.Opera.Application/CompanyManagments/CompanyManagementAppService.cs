@@ -161,7 +161,7 @@ namespace CompanyManagements
                 parameters.Add("@ABoardMember", model.ABoardMember);
                 parameters.Add("@Since", model.Since);
                 parameters.Add("@Till", model.Till);
-                parameters.Add("@IsActive", true);
+                parameters.Add("@IsActive", model.IsActive);
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
                 parameters.Add("@CustomOrder", model.CustomOrder);
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from "primeng/dropdown"; 
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
@@ -19,6 +19,7 @@ import { ReviewerService } from '@proxy/reviewers';
 import { FileService } from 'src/app/services/file/file.service';
 import Swal from 'sweetalert2';
 import { HttpResponse } from '@angular/common/http';
+import { CommonService } from '@proxy/commons';
 
 @Component({
   selector: 'app-reviewer-new',
@@ -33,6 +34,8 @@ export class ReviewerNewComponent {
   statusFinancialsFilterData: any[]=[]
   financialEntryType:any;
   reportType:any;
+  selectedItem: any;
+  suggestions: any[] = [];
   exportFile: number[] = [];
   loading = false;
   userId = "";
@@ -51,6 +54,7 @@ export class ReviewerNewComponent {
   constructor( 
     private permissionService: PermissionService,
     private config: ConfigStateService,
+    private commonService: CommonService,
     private fileService: FileService,
     private reviewerService:ReviewerService){
    this.permission = {
@@ -72,6 +76,21 @@ export class ReviewerNewComponent {
     const currentUser = this.config.getOne("currentUser");
     this.userId = currentUser.id;
     this.getStatusFinancialsByUserId();
+  }
+
+  search(event: AutoCompleteCompleteEvent) {
+    this.loading = true;
+    this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
+      this.suggestions = res;
+      this.loading = false;
+    });
+  }
+
+  onSelect(event: any) {
+    debugger;
+    this.loading = true;
+    // this.statusFinanial = this.statusFinancialsFilterData.filter(f => f.companyID == Number(event.value.companyID));
+    this.loading = false;
   }
 
   getStatusFinancialsByUserId() {

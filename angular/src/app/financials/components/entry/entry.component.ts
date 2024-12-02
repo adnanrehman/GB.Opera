@@ -16,12 +16,15 @@ import { ListboxModule } from 'primeng/listbox';
 import { AsOfDateDto, AsofDatesFinancialDto, AsofDatesFinancialInputDto, CompanyAccountsInputDto, EntryService, FinancialsDetailDto, FinEntryInReviewDto, StatusFinancialsDto } from '@proxy/entry';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import Swal from 'sweetalert2';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-entry',
   standalone: true,
   imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ListboxModule,CommonModule,ThemeSharedModule,
-    ImageModule,FileUploadModule,TabViewModule,CheckboxModule,RadioButtonModule,CommonModule ],
+    ImageModule,FileUploadModule,TabViewModule,CheckboxModule,RadioButtonModule,CommonModule,    InputNumberModule,
+    InputTextModule, ],
   templateUrl: './entry.component.html',
   styleUrl: './entry.component.scss'
 })
@@ -47,6 +50,7 @@ export class EntryComponent {
     hasChanges: false
   }
   userId = "";
+  testId:number
   permission: {
     create: boolean;
     edit: boolean,

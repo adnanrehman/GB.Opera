@@ -139,6 +139,7 @@ export class AnnouncementsComponent {
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
       if (this.companyMarketSectors.length > 0) {
+        if(!this.sectorID)
         this.sectorID = this.companyMarketSectors[0].sectorID;
         this.getSectorCompaniesBySectorIDAndStockMarketID();
       }
@@ -155,6 +156,7 @@ export class AnnouncementsComponent {
       .subscribe(res => {
         this.companiesTickers = res;
         if (this.companiesTickers.length > 0) {
+          if(!this.companyID)
           this.companyID = this.companiesTickers[0].companyID;
           this.getCorporateAnnouncements();
         }
