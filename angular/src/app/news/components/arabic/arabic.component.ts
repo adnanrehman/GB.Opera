@@ -1,14 +1,14 @@
 import { PermissionService } from '@abp/ng.core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { CommonModule, NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonService } from '@proxy/commons';
 import { NewsDto, NewsService } from '@proxy/news';
 import { AutoCompleteModule, AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
@@ -18,6 +18,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { News_Arabic } from 'src/app/services/permissions';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
+import { FileService } from 'src/app/services/file/file.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-arabic',
   standalone: true,
@@ -42,6 +44,7 @@ import * as moment from 'moment';
   styleUrl: './arabic.component.scss'
 })
 export class ArabicComponent {
+  @ViewChild('imgContactAvatar') imgContactAvatar!: FileUpload;
   permission: {
     create: boolean;
     edit: boolean,
@@ -51,6 +54,7 @@ export class ArabicComponent {
   ingredient: any;
   loading: boolean = false;
   headerValue: any;
+  apiUrl: string = "";
   selectedItem: any;
   suggestions: any[] = [];
   sectorID: number;
@@ -64,11 +68,13 @@ export class ArabicComponent {
   countries = [];
   newsArabs: NewsDto[] = [];
   newsArab: NewsDto = {
-    newsID: 0
+    newsID: 0,
+    isHotNews: false
   }
 
   constructor(
     private commonService: CommonService,
+    public fileService: FileService,
     private newsArabService: NewsService, private permissionService: PermissionService
   ) {
     this.permission = {
@@ -79,6 +85,7 @@ export class ArabicComponent {
   }
   ngOnInit() {
     this.loading = true;
+    this.apiUrl = environment.apis.default.url + "/uploads/";
     if (this.permissionService.getGrantedPolicy(News_Arabic + '.Create')) {
       this.permission.create = true;
     }
@@ -120,8 +127,30 @@ export class ArabicComponent {
     });
   }
 
+  onUpload(event) {
+    let fileReader = new FileReader();
+    for (let file of event.files) {
+      fileReader.readAsDataURL(file);
+      fileReader.onload = function () {
+          // Will print the base64 here.
+          console.log(fileReader.result);
+          
+      };
+      this.newsArab.newsImage = "";
+    }
+  }
+
+  uploadLogo(){
+    this.loading = true;
+    this.fileService.uploadImage(this.imgContactAvatar._files[0])
+        .subscribe((res: any) => {
+          this.newsArab.newsImage = res;
+          this.loading = false;
+        });
+  }
+
   addNewNewsArab(){
-    this.newsArab = {};
+    this.newsArab = {isHotNews:false};
     this.newsArab.date = moment().format("MM/DD/YYYY")
     this.stockMarkets = [];
     this.companyMarketSectors = [];

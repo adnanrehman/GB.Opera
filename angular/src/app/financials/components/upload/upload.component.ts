@@ -85,7 +85,8 @@ export class UploadComponent {
  
   companyID: number;
   newsEng: NewsDto = {
-    newsID: 0
+    newsID: 0,
+    isHotNews: false
   }
   
   constructor( 

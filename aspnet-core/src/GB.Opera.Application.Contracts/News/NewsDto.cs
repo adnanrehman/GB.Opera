@@ -23,6 +23,8 @@ namespace News
         public bool? ForSocialNetworks { get; set; }
         public bool? IsGulfbaseNews { get; set; }
         public bool? LangID { get; set; }
+        public string? NewsImage { get; set; }
+        public bool IsHotNews { get; set; }
         
     }
 

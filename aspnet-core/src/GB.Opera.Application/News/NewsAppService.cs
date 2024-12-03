@@ -42,11 +42,11 @@ namespace News
                 var sql = "";
                 if (langId)
                 {
-                    sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],Title,SubTitle,Source,[Description],IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_En  WHERE (NewsId= {newsId} OR {newsId} =0) order by  NewsID desc";
+                    sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],Title,SubTitle,Source,[Description],IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews,NewsImage,IsHotNews from News_En  WHERE (NewsId= {newsId} OR {newsId} =0) order by  NewsID desc";
                 }
                 else
                 {
-                    sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],ATitle As Title,ASubTitle As SubTitle,ASource As Source,[ADescription] As Description,IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews from News_Ar WHERE (NewsId= {newsId} OR {newsId} =0) order by NewsID desc";
+                    sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],ATitle As Title,ASubTitle As SubTitle,ASource As Source,[ADescription] As Description,IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews,NewsImage,IsHotNews from News_Ar WHERE (NewsId= {newsId} OR {newsId} =0) order by NewsID desc";
                 }               
 
                 var data = await _connection.QueryAsync<NewsDto>(sql);
@@ -79,6 +79,8 @@ namespace News
                 parameters.Add("@Islamic", input.Islamic);
                 parameters.Add("@ForSocialNetworks", input.ForSocialNetworks);
                 parameters.Add("@IsGulfbaseNews", input.IsGulfbaseNews);
+                parameters.Add("@NewsImage", input.NewsImage);
+                parameters.Add("@IsHotNews", input.IsHotNews);
                 parameters.Add("@GulfBaseSectorID", 0);
 
                 await _connection.ExecuteAsync("USP_GBN_InsertUpdateNews_New", parameters, commandType: CommandType.StoredProcedure);
