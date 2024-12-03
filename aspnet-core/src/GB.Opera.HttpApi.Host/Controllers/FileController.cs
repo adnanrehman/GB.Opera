@@ -45,7 +45,25 @@ public class FileController : AbpController
         return Json(System.IO.File.ReadAllBytes(filePath));
     }
 
-    public async Task<ActionResult> GetReviewReport(int financialsID)
+	public ActionResult UploadImage(IFormFile file)
+	{
+		var uploadDirecotroy = "uploads/";
+		var uploadPath = Path.Combine(_env.WebRootPath, uploadDirecotroy);
+
+		if (!Directory.Exists(uploadPath))
+			Directory.CreateDirectory(uploadPath);
+
+		var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+		var filePath = Path.Combine(uploadPath, fileName);
+
+		using (System.IO.Stream stream = new FileStream(filePath, FileMode.Create))
+		{
+			file.CopyTo(stream);
+		}
+		return Json(fileName);
+	}
+
+	public async Task<ActionResult> GetReviewReport(int financialsID)
     {
         var output = await _reviewerAppService.GetReviewReport(financialsID);
 

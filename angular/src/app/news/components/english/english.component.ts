@@ -1,12 +1,12 @@
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { CommonModule, NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonService } from '@proxy/commons';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
@@ -18,6 +18,8 @@ import { PermissionService } from '@abp/ng.core';
 import { News_English } from 'src/app/services/permissions';
 import { NewsDto, NewsService } from '@proxy/news';
 import * as moment from 'moment';
+import { FileService } from 'src/app/services/file/file.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-english',
@@ -43,6 +45,7 @@ import * as moment from 'moment';
   styleUrl: './english.component.scss'
 })
 export class EnglishComponent {
+  @ViewChild('imgContactAvatar') imgContactAvatar!: FileUpload;
   permission: {
     create: boolean;
     edit: boolean,
@@ -50,6 +53,7 @@ export class EnglishComponent {
   }
   filteredCountries: any[];
   ingredient:any;
+  apiUrl: string = "";
   loading: boolean = false;
   headerValue: any;
   selectedItem: any;
@@ -65,11 +69,13 @@ export class EnglishComponent {
   countries = [];
   newsEngs: NewsDto[] = [];
   newsEng: NewsDto = {
-    newsID: 0
+    newsID: 0,
+    isHotNews: false
   }
 
   constructor(
     private commonService: CommonService,
+    public fileService: FileService,
     private newsEngService: NewsService,private permissionService: PermissionService
   ) {
     this.permission = {
@@ -80,6 +86,7 @@ export class EnglishComponent {
   }
   ngOnInit() { 
     this.loading = true;
+    this.apiUrl = environment.apis.default.url + "/uploads/";
     if (this.permissionService.getGrantedPolicy(News_English + '.Create')) {
       this.permission.create = true;
     }
@@ -156,6 +163,28 @@ export class EnglishComponent {
       });
   }
 
+  onUpload(event) {
+    let fileReader = new FileReader();
+    for (let file of event.files) {
+      fileReader.readAsDataURL(file);
+      fileReader.onload = function () {
+          // Will print the base64 here.
+          console.log(fileReader.result);
+          
+      };
+      this.newsEng.newsImage = "";
+    }
+  }
+
+  uploadLogo(){
+    this.loading = true;
+    this.fileService.uploadImage(this.imgContactAvatar._files[0])
+        .subscribe((res: any) => {
+          this.newsEng.newsImage = res;
+          this.loading = false;
+        });
+  }
+
   getNewsEngs() {
     debugger;
     this.newsEngService
@@ -178,7 +207,8 @@ export class EnglishComponent {
   }
   addNewNewsEng(){
     this.newsEng = {
-      newsID: 0
+      newsID: 0,
+      isHotNews:false
     }
     this.newsEng.date = moment().format("MM/DD/YYYY")
     this.stockMarkets = [];

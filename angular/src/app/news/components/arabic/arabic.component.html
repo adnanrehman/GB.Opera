@@ -81,50 +81,83 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4">
-              <label class="col-form-label">Category</label>
-              <p-dropdown
-                [(ngModel)]="newsArab.newsCategoryID"
-                required="true"
-                name="newsCategoryID"
-                [options]="newsCategories"
-                placeholder="Select a Category"
-                optionLabel="newsCategory"
-                optionValue="newsCategoryID"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
-              >
-              </p-dropdown>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="col-form-label">Category</label>
+                  <p-dropdown
+                    [(ngModel)]="newsArab.newsCategoryID"
+                    required="true"
+                    name="newsCategoryID"
+                    [options]="newsCategories"
+                    placeholder="Select a Category"
+                    optionLabel="newsCategory"
+                    optionValue="newsCategoryID"
+                    [style]="{ width: '100%' }"
+                    [showClear]="true"
+                  >
+                  </p-dropdown>
+                </div>
+                <div class="col-md-12">
+                  <label class="col-form-label">Country</label>
+                  <p-dropdown
+                    [(ngModel)]="newsArab.gccid"
+                    required="true"
+                    name="gccid"
+                    [options]="countries"
+                    placeholder="Select a Country"
+                    optionLabel="country"
+                    optionValue="gccid"
+                    [style]="{ width: '100%' }"
+                    [showClear]="true"
+                  >
+                  </p-dropdown>
+                </div>
+                <div class="col-md-12">
+                  <label class="col-form-label">Date</label>
+                  <p-calendar
+                    [style]="{ width: '100%' }"
+                    required="true"
+                    dataType="string"
+                    [showTime]="true" 
+                    dateFormat="mm/dd/yy"
+                    [showIcon]="true"
+                    [(ngModel)]="newsArab.date"
+                    name="date"
+                    placeholder="Select a As of Date"
+                  />
+                </div>
+              </div>
             </div>
-            <div class="col-md-4">
-              <label class="col-form-label">Country</label>
-              <p-dropdown
-                [(ngModel)]="newsArab.gccid"
-                required="true"
-                name="gccid"
-                [options]="countries"
-                placeholder="Select a Country"
-                optionLabel="country"
-                optionValue="gccid"
-                [style]="{ width: '100%' }"
-                [showClear]="true"
+            <div class="col-md-6 text-center mt-2">
+              <!-- src="https://salogos.org/wp-content/uploads/2021/12/%D8%A8%D9%86%D9%83-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF.png" -->
+              <p-image
+                src="{{apiUrl}}{{ newsArab.newsImage }}"
+                imageClass="d-block rounded"
+                height=""
+                width="200"
+              ></p-image>
+
+              <span class="text-muted py-2">Allowed JPG, GIF or PNG. Max size of 1 MB</span>
+              <p-fileUpload
+                name="imgContactAvatar"
+                #imgContactAvatar
+                chooseLabel="Upload Photo"
+                styleClass="p-button-sm"
+                mode="basic"
+                chooseIcon="pi pi-user"
+                [showUploadButton]="false"
+                [showCancelButton]="false"
+                [maxFileSize]="1000000"
+                [customUpload]="true"
+                (uploadHandler)="uploadLogo()"
+                [auto]="true"
+                accept="image/*"
               >
-              </p-dropdown>
-            </div>
-            <div class="col-md-4">
-              <label class="col-form-label">Date</label>
-              <p-calendar
-                [style]="{ width: '100%' }"
-                required="true"
-                dataType="string"
-                dateFormat="mm/dd/yy"
-                [showIcon]="true"
-                [(ngModel)]="newsArab.date"
-                name="date"
-                placeholder="Select a As of Date"
-              />
+              </p-fileUpload>
             </div>
           </div>
+          
           <div class="row">
             <div class="col-md-12">
               <label class="col-form-label col-4">Title</label>
@@ -229,6 +262,19 @@
                   type="checkbox"
                 />
                 <label class="form-check-label" for="defaultCheck3">Gulf Base</label>
+              </div>
+            </div>
+            <div class="mt-1 me-4">
+              <label class="col-form-label col-4">&nbsp;</label>
+
+              <div class="form-check me-2">
+                <input
+                  class="form-check-input"
+                  [(ngModel)]="newsArab.isHotNews"
+                  name="isHotNews"
+                  type="checkbox"
+                />
+                <label class="form-check-label" for="defaultCheck3">Hot News</label>
               </div>
             </div>
           </div>

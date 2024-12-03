@@ -15,4 +15,6 @@ export interface NewsDto {
   forSocialNetworks?: boolean;
   isGulfbaseNews?: boolean;
   langID?: boolean;
+  newsImage?: string;
+  isHotNews: boolean;
 }
