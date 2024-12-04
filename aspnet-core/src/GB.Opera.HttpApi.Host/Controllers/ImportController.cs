@@ -56,9 +56,9 @@ public class ImportController : AbpController
         {
             file.CopyTo(stream);
         }
-        var data = await _officialIndicsAppService.ImportOfficialIndices(filePath);
+        //var data = await _officialIndicsAppService.ImportOfficialIndices(filePath);
 
-        return Json(data);
+        return Json("");
     }
 
     public async Task<ActionResult> ImportGlobalIndices(IFormFile file)
@@ -76,9 +76,9 @@ public class ImportController : AbpController
         {
             file.CopyTo(stream);
         }
-        var data = await _officialIndicsAppService.ImportGlobalIndices(filePath);
+        //var data = await _officialIndicsAppService.ImportGlobalIndices(filePath);
 
-        return Json(data);
+        return Json("");
     }
 
 }

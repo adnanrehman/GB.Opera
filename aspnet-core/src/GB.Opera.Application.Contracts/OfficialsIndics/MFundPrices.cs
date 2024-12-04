@@ -18,4 +18,30 @@ namespace GB.Opera.OfficialsIndics
         
 
     }
+
+    public class ImportOfficialIndicesDto
+    {
+        public string StockMarket { get; set; }
+        public string Sector { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Opening { get; set; }
+        public decimal Highest { get; set; }
+        public decimal Lowest { get; set; }
+        public decimal Closing { get; set; }
+        public decimal Volume { get; set; }
+        public decimal Transactions { get; set; }
+        public decimal TradingValue { get; set; }
+        public decimal PreviousClose { get; set; }
+    }
+
+	public class ImportGlobalIndicesDto
+	{
+		public string StockMarket { get; set; }
+		public DateTime Date { get; set; }
+		public decimal Open { get; set; }
+		public decimal High { get; set; }
+		public decimal Low { get; set; }
+		public decimal Close { get; set; }
+		public decimal Volume { get; set; }
+	}
 }
