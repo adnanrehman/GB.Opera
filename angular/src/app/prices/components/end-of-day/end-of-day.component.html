@@ -110,13 +110,21 @@
     </div>
     <div class="row mb-2">
       <div class="col-12">
-        <input (change)="onFileChange($event)" class="form-control" type="file" id="fileUpload">
+        <p-fileUpload name="excelFile" 
+        accept=".xlsx,.xls" 
+        (onSelect)="onFileChange($event)"
+        [auto]="true"
+        [maxFileSize]="1000000000" 
+        [chooseLabel]="'Choose Excel File'" 
+        [uploadLabel]="'Upload'">
+</p-fileUpload>
+        <!-- <input (change)="onFileChange($event)" class="form-control" type="file" id="fileUpload"> -->
       </div>
     </div>
     <div class="row mb-2">
       <div class="col-12 text-center">
         <button type="button" class="btn btn-danger me-1" (click)="this.showImportPriceModal=false;">Close</button>
-        <button type="button" class="btn btn-success" (click)="ImportPrices()">Import</button>
+        <button type="button" class="btn btn-success" (click)="InsertPrices()">Import</button>
       </div>
     </div>
   </div>

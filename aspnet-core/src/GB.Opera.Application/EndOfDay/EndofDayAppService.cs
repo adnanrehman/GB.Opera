@@ -75,7 +75,7 @@ namespace GB.Opera.EndOfDay
             return data.ToList();
         }
 
-        public async Task<string> ImportPrices(string filePath)
+        public async Task<string> ImportPrices(List<FundPricesImportDto> list)
         {
             _connection.Open();
             using (var transaction = _connection.BeginTransaction())
@@ -85,58 +85,105 @@ namespace GB.Opera.EndOfDay
                     var stockMarkets = await _connection.QueryAsync<StockMarketDto>($@"SELECT * FROM StockMarkets", transaction: transaction);
                     var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT * FROM Companies", transaction: transaction);
 
-                    using (var package = new ExcelPackage(new FileInfo(filePath)))
+                    foreach (var item in list)
                     {
-                        var worksheet = package.Workbook.Worksheets[0];
-                        var rowCount = worksheet.Dimension.Rows;
-                        var colCount = worksheet.Dimension.Columns;
-
-                        for (int row = 2; row <= rowCount; row++)
+                        if (item.Id > 0 && !string.IsNullOrEmpty(item.Ticker) && !string.IsNullOrEmpty(item.StockMarket))
                         {
-                            if (!string.IsNullOrEmpty(worksheet.Cells[row, 1].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 4].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 5].Text))
-                            {
-                                var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (worksheet.Cells[row, 5].Text).ToUpper()).FirstOrDefault();
-                                if (stockMarket != null)
-                                {
-                                    var ticker = Companies.Where(f => f.Ticker.ToUpper() == (worksheet.Cells[row, 4].Text).ToUpper()).FirstOrDefault();
-                                    if (ticker != null)
-                                    {
-                                        var parameters = new DynamicParameters();
-                                        parameters.Add("@StockMarketID", stockMarket.StockMarketID);
-                                        parameters.Add("@CompanyID", ticker.CompanyID);
-                                        parameters.Add("@PriceDate", Convert.ToDateTime(worksheet.Cells[row, 6].Text));
-                                        parameters.Add("@OpeningPrice", Convert.ToDecimal(worksheet.Cells[row, 7].Text));
-                                        parameters.Add("@HighestPrice", Convert.ToDecimal(worksheet.Cells[row, 8].Text));
-                                        parameters.Add("@LowestPrice", Convert.ToDecimal(worksheet.Cells[row, 9].Text));
-                                        parameters.Add("@ClosingPrice", Convert.ToDecimal(worksheet.Cells[row, 10].Text));
-                                        parameters.Add("@TradingVolume", Convert.ToInt64((worksheet.Cells[row, 11].Text).Replace(",", "")));
-                                        parameters.Add("@Trades", Convert.ToInt64((worksheet.Cells[row, 12].Text).Replace(",", "")));
-                                        parameters.Add("@TradingValue", Convert.ToDecimal((worksheet.Cells[row, 13].Text).Replace(",", "")));
-                                        parameters.Add("@LastClosedPrice", null);
-                                        parameters.Add("@LastUpdated", DateTime.Now);
-                                        parameters.Add("@IsActive", true);
-                                        await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice_New, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
-
-                                    }
-                                    else
-                                    {
-                                        return $@"{worksheet.Cells[row, 4].Text} not exist please first add this Ticker";
-                                        await transaction.RollbackAsync();
-                                    }
-                                }
-                                else
-                                {
-                                    return $@"{worksheet.Cells[row, 5].Text} not exist please first add this Stock Market";
-                                    await transaction.RollbackAsync();
-                                }
-                            }
-
+                            
                         }
-                        await transaction.CommitAsync();
-                        return "1";
-                    }
-                }
-                catch (Exception ex)
+                        var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (item.StockMarket).ToUpper()).FirstOrDefault();
+						if (stockMarket != null)
+						{
+							var ticker = Companies.Where(f => f.Ticker.ToUpper() == (item.Ticker).ToUpper()).FirstOrDefault();
+							if (ticker != null)
+							{
+								var parameters = new DynamicParameters();
+								parameters.Add("@StockMarketID", stockMarket.StockMarketID);
+								parameters.Add("@CompanyID", ticker.CompanyID);
+								parameters.Add("@PriceDate", item.PriceDate);
+								parameters.Add("@OpeningPrice", item.OpeningPrice);
+								parameters.Add("@HighestPrice", item.HighestPrice);
+								parameters.Add("@LowestPrice", item.LowestPrice);
+								parameters.Add("@ClosingPrice", item.ClosingPrice);
+								parameters.Add("@TradingVolume", item.TradingVolume);
+								parameters.Add("@Trades", item.Trades);
+								parameters.Add("@TradingValue", item.TradingValue);
+								parameters.Add("@LastClosedPrice", null);
+								parameters.Add("@LastUpdated", DateTime.Now);
+								parameters.Add("@IsActive", true);
+								await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice_New, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+
+							}
+							else
+							{
+								return $@"{item.Ticker} not exist please first add this Ticker";
+								await transaction.RollbackAsync();
+							}
+						}
+						else
+						{
+							return $@"{item.StockMarket} not exist please first add this Stock Market";
+							await transaction.RollbackAsync();
+						}
+					}
+
+					await transaction.CommitAsync();
+					return "1";
+
+					//using (var package = new ExcelPackage(new FileInfo(filePath)))
+					//{
+					//    var worksheet = package.Workbook.Worksheets[0];
+					//    var rowCount = worksheet.Dimension.Rows;
+					//    var colCount = worksheet.Dimension.Columns;
+
+					//    for
+
+					//    for (int row = 2; row <= rowCount; row++)
+					//    {
+					//        if (!string.IsNullOrEmpty(worksheet.Cells[row, 1].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 4].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 5].Text))
+					//        {
+					//            var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (worksheet.Cells[row, 5].Text).ToUpper()).FirstOrDefault();
+					//            if (stockMarket != null)
+					//            {
+					//                var ticker = Companies.Where(f => f.Ticker.ToUpper() == (worksheet.Cells[row, 4].Text).ToUpper()).FirstOrDefault();
+					//                if (ticker != null)
+					//                {
+					//                    var parameters = new DynamicParameters();
+					//                    parameters.Add("@StockMarketID", stockMarket.StockMarketID);
+					//                    parameters.Add("@CompanyID", ticker.CompanyID);
+					//                    parameters.Add("@PriceDate", Convert.ToDateTime(worksheet.Cells[row, 6].Text));
+					//                    parameters.Add("@OpeningPrice", Convert.ToDecimal(worksheet.Cells[row, 7].Text));
+					//                    parameters.Add("@HighestPrice", Convert.ToDecimal(worksheet.Cells[row, 8].Text));
+					//                    parameters.Add("@LowestPrice", Convert.ToDecimal(worksheet.Cells[row, 9].Text));
+					//                    parameters.Add("@ClosingPrice", Convert.ToDecimal(worksheet.Cells[row, 10].Text));
+					//                    parameters.Add("@TradingVolume", Convert.ToInt64((worksheet.Cells[row, 11].Text).Replace(",", "")));
+					//                    parameters.Add("@Trades", Convert.ToInt64((worksheet.Cells[row, 12].Text).Replace(",", "")));
+					//                    parameters.Add("@TradingValue", Convert.ToDecimal((worksheet.Cells[row, 13].Text).Replace(",", "")));
+					//                    parameters.Add("@LastClosedPrice", null);
+					//                    parameters.Add("@LastUpdated", DateTime.Now);
+					//                    parameters.Add("@IsActive", true);
+					//                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice_New, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+
+					//                }
+					//                else
+					//                {
+					//                    return $@"{worksheet.Cells[row, 4].Text} not exist please first add this Ticker";
+					//                    await transaction.RollbackAsync();
+					//                }
+					//            }
+					//            else
+					//            {
+					//                return $@"{worksheet.Cells[row, 5].Text} not exist please first add this Stock Market";
+					//                await transaction.RollbackAsync();
+					//            }
+					//        }
+
+					//    }
+					//    await transaction.CommitAsync();
+					//    return "1";
+					//}
+				}
+				catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
                     return ex.Message;

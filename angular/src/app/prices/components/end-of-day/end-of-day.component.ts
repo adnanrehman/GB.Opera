@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { fakeAsync } from '@angular/core/testing';
 import { CommonService } from '@proxy/commons';
+import * as XLSX from 'xlsx'
 
 @Component({
   selector: 'app-end-of-day',
@@ -49,7 +50,7 @@ export class EndOfDayComponent {
   selectedItem: any;
   suggestions: any[] = [];
   markets = [];
-
+  fundPricesImportDto: any[] = [];
   EodPrices: any[] = [];
   selectedMarketID: number | null = null;
   // selectedDate: string | null = null;
@@ -175,10 +176,10 @@ export class EndOfDayComponent {
   showImportModel() {
     this.showImportPriceModal = true;
   }
-  onFileChange(event: any) {
-    this.importFile = event.target.files[0];
-    console.log(event);
-  }
+  // onFileChange(event: any) {
+  //   this.importFile = event.target.files[0];
+  //   console.log(event);
+  // }
 
   ImportPrices() {
     this.loading = true;
@@ -219,6 +220,167 @@ export class EndOfDayComponent {
       },
       () => {
         this.loading = false;
+      }
+    );
+  }
+
+  onFileChange(event: any) {
+
+    if (event.files.length === 0) {
+      alert('No file selected.');
+      return;
+    }
+
+    const file = event.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      const data = e.target.result;
+      const workbook = XLSX.read(data, { type: 'binary' });
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+
+
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+ 
+
+
+      const formattedData = jsonData.slice(1).map((row: any) => {
+        if(row[0] != undefined && row[3]?.trim() != undefined && row[4]?.trim() != undefined){
+          const temp = row[0].toString();
+          const id = Number(row[1]);  
+          const company = row[2]?.trim();  
+          const ticker = row[3]?.trim();  
+          const stockMarket = row[4]?.trim();
+          const priceDate = row[5];
+          let date: Date;
+  
+          if (typeof priceDate === 'number') {
+            const dateCode = XLSX.SSF.parse_date_code(priceDate);
+            date = new Date(Date.UTC(dateCode.y, dateCode.m - 1, dateCode.d));
+  
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+  
+            const dates = `${year}-${month}-${day}`;
+          } else if (typeof priceDate === 'string') {
+  
+            date = new Date(priceDate);
+          } else {
+            date = null;
+          }
+           
+          const openingPrice = parseFloat(row[6]);  
+          const highestPrice = parseFloat(row[7]);  
+          const lowestPrice = parseFloat(row[8]);  
+          const closingPrice = parseFloat(row[9]);  
+          const tradingVolume = Number(row[10]);  
+          const trades = Number(row[11]);  
+          const tradingValue = parseFloat(row[12]);             
+  
+          return {
+            temp,
+            id,
+            company,
+            ticker,
+            stockMarket,
+            date,
+            openingPrice,
+            highestPrice,
+            lowestPrice,
+            closingPrice,
+            tradingVolume,
+            trades,
+            tradingValue,
+          };
+        }
+
+      });
+
+      this.importData(formattedData);
+    };
+
+    reader.readAsBinaryString(file);
+
+  }
+
+  importData(data: any) {
+
+    this.loading = true;
+
+    if (!Array.isArray(data)) {
+      console.error('Data passed to importCurrencyData is not an array:', data);
+      return;
+    }
+
+    if (!Array.isArray(this.fundPricesImportDto)) {
+      console.error('this.Currencies is not an array. Initializing as an empty array.');
+      this.fundPricesImportDto = [];
+    }
+
+    this.fundPricesImportDto = [...this.fundPricesImportDto, ...data];
+    this.loading = false;
+  }
+
+  InsertPrices() {
+    // Check if the currencies list is empty or not defined
+    if (!this.fundPricesImportDto || this.fundPricesImportDto.length === 0) {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000,
+        title: 'Error!',
+        text: 'No currencies to save.',
+        icon: 'error',
+      });
+      return;  // Prevent further execution
+    }
+
+    this.loading = true; // Show loading spinner
+debugger;
+    this.endofDayService.importPricesByList(this.fundPricesImportDto).subscribe(
+      res => {
+        if(res == "1"){
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            title: 'Success!',
+            text: 'Saved successfully',
+            icon: 'success',
+          });
+        }else{
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            title: 'Error!',
+            text: res,
+            icon: 'error',
+          });
+        }
+        
+        this.showImportPriceModal=false;
+        // If you need to perform further actions, uncomment and use them:
+        // this.addNewCountryGroup();
+      },
+      error => {
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 4000,
+          title: 'Error!',
+          text: 'Failed to save currency data',
+          icon: 'error',
+        });
+      },
+      () => {
+        this.loading = false; // Hide loading spinner when the request completes
       }
     );
   }

@@ -1,4 +1,4 @@
-﻿Alter Procedure [dbo].[usp_Midas_MarketSummary_GB1]      
+﻿ALTER Procedure [dbo].[usp_Midas_MarketSummary_GB1]      
 --[dbo].[usp_Midas_MarketSummary_GB1] 1  
 @langID int=1,  
 @Flag smallint =0          
@@ -39,12 +39,12 @@ IF(@Flag=0)
    FROM SECTORS WHERE SECTORID=42        
     ) AS MARKETS ORDER BY COUNTRYID  
 	
-	Select  Top 50 Title,CompanyId,News_En.NewsCategoryID,Date,NewsImage,NewsCategories.NewsCategory from News_En 
+	Select  Top 50 Title,CompanyId,News_En.NewsCategoryID,Date,NewsImage,NewsCategories.NewsCategory,NewsID,1 AS langId from News_En 
 	INNER JOIN NewsCategories ON News_En.NewsCategoryID = NewsCategories.NewsCategoryID
 	WHERE IsHotNews=0 order by Date DESC
 	
 
-	Select  Top 1 Title,CompanyId,News_En.NewsCategoryID,Date,Description,NewsImage,NewsCategories.NewsCategory from News_En  
+	Select  Top 1 Title,CompanyId,News_En.NewsCategoryID,Date,Description,NewsImage,NewsCategories.NewsCategory,NewsID,1 AS langId from News_En  
 	INNER JOIN NewsCategories ON News_En.NewsCategoryID = NewsCategories.NewsCategoryID
 	WHERE IsHotNews=1 order by Date DESC
 	
@@ -86,12 +86,12 @@ IF(@Flag=0)
     ) AS MARKETS ORDER BY COUNTRYID          
    END    
 
-   Select  Top 50 ATitle As Title,CompanyId,News_Ar.NewsCategoryID,Date,NewsImage,NewsCategories.NewsCategory from News_Ar
+   Select  Top 50 ATitle As Title,CompanyId,News_Ar.NewsCategoryID,Date,NewsImage,NewsCategories.ANewsCategory AS NewsCategory,NewsID,0 AS langId from News_Ar
 	INNER JOIN NewsCategories ON News_Ar.NewsCategoryID = NewsCategories.NewsCategoryID
 	WHERE IsHotNews=0 order by Date DESC
 	
 
-	Select  Top 1 ATitle As Title,CompanyId,News_Ar.NewsCategoryID,Date,ADescription As Description,NewsImage,NewsCategories.NewsCategory from News_Ar  
+	Select  Top 1 ATitle As Title,CompanyId,News_Ar.NewsCategoryID,Date,ADescription As Description,NewsImage,NewsCategories.ANewsCategory AS NewsCategory,NewsID,0 AS langId from News_Ar  
 	INNER JOIN NewsCategories ON News_Ar.NewsCategoryID = NewsCategories.NewsCategoryID
 	WHERE IsHotNews=1 order by Date DESC
 
