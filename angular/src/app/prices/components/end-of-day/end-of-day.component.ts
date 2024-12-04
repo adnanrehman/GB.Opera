@@ -253,22 +253,22 @@ export class EndOfDayComponent {
           const ticker = row[3]?.trim();  
           const stockMarket = row[4]?.trim();
           const priceDate = row[5];
-          let date: Date;
+          let pricedate: Date;
   
           if (typeof priceDate === 'number') {
             const dateCode = XLSX.SSF.parse_date_code(priceDate);
-            date = new Date(Date.UTC(dateCode.y, dateCode.m - 1, dateCode.d));
+            pricedate = new Date(Date.UTC(dateCode.y, dateCode.m - 1, dateCode.d));
   
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
+            const year = pricedate.getFullYear();
+            const month = String(pricedate.getMonth() + 1).padStart(2, '0');
+            const day = String(pricedate.getDate()).padStart(2, '0');
   
             const dates = `${year}-${month}-${day}`;
           } else if (typeof priceDate === 'string') {
   
-            date = new Date(priceDate);
+            pricedate = new Date(priceDate);
           } else {
-            date = null;
+            pricedate = null;
           }
            
           const openingPrice = parseFloat(row[6]);  
@@ -278,14 +278,14 @@ export class EndOfDayComponent {
           const tradingVolume = Number(row[10]);  
           const trades = Number(row[11]);  
           const tradingValue = parseFloat(row[12]);             
-  
+        var date1=moment(pricedate).format()
           return {
             temp,
             id,
             company,
             ticker,
             stockMarket,
-            date,
+            pricedate,
             openingPrice,
             highestPrice,
             lowestPrice,
