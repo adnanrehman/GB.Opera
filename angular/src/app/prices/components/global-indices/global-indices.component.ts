@@ -19,6 +19,7 @@ import { CommonService } from '@proxy/commons';
 import Swal from 'sweetalert2';
 import { ImportService } from 'src/app/services/import/import.service';
 import { DialogModule } from 'primeng/dialog';
+import * as XLSX from 'xlsx'
 
 @Component({
   selector: 'app-global-indices',
@@ -35,6 +36,7 @@ export class GlobalIndicesComponent {
   selectedItem: any;
   suggestions: any[] = [];
   globalindices: any[];
+  globalindicesImport: any[] = [];
   importFile:any;
   showImportPriceModal: boolean = false;
   permission: {
@@ -136,10 +138,10 @@ export class GlobalIndicesComponent {
   showImportModel(){
     this.showImportPriceModal =true;
   }
-  onFileChange(event:any){
-    this.importFile = event.target.files[0];
-    console.log(event);
-  }
+  // onFileChange(event:any){
+  //   this.importFile = event.target.files[0];
+  //   console.log(event);
+  // }
   
   importGlobalIndices(){
     this.loading = true;
@@ -165,5 +167,174 @@ export class GlobalIndicesComponent {
       () => {
         this.loading = false;
       });
+  }
+
+  onFileChange(event: any) {
+
+    if (event.files.length === 0) {
+      alert('No file selected.');
+      return;
+    }
+
+    const file = event.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      const data = e.target.result;
+      const workbook = XLSX.read(data, { type: 'binary' });
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+
+
+              // Convert the worksheet to JSON with the first row as headers
+              const jsonData: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+              // Log jsonData to inspect the structure
+              console.log('jsonData:', jsonData);
+      
+              // Ensure headers is of type string[] (array of strings)
+              const headers: string[] = Array.isArray(jsonData[0]) ? jsonData[0] : [];
+              console.log('headers:', headers);
+      
+              // Check if headers is empty or not in the expected format
+              if (headers.length === 0) {
+                  alert('Invalid or missing headers.');
+                  return;
+              }
+      
+              // Check if there is any data
+              if (jsonData.length <= 1) {
+                  console.error('No data found in the sheet.');
+                  return;
+              }
+ 
+
+         debugger;     
+      const formattedData = jsonData.slice(1).map((row: any) => {
+        if(row[headers.indexOf('StockMarket')] != undefined){
+          const stockMarket = row[headers.indexOf('StockMarket')].toString();
+          const priceDate = row[headers.indexOf('Date')];
+          let date: Date;
+  
+          if (typeof priceDate === 'number') {
+            const dateCode = XLSX.SSF.parse_date_code(priceDate);
+            date = new Date(Date.UTC(dateCode.y, dateCode.m - 1, dateCode.d));
+  
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+  
+            const dates = `${year}-${month}-${day}`;
+          } else if (typeof priceDate === 'string') {
+  
+            date = new Date(priceDate);
+          } else {
+            date = null;
+          }
+           
+          const open = parseFloat(row[headers.indexOf('Open')]);  
+          const high = parseFloat(row[headers.indexOf('High')]);  
+          const low = parseFloat(row[headers.indexOf('Low')]);  
+          const close = parseFloat(row[headers.indexOf('Close')]);  
+          const volume = parseFloat(row[headers.indexOf('Volume')]);      
+
+          return {
+            stockMarket,
+            date,
+            open,
+            high,
+            low,
+            close,
+            volume,
+          };
+        }
+
+      });
+
+       this.importData(formattedData);
+    };
+
+    reader.readAsBinaryString(file);
+
+  }
+
+  importData(data: any) {
+
+    this.loading = true;
+    this.globalindicesImport = [];
+    if (!Array.isArray(data)) {
+      console.error('Data passed to importCurrencyData is not an array:', data);
+      return;
+    }
+
+    if (!Array.isArray(this.globalindicesImport)) {
+      console.error('Date is not an array. Initializing as an empty array.');
+      this.globalindicesImport = [];
+    }
+
+    this.globalindicesImport = [...this.globalindicesImport, ...data];
+    this.loading = false;
+  }
+
+  InsertGlobalIndices() {
+    // Check if the currencies list is empty or not defined
+    if (!this.globalindicesImport || this.globalindicesImport.length === 0) {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000,
+        title: 'Error!',
+        text: 'No Data to save.',
+        icon: 'error',
+      });
+      return;  // Prevent further execution
+    }
+
+    this.loading = true; // Show loading spinner
+debugger;
+    this.officialIndicsService.importGlobalIndicesByList(this.globalindicesImport).subscribe(
+      res => {
+        if(res == "1"){
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            title: 'Success!',
+            text: 'Saved successfully',
+            icon: 'success',
+          });
+        }else{
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            title: 'Error!',
+            text: res,
+            icon: 'error',
+          });
+        }
+        
+        this.showImportPriceModal=false;
+        // If you need to perform further actions, uncomment and use them:
+        // this.addNewCountryGroup();
+      },
+      error => {
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 4000,
+          title: 'Error!',
+          text: 'Failed to save data',
+          icon: 'error',
+        });
+      },
+      () => {
+        this.loading = false; // Hide loading spinner when the request completes
+      }
+    );
   }
 }
