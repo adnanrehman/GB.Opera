@@ -1,4 +1,5 @@
-Alter PROCEDURE [CheckFinancialsQYPeriods]
+ 
+ALTER PROCEDURE [dbo].[CheckFinancialsQYPeriods]
     @year AS VARCHAR(4),
     @QPeriodID AS SMALLINT,
 	@CompanyID as SMALLINT
@@ -8,7 +9,8 @@ BEGIN
     IF EXISTS (SELECT 1 FROM [FinancialsQYPeriods] WHERE [Year] = @year AND QPeriodID = @QPeriodID and  CompanyID=@CompanyID)
     BEGIN
         -- If the record exists, raise an error or return a message
-        RAISERROR('This period is already added in this year', 16, 1);
+       -- RAISERROR('This period is already added in this year', 16, 1);
+	   SELect 'This period is already added in this year'
         RETURN;
     END
     ELSE
