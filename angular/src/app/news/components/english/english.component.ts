@@ -181,6 +181,7 @@ export class EnglishComponent {
     this.fileService.uploadImage(this.imgContactAvatar._files[0])
         .subscribe((res: any) => {
           this.newsEng.newsImage = res;
+          this.imgContactAvatar = null;
           this.loading = false;
         });
   }
