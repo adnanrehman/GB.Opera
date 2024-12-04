@@ -85,9 +85,15 @@ IF(@Flag=0)
   WHERE SECTORID=42          
     ) AS MARKETS ORDER BY COUNTRYID          
    END    
-   
-   Select  Top 50 ATitle As Title,CompanyId,NewsCategoryId,Date from News_Ar order by Date DESC
-   Select  Top 1 ATitle As Title,CompanyId,NewsCategoryId,Date,ADescription As Description from News_Ar WHERE IsHotNews=1 order by Date DESC
+
+   Select  Top 50 ATitle As Title,CompanyId,News_Ar.NewsCategoryID,Date,NewsImage,NewsCategories.NewsCategory from News_Ar
+	INNER JOIN NewsCategories ON News_Ar.NewsCategoryID = NewsCategories.NewsCategoryID
+	WHERE IsHotNews=0 order by Date DESC
+	
+
+	Select  Top 1 ATitle As Title,CompanyId,News_Ar.NewsCategoryID,Date,ADescription As Description,NewsImage,NewsCategories.NewsCategory from News_Ar  
+	INNER JOIN NewsCategories ON News_Ar.NewsCategoryID = NewsCategories.NewsCategoryID
+	WHERE IsHotNews=1 order by Date DESC
 
  END  
 --IF(@Flag=1)  
