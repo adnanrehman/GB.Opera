@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ImportOfficialIndicesDto } from '@proxy/officials-indics';
 
 @Injectable({
   providedIn: 'root',
@@ -22,11 +23,11 @@ export class ImportService {
     return this.http.post<string>(`${environment.apis.default.url}/Import/ImportPrices`, payload, httpOptions);
   }
 
-  public importOfficialIndices(payload: FormData): Observable<string> {
+  public importOfficialIndices(list: ImportOfficialIndicesDto[]): Observable<string> {
     var httpOptions = {
       headers: new HttpHeaders().append('Content-Disposition', 'multipart/form-data'),
     };
-    return this.http.post<string>(`${environment.apis.default.url}/Import/ImportOfficialIndices`, payload, httpOptions);
+    return this.http.post<string>(`${environment.apis.default.url}/Import/ImportOfficialIndices`, list, httpOptions);
   }
 
   public importGlobalIndices(payload: FormData): Observable<string> {

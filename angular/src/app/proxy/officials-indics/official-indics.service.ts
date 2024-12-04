@@ -1,4 +1,4 @@
-import type { GlobalIndices, GulfbasePrices, MFundCompanies, MFundPrices, MFunds, OfficialIndics } from './models';
+import type { GlobalIndices, GulfbasePrices, ImportGlobalIndicesDto, ImportOfficialIndicesDto, MFundCompanies, MFundPrices, MFunds, OfficialIndics } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 
@@ -62,22 +62,22 @@ export class OfficialIndicsService {
     { apiName: this.apiName,...config });
   
 
-  importGlobalIndicesByFilePath = (filePath: string, config?: Partial<Rest.Config>) =>
+  importGlobalIndicesByList = (list: ImportGlobalIndicesDto[], config?: Partial<Rest.Config>) =>
     this.restService.request<any, string>({
       method: 'POST',
       responseType: 'text',
       url: '/api/app/official-indics/import-global-indices',
-      params: { filePath },
+      body: list,
     },
     { apiName: this.apiName,...config });
   
 
-  importOfficialIndicesByFilePath = (filePath: string, config?: Partial<Rest.Config>) =>
+  importOfficialIndicesByList = (list: ImportOfficialIndicesDto[], config?: Partial<Rest.Config>) =>
     this.restService.request<any, string>({
       method: 'POST',
       responseType: 'text',
       url: '/api/app/official-indics/import-official-indices',
-      params: { filePath },
+      body: list,
     },
     { apiName: this.apiName,...config });
 

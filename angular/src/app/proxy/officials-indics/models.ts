@@ -24,6 +24,30 @@ export interface GulfbasePrices {
   isCapSize: boolean;
 }
 
+export interface ImportGlobalIndicesDto {
+  stockMarket?: string;
+  date?: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+export interface ImportOfficialIndicesDto {
+  stockMarket?: string;
+  sector?: string;
+  date?: string;
+  opening: number;
+  highest: number;
+  lowest: number;
+  closing: number;
+  volume: number;
+  transactions: number;
+  tradingValue: number;
+  previousClose: number;
+}
+
 export interface MFundCompanies {
   companyID: number;
   company?: string;

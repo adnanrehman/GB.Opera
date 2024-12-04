@@ -7302,10 +7302,10 @@
                   "name": "ImportOfficialIndices",
                   "parametersOnMethod": [
                     {
-                      "name": "filePath",
-                      "typeAsString": "System.String, System.Private.CoreLib",
-                      "type": "System.String",
-                      "typeSimple": "string",
+                      "name": "list",
+                      "typeAsString": "System.Collections.Generic.List`1[[GB.Opera.OfficialsIndics.ImportOfficialIndicesDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.ImportOfficialIndicesDto>",
+                      "typeSimple": "[GB.Opera.OfficialsIndics.ImportOfficialIndicesDto]",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -7319,10 +7319,10 @@
                   "name": "ImportGlobalIndices",
                   "parametersOnMethod": [
                     {
-                      "name": "filePath",
-                      "typeAsString": "System.String, System.Private.CoreLib",
-                      "type": "System.String",
-                      "typeSimple": "string",
+                      "name": "list",
+                      "typeAsString": "System.Collections.Generic.List`1[[GB.Opera.OfficialsIndics.ImportGlobalIndicesDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.ImportGlobalIndicesDto>",
+                      "typeSimple": "[GB.Opera.OfficialsIndics.ImportGlobalIndicesDto]",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -7556,33 +7556,33 @@
               "allowAnonymous": null,
               "implementFrom": "GB.Opera.OfficialsIndics.IOfficialIndicsAppService"
             },
-            "ImportOfficialIndicesByFilePath": {
-              "uniqueName": "ImportOfficialIndicesByFilePath",
+            "ImportOfficialIndicesByList": {
+              "uniqueName": "ImportOfficialIndicesByList",
               "name": "ImportOfficialIndices",
               "httpMethod": "POST",
               "url": "api/app/official-indics/import-official-indices",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
-                  "name": "filePath",
-                  "typeAsString": "System.String, System.Private.CoreLib",
-                  "type": "System.String",
-                  "typeSimple": "string",
+                  "name": "list",
+                  "typeAsString": "System.Collections.Generic.List`1[[GB.Opera.OfficialsIndics.ImportOfficialIndicesDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.ImportOfficialIndicesDto>",
+                  "typeSimple": "[GB.Opera.OfficialsIndics.ImportOfficialIndicesDto]",
                   "isOptional": false,
                   "defaultValue": null
                 }
               ],
               "parameters": [
                 {
-                  "nameOnMethod": "filePath",
-                  "name": "filePath",
+                  "nameOnMethod": "list",
+                  "name": "list",
                   "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
+                  "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.ImportOfficialIndicesDto>",
+                  "typeSimple": "[GB.Opera.OfficialsIndics.ImportOfficialIndicesDto]",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
+                  "bindingSourceId": "Body",
                   "descriptorName": ""
                 }
               ],
@@ -7593,33 +7593,33 @@
               "allowAnonymous": null,
               "implementFrom": "GB.Opera.OfficialsIndics.IOfficialIndicsAppService"
             },
-            "ImportGlobalIndicesByFilePath": {
-              "uniqueName": "ImportGlobalIndicesByFilePath",
+            "ImportGlobalIndicesByList": {
+              "uniqueName": "ImportGlobalIndicesByList",
               "name": "ImportGlobalIndices",
               "httpMethod": "POST",
               "url": "api/app/official-indics/import-global-indices",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
-                  "name": "filePath",
-                  "typeAsString": "System.String, System.Private.CoreLib",
-                  "type": "System.String",
-                  "typeSimple": "string",
+                  "name": "list",
+                  "typeAsString": "System.Collections.Generic.List`1[[GB.Opera.OfficialsIndics.ImportGlobalIndicesDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.ImportGlobalIndicesDto>",
+                  "typeSimple": "[GB.Opera.OfficialsIndics.ImportGlobalIndicesDto]",
                   "isOptional": false,
                   "defaultValue": null
                 }
               ],
               "parameters": [
                 {
-                  "nameOnMethod": "filePath",
-                  "name": "filePath",
+                  "nameOnMethod": "list",
+                  "name": "list",
                   "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
+                  "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.ImportGlobalIndicesDto>",
+                  "typeSimple": "[GB.Opera.OfficialsIndics.ImportGlobalIndicesDto]",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
+                  "bindingSourceId": "Body",
                   "descriptorName": ""
                 }
               ],
@@ -24836,6 +24836,240 @@
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "GB.Opera.OfficialsIndics.ImportGlobalIndicesDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "StockMarket",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Date",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Open",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "High",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Low",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Close",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Volume",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "GB.Opera.OfficialsIndics.ImportOfficialIndicesDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "StockMarket",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Sector",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Date",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Opening",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Highest",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Lowest",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Closing",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Volume",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Transactions",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TradingValue",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PreviousClose",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
