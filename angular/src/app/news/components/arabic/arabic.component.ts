@@ -145,6 +145,7 @@ export class ArabicComponent {
     this.fileService.uploadImage(this.imgContactAvatar._files[0])
         .subscribe((res: any) => {
           this.newsArab.newsImage = res;
+          this.imgContactAvatar = null;
           this.loading = false;
         });
   }
