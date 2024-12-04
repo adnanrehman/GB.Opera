@@ -316,7 +316,7 @@ debugger;
             icon: 'error',
           });
         }
-        
+        this.getGlobalIndices();
         this.showImportPriceModal=false;
         // If you need to perform further actions, uncomment and use them:
         // this.addNewCountryGroup();
