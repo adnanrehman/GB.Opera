@@ -47,4 +47,21 @@ namespace GB.Opera.EndOfDay
         public DateTime? LastUpdated { get; set; }
         public bool IsActive { get; set; }
     }
+
+    public class FundPricesImportDto
+    {
+        public string Temp { get; set; }
+        public int Id { get; set; }
+        public string Company { get; set; }
+        public string Ticker { get; set; }
+        public string StockMarket { get; set; }
+        public DateTime PriceDate { get; set; }
+		public decimal? OpeningPrice { get; set; }
+		public decimal? HighestPrice { get; set; }
+		public decimal? LowestPrice { get; set; }
+		public decimal? ClosingPrice { get; set; }
+		public long? TradingVolume { get; set; }
+		public decimal? TradingValue { get; set; }
+		public long? Trades { get; set; }
+	}
 }

@@ -6633,10 +6633,10 @@
                   "name": "ImportPrices",
                   "parametersOnMethod": [
                     {
-                      "name": "filePath",
-                      "typeAsString": "System.String, System.Private.CoreLib",
-                      "type": "System.String",
-                      "typeSimple": "string",
+                      "name": "list",
+                      "typeAsString": "System.Collections.Generic.List`1[[GB.Opera.EndOfDay.FundPricesImportDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<GB.Opera.EndOfDay.FundPricesImportDto>",
+                      "typeSimple": "[GB.Opera.EndOfDay.FundPricesImportDto]",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -6722,33 +6722,33 @@
               "allowAnonymous": null,
               "implementFrom": "GB.Opera.EndOfDay.IEndofDayAppService"
             },
-            "ImportPricesByFilePath": {
-              "uniqueName": "ImportPricesByFilePath",
+            "ImportPricesByList": {
+              "uniqueName": "ImportPricesByList",
               "name": "ImportPrices",
               "httpMethod": "POST",
               "url": "api/app/endof-day/import-prices",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
-                  "name": "filePath",
-                  "typeAsString": "System.String, System.Private.CoreLib",
-                  "type": "System.String",
-                  "typeSimple": "string",
+                  "name": "list",
+                  "typeAsString": "System.Collections.Generic.List`1[[GB.Opera.EndOfDay.FundPricesImportDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<GB.Opera.EndOfDay.FundPricesImportDto>",
+                  "typeSimple": "[GB.Opera.EndOfDay.FundPricesImportDto]",
                   "isOptional": false,
                   "defaultValue": null
                 }
               ],
               "parameters": [
                 {
-                  "nameOnMethod": "filePath",
-                  "name": "filePath",
+                  "nameOnMethod": "list",
+                  "name": "list",
                   "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
+                  "type": "System.Collections.Generic.List<GB.Opera.EndOfDay.FundPricesImportDto>",
+                  "typeSimple": "[GB.Opera.EndOfDay.FundPricesImportDto]",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
+                  "bindingSourceId": "Body",
                   "descriptorName": ""
                 }
               ],
@@ -23202,6 +23202,171 @@
           "jsonName": null,
           "type": "System.Int32",
           "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "GB.Opera.EndOfDay.FundPricesImportDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Temp",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Id",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Company",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Ticker",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "StockMarket",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PriceDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "OpeningPrice",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HighestPrice",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LowestPrice",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ClosingPrice",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TradingVolume",
+          "jsonName": null,
+          "type": "System.Int64?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TradingValue",
+          "jsonName": null,
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Trades",
+          "jsonName": null,
+          "type": "System.Int64?",
+          "typeSimple": "number?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

@@ -17,6 +17,22 @@ export interface EODPrices {
   companyID: number;
 }
 
+export interface FundPricesImportDto {
+  temp?: string;
+  id: number;
+  company?: string;
+  ticker?: string;
+  stockMarket?: string;
+  priceDate?: string;
+  openingPrice?: number;
+  highestPrice?: number;
+  lowestPrice?: number;
+  closingPrice?: number;
+  tradingVolume?: number;
+  tradingValue?: number;
+  trades?: number;
+}
+
 export interface GCCSector {
   abbr?: string;
   stockMarketID: number;

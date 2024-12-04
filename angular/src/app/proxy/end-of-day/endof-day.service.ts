@@ -1,4 +1,4 @@
-import type { EODPrices, GCCSector } from './models';
+import type { EODPrices, FundPricesImportDto, GCCSector } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 
@@ -26,12 +26,12 @@ export class EndofDayService {
     { apiName: this.apiName,...config });
   
 
-  importPricesByFilePath = (filePath: string, config?: Partial<Rest.Config>) =>
+  importPricesByList = (list: FundPricesImportDto[], config?: Partial<Rest.Config>) =>
     this.restService.request<any, string>({
       method: 'POST',
       responseType: 'text',
       url: '/api/app/endof-day/import-prices',
-      params: { filePath },
+      body: list,
     },
     { apiName: this.apiName,...config });
 

@@ -36,9 +36,9 @@ public class ImportController : AbpController
         {
             file.CopyTo(stream);
         }
-        var data = await _endOfDayAppService.ImportPrices(filePath);
+        //var data = await _endOfDayAppService.ImportPrices(filePath);
         
-        return Json(data);
+        return Json("");
     }
 
     public async Task<ActionResult> ImportOfficialIndices(IFormFile file)
