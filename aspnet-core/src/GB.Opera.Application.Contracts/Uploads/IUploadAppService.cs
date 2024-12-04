@@ -12,5 +12,7 @@ namespace GB.Opera.Uploads
         public Task<List<Users>> _getEntryReEntryUsers();
         public Task<List<UploadFinancialListDto>> GetFinancialsBycompanyId(int CompanyID);
         Task CreateUploadFinancial(UploadFinancials input);
+
+        public   Task<string> Checkfinancialyear(string year, Int16 QPeriodID, Int16 CompanyID);
     }
 }

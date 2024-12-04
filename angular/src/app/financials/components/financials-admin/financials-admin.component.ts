@@ -183,89 +183,49 @@ export class FinancialsAdminComponent {
   updateAdminFinancialsByInput() {
     this.loading = true;
 
-    debugger;
-    // Perform the check before updating
-
-    if (this.years=="")
-    {
-      this.years=this.newReviewFinancial.year.toString()
+    // If 'years' is empty, set it to the 'newReviewFinancial.year' value
+    if (this.years === "") {
+        this.years = this.newReviewFinancial.year.toString();
     }
-    this.financialsAdminService.checkfinancialyearByYearAndQPeriodIDAndCompanyID(
-        this.years,  
-        this.newReviewFinancial.qPeriodID,this.companyID
-       
-    ).subscribe(
-        (res: any) => {  // Make sure we handle the response type correctly
-            // Check if the response has an error message
-            if (res && res.errorMessage) {
-                // If there's an error message in the response, show it
-                Swal.fire({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 4000,
-                    title: 'Error!',
-                    text: res.errorMessage || 'This period is already added in this year.',
-                    icon: 'error',
-                });
-                this.loading = false;  // Stop loading on error
-                return; // Stop the execution of the save process
-            }
 
-            // If no error message exists, proceed with the save operation
-            this.newReviewFinancial.asOfDate = moment(this.newReviewFinancial.asOfDate).format();
+    // Directly proceed with the update method without performing the check
+    this.newReviewFinancial.asOfDate = moment(this.newReviewFinancial.asOfDate).format();
 
-            // Call the update method
-            this.financialsAdminService.updateAdminFinancialsByInput(this.newReviewFinancial).subscribe(
-                (updateRes) => {
-                    // Handle the successful update response
-                    Swal.fire({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 4000,
-                        title: 'Success!',
-                        text: `${this.newReviewFinancial.qPeriod} updated successfully`,
-                        icon: 'success',
-                    });
+    // Call the update method
+    this.financialsAdminService.updateAdminFinancialsByInput(this.newReviewFinancial).subscribe(
+        (updateRes) => {
+            // Handle the successful update response
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                title: 'Success!',
+                text: `${this.newReviewFinancial.qPeriod} updated successfully`,
+                icon: 'success',
+            });
 
-                    // Optionally handle the updated financial review if needed (e.g., update UI)
-                    this.handleNewReviewFinancial(this.newReviewFinancial);
-                    this.loading = false;
-                },
-                (updateError) => {
-                    // Handle error from the update API call
-                    console.error('Error during update:', updateError);
-                    this.loading = false;
-                    Swal.fire({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 4000,
-                        title: 'Error!',
-                        text: 'There was an error updating the financial record.',
-                        icon: 'error',
-                    });
-                },
-                () => {
-                    // Cleanup if necessary (this will be called in both success and error cases of the update)
-                    this.loading = false;
-                }
-            );
-        },
-        (checkError) => {
-            // Handle error from the check service
+            // Optionally handle the updated financial review if needed (e.g., update UI)
+            this.handleNewReviewFinancial(this.newReviewFinancial);
             this.loading = false;
-            console.error('Error during check: ', checkError);
+        },
+        (updateError) => {
+            // Handle error from the update API call
+            console.error('Error during update:', updateError);
+            this.loading = false;
             Swal.fire({
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
                 timer: 4000,
                 title: 'Error!',
-                text: 'This period is already added in this year.',
+                text: 'There was an error updating the financial record.',
                 icon: 'error',
             });
+        },
+        () => {
+            // Cleanup if necessary (this will be called in both success and error cases of the update)
+            this.loading = false;
         }
     );
 }
@@ -354,6 +314,7 @@ export class FinancialsAdminComponent {
 
 
   onQPeriodChange(event: any) {
+    //  (onChange)="onQPeriodChange($event)"
     // Log the selected Q Period to the console (optional)
     console.log('Selected Q Period:', event.value);
 

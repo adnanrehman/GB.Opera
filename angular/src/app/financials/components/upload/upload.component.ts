@@ -226,27 +226,111 @@ getEntryusers()
     this.uploadFinancial.companyID = this.companyID;
     this.uploadFinancial.userID = this.userId;
     this.uploadFinancial.asOfDate = moment(this.uploadFinancial.asOfDate).format();
-    this.uploadService.createUploadFinancialByInput(this.uploadFinancial).subscribe(res => {
-      debugger;
-      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.uploadFinancial.remarks + ' saved successfully', icon: 'success', });
-      this.getFinancialsBycompanyIdByCompanyID();
-      this.uploadFinancial = {
-        financialsID: 0,
-        companyID: 0,
-        newReviewFinancialID: 0,
-        periodTypeID: 0,
-        financialEntryTypeID: 0,
-        isYearly: false,
-        qPeriodId: 0
-      };
-      this.loading = false;
-    },
-      error => {
-        this.loading = false;
+  
+    // Call the service to check if the period already exists for the given year and company
+    this.uploadService.checkfinancialyearByYearAndQPeriodIDAndCompanyID(this.uploadFinancial.year.toString(),
+      this.uploadFinancial.qPeriodId,
+      this.uploadFinancial.companyID
+    ).subscribe(
+      (res) => {
+        if (res === "This period is already added in this year") {
+          // If the period is already added, show an alert and stop further execution
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            title: 'Error!',
+            text: 'This period is already added in this year.',
+            icon: 'error',
+          });
+          this.loading = false;
+        } else {
+          // Proceed with saving the data if the period is not already added
+          this.uploadService.createUploadFinancialByInput(this.uploadFinancial).subscribe(
+            (res) => {
+              Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                title: 'Success!',
+                text: this.uploadFinancial.remarks + ' saved successfully',
+                icon: 'success',
+              });
+              this.getFinancialsBycompanyIdByCompanyID();
+              this.uploadFinancial = {
+                financialsID: 0,
+                companyID: 0,
+                newReviewFinancialID: 0,
+                periodTypeID: 0,
+                financialEntryTypeID: 0,
+                isYearly: false,
+                qPeriodId: 0
+              };
+              this.loading = false;
+            },
+            (error) => {
+              this.loading = false;
+            },
+            () => {
+              this.loading = false;
+            }
+          );
+        }
       },
-      () => {
+      (error) => {
+        // Handle error if the check service call fails
         this.loading = false;
-      });
+      }
+    );
+  }
+  
+  // createUploadFinancial() {
+  //   debugger;
+  //   this.loading = true;
+  //   this.uploadFinancial.companyID = this.companyID;
+  //   this.uploadFinancial.userID = this.userId;
+  //   this.uploadFinancial.asOfDate = moment(this.uploadFinancial.asOfDate).format();
+  //   this.uploadService.checkfinancialyearByYearAndQPeriodIDAndCompanyID(this.uploadFinancial.year.toString(),this.uploadFinancial.qPeriodId,this.uploadFinancial.companyID)
+  //   this.uploadService.createUploadFinancialByInput(this.uploadFinancial).subscribe(res => {
+  //     debugger;
+  //     Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.uploadFinancial.remarks + ' saved successfully', icon: 'success', });
+  //     this.getFinancialsBycompanyIdByCompanyID();
+  //     this.uploadFinancial = {
+  //       financialsID: 0,
+  //       companyID: 0,
+  //       newReviewFinancialID: 0,
+  //       periodTypeID: 0,
+  //       financialEntryTypeID: 0,
+  //       isYearly: false,
+  //       qPeriodId: 0
+  //     };
+  //     this.loading = false;
+  //   },
+  //     error => {
+  //       this.loading = false;
+  //     },
+  //     () => {
+  //       this.loading = false;
+  //     });
+  // }
+  onQPeriodChange(event: any) {
+    //  (onChange)="onQPeriodChange($event)"
+    // Log the selected Q Period to the console (optional)
+    console.log('Selected Q Period:', event.value);
+
+    // Implement logic for the "Yearly" checkbox based on selected Q Period
+    if (event.value === 4) {
+      // Enable "Yearly" checkbox when Q4 is selected
+      
+      this.uploadFinancial.isYearly= true;
+    } else {
+      // Disable "Yearly" checkbox when any other period is selected
+     
+      this.uploadFinancial.isYearly = false;
+
+    }
   }
 
 }

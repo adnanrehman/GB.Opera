@@ -9,6 +9,16 @@ export class UploadService {
   apiName = 'Default';
   
 
+  checkfinancialyearByYearAndQPeriodIDAndCompanyID = (year: string, QPeriodID: number, CompanyID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, string>({
+      method: 'POST',
+      responseType: 'text',
+      url: '/api/app/upload/checkfinancialyear',
+      params: { year, qPeriodID: QPeriodID, companyID: CompanyID },
+    },
+    { apiName: this.apiName,...config });
+  
+
   createUploadFinancialByInput = (input: UploadFinancials, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
       method: 'POST',

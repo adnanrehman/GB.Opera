@@ -96,84 +96,193 @@ export class CurrencyExchangeComponent {
     });
 
   }
-  onFileChange(event: any) {
 
+  onFileChange(event: any) {
     if (event.files.length === 0) {
-      alert('No file selected.');
-      return;
+        alert('No file selected.');
+        return;
     }
 
     const file = event.files[0];
     const reader = new FileReader();
 
     reader.onload = (e: any) => {
-      const data = e.target.result;
-      const workbook = XLSX.read(data, { type: 'binary' });
-      const firstSheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[firstSheetName];
+        const data = e.target.result;
+        const workbook = XLSX.read(data, { type: 'binary' });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
 
+        // Convert the worksheet to JSON with the first row as headers
+        const jsonData: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
- 
+        // Log jsonData to inspect the structure
+        console.log('jsonData:', jsonData);
 
+        // Ensure headers is of type string[] (array of strings)
+        const headers: string[] = Array.isArray(jsonData[0]) ? jsonData[0] : [];
+        console.log('headers:', headers);
 
-      const formattedData = jsonData.slice(1).map((row: any) => {
-        const currencyFrom = row[0]?.trim(); // 'From' column
-        const currencyTo = row[1]?.trim();   // 'To' column
-        const exchange = parseFloat(row[2]);  // Assuming 'Exchange' is the third column
-        const dateValue = row[3];              // 'Date' column
-
-        let date: Date;
-
-        if (typeof dateValue === 'number') {
-          const dateCode = XLSX.SSF.parse_date_code(dateValue);
-          date = new Date(Date.UTC(dateCode.y, dateCode.m - 1, dateCode.d));
-
-          const year = date.getFullYear();
-          const month = String(date.getMonth() + 1).padStart(2, '0');
-          const day = String(date.getDate()).padStart(2, '0');
-
-          const dates = `${year}-${month}-${day}`;
-        } else if (typeof dateValue === 'string') {
-
-          date = new Date(dateValue);
-        } else {
-          date = null;
+        // Check if headers is empty or not in the expected format
+        if (headers.length === 0) {
+            alert('Invalid or missing headers.');
+            return;
         }
 
-        return {
-          CurrencyExchangeID: 0,
-          currencyFrom,
-          currencyTo,
-          exchange,
-          date,
-        };
-      });
+        // Check if there is any data
+        if (jsonData.length <= 1) {
+            console.error('No data found in the sheet.');
+            return;
+        }
 
-      this.importCurrencyData(formattedData);
+        // Format the data using the column names from the header row
+        const formattedData = jsonData.slice(1).map((row: any) => {
+            console.log('Row:', row);  // Log each row to check the data
+
+            const currencyFrom = row[headers.indexOf('From')]?.trim(); // 'From' column
+            const currencyTo = row[headers.indexOf('To')]?.trim();   // 'To' column
+           // const exchange = parseFloat(row[headers.indexOf('Exchange')]);
+           const exchange = parseFloat(row[headers.indexOf('Exchange')])?.toFixed(6);   // 'Exchange' column
+            const dateValue = row[headers.indexOf('Date')];             // 'Date' column
+
+            // Ensure that the values exist before trying to map them
+           // if (!currencyFrom || !currencyTo || isNaN(exchange) || !dateValue) {
+           //     console.error('Invalid data in row:', row);
+           //     return null;  // Skip rows with invalid data
+           // }
+
+            let date: Date;
+
+            // Handle date formatting
+            if (typeof dateValue === 'number') {
+                const dateCode = XLSX.SSF.parse_date_code(dateValue);
+                date = new Date(Date.UTC(dateCode.y, dateCode.m - 1, dateCode.d));
+            } else if (typeof dateValue === 'string') {
+                date = new Date(dateValue);
+            } else {
+                date = null;
+            }
+
+            // Return the formatted data
+            return {
+                CurrencyExchangeID: 0,  // Assuming you want to initialize this as 0
+                currencyFrom,
+                currencyTo,
+                exchange,
+                date,
+            };
+        }).filter((item: any) => item !== null);  // Remove any invalid rows
+
+        // Log formatted data to check the structure
+        console.log('Formatted Data:', formattedData);
+
+        // Pass the formatted data to the import function
+        this.importCurrencyData(formattedData);
     };
 
     reader.readAsBinaryString(file);
+}
 
-  }
 
-  importCurrencyData(data: any) {
-
+importCurrencyData(data: any) {
     this.loading = true;
 
     if (!Array.isArray(data)) {
-      console.error('Data passed to importCurrencyData is not an array:', data);
-      return;
+        console.error('Data passed to importCurrencyData is not an array:', data);
+        return;
     }
 
     if (!Array.isArray(this.Currencies)) {
-      console.error('this.Currencies is not an array. Initializing as an empty array.');
-      this.Currencies = [];
+        console.error('this.Currencies is not an array. Initializing as an empty array.');
+        this.Currencies = [];
     }
 
+    console.log('Imported Currencies:', data);
     this.Currencies = [...this.Currencies, ...data];
     this.loading = false;
-  }
+}
+
+
+// importCurrencyData(data: any) {
+
+//   this.loading = true;
+
+//   if (!Array.isArray(data)) {
+//     console.error('Data passed to importCurrencyData is not an array:', data);
+//     return;
+//   }
+
+//   if (!Array.isArray(this.Currencies)) {
+//     console.error('this.Currencies is not an array. Initializing as an empty array.');
+//     this.Currencies = [];
+//   }
+
+//   this.Currencies = [...this.Currencies, ...data];
+//   this.loading = false;
+// }
+
+
+  // onFileChange(event: any) {
+
+  //   if (event.files.length === 0) {
+  //     alert('No file selected.');
+  //     return;
+  //   }
+
+  //   const file = event.files[0];
+  //   const reader = new FileReader();
+
+  //   reader.onload = (e: any) => {
+  //     const data = e.target.result;
+  //     const workbook = XLSX.read(data, { type: 'binary' });
+  //     const firstSheetName = workbook.SheetNames[0];
+  //     const worksheet = workbook.Sheets[firstSheetName];
+
+
+  //     const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+ 
+
+
+  //     const formattedData = jsonData.slice(1).map((row: any) => {
+  //       const currencyFrom = row[0]?.trim(); // 'From' column
+  //       const currencyTo = row[1]?.trim();   // 'To' column
+  //       const exchange = parseFloat(row[2]);  // Assuming 'Exchange' is the third column
+  //       const dateValue = row[3];              // 'Date' column
+
+  //       let date: Date;
+
+  //       if (typeof dateValue === 'number') {
+  //         const dateCode = XLSX.SSF.parse_date_code(dateValue);
+  //         date = new Date(Date.UTC(dateCode.y, dateCode.m - 1, dateCode.d));
+
+  //         const year = date.getFullYear();
+  //         const month = String(date.getMonth() + 1).padStart(2, '0');
+  //         const day = String(date.getDate()).padStart(2, '0');
+
+  //         const dates = `${year}-${month}-${day}`;
+  //       } else if (typeof dateValue === 'string') {
+
+  //         date = new Date(dateValue);
+  //       } else {
+  //         date = null;
+  //       }
+
+  //       return {
+  //         CurrencyExchangeID: 0,
+  //         currencyFrom,
+  //         currencyTo,
+  //         exchange,
+  //         date,
+  //       };
+  //     });
+
+  //     this.importCurrencyData(formattedData);
+  //   };
+
+  //   reader.readAsBinaryString(file);
+
+  // }
+
+  
 
   insertCurrencyGroup() {
     // Check if the currencies list is empty or not defined
