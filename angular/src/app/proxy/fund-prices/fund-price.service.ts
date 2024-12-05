@@ -9,6 +9,16 @@ export class FundPriceService {
   apiName = 'Default';
   
 
+  importMFundPricesByList = (list: MFundPrices[], config?: Partial<Rest.Config>) =>
+    this.restService.request<any, string>({
+      method: 'POST',
+      responseType: 'text',
+      url: '/api/app/fund-price/import-mFund-prices',
+      body: list,
+    },
+    { apiName: this.apiName,...config });
+  
+
   insertMFundPricesByModel = (model: MFundPrices, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
       method: 'POST',

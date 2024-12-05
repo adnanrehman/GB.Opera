@@ -5817,6 +5817,23 @@
                     "type": "System.Void",
                     "typeSimple": "System.Void"
                   }
+                },
+                {
+                  "name": "ImportMFundPrices",
+                  "parametersOnMethod": [
+                    {
+                      "name": "list",
+                      "typeAsString": "System.Collections.Generic.List`1[[GB.Opera.OfficialsIndics.MFundPrices, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.MFundPrices>",
+                      "typeSimple": "[GB.Opera.OfficialsIndics.MFundPrices]",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.String",
+                    "typeSimple": "string"
+                  }
                 }
               ]
             }
@@ -5855,6 +5872,43 @@
               "returnValue": {
                 "type": "System.Void",
                 "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "FundPrices.IFundPriceAppService"
+            },
+            "ImportMFundPricesByList": {
+              "uniqueName": "ImportMFundPricesByList",
+              "name": "ImportMFundPrices",
+              "httpMethod": "POST",
+              "url": "api/app/fund-price/import-mFund-prices",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "list",
+                  "typeAsString": "System.Collections.Generic.List`1[[GB.Opera.OfficialsIndics.MFundPrices, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.MFundPrices>",
+                  "typeSimple": "[GB.Opera.OfficialsIndics.MFundPrices]",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "list",
+                  "name": "list",
+                  "jsonName": null,
+                  "type": "System.Collections.Generic.List<GB.Opera.OfficialsIndics.MFundPrices>",
+                  "typeSimple": "[GB.Opera.OfficialsIndics.MFundPrices]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.String",
+                "typeSimple": "string"
               },
               "allowAnonymous": null,
               "implementFrom": "FundPrices.IFundPriceAppService"
@@ -25255,6 +25309,30 @@
           "name": "LastUpdated",
           "jsonName": null,
           "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Ticker",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "MFund",
+          "jsonName": null,
+          "type": "System.String",
           "typeSimple": "string",
           "isRequired": false,
           "minLength": null,

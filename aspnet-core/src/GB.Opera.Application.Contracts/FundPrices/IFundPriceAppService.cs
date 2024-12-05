@@ -12,7 +12,9 @@ namespace FundPrices
     public interface IFundPriceAppService : IApplicationService
     {
         Task InsertMFundPrices(MFundPrices model);
+        Task<string> ImportMFundPrices(List<MFundPrices> list);
 
-    }
+
+	}
 }
 

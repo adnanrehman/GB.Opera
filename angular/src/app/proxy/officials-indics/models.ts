@@ -66,6 +66,8 @@ export interface MFundPrices {
   tradingVolume: number;
   lastClosePrice: number;
   lastUpdated?: string;
+  ticker?: string;
+  mFund?: string;
   isActive: boolean;
 }
 
