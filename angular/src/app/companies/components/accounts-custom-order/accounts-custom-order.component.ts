@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule, NgFor } from '@angular/common';
@@ -18,6 +18,9 @@ import { CommonService } from '@proxy/commons';
 import Swal from 'sweetalert2';
 import { PermissionService } from '@abp/ng.core';
 import { Company_AccountsCustomOrder } from 'src/app/services/permissions';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+ 
+
 
 @Component({
   selector: 'app-accounts-custom-order',
@@ -40,9 +43,12 @@ import { Company_AccountsCustomOrder } from 'src/app/services/permissions';
     TabViewModule, TreeModule
   ],
   templateUrl: './accounts-custom-order.component.html',
-  styleUrl: './accounts-custom-order.component.scss'
+  styleUrl: './accounts-custom-order.component.scss',
+ 
 })
 export class AccountsCustomOrderComponent {
+
+  
   loading: boolean = false;
   headerValue: any;
   selectedItem: any;
@@ -55,6 +61,7 @@ export class AccountsCustomOrderComponent {
   companyMarketSectors = [];
   companiesTickers = [];
   companyFactOrders = [];
+  globalFilter: string = '';
   permission: {
     create: boolean;
     edit: boolean,
@@ -135,13 +142,14 @@ export class AccountsCustomOrderComponent {
       .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        if (this.companiesTickers.length > 0){
-          if(!this.companyID)
-          this.companyID = this.companiesTickers[0].companyID;
-          this.companyTicker = this.companiesTickers[0].ticker;
-          this.getCompaniesFactOrdersByCompanyID();
-        } 
-        else this.loading = false;
+        // if (this.companiesTickers.length > 0){
+        //   // if(!this.companyID)
+        //   // this.companyID = this.companiesTickers[0].companyID;
+        //   // this.companyTicker = this.companiesTickers[0].ticker;
+        //   // this.getCompaniesFactOrdersByCompanyID();
+        // } 
+        // else 
+        this.loading = false;
       });
   }
 
@@ -165,6 +173,7 @@ export class AccountsCustomOrderComponent {
       next: (res) => {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
         console.log('Save response:', res);
+        this.getCompaniesFactOrdersByCompanyID();
         this.loading = false;
       },
       error: (err) => {
