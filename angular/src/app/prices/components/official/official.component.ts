@@ -360,7 +360,7 @@ debugger;
           showConfirmButton: false,
           timer: 4000,
           title: 'Error!',
-          text: 'Failed to save currency data',
+          text: 'Failed to save data',
           icon: 'error',
         });
       },

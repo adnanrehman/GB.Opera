@@ -22,7 +22,7 @@
                           <!-- <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
                           <a href="#" *ngIf="permission.create"  class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
                           <a href="#" *ngIf="permission.create"  class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
-                          <a href="#" *ngIf="permission.create" (click)="showImportModel()"  class="btn btn-primary btn-sm me-1"><i class="fa fa-document"></i> Import Official Indices</a>
+                          <a href="#" *ngIf="permission.create" (click)="showImportModel()"  class="btn btn-primary btn-sm me-1"><i class="fa fa-document"></i> Import Global Indices</a>
                         </div>
                       </div>
                       <div class="row mb-2 mt-2">
@@ -104,7 +104,7 @@
   </div>
 
 
-  <p-dialog [visible]="showImportPriceModal" header="Import Prices" [modal]="true" [style]="{'width':'30vw'}">
+  <p-dialog [visible]="showImportPriceModal" header="Import Global Indices" [modal]="true" [style]="{'width':'30vw'}">
     <div [abpLoading]="loading">
       <div class="row mb-2">
         <div class="col-12">

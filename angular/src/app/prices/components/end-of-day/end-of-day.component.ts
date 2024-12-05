@@ -363,7 +363,7 @@ debugger;
             icon: 'error',
           });
         }
-        
+        this.getEodPrices();
         this.showImportPriceModal=false;
         // If you need to perform further actions, uncomment and use them:
         // this.addNewCountryGroup();
@@ -375,7 +375,7 @@ debugger;
           showConfirmButton: false,
           timer: 4000,
           title: 'Error!',
-          text: 'Failed to save currency data',
+          text: 'Failed to save data',
           icon: 'error',
         });
       },
