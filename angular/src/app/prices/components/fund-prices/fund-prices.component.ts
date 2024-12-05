@@ -22,6 +22,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
 import { TreeModule } from 'primeng/tree';
 import { CommonService } from '@proxy/commons';
+import { DialogModule } from 'primeng/dialog';
+import * as XLSX from 'xlsx'
 
 @Component({
   selector: 'app-fund-prices',
@@ -37,6 +39,7 @@ import { CommonService } from '@proxy/commons';
     DropdownModule,
     CalendarModule,
     ImageModule,
+    DialogModule,
     FileUploadModule,
     CheckboxModule,
     ThemeSharedModule,
@@ -52,6 +55,7 @@ export class FundPricesComponent {
   loading:boolean = false;
   selectedItem: any;
   clickedIndex = 0;
+  showImportPriceModal: boolean = false;
   suggestions: any[] = [];
   permission: {
     create: boolean;
@@ -60,6 +64,7 @@ export class FundPricesComponent {
   }
   markets:MFundCompanies[] = [];
   funds:MFunds[] = [];
+  mFundPricesImportDto: any[]=[];
   fundPrices: MFundPrices[];
   fundPrice : MFundPrices = {
     mFundPriceID: 0,
@@ -206,6 +211,175 @@ export class FundPricesComponent {
     }
       
 
+  }
+
+  showImportModel(){
+    this.showImportPriceModal =true;
+  }
+
+  onFileChange(event: any) {
+
+    if (event.files.length === 0) {
+      alert('No file selected.');
+      return;
+    }
+
+    const file = event.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      const data = e.target.result;
+      const workbook = XLSX.read(data, { type: 'binary' });
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+
+
+              // Convert the worksheet to JSON with the first row as headers
+              const jsonData: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+              // Log jsonData to inspect the structure
+              console.log('jsonData:', jsonData);
+      
+              // Ensure headers is of type string[] (array of strings)
+              const headers: string[] = Array.isArray(jsonData[0]) ? jsonData[0] : [];
+              console.log('headers:', headers);
+      
+              // Check if headers is empty or not in the expected format
+              if (headers.length === 0) {
+                  alert('Invalid or missing headers.');
+                  return;
+              }
+      
+              // Check if there is any data
+              if (jsonData.length <= 1) {
+                  console.error('No data found in the sheet.');
+                  return;
+              }
+ 
+
+         debugger;     
+      const formattedData = jsonData.slice(1).map((row: any) => {
+        if(row[headers.indexOf('Ticker')] != undefined && row[headers.indexOf('ShortName')] != undefined){
+          const ticker = row[headers.indexOf('Ticker')].toString();
+          const mFund = row[headers.indexOf('ShortName')].toString();
+          const date = row[headers.indexOf('PriceDate')];
+          let priceDate: Date;
+  
+          if (typeof date === 'number') {
+            const dateCode = XLSX.SSF.parse_date_code(date);
+            priceDate = new Date(Date.UTC(dateCode.y, dateCode.m - 1, dateCode.d));
+  
+            const year = priceDate.getFullYear();
+            const month = String(priceDate.getMonth() + 1).padStart(2, '0');
+            const day = String(priceDate.getDate()).padStart(2, '0');
+  
+            const dates = `${year}-${month}-${day}`;
+          } else if (typeof date === 'string') {
+  
+            priceDate = new Date(date);
+          } else {
+            priceDate = null;
+          }
+           
+          const closingPrice = parseFloat(row[headers.indexOf('Price')]);  
+          const tradingVolume = parseFloat(row[headers.indexOf('Volume')]);      
+
+          return {
+            ticker,
+            mFund,
+            priceDate,
+            closingPrice,
+            tradingVolume,
+          };
+        }
+
+      });
+
+       this.importData(formattedData);
+    };
+
+    reader.readAsBinaryString(file);
+
+  }
+
+  importData(data: any) {
+
+    this.loading = true;
+    this.mFundPricesImportDto = [];
+    if (!Array.isArray(data)) {
+      console.error('Data passed to importCurrencyData is not an array:', data);
+      return;
+    }
+
+    if (!Array.isArray(this.mFundPricesImportDto)) {
+      console.error('Date is not an array. Initializing as an empty array.');
+      this.mFundPricesImportDto = [];
+    }
+
+    this.mFundPricesImportDto = [...this.mFundPricesImportDto, ...data];
+    this.loading = false;
+  }
+
+  ImportFundPrices() {
+    // Check if the currencies list is empty or not defined
+    if (!this.mFundPricesImportDto || this.mFundPricesImportDto.length === 0) {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000,
+        title: 'Error!',
+        text: 'No Data to save.',
+        icon: 'error',
+      });
+      return;  // Prevent further execution
+    }
+
+    this.loading = true; // Show loading spinner
+debugger;
+    this.fundPriceService.importMFundPricesByList(this.mFundPricesImportDto).subscribe(
+      res => {
+        if(res == "1"){
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            title: 'Success!',
+            text: 'Saved successfully',
+            icon: 'success',
+          });
+        }else{
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            title: 'Error!',
+            text: res,
+            icon: 'error',
+          });
+        }
+         this.usp_getAllFundPrices();
+        this.showImportPriceModal=false;
+        // If you need to perform further actions, uncomment and use them:
+        // this.addNewCountryGroup();
+      },
+      error => {
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 4000,
+          title: 'Error!',
+          text: 'Failed to save data',
+          icon: 'error',
+        });
+      },
+      () => {
+        this.loading = false; // Hide loading spinner when the request completes
+      }
+    );
   }
 
 }

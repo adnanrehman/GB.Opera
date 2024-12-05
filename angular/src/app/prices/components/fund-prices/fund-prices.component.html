@@ -22,6 +22,7 @@
                 <a href="JavaScript:void(0)" class="btn btn-primary btn-sm me-1" (click)="addNewFundPrice()"
                   ><i class="fa fa-plus"></i> Add New</a
                 >
+                <a href="#" *ngIf="permission.create" (click)="showImportModel()"  class="btn btn-primary btn-sm me-1"><i class="fa fa-document"></i> Import Fund Prices</a>
                 <a href="JavaScript:void(0)" *ngIf="permission.create" (click)="insertMFundPrice()"  class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
                 <!-- <a href="#" *ngIf="permission.create"  class="btn btn-primary btn-sm me-1"
                   ><i class="fa fa-edit"></i> Update</a
@@ -141,3 +142,34 @@
     </div>
   </div>
 </div>
+
+<p-dialog [visible]="showImportPriceModal" header="Import Fund Prices" [modal]="true" [style]="{'width':'30vw'}">
+  <div [abpLoading]="loading">
+    <div class="row mb-2">
+      <div class="col-12">
+        <p> You can download the template from the below link. Fill the relevant values and upload it.
+        </p>
+        <a href="/assets/import/ImportFundPricesSample.xlsx">Download Template</a>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-12">
+        <p-fileUpload name="excelFile" 
+        accept=".xlsx,.xls" 
+        (onSelect)="onFileChange($event)"
+        [auto]="true"
+        [maxFileSize]="1000000000" 
+        [chooseLabel]="'Choose Excel File'" 
+        [uploadLabel]="'Upload'">
+</p-fileUpload>
+        <!-- <input (change)="onFileChange($event)" class="form-control" type="file" id="fileUpload"> -->
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-12 text-center">
+        <button type="button" class="btn btn-danger me-1" (click)="this.showImportPriceModal=false;">Close</button>
+        <button type="button" class="btn btn-success" (click)="ImportFundPrices()">Import</button>
+      </div>
+    </div>
+  </div>
+</p-dialog>

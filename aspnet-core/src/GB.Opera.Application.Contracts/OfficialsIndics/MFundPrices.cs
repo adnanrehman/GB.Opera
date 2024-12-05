@@ -14,6 +14,8 @@ namespace GB.Opera.OfficialsIndics
         public Int64 TradingVolume { get; set; }
         public decimal LastClosePrice { get; set; }
         public DateTime LastUpdated { get; set; }
+        public string? Ticker { get; set; }
+        public string? MFund { get; set; }
         public bool IsActive { get; set; }
         
 

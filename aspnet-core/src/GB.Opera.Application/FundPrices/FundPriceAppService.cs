@@ -23,6 +23,7 @@ using GB.Opera.Books;
 using GB.Opera.constants;
 using GB.Opera.OfficialsIndics;
 using Castle.MicroKernel.Registration;
+using Companies;
 
 namespace FundPrices
 {
@@ -58,5 +59,65 @@ namespace FundPrices
                 throw ex;
             }
         }
-    }
+
+		public async Task<string> ImportMFundPrices(List<MFundPrices> list)
+		{
+			_connection.Open();
+            using (var transaction = _connection.BeginTransaction())
+            {
+				try
+				{
+					var mFunds = await _connection.QueryAsync<MFunds>($@"SELECT * FROM Mfunds", transaction: transaction);
+					var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT * FROM Companies", transaction: transaction);
+
+					foreach (var item in list)
+					{
+						if (!string.IsNullOrEmpty(item.Ticker) && !string.IsNullOrEmpty(item.MFund))
+						{
+							var company = Companies.Where(f => f.Ticker.ToUpper() == (item.Ticker).ToUpper()).FirstOrDefault();
+							if (company != null)
+							{
+								var mfund = mFunds.Where(f => f.ShortName.ToUpper() == (item.MFund).ToUpper()).FirstOrDefault();
+								if (mfund != null)
+								{
+									var parameters = new DynamicParameters();
+									parameters.Add("@MFundPriceID", item.MFundPriceID);
+									parameters.Add("@MFundID", mfund.MFundID);
+									parameters.Add("@PriceDate", item.PriceDate);
+									parameters.Add("@ClosingPrice", item.ClosingPrice);
+									parameters.Add("@TradingVolume", item.TradingVolume);
+									parameters.Add("@LastClosePrice", null);
+									parameters.Add("@LastUpdated", null);
+									parameters.Add("@IsActive", true);
+
+									await _connection.ExecuteAsync(ProcedureNames.usp_InsertMFundPrices, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+								}
+								else
+								{
+									return $@"{item.Ticker} not exist please first add this Company";
+									await transaction.RollbackAsync();
+								}
+							}
+							else
+							{
+								return $@"{item.MFund} not exist please first add this Mutual Fund";
+								await transaction.RollbackAsync();
+							}
+						}
+
+					}
+					await transaction.CommitAsync();
+					return "1";
+
+					
+				}
+				catch (Exception ex)
+				{
+
+					throw ex;
+				}
+			}
+				
+		}
+	}
 }
