@@ -58,7 +58,7 @@ export class RenameAccountComponent {
     debugger;
     if ((this.config.data.obj, this.config.data.text)) {
       var data = this.config.data.obj;
-      this.label = data.node.label;
+      this.label = data.node.gbFact;
       this.companyID = this.config.data.companyID;
       this.getgbfactByid(data.node.gbFactID);
     }
@@ -71,7 +71,8 @@ export class RenameAccountComponent {
     this.gnfactservice.getgbfactByidByGBFactID(gbFactID).subscribe({
       next: response => {
         this.account = response.find(item => item.gbFactID === gbFactID);
-        this.account.gbFact = this.label;
+        this.account.gbFact = this.config.data.obj.node.gbFact == null ? this.config.data.obj.node.label : this.config.data.obj.node.gbFact;
+        this.account.agbFact = this.config.data.obj.node.aGbFact
       },
       error: err => {
         console.error('Error fetching GbFactsAccount:', err);

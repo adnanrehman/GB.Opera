@@ -11,7 +11,7 @@ describe('FundPricesComponent', () => {
       imports: [FundPricesComponent]
     })
     .compileComponents();
-    
+     
     fixture = TestBed.createComponent(FundPricesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

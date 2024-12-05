@@ -240,12 +240,14 @@ export class AccountsComponent {
   NodeSelection(list: any[], companyFacts: any[]) {
     for (let x of list) {
       debugger;
-      var gbFact = companyFacts.find(f => f.gbFactID == x.gbFactID);
+      var gbFact = companyFacts.find(f => f.gbFactID == x.gbFactID && f.companyID == this.companyID);
       if (gbFact) {
-        if(gbFact.customFactName) x.label = gbFact.customFactName;
-        if(gbFact.aCustomFactName) x.aGbFact = gbFact.aCustomFactName;
-        
+        x.gbFact = gbFact.customFactName;
+        x.aGbFact = gbFact.aCustomFactName;        
         this.selectedNodes.push(x);
+      }else{
+        x.gbFact = null;
+        x.aGbFact = null;
       }
       if (x.children.length !== 0) {
         var result = this.NodeSelection(x.children, companyFacts);
@@ -274,8 +276,7 @@ export class AccountsComponent {
   }
 
   onNodeClick(event: any) {
-    // Handle single click logic here
-    console.log('Node clicked:', event);
+    debugger;
     if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
       console.log('Ctrl or Command + Click');
       this.renameFact(event);

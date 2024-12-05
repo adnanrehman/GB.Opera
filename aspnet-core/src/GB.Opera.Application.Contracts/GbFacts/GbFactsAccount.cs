@@ -14,7 +14,7 @@ namespace GB.Opera.GbFacts
         public string GBFact { get; set; }
         public short ParentID { get; set; }
 
-        public string AGBFact { get; set; }
+        public string? AGBFact { get; set; }
 
         public bool  IsGBAccount { get; set; }
 
