@@ -62,6 +62,7 @@ export class FinancialsAdminComponent {
   usersList: any[] = [];
   statuses: any[] = [];
   years:string =''
+  companyTicker:string;
   newReviewFinancial: NewReviewFinancialDto = {
     newReviewFinancialID: 0,
     financialsID: 0,
@@ -148,6 +149,7 @@ export class FinancialsAdminComponent {
       .subscribe(res => {
         this.companiesTickers = res;
         if (this.companiesTickers.length > 0) this.getNewFinancialReviewsByCompanyID();
+        
         else this.loading = false;
       });
   }
@@ -157,6 +159,9 @@ export class FinancialsAdminComponent {
     this.loading = true;
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
+    this.companyTicker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker;
+   
+  
     this.financialsAdminService
       .getNewFinancialReviewsByCompanyID(this.companyID)
       .subscribe(res => {

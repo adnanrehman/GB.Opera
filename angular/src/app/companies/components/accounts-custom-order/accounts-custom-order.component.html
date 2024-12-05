@@ -76,6 +76,12 @@
                 <h5>{{companyTicker}} Accounts</h5>
               </div>
                 <div class="col-md-12">
+                  <div class="p-inputgroup">
+                    <input type="text" pInputText (input)="dt.filter($event.target.value, 'factName', 'contains')" placeholder="Search" />
+                    <span class="p-inputgroup-addon">
+                      <i class="pi pi-search"></i>
+                    </span>
+                  </div>
                     <p-table
                     #dt
                     [value]="companyFactOrders"
@@ -83,6 +89,7 @@
                     scrollHeight="30rem"
                     responsiveLayout="stack"
                     styleClass="p-datatable-gridlines"
+                    
                   >
                     <ng-template pTemplate="caption">
                       <div class="d-flex flex-column flex-md-row justify-content-between">
@@ -95,9 +102,12 @@
                     </ng-template>
                     <ng-template pTemplate="header">
                       <tr>
-                        <th>Account</th>
+                        <th>
+                          Account
+                           
+                        </th>
                         <th pSortableColumn="gbFactIDOrder">Orignal Order <p-sortIcon field="gbFactIDOrder"></p-sortIcon></th>
-      <th pSortableColumn="customOrder">Custom Order <p-sortIcon field="customOrder"></p-sortIcon></th>
+                    <th pSortableColumn="customOrder">Custom Order <p-sortIcon field="customOrder"></p-sortIcon></th>
                         <th>GB</th>
                         <th>Q</th>
                         <th>IRy</th>
@@ -108,7 +118,8 @@
                       <tr>
                         <td>{{ item.factName }}</td>
                         <td>{{ item.gbFactIDOrder }}</td>
-                        <td>{{ item.customOrder }}</td>
+                        <!-- <td>{{ item.customOrder }}</td> -->
+                        <input type="text" [(ngModel)]="item.customOrder" name="customOrder" />
                         <td class="text-center">
                           <div class="text-center">
                             <input class="form-check-input" [(ngModel)]="item.checkMe" name="checkMe"
