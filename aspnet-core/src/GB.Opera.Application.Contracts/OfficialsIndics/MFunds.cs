@@ -7,6 +7,7 @@ namespace GB.Opera.OfficialsIndics
     public  class MFunds
     {
         public Int64 MFundID { get; set; }
+        public Int64 CompanyID { get; set; }
         public string  Name { get; set; }
         public string AName { get; set; }
         public string ShortName { get; set; }

@@ -77,7 +77,7 @@ namespace FundPrices
 							var company = Companies.Where(f => f.Ticker.ToUpper() == (item.Ticker).ToUpper()).FirstOrDefault();
 							if (company != null)
 							{
-								var mfund = mFunds.Where(f => f.ShortName.ToUpper() == (item.MFund).ToUpper()).FirstOrDefault();
+								var mfund = mFunds.Where(f => f.ShortName.ToUpper() == (item.MFund).ToUpper() && f.CompanyID == company.CompanyID).FirstOrDefault();
 								if (mfund != null)
 								{
 									var parameters = new DynamicParameters();
@@ -113,8 +113,8 @@ namespace FundPrices
 				}
 				catch (Exception ex)
 				{
-
-					throw ex;
+					await transaction.RollbackAsync();
+					return ex.Message;
 				}
 			}
 				
