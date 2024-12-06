@@ -48,7 +48,8 @@ export class ArabicComponent {
   permission: {
     create: boolean;
     edit: boolean,
-    delete: boolean
+    delete: boolean,
+    approved:boolean
   }
   filteredCountries: any[];
   ingredient: any;
@@ -80,7 +81,8 @@ export class ArabicComponent {
     this.permission = {
       create: false,
       edit: false,
-      delete: false
+      delete: false,
+      approved:false
     }
   }
   ngOnInit() {
@@ -89,16 +91,25 @@ export class ArabicComponent {
     if (this.permissionService.getGrantedPolicy(News_Arabic + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(News_Arabic + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(News_Arabic + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(News_Arabic + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(News_Arabic + '.Delete')) {
       this.permission.delete = true;
+    }
+   
+    if (this.permissionService.getGrantedPolicy(News_Arabic + '.Approved')) {
+      this.permission.approved = true;
     }
     this.getStockMarkets();
     this.getNewsCatAndCountries();
     // this.stockMarketID = 0;
     this.getNewsArabs();
+    this.newsArab.isHotNews = true;
+    this.newsArab.isHome = true;
+    this.newsArab.islamic = true;
+    this.newsArab.forSocialNetworks = true;
+    this.newsArab.isGulfbaseNews = true;
   }
 
   search(event: AutoCompleteCompleteEvent) {
@@ -158,6 +169,11 @@ export class ArabicComponent {
     this.companiesTickers = [];
     this.companyID =0;
     this.selectedItem = null;
+    this.newsArab.isHotNews = true;
+    this.newsArab.isHome = true;
+    this.newsArab.islamic = true;
+    this.newsArab.forSocialNetworks = true;
+    this.newsArab.isGulfbaseNews = true;
     // this.getNewsArabs();
   }
 
@@ -255,6 +271,36 @@ export class ArabicComponent {
     this.newsArab.companyID = this.companyID;
     this.newsArab.gulfBaseSectorID = this.sectorID;
     this.newsArab.langID = false;
+    this.newsArab.isApproved=false;
+    this.newsArab.date = moment(this.newsArab.date).format();
+    this.newsArabService.createOrUpdateNewsByInput(this.newsArab).subscribe(res => {
+      debugger;
+      if (this.newsArab.newsID > 0) {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' updated successfully', icon: 'success', });
+        this.handleNewsArab(this.newsArab);
+      }
+      else {
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' created successfully', icon: 'success', });
+        this.getNewsArabs();
+      }
+      
+
+      this.loading = false;
+    },
+      error => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      });
+  }
+  createOrUpdateapprovedNewsArab() {
+    debugger;
+    this.loading = true;
+    this.newsArab.companyID = this.companyID;
+    this.newsArab.gulfBaseSectorID = this.sectorID;
+    this.newsArab.langID = false;
+    this.newsArab.isApproved=true;
     this.newsArab.date = moment(this.newsArab.date).format();
     this.newsArabService.createOrUpdateNewsByInput(this.newsArab).subscribe(res => {
       debugger;

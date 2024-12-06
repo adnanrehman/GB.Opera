@@ -25,7 +25,8 @@ namespace News
         public bool? LangID { get; set; }
         public string? NewsImage { get; set; }
         public bool IsHotNews { get; set; }
-        
+        public bool IsApproved { get; set; }
+
     }
 
 }

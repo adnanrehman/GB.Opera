@@ -202,11 +202,13 @@ public class OperaPermissionDefinitionProvider : PermissionDefinitionProvider
         news_English.AddChild(OperaPermissions.News_English + ".Create", L("Create"));
         news_English.AddChild(OperaPermissions.News_English + ".Edit", L("Edit"));
         news_English.AddChild(OperaPermissions.News_English + ".Delete", L("Delete"));
+        news_English.AddChild(OperaPermissions.News_English + ".Approved", L("Approved"));
 
         var news_Arabic = news.AddPermission(OperaPermissions.News_Arabic, L("Arabic"));
         news_Arabic.AddChild(OperaPermissions.News_Arabic + ".Create", L("Create"));
         news_Arabic.AddChild(OperaPermissions.News_Arabic + ".Edit", L("Edit"));
         news_Arabic.AddChild(OperaPermissions.News_Arabic + ".Delete", L("Delete"));
+        news_Arabic.AddChild(OperaPermissions.News_Arabic + ".Approved", L("Approved"));
 
         #endregion
 

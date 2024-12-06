@@ -17,4 +17,5 @@ export interface NewsDto {
   langID?: boolean;
   newsImage?: string;
   isHotNews: boolean;
+  isApproved?: boolean;
 }

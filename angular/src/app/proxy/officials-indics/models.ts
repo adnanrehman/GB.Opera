@@ -73,6 +73,7 @@ export interface MFundPrices {
 
 export interface MFunds {
   mFundID: number;
+  companyID: number;
   name?: string;
   aName?: string;
   shortName?: string;

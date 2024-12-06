@@ -82,6 +82,7 @@ namespace News
                 parameters.Add("@NewsImage", input.NewsImage);
                 parameters.Add("@IsHotNews", input.IsHotNews);
                 parameters.Add("@GulfBaseSectorID", 0);
+                parameters.Add("@IsApproved", input.IsApproved);
 
                 await _connection.ExecuteAsync("USP_GBN_InsertUpdateNews_New", parameters, commandType: CommandType.StoredProcedure);
 
