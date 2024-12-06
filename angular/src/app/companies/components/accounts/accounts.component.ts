@@ -21,7 +21,7 @@ import { PermissionService } from '@abp/ng.core';
 import { Company_Accounts } from 'src/app/services/permissions';
 import { RenameAccountComponent } from './rename-account/rename-account.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-
+import { TooltipModule } from 'primeng/tooltip';
 @Component({
   selector: 'app-accounts',
   standalone: true,
@@ -36,6 +36,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
     ImageModule,
     FileUploadModule,
     NgFor,
+    TooltipModule,
     ThemeSharedModule,
     ReactiveFormsModule,
     ListboxModule,
@@ -275,7 +276,7 @@ export class AccountsComponent {
 
   }
 
-  onNodeClick(event: any) {
+  onNodeClick(event: { originalEvent: any },node:any) {
     debugger;
     if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
       console.log('Ctrl or Command + Click');
