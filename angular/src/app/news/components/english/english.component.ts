@@ -20,6 +20,7 @@ import { NewsDto, NewsService } from '@proxy/news';
 import * as moment from 'moment';
 import { FileService } from 'src/app/services/file/file.service';
 import { environment } from 'src/environments/environment';
+ 
 
 @Component({
   selector: 'app-english',
@@ -49,7 +50,8 @@ export class EnglishComponent {
   permission: {
     create: boolean;
     edit: boolean,
-    delete: boolean
+    delete: boolean,
+    approved: boolean
   }
   filteredCountries: any[];
   ingredient:any;
@@ -70,7 +72,8 @@ export class EnglishComponent {
   newsEngs: NewsDto[] = [];
   newsEng: NewsDto = {
     newsID: 0,
-    isHotNews: false
+    isHotNews: false,
+    isApproved:false
   }
 
   constructor(
@@ -81,7 +84,8 @@ export class EnglishComponent {
     this.permission = {
       create: false,
       edit: false,
-      delete: false
+      delete: false,
+      approved:false
     }
   }
   ngOnInit() { 
@@ -90,16 +94,24 @@ export class EnglishComponent {
     if (this.permissionService.getGrantedPolicy(News_English + '.Create')) {
       this.permission.create = true;
     }
-    if (this.permissionService.getGrantedPolicy(News_English + '.edit')) {
+    if (this.permissionService.getGrantedPolicy(News_English + '.Edit')) {
       this.permission.edit = true;
     }
-    if (this.permissionService.getGrantedPolicy(News_English + '.delete')) {
+    if (this.permissionService.getGrantedPolicy(News_English + '.Delete')) {
       this.permission.delete = true;
+    }
+    if (this.permissionService.getGrantedPolicy(News_English + '.Approved')) {
+      this.permission.approved = true;
     }
     this.getStockMarkets();
     this.getNewsCatAndCountries();
     // this.stockMarketID = 0;
     this.getNewsEngs();
+    this.newsEng.isHotNews = true;
+    this.newsEng.isHome = true;
+    this.newsEng.islamic = true;
+    this.newsEng.forSocialNetworks = true;
+    this.newsEng.isGulfbaseNews = true;
   }
 
   search(event: AutoCompleteCompleteEvent) {
@@ -209,7 +221,8 @@ export class EnglishComponent {
   addNewNewsEng(){
     this.newsEng = {
       newsID: 0,
-      isHotNews:false
+      isHotNews:false,
+      isApproved:false,
     }
     this.newsEng.date = moment().format("MM/DD/YYYY")
     this.stockMarkets = [];
@@ -217,6 +230,11 @@ export class EnglishComponent {
     this.companiesTickers = [];
     this.companyID =0;
     this.selectedItem = null;
+    this.newsEng.isHotNews = true;
+    this.newsEng.isHome = true;
+    this.newsEng.islamic = true;
+    this.newsEng.forSocialNetworks = true;
+    this.newsEng.isGulfbaseNews = true;
   }
 
   deleteNews(newsEng: NewsDto){
@@ -249,12 +267,14 @@ export class EnglishComponent {
     })
   }
 
+
   createOrUpdateNewsEng() {
     debugger;
     this.loading = true;
     this.newsEng.companyID = this.companyID;
     this.newsEng.gulfBaseSectorID = this.sectorID;
     this.newsEng.langID=true;
+    this.newsEng.isApproved=false;
     this.newsEng.date = moment(this.newsEng.date).format();
     this.newsEngService.createOrUpdateNewsByInput(this.newsEng).subscribe(res => {
       debugger;
@@ -277,5 +297,36 @@ export class EnglishComponent {
       this.loading = false;
     });
   }
+    
 
+  createOrUpdateApprovedNewsEng() {
+    debugger;
+    this.loading = true;
+    this.newsEng.companyID = this.companyID;
+    this.newsEng.gulfBaseSectorID = this.sectorID;
+    this.newsEng.langID=true;
+    this.newsEng.isApproved=true;
+    this.newsEng.date = moment(this.newsEng.date).format();
+    this.newsEngService.createOrUpdateNewsByInput(this.newsEng).subscribe(res => {
+      debugger;
+      if(this.newsEng.newsID > 0){
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' updated successfully', icon: 'success', });
+        this.handleNewsEng(this.newsEng);
+      }
+      else{
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' created successfully', icon: 'success', });
+        this.getNewsEngs();
+      }
+      
+
+      this.loading = false;
+    },
+    error => {
+      this.loading = false;
+    },
+    () => {
+      this.loading = false;
+    });
+  }
+ 
 }

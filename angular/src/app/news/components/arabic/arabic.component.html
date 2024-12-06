@@ -72,7 +72,14 @@
               >
               <a
                 href="#"
-                *ngIf="permission.create"
+                *ngIf="permission.approved"
+                (click)="createOrUpdateapprovedNewsArab()"
+                class="btn btn-success btn-sm"
+                ><i class="fa fa-save"></i> Save & Approved</a
+              >
+              <a
+                href="#"
+                *ngIf="permission.create && !permission.approved"
                 (click)="createOrUpdateNewsArab()"
                 class="btn btn-success btn-sm"
                 ><i class="fa fa-save"></i> Save</a
@@ -273,6 +280,7 @@
                   [(ngModel)]="newsArab.isHotNews"
                   name="isHotNews"
                   type="checkbox"
+                checked
                 />
                 <label class="form-check-label" for="defaultCheck3">Hot News</label>
               </div>

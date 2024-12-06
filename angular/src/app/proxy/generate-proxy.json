@@ -25375,6 +25375,18 @@
           "regex": null
         },
         {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "Name",
           "jsonName": null,
           "type": "System.String",
@@ -27005,6 +27017,18 @@
         },
         {
           "name": "IsHotNews",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsApproved",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
