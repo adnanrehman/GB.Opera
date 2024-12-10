@@ -216,10 +216,10 @@ export class AccountsComponent {
       .subscribe(res => {
         this.companiesTickers = res;
         if (this.companiesTickers.length > 0) {
-          if(!this.companyID)
-          this.companyID = this.companiesTickers[0].companyID;
-          this.companyTicker = this.companiesTickers[0].ticker;
-          this.getCompaniesFactsByCompanyID();
+          // if(!this.companyID)
+          // this.companyID = this.companiesTickers[0].companyID;
+          // this.companyTicker = this.companiesTickers[0].ticker;
+          // this.getCompaniesFactsByCompanyID();
         }
         else this.loading = false;
       });
