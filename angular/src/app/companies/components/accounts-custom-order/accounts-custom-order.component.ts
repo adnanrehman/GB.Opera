@@ -149,7 +149,7 @@ export class AccountsCustomOrderComponent {
         //   // this.getCompaniesFactOrdersByCompanyID();
         // } 
         // else 
-        this.loading = false;
+        // this.loading = false;
       });
   }
 
