@@ -142,6 +142,7 @@ export class AccountsCustomOrderComponent {
       .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
+        this.loading = false;
         // if (this.companiesTickers.length > 0){
         //   // if(!this.companyID)
         //   // this.companyID = this.companiesTickers[0].companyID;

@@ -220,6 +220,7 @@ export class AccountsComponent {
           // this.companyID = this.companiesTickers[0].companyID;
           // this.companyTicker = this.companiesTickers[0].ticker;
           // this.getCompaniesFactsByCompanyID();
+          this.loading = false;
         }
         else this.loading = false;
       });
