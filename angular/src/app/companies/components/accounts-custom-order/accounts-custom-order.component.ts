@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from "primeng/dropdown";
+import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -19,8 +19,6 @@ import Swal from 'sweetalert2';
 import { PermissionService } from '@abp/ng.core';
 import { Company_AccountsCustomOrder } from 'src/app/services/permissions';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
- 
-
 
 @Component({
   selector: 'app-accounts-custom-order',
@@ -40,15 +38,13 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
     ReactiveFormsModule,
     ListboxModule,
     InputTextModule,
-    TabViewModule, TreeModule
+    TabViewModule,
+    TreeModule,
   ],
   templateUrl: './accounts-custom-order.component.html',
   styleUrl: './accounts-custom-order.component.scss',
- 
 })
 export class AccountsCustomOrderComponent {
-
-  
   loading: boolean = false;
   headerValue: any;
   selectedItem: any;
@@ -56,7 +52,8 @@ export class AccountsCustomOrderComponent {
   sectorID: number;
   stockMarketID: number;
   companyID: number;
-  companyTicker:string;
+  searchCompanyId: number = 0;
+  companyTicker: string;
   stockMarkets = [];
   companyMarketSectors = [];
   companiesTickers = [];
@@ -64,20 +61,20 @@ export class AccountsCustomOrderComponent {
   globalFilter: string = '';
   permission: {
     create: boolean;
-    edit: boolean,
-    delete: boolean
-  }
+    edit: boolean;
+    delete: boolean;
+  };
 
   constructor(
     private commonService: CommonService,
-    private companyFactOrderService: CompanyFactOrderService, private permissionService: PermissionService
+    private companyFactOrderService: CompanyFactOrderService,
+    private permissionService: PermissionService
   ) {
     this.permission = {
       create: false,
-      edit : false,
-      delete  :false
-    }
-   
+      edit: false,
+      delete: false,
+    };
   }
 
   ngOnInit() {
@@ -108,7 +105,8 @@ export class AccountsCustomOrderComponent {
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
-    this.companyID = event.value.companyID
+    this.companyID = event.value.companyID;
+    this.searchCompanyId = event.value.companyID;
     this.getStockMarketSectorsByStockMarketID();
     this.loading = false;
   }
@@ -116,7 +114,8 @@ export class AccountsCustomOrderComponent {
   getStockMarkets() {
     this.commonService.getStockMarkets().subscribe(res => {
       this.stockMarkets = res;
-      if (this.stockMarkets.length > 0) this.stockMarketID = this.stockMarkets[0].stockMarketID; this.getStockMarketSectorsByStockMarketID();
+      if (this.stockMarkets.length > 0) this.stockMarketID = this.stockMarkets[0].stockMarketID;
+      this.getStockMarketSectorsByStockMarketID();
     });
   }
 
@@ -126,11 +125,9 @@ export class AccountsCustomOrderComponent {
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
       if (this.companyMarketSectors.length > 0) {
-        if(!this.sectorID)
-        this.sectorID = this.companyMarketSectors[0].sectorID; 
-      this.getSectorCompaniesBySectorIDAndStockMarketID();
-      }
-      else this.loading = false;
+        if (!this.sectorID) this.sectorID = this.companyMarketSectors[0].sectorID;
+        this.getSectorCompaniesBySectorIDAndStockMarketID();
+      } else this.loading = false;
     });
   }
 
@@ -142,20 +139,22 @@ export class AccountsCustomOrderComponent {
       .getSectorCompaniesBySectorIDAndStockMarketID(this.sectorID, this.stockMarketID)
       .subscribe(res => {
         this.companiesTickers = res;
-        this.loading = false;
-        // if (this.companiesTickers.length > 0){
-        //   // if(!this.companyID)
-        //   // this.companyID = this.companiesTickers[0].companyID;
-        //   // this.companyTicker = this.companiesTickers[0].ticker;
-        //   // this.getCompaniesFactOrdersByCompanyID();
-        // } 
-        // else 
-        // this.loading = false;
+        if (this.searchCompanyId > 0) {
+          if (this.companiesTickers.length > 0) {
+            if(!this.companyID)
+            this.companyID = this.companiesTickers[0].companyID;
+            this.companyTicker = this.companiesTickers[0].ticker;
+            this.getCompaniesFactOrdersByCompanyID();
+          } else this.loading = false;
+        }else{
+          this.loading = false;
+        }
+        
       });
   }
 
   getCompaniesFactOrdersByCompanyID() {
-     
+    debugger;
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
     this.companyTicker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker;
@@ -170,27 +169,36 @@ export class AccountsCustomOrderComponent {
   save() {
     debugger;
     this.loading = true;
-    this.companyFactOrderService.createOrUpdateCompanyFactOrderByList(this.companyFactOrders).subscribe({
-      next: (res) => {
-        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
-        console.log('Save response:', res);
-        this.getCompaniesFactOrdersByCompanyID();
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error("Error While Saveing", err);
-        this.loading = false;
-        Swal.fire({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 1000,
-          title: 'Error!',
-          text: "Error While Saveing",
-          icon: 'error'
-        });
-
-      }
-    });
+    this.companyFactOrderService
+      .createOrUpdateCompanyFactOrderByList(this.companyFactOrders)
+      .subscribe({
+        next: res => {
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            title: 'Success!',
+            text: 'Save successfully',
+            icon: 'success',
+          });
+          console.log('Save response:', res);
+          this.getCompaniesFactOrdersByCompanyID();
+          this.loading = false;
+        },
+        error: err => {
+          console.error('Error While Saveing', err);
+          this.loading = false;
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1000,
+            title: 'Error!',
+            text: 'Error While Saveing',
+            icon: 'error',
+          });
+        },
+      });
   }
 }

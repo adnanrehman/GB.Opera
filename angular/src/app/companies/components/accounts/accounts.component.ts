@@ -54,6 +54,7 @@ export class AccountsComponent {
   sectorID: number;
   stockMarketID: number;
   companyID: number;
+  searchCompanyId:number =0;
   ref!: DynamicDialogRef;
   companyTicker: string;
   marketLangAnnouncement = [];
@@ -180,10 +181,12 @@ export class AccountsComponent {
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
-    this.companyID = event.value.companyID
+    this.companyID = event.value.companyID;
+    this.searchCompanyId = event.value.companyID;
     this.companyTicker = event.value.ticker
     this.getCompMarketSectorsByMarketID();
-    this.loading = false;
+    // this.getCompaniesFactsByCompanyID();
+    // this.loading = false;
   }
 
   getMarketLangAnnouncements() {
@@ -216,11 +219,16 @@ export class AccountsComponent {
       .subscribe(res => {
         this.companiesTickers = res;
         if (this.companiesTickers.length > 0) {
+          if(this.searchCompanyId > 0){
+            this.getCompaniesFactsByCompanyID();
+          }else{
+            this.loading = false;
+          }
           // if(!this.companyID)
           // this.companyID = this.companiesTickers[0].companyID;
           // this.companyTicker = this.companiesTickers[0].ticker;
           // this.getCompaniesFactsByCompanyID();
-          this.loading = false;
+          
         }
         else this.loading = false;
       });
