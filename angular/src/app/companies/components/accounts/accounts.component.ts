@@ -198,6 +198,9 @@ export class AccountsComponent {
 
   getCompMarketSectorsByMarketID() {
     debugger;
+    this.companyMarketSectors = [];
+    this.companiesTickers = [];
+    this.selectedNodes = [];
     this.loading = true;
     this.commonService.getCompMarketSectorsByMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;

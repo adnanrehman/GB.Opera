@@ -121,6 +121,9 @@ export class AccountsCustomOrderComponent {
 
   getStockMarketSectorsByStockMarketID() {
     debugger;
+    this.companyMarketSectors = [];
+    this.companiesTickers = [];
+    this.companyFactOrders = [];
     this.loading = true;
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
