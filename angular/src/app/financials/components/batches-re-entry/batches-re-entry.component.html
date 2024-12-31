@@ -1,1 +1,213 @@
-<p>batches-re-entry works!</p>
+<div class="container ps-2" [abpLoading]="loading">
+  <div class="row mb-2">
+    <div class="col-md-2">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-10">
+                  <h6>FINEBOX</h6>
+                </div>
+                <div class="col-md-1 ps-1 pe-1 text-end">
+                  <!-- <a class="btn btn-sm btn-link">Report (P)</a> -->
+                </div>
+                <div class="col-md-1 ps-1 pe-1 text-end">
+                  <!-- <a class="btn btn-sm btn-link">Report (S)</a> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <p-listbox
+                    [options]="batchesReEntries"
+                    optionLabel="batchText"
+                    (click)="getBatchesForReEntryByBatchID()"
+                    [(ngModel)]="batchesReEntry"
+                    [style]="{ width: '100%' }"
+                    [listStyle]="{ 'max-height': '820px', 'min-height': '420px' }"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="card-footer">
+              <div class="row">
+                  <div class="col-md-4">
+                      <p-radioButton
+                      name="financialEntryType"
+                      value="0"
+                      (click)="filterData()"
+                      [(ngModel)]="financialEntryType"
+                      inputId="All"
+                    />
+                    <label for="All" class="ms-2 col-form-label"> All </label>
+                  </div>
+                  <div class="col-md-4">
+                      <p-radioButton
+                      name="financialEntryType"
+                      value="1"
+                      (click)="filterData()"
+                      [(ngModel)]="financialEntryType"
+                      inputId="New"
+                    />
+                    <label for="New" class="ms-2 col-form-label"> New </label>
+                  </div>
+                  <div class="col-md-4">
+                      <p-radioButton
+                      name="financialEntryType"
+                      (click)="filterData()"
+                      value="2"
+                      [(ngModel)]="financialEntryType"
+                      inputId="Review"
+                    />
+                    <label for="Review" class="ms-2 col-form-label"> Review </label>
+                  </div>
+              </div>
+            </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-body p-2">
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="col-form-label"><b>BatchId:</b></label>
+                </div>
+                <div class="col-md-9">
+                  <label class="col-form-label">{{ batchesReEntry.batchID }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="col-form-label"><b>File Name:</b></label>
+                </div>
+                <div class="col-md-9">
+                  <label class="col-form-label">{{
+                    batchesReEntry.fileName
+                  }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="col-form-label"><b>Source:</b></label>
+                </div>
+                <div class="col-md-9">
+                  <label class="col-form-label">{{ batchesReEntry.source }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="col-form-label"><b>Uploaded Date:</b></label>
+                </div>
+                <div class="col-md-9">
+                  <label class="col-form-label">{{
+                    batchesReEntry.uploadDate | date : 'MM/dd/yyyy'
+                  }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="col-form-label"><b>As Of Date:</b></label>
+                </div>
+                <div class="col-md-9">
+                  <label class="col-form-label">{{
+                    batchesReEntry.asofDate | date : 'MM/dd/yyyy'
+                  }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="col-form-label"><b>Hijri Date:</b></label>
+                </div>
+                <div class="col-md-9">
+                  <label class="col-form-label">{{
+                    batchesReEntry.hijriDate | date : 'MM/dd/yyyy'
+                  }}</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="col-form-label">Remarks</label>
+                  <textarea
+                    rows="1"
+                    class="form-control"
+                    [(ngModel)]="batchesReEntry.remarks"
+                    name="remarks"
+                    placeholder="Describe Overview here..."
+                  >
+                  </textarea>
+                </div>
+                <div class="col-md-12">
+                  <label class="col-form-label">Remarks (AR)</label>
+                  <textarea
+                    rows="1"
+                    class="form-control"
+                    [(ngModel)]="batchesReEntry.aRemarks"
+                    name="aRemarks"
+                    placeholder="Describe Overview here..."
+                  >
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <p-table
+                #dt
+                [value]="ESDFactsMapping"
+                [scrollable]="true"
+                scrollHeight="35rem"
+                responsiveLayout="stack"
+                styleClass="p-datatable-gridlines"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Indicators</th>
+                    <th>Values</th>
+                    <th></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                  <tr
+                    [ngClass]="{ 'parent-item': item.isTitle, 'bold-row': !item.checkMe }"
+                  >
+                    <td>{{ item.esdFact }}</td>
+                    <td>
+                      <p-inputNumber
+                        item.
+                        autofocus
+                        [(ngModel)]="item.originalValue"
+                        [ngModelOptions]="{ standalone: true }"
+                        [minFractionDigits]="2"
+                        mode="decimal"
+                        [disabled]="item.isTitle"
+                      ></p-inputNumber>
+                    </td>
+                    <td>
+                      <p-checkbox
+                        #checkbox
+                        binary="true"
+                        inputId="ny"
+                        [(ngModel)]="item.checkMe"
+                      ></p-checkbox>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

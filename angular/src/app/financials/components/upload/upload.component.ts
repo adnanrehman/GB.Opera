@@ -86,6 +86,7 @@ export class UploadComponent {
   companyID: number;
   newsEng: NewsDto = {
     newsID: 0,
+    isApproved:false,
     isHotNews: false
   }
   

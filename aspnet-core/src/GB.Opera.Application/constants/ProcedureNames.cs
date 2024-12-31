@@ -109,6 +109,9 @@ namespace GB.Opera.constants
         public const string usp_InsertCurrencyExchange = "usp_InsertCurrencyExchange";
         public const string Deletefianancial = "Deletefianancial";
         public const string CheckFinancialsQYPeriods = "CheckFinancialsQYPeriods";
+        public const string usp_getBatchesReEntry_New = "usp_getBatchesReEntry_New";
+        public const string usp_getBatchesForReEntry = "usp_getBatchesForReEntry";
+        public const string usp_UpdateBatchStatus = "usp_UpdateBatchStatus";
 
     }
 }

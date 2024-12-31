@@ -70,7 +70,8 @@ export class ArabicComponent {
   newsArabs: NewsDto[] = [];
   newsArab: NewsDto = {
     newsID: 0,
-    isHotNews: false
+    isHotNews: false,
+    isApproved:false
   }
 
   constructor(
@@ -162,7 +163,7 @@ export class ArabicComponent {
   }
 
   addNewNewsArab(){
-    this.newsArab = {isHotNews:false};
+    this.newsArab = {isHotNews:false,isApproved:false};
     this.newsArab.date = moment().format("MM/DD/YYYY")
     this.stockMarkets = [];
     this.companyMarketSectors = [];
