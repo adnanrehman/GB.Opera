@@ -118,6 +118,7 @@ namespace GB.Opera.constants
         public const string usp_getCountriesForBatches_New = "usp_getCountriesForBatches_New";
         public const string usp_SearchBatch = "usp_SearchBatch";
         public const string usp_InserUpdateBatch_New = "usp_InserUpdateBatch_New";
+        public const string usp_getAdminBatches = "usp_getAdminBatches";
 
     }
 }

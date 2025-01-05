@@ -13,5 +13,7 @@ namespace GB.Opera.BatchAdmin
         public Task<List<SearchBatches>> GetBatchesEntry(Int16 BatchID);
 
         public Task<SearchBatches> InsertBatchesadmin(SearchBatches list);
+
+        public   Task<List<SearchBatches>> AdminBatches(string ReportType, Int16 CountryID);
     }
 }

@@ -6405,6 +6405,31 @@
                     "type": "GB.Opera.BatchAdmin.SearchBatches",
                     "typeSimple": "GB.Opera.BatchAdmin.SearchBatches"
                   }
+                },
+                {
+                  "name": "AdminBatches",
+                  "parametersOnMethod": [
+                    {
+                      "name": "ReportType",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "CountryID",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GB.Opera.BatchAdmin.SearchBatches>",
+                    "typeSimple": "[GB.Opera.BatchAdmin.SearchBatches]"
+                  }
                 }
               ]
             }
@@ -6495,6 +6520,63 @@
               "returnValue": {
                 "type": "GB.Opera.BatchAdmin.SearchBatches",
                 "typeSimple": "GB.Opera.BatchAdmin.SearchBatches"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.BatchAdmin.IBatchAdminAppService"
+            },
+            "AdminBatchesByReportTypeAndCountryID": {
+              "uniqueName": "AdminBatchesByReportTypeAndCountryID",
+              "name": "AdminBatches",
+              "httpMethod": "POST",
+              "url": "api/app/batch-admin/admin-batches",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "ReportType",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "CountryID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "ReportType",
+                  "name": "ReportType",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "CountryID",
+                  "name": "CountryID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.BatchAdmin.SearchBatches>",
+                "typeSimple": "[GB.Opera.BatchAdmin.SearchBatches]"
               },
               "allowAnonymous": null,
               "implementFrom": "GB.Opera.BatchAdmin.IBatchAdminAppService"

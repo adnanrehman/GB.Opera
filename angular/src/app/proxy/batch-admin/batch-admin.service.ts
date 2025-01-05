@@ -9,6 +9,15 @@ export class BatchAdminService {
   apiName = 'Default';
   
 
+  adminBatchesByReportTypeAndCountryID = (ReportType: string, CountryID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, SearchBatches[]>({
+      method: 'POST',
+      url: '/api/app/batch-admin/admin-batches',
+      params: { reportType: ReportType, countryID: CountryID },
+    },
+    { apiName: this.apiName,...config });
+  
+
   countriesForBatches = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, BatchAdminDto>({
       method: 'POST',

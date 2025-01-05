@@ -44,14 +44,15 @@ export class BatchesAdminComponent {
   reentryusers = [];
   status = [];
   selectedBatchText: string;
-  
+  batchtext: SearchBatches[] = [];
+
   searchBatches: SearchBatches = {
     countryID: 0,
     reportType: '',
     source: '',
     aSource: '',
     statusID: 0,
-    asofDate: "",
+    asofDate: '',
     entryUserID: 0,
     reEntryUserID: 0,
     remarks: '',
@@ -67,8 +68,8 @@ export class BatchesAdminComponent {
     batchText: '',
     batchID: 0
   };
-   
-    
+
+
   constructor(private batchAdminService: BatchAdminService) {
 
   }
@@ -79,7 +80,7 @@ export class BatchesAdminComponent {
     if (this.searchBatches.asofDate) {
       this.searchBatches.asofDate = moment(this.searchBatches.asofDate).format("MM/DD/YYYY");
     }
-    
+
   }
 
   getStatusFinancialsByUserId() {
@@ -109,7 +110,7 @@ export class BatchesAdminComponent {
     { label: 'Yearly', value: 'Yearly' }
   ];
   selectedFrequency: string = '';
-   onRadioChange() {
+  onRadioChange() {
     this.searchBatches.reportType = this.selectedFrequency;
   }
 
@@ -118,15 +119,19 @@ export class BatchesAdminComponent {
       this.searchBatches = res[0]; // This will return a single SearchBatches object now.
       console.warn(this.searchBatches);
 
-      this.selectedFrequency=this.searchBatches.reportType;
+      this.selectedFrequency = this.searchBatches.reportType;
 
-      this.selectedBatchText=this.searchBatches.batchText;
-     
+      this.selectedBatchText = this.searchBatches.batchText;
 
-      this.searchBatches.asofDate = moment(this.searchBatches.asofDate).format("MM/DD/YYYY");
+
+      const dateObj = moment(this.searchBatches.asofDate).format("MM/DD/YYYY");
+      this.searchBatches.asofDate = dateObj;
+      // this.batchtext=this.searchBatches[0];
     });
   }
-   
+
+
+
 
   async updateBatches(): Promise<void> {
     // Check if the searchBatches object is correctly loaded and batchID is not 0
@@ -140,7 +145,7 @@ export class BatchesAdminComponent {
       });
       return;
     }
-   
+
     try {
       this.searchBatches.asofDate = moment(this.searchBatches.asofDate).format();
       // Call service to update the batches and subscribe to the Observable
@@ -181,11 +186,39 @@ export class BatchesAdminComponent {
         showConfirmButton: true
       });
     }
-}
+  }
 
+  adminbacth() {
+    this.batchAdminService.adminBatchesByReportTypeAndCountryID(this.searchBatches.reportType, this.searchBatches.countryID).subscribe(res => {
+      this.batchtext = res // This will return a single SearchBatches object now.
+      console.warn(this.batchtext);
+
+    });
+  }
+
+ 
+
+  onBatchChange() {
+    console.log("Selected batch ID: ", this.searchBatches.batchID);  // Logs the batchID (number)
+
+    // Perform filtering based on the selected batchID
+    const selectedBatchID = this.searchBatches.batchID;
+     
+
+    // Find the batch object based on batchID
+    const filteredBatches = this.batchtext.filter(batch => batch.batchID === selectedBatchID);
+    
+    if (filteredBatches.length > 0) {
+
+
+     
+      this.searchBatches = filteredBatches[0];
+      const dateObj = moment(this.searchBatches.asofDate).format("MM/DD/YYYY");
+      this.searchBatches.asofDate = dateObj;
+    } else {
+      console.log("No matching batch found.");
+    }
+  }
   
-  
-  
-  
-  
+
 }

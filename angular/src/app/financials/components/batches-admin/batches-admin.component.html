@@ -15,22 +15,42 @@
                         [showClear]="true">
                     </p-dropdown>
                 </div>
+              
                 <div class="col-md-12 mt-2">
                     <p-dropdown name="statusID" placeholder="Select a Period" [style]="{ width: '100%' }"
                         [showClear]="true" [(ngModel)]="searchBatches.reportType" [options]="frequencyOptions">
 
                     </p-dropdown>
                 </div>
+
+                <div class="col-md-12 mt-2">
+                    <button type="button" class="btn btn-primary" (click)="adminbacth()">GO</button>
+                </div>
+                
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    <b> <span> {{selectedBatchText}}</span>  </b>  
+                </div>
+                <div class="col-md-12">
                     <h6 class="p-1 mb-1"> </h6>
 
-                <b> <span> {{selectedBatchText}}</span>  </b>
+                
 
                     <!-- <p-listbox name="batchText" [options]="selectedBatchText" [style]="{ width: '100%' }"
                         [(ngModel)]="selectedBatchText" [listStyle]="{ 'max-height': '200rem' }">
                     </p-listbox> -->
+                    <p-listbox
+                    [options]="batchtext"
+                    optionLabel="batchText"          
+                    [(ngModel)]="searchBatches.batchID"  
+                    optionValue="batchID"       
+                    (ngModelChange)="onBatchChange()"   
+                    [style]="{ width: '100%' }"
+                    [listStyle]="{ 'max-height': '820px','min-height': '420px' }"
+                  />
+                  
+
                 </div>
             </div>
         </div>

@@ -22,7 +22,7 @@ using GB.Opera.BatchesEntry;
 
 namespace GB.Opera.BatchAdmin
 {
-    public  class BatchAdminAppService : ApplicationService, IBatchAdminAppService
+    public class BatchAdminAppService : ApplicationService, IBatchAdminAppService
     {
         private readonly IConfiguration _configuration;
         private readonly SqlConnection _connection;
@@ -36,14 +36,14 @@ namespace GB.Opera.BatchAdmin
             try
             {
                 var reader = await _connection.QueryMultipleAsync(ProcedureNames.usp_getCountriesForBatches_New,
-                            
+
                             commandType: CommandType.StoredProcedure);
                 var output = new BatchAdminDto();
                 output.Countries = reader.Read<CountriesAdmin>().ToList();
                 output.entryusers = reader.Read<Entryusers>().ToList();
-                
+
                 output.adminStatus = reader.Read<AdminStatus>().ToList();
-                 
+
 
                 return output;
             }
@@ -61,7 +61,7 @@ namespace GB.Opera.BatchAdmin
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@BatchID", BatchID);
-                
+
                 var data = await _connection.QueryAsync<SearchBatches>(
                     sql: ProcedureNames.usp_SearchBatch,
                     param: parameters,
@@ -100,7 +100,7 @@ namespace GB.Opera.BatchAdmin
                 parameters.Add("@FileName", list.FileName);
                 parameters.Add("@Note", list.Note);
                 parameters.Add("@ANote", list.ANote);
-                
+
 
                 // Execute the stored procedure
                 await _connection.ExecuteAsync(ProcedureNames.usp_InserUpdateBatch_New, parameters, commandType: CommandType.StoredProcedure);
@@ -110,7 +110,7 @@ namespace GB.Opera.BatchAdmin
             }
             catch (Exception ex)
             {
-               
+
 
                 // You can throw a custom exception if needed
                 throw new Exception("An error occurred while processing the batch update.", ex);
@@ -118,5 +118,28 @@ namespace GB.Opera.BatchAdmin
         }
 
 
+        public async Task<List<SearchBatches>> AdminBatches(string ReportType, Int16 CountryID)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@ReportType", ReportType);
+                parameters.Add("@CountryID", CountryID);
+
+                var data = await _connection.QueryAsync<SearchBatches>(
+                    sql: ProcedureNames.usp_getAdminBatches,
+                    param: parameters,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return data.ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 }
