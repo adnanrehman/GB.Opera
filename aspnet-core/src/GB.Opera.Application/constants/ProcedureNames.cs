@@ -112,6 +112,12 @@ namespace GB.Opera.constants
         public const string usp_getBatchesReEntry_New = "usp_getBatchesReEntry_New";
         public const string usp_getBatchesForReEntry = "usp_getBatchesForReEntry";
         public const string usp_UpdateBatchStatus = "usp_UpdateBatchStatus";
+        public const string usp_getBatchesEntry_New = "usp_getBatchesEntry_New";
+        public const string usp_getESDFactsMappingsYearly_New = "usp_getESDFactsMappingsYearly_New";
+        public const string usp_InserUpdateBatchDetail = "usp_InserUpdateBatchDetail";
+        public const string usp_getCountriesForBatches_New = "usp_getCountriesForBatches_New";
+        public const string usp_SearchBatch = "usp_SearchBatch";
+        public const string usp_InserUpdateBatch_New = "usp_InserUpdateBatch_New";
 
     }
 }

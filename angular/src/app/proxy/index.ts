@@ -1,5 +1,7 @@
 import * as AccountsClassifications from './accounts-classifications';
 import * as AgencyRatings from './agency-ratings';
+import * as BatchAdmin from './batch-admin';
+import * as BatchesEntry from './batches-entry';
 import * as BatchesReEntry from './batches-re-entry';
 import * as Books from './books';
 import * as Commons from './commons';
@@ -36,4 +38,4 @@ import * as News from './news';
 import * as OfficialsIndics from './officials-indics';
 import * as Reviewers from './reviewers';
 import * as Uploads from './uploads';
-export { AccountsClassifications, AgencyRatings, BatchesReEntry, Books, Commons, Companies, CompaniesQnetProfits, CompanyAccounts, CompanyCurrentValues, CompanyFactOrders, CompanyManagements, CompanyMutualFundSettings, CompanyMutualFunds, CompanyOwnershipFacts, CompanyOwnerships, CompanyPsraws, CorporateAnnouncements, Countries, CountryAccounts, CountryFactOrders, CountryGroups, CurrenciesExchange, CurrentDividends, EndOfDay, Entry, EstimatesandForecasts, FinancialsAdmins, FundPrices, GbFacts, GbOwnerShips, HistoricalCashDividends, Lhruploads, MarketSector, MarketSectors, News, OfficialsIndics, Reviewers, Uploads };
+export { AccountsClassifications, AgencyRatings, BatchAdmin, BatchesEntry, BatchesReEntry, Books, Commons, Companies, CompaniesQnetProfits, CompanyAccounts, CompanyCurrentValues, CompanyFactOrders, CompanyManagements, CompanyMutualFundSettings, CompanyMutualFunds, CompanyOwnershipFacts, CompanyOwnerships, CompanyPsraws, CorporateAnnouncements, Countries, CountryAccounts, CountryFactOrders, CountryGroups, CurrenciesExchange, CurrentDividends, EndOfDay, Entry, EstimatesandForecasts, FinancialsAdmins, FundPrices, GbFacts, GbOwnerShips, HistoricalCashDividends, Lhruploads, MarketSector, MarketSectors, News, OfficialsIndics, Reviewers, Uploads };

@@ -1,1 +1,200 @@
-<p>batches-entry works!</p>
+<div class="container ps-2" [abpLoading]="loading"  >
+    <div class="row mb-2">
+      <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">                
+                <div class="row">
+                  <div class="col-md-4">
+                    <h6>FINEBOX</h6>
+                  </div>
+                  <div class="col-md-4 ps-1 pe-1 text-end">
+                    <!-- <a class="btn btn-sm btn-link">Report (P)</a> -->
+                  </div>
+                  <div class="col-md-4 ps-1 pe-1 text-end">
+                    <!-- <a class="btn btn-sm btn-link">Report (S)</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                      <p-listbox
+                      [options]="statusFinancials"
+                      optionLabel="batchText"
+                      [(ngModel)]="selectedBatchId" 
+                      optionValue="batchID"
+                      (ngModelChange)="getbatchbyid(selectedBatchId)"
+                [style]="{ width: '100%' }"
+                [listStyle]="{ 'max-height': '820px','min-height': '420px' }"
+              />
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+             
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-body p-2">
+            <div class="row mb-2">
+              <div class="col-md-12 ">
+                <a href="#"   (click)="updateBatches()" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save</a>
+              </div>
+            </div>
+             <!-- Static Labels Always Visible -->
+<div class="row mb-2">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-3">
+          <label class="col-form-label"><b>BatchId:</b></label>
+        </div>
+        <div class="col-md-9">
+          <!-- Show batchID if batcheslist is not empty -->
+          <label class="col-form-label" *ngIf="batcheslist.length > 0"> {{ batcheslist[0].batchID }} </label>
+          <!-- Default message when no data is available -->
+           
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <label class="col-form-label"><b>File Name:</b></label>
+        </div>
+        <div class="col-md-9">
+          <label class="col-form-label" *ngIf="batcheslist.length > 0"> {{ batcheslist[0].fileName }} </label>
+        
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <label class="col-form-label"><b>Source:</b></label>
+        </div>
+        <div class="col-md-9">
+          <label class="col-form-label" *ngIf="batcheslist.length > 0"> {{ batcheslist[0].source }} </label>
+          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <label class="col-form-label"><b>Uploaded Date:</b></label>
+        </div>
+        <div class="col-md-9">
+          <label class="col-form-label" *ngIf="batcheslist.length > 0">  {{ batcheslist[0].uploadDate | date : 'MM/dd/yyyy' }}</label>
+         
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <label class="col-form-label"><b>As of Date:</b></label>
+        </div>
+        <div class="col-md-9">
+          <label class="col-form-label" *ngIf="batcheslist.length > 0">  {{ batcheslist[0].asofDate | date : 'MM/dd/yyyy' }} </label>
+          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <label class="col-form-label"><b>Hijra Date:</b></label>
+        </div>
+        <div class="col-md-9">
+          <label class="col-form-label" *ngIf="batcheslist.length > 0">   {{ batcheslist[0].hijriDate }}  </label>
+           
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <label class="col-form-label">Remarks</label>
+            <!-- Ensure batcheslist[0] exists before binding -->
+            <textarea rows="1" *ngIf="batcheslist.length > 0" class="form-control" name="remarks" [(ngModel)]="batcheslist[0].remarks" placeholder="Remarks..."></textarea>
+          </div>
+          <div class="col-md-12">
+            <label class="col-form-label">Remarks (AR)</label>
+            <!-- Ensure batcheslist[0] exists before binding -->
+            <textarea rows="1" *ngIf="batcheslist.length > 0" class="form-control" name="aremarks" [(ngModel)]="batcheslist[0].aRemarks" placeholder="ARemarks..."></textarea>
+          </div>
+        </div>
+      </div>
+      
+
+
+
+
+  </div>
+  
+
+
+
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-body p-2">
+        <div class="row mt-2">
+          <p-table #dt [value]="ESDFactsMappings"
+                   [scrollable]="true" 
+                   scrollHeight="35rem"
+                   responsiveLayout="stack"
+                   styleClass="p-datatable-gridlines">
+            
+            <!-- Table caption (optional) -->
+            <ng-template pTemplate="caption">
+              <div class="d-flex flex-column flex-md-row justify-content-between">
+                <div class="mr-auto p-2">
+                  <span> <!-- Your caption content goes here --> </span>
+                </div>
+              </div>
+            </ng-template>
+            
+            <!-- Table header -->
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Indicators</th>
+                <th>Values</th>
+              </tr>
+            </ng-template>
+  
+            <!-- Table body -->
+            <ng-template pTemplate="body" let-item>
+              <tr [ngClass]="{ 'highlight-row': item.isTitle }" >
+                <td>{{ item.esdFact }}</td>
+                <td>
+                    <!-- {{ item.value }} -->
+
+                   
+                 <p-inputNumber 
+                    [(ngModel)]="item.value" 
+                    [ngModelOptions]="{ standalone: true }" 
+                    [minFractionDigits]="2"
+                    mode="decimal" 
+                     [disabled]="item.isTitle"
+                   >
+                  </p-inputNumber> 
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+             
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
