@@ -8,6 +8,7 @@ import {
   BatchesESDFactsMappingDto,
   BatchesReEntryDto,
   BatchesReEntryService,
+  BatchStatusUpdateDto,
 } from '@proxy/batches-re-entry';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
@@ -22,6 +23,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { Financial_BatchesReEntry, Financial_Entry } from 'src/app/services/permissions';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-batches-re-entry',
@@ -51,6 +53,10 @@ export class BatchesReEntryComponent {
   batchesReEntries: any[];
   ESDFactsMapping: BatchesESDFactsMappingDto[] = [];
   loading = false;
+  batchStatusUpdateDto: BatchStatusUpdateDto = {
+    batchID: 0,
+    statusID: 1
+  }
   batchesReEntry: BatchesReEntryDto = {
     batchID: 0,
     countryID: 0,
@@ -99,4 +105,25 @@ export class BatchesReEntryComponent {
       this.ESDFactsMapping = res;
     });
   }
+
+  updateBatchStatusByInput() {
+      debugger;
+      this.loading = true;
+      this.batchStatusUpdateDto.remarks = this.batchesReEntry.remarks;
+      this.batchStatusUpdateDto.aRemarks = this.batchesReEntry.aRemarks;
+      this.batchStatusUpdateDto.batchID = this.batchesReEntry.batchID;
+      this.batchesReEntryService.updateBatchStatusByInput(this.batchStatusUpdateDto).subscribe(res => {
+        debugger;
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.batchesReEntry.remarks + ' updated successfully', icon: 'success', });
+        
+  
+        this.loading = false;
+      },
+        error => {
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+        });
+    }
 }

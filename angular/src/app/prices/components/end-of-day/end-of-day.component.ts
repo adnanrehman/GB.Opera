@@ -114,6 +114,7 @@ export class EndOfDayComponent {
     debugger;
     this.selectedMarketID = event.value.stockMarketID;
     this.getEodPrices();
+    this.selectedItem = null;
     this.loading = false;
   }
   // onDropdownChange(event: any) {

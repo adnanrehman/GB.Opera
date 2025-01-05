@@ -1,10 +1,21 @@
 <div class="container ps-2" [abpLoading]="loading">
   <div class="row mb-2">
+    <div class="col-md-12 text-end">
+      <a
+    href="javascript:void(0)"
+    *ngIf="permission.create"
+    (click)="updateBatchStatusByInput()"
+    class="btn btn-success btn-sm"
+    ><i class="fa fa-save"></i> Save</a
+  >
+    </div>
+  </div>
+  <div class="row mb-2">
     <div class="col-md-2">
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="card-header">
+            <div class="card-header">              
               <div class="row">
                 <div class="col-md-10">
                   <h6>FINEBOX</h6>
@@ -172,7 +183,7 @@
               >
                 <ng-template pTemplate="header">
                   <tr>
-                    <th>Indicators</th>
+                    <th width="50%">Indicators</th>
                     <th>Values</th>
                     <th></th>
                   </tr>

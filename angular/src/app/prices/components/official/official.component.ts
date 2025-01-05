@@ -84,6 +84,7 @@ export class OfficialComponent {
     debugger;
     this.selectedMarketID = event.value.stockMarketID;
     this.getEPfficail();
+    this.selectedItem = null;
     this.loading = false;
   }
 

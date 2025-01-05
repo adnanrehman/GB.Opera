@@ -6,13 +6,13 @@
           <div class="card">
             <div class="card-header">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-8">
                   <h6>FINEBOX</h6>
                 </div>
-                <div class="col-md-4 ps-1 pe-1 text-end">
+                <div class="col-md-2 ps-1 pe-1 text-end">
                   <!-- <a class="btn btn-sm btn-link">Report (P)</a> -->
                 </div>
-                <div class="col-md-4 ps-1 pe-1 text-end">
+                <div class="col-md-2 ps-1 pe-1 text-end">
                   <!-- <a class="btn btn-sm btn-link">Report (S)</a> -->
                 </div>
               </div>
@@ -157,8 +157,7 @@
                       <tr [ngClass]="{'parent-item': item.parentID == 0, 'bold-row': !item.checkMe}">
                         <td>{{ item.gbFact }}</td>
                         <td>
-                          <p-inputNumber item.
-                      autofocus
+                          <p-inputNumber                      
                       [(ngModel)]="item.value"
                       [ngModelOptions]="{ standalone: true }"
                       [minFractionDigits]="2"
@@ -226,7 +225,7 @@
                           <td>{{ item.gbFact }}</td>
                           <td>
                             <p-inputNumber
-                            autofocus
+                            
                             [(ngModel)]="item.value"
                             [ngModelOptions]="{ standalone: true }"
                             [minFractionDigits]="2"

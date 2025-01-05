@@ -108,6 +108,7 @@ export class AccountsCustomOrderComponent {
     this.companyID = event.value.companyID;
     this.searchCompanyId = event.value.companyID;
     this.getStockMarketSectorsByStockMarketID();
+    this.selectedItem = null;
     this.loading = false;
   }
 
@@ -186,7 +187,7 @@ export class AccountsCustomOrderComponent {
             icon: 'success',
           });
           console.log('Save response:', res);
-          this.getCompaniesFactOrdersByCompanyID();
+          // this.getCompaniesFactOrdersByCompanyID();
           this.loading = false;
         },
         error: err => {

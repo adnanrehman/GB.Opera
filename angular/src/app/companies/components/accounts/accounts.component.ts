@@ -185,6 +185,7 @@ export class AccountsComponent {
     this.searchCompanyId = event.value.companyID;
     this.companyTicker = event.value.ticker
     this.getCompMarketSectorsByMarketID();
+    this.selectedItem = "";
     // this.getCompaniesFactsByCompanyID();
     // this.loading = false;
   }
@@ -313,7 +314,7 @@ export class AccountsComponent {
     });
     this.ref.onClose.subscribe((template: any) => {
       if(template){
-        this.fetchTreeData();
+        // this.fetchTreeData();
       }
     });
   }

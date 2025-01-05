@@ -196,6 +196,7 @@ export class ManagementComponent {
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID
     this.getCompMarketSectorsByMarketID();
+    this.selectedItem = null;
     this.loading =false;
   }
 

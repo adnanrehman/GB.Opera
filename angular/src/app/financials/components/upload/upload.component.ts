@@ -134,6 +134,7 @@ export class UploadComponent {
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID;
     this.getStockMarkets();
+    this.selectedItem = null;
     this.loading = false;
   }
 

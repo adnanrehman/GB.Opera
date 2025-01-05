@@ -116,6 +116,7 @@ export class FundPricesComponent {
     debugger;
     this.companyID = event.value.companyID;
     this.usp_getAllFunds();
+    this.selectedItem = null;
     this.loading = false;
   }
 

@@ -93,6 +93,7 @@ export class CurrentDividendsComponent {
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.getCurrentDividendsByStockMarketID();
+    this.selectedItem = null;
     this.loading = false;
   }
 
