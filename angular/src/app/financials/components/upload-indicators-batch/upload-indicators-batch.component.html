@@ -1,1 +1,193 @@
-<p>upload-indicators-batch works!</p>
+<div class="container ms-2" [abpLoading]="loading">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Please select Country and Report Type</h4>
+            <div class="row mb-2">
+                <div class="col-md-8">
+                    <p-dropdown name="country" [options]="countries" placeholder="Select a Country" optionLabel="abbr"
+                        optionValue="abbr" [(ngModel)]="country" [style]="{ width: '100%' }"
+                        [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-sm btn-primary btn-block" (click)="fetchData()">Fetch Titles</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <p>Hijri Date for ({{esdFact}})</p>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" [(ngModel)]="uploadBatch.hijriDate"
+                    name="hijriDate" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body p-2">
+                            <p-tree [value]="esdFacts" class="custom-tree" selectionMode="single"
+                            class="w-full md:w-30rem" [virtualScroll]="true" virtualScrollItemSize="46" scrollHeight="480px"                            
+                            (onNodeSelect)="onNodeClick($event)"     >
+                        </p-tree>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="col-form-label">Status</label>
+                            <p-dropdown name="statusID" [options]="status" [disabled]="true" placeholder="Select a status"
+                                optionLabel="status" optionValue="statusId" [(ngModel)]="uploadBatch.statusID"
+                                [style]="{ width: '100%' }" [showClear]="true">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-form-label">Date</label>
+                            <p-calendar dataType="string" [style]="{ width: '100%' }" required="true" [(ngModel)]="uploadBatch.asofDate" name="asofDate" [showIcon]="true" placeholder="Select a Date" />
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="col-form-label">User (Entry)</label>
+                            <p-dropdown name="gbEntryUserId" [options]="entryusers" placeholder="Select a Entry Users"
+                                optionLabel="userName" optionValue="userId" [(ngModel)]="uploadBatch.gbEntryUserId"
+                                [style]="{ width: '100%' }" [showClear]="true">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-form-label">User (Re-Entry)</label>
+                            <p-dropdown name="gbReEntryUserId" [options]="reentryusers"
+                                placeholder="Select a Re Entry Users" optionLabel="userName" optionValue="userId"
+                                [style]="{ width: '100%' }" [(ngModel)]="uploadBatch.gbReEntryUserId" [showClear]="true">
+                            </p-dropdown>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="col-form-label">Source</label>
+                            <textarea pInputText class="form-control" [(ngModel)]="uploadBatch.source" name="source"
+                                placeholder="Source" rows="2"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-form-label">Source(AR)</label>
+                            <textarea pInputText class="form-control" [(ngModel)]="uploadBatch.aSource" name="aSource"
+                                placeholder="Source" rows="2"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="col-form-label">Remarks</label>
+                            <textarea pInputText class="form-control" [(ngModel)]="uploadBatch.remarks" name="remarks"
+                                placeholder="Remarks" rows="3"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-form-label">Remarks(AR)</label>
+                            <textarea pInputText class="form-control" name="aRemarks" [(ngModel)]="uploadBatch.aRemarks"
+                                placeholder="AR Remarks" rows="3"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <!-- <div class="col-md-12">
+                            <div class="d-flex">
+    
+                                <div class="form-check me-3" *ngFor="let option of frequencyOptions">
+                                    <input type="radio" class="form-check-input" name="frequency" [value]="option.value"
+                                        [id]="'sourceOption' + option.value" [(ngModel)]="selectedFrequency"
+                                        (change)="onRadioChange()" />
+                                    <label class="form-check-label" [for]="'sourceOption' + option.value">
+                                        {{ option.label }}
+                                    </label>
+                                </div>
+    
+    
+    
+                            </div>
+                        </div> -->
+    
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="col-form-label">File Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="uploadBatch.fileName"
+                                    name="fileName" />
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div *ngFor="let option of frequencyOptions">
+                                    <div class="radio">
+                                        <input type="radio"
+                                           name="radio"
+                                           id="radio-{{option.label}}"
+                                           [(ngModel)]="value"
+                                           [value]="option.value"
+                                           />
+                                
+                                    <label for="radio-{{option.label}}">{{option.label}}
+                                    </label>
+                                
+                                </div>
+                                <!-- <div class="flex flex-wrap gap-4">
+                                    <div class="flex items-center">
+                                        <p-radiobutton  name="reportType1" ngDefaultControl [ngModelOptions]="{ standalone: true }" value="Daily" [(ngModel)]="uploadBatch.reportType" inputId="ingredient1" />
+                                        <label for="ingredient1" class="ml-2">Daily</label>
+                                    </div>
+                                
+                                    <div class="flex items-center">
+                                        <p-radiobutton name="reportType1" ngDefaultControl [ngModelOptions]="{ standalone: true }" value="Weekly" [(ngModel)]="uploadBatch.reportType" inputId="ingredient2" />
+                                        <label for="ingredient2" class="ml-2">Weekly</label>
+                                    </div>
+                                
+                                    <div class="flex items-center">
+                                        <p-radiobutton name="reportType1" ngDefaultControl [ngModelOptions]="{ standalone: true }" value="Monthly" [(ngModel)]="uploadBatch.reportType" inputId="ingredient3" />
+                                        <label for="ingredient3" class="ml-2">Monthly</label>
+                                    </div>
+                                
+                                    <div class="flex items-center">
+                                        <p-radiobutton name="reportType1" ngDefaultControl [ngModelOptions]="{ standalone: true }" value="Quarterly" [(ngModel)]="uploadBatch.reportType" inputId="ingredient4" />
+                                        <label for="ingredient4" class="ml-2">Quarterly</label>
+                                    </div>
+
+                                    <div class="flex items-center">
+                                        <p-radiobutton name="reportType1" ngDefaultControl [ngModelOptions]="{ standalone: true }" value="Yearly" [(ngModel)]="uploadBatch.reportType" inputId="ingredient5" />
+                                        <label for="ingredient5" class="ml-2">Yearly</label>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-form-label">Note</label>
+                                <textarea pInputText class="form-control" [(ngModel)]="uploadBatch.note" name="note"
+                                    placeholder="Note" rows="3"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-form-label">Note(AR)</label>
+                                <textarea pInputText class="form-control" [(ngModel)]="uploadBatch.aNote" name="aNote"
+                                    placeholder="AR Note" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn btn-sm btn-primary btn-block" (click)="uploadBatches()">Upload Indicators Batch</button>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

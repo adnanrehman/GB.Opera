@@ -1,0 +1,86 @@
+﻿   
+      
+Alter PROCEDURE [dbo].[usp_InserUpdateBatch_New]        
+(@BatchID bigint,      
+@CountryID smallint,      
+@ReportType varchar(20),      
+@Source varchar(100),      
+@ASource nvarchar(100),      
+      @StatusID smallint,      
+      @AsofDate smalldatetime,      
+      @EntryUserID uniqueidentifier,     
+      @ReEntryUserID uniqueidentifier,   
+      @Remarks varchar(500),      
+      @ARemarks nvarchar(500),      
+      @ESDFactID smallint,      
+      @HijriDate nvarchar(50),      
+      @FileName nvarchar(100),    
+      @Note varchar(500),      
+      @ANote nvarchar(500)    
+      )      
+      
+as      
+    
+   
+if not exists(select BatchID from Batches where BatchID=@BatchID)      
+begin      
+INSERT INTO [Batches]      
+           ([CountryID]      
+           ,[ReportType]      
+           ,[Source]      
+           ,[ASource]      
+           ,[StatusID]      
+           ,[AsofDate]  
+		   ,[EntryUserID]
+		   ,[ReEntryUserID]
+           ,[gbEntryUserID]      
+           ,[gbReEntryUserID]      
+           ,[Remarks]      
+           ,[ARemarks]      
+           ,[UploadDate]      
+           ,[ESDFactID]      
+           ,[HijriDate]      
+           ,[FileName],Note,ANote)      
+     VALUES      
+           (      
+@CountryID      
+,@ReportType      
+ ,@Source      
+      ,@ASource      
+      ,@StatusID      
+      ,@AsofDate  
+	  ,27
+	  ,27
+      ,@EntryUserID      
+      ,@ReEntryUserID      
+      ,@Remarks      
+      ,@ARemarks      
+      ,getdate()      
+      ,@ESDFactID      
+      ,@HijriDate      
+      ,@FileName,@Note,@ANote)      
+end      
+else      
+begin      
+      
+UPDATE [Batches]      
+   SET [CountryID] = @CountryID      
+      ,[ReportType] =@ReportType      
+      ,[Source] = @Source      
+      ,[ASource] =@ASource      
+      ,[StatusID] =@StatusID      
+      ,[AsofDate] =@AsofDate 
+	  ,[EntryUserID] = 27
+	  ,[ReEntryUserID] = 27
+      ,[gbEntryUserID] = @EntryUserID      
+      ,[gbReEntryUserID] =@ReEntryUserID      
+      ,[Remarks] = @Remarks      
+      ,[ARemarks] = @ARemarks      
+      ,[ESDFactID] = @ESDFactID      
+      ,[HijriDate] = @HijriDate      
+      ,[FileName] =@FileName      
+      ,Note=@Note    
+      ,ANote=@ANote    
+ WHERE BatchID=@BatchID      
+end      
+      

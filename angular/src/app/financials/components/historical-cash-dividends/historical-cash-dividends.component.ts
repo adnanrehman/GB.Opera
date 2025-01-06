@@ -115,6 +115,7 @@ export class HistoricalCashDividendsComponent {
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID
     this.getCompMSectorsByMarketID();
+    this.selectedItem = null;
     this.loading = false;
   }
 

@@ -9387,6 +9387,155 @@
               "implementFrom": "Reviewers.IReviewerAppService"
             }
           }
+        },
+        "UploadBatch.UploadBatchAppService": {
+          "controllerName": "UploadBatch",
+          "controllerGroupName": "UploadBatch",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "UploadBatch.UploadBatchAppService",
+          "interfaces": [
+            {
+              "type": "UploadBatch.IUploadBatchAppService",
+              "name": "IUploadBatchAppService",
+              "methods": [
+                {
+                  "name": "CountriesForBatches",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "GB.Opera.BatchAdmin.BatchAdminDto",
+                    "typeSimple": "GB.Opera.BatchAdmin.BatchAdminDto"
+                  }
+                },
+                {
+                  "name": "GetCountriesFactsTitles",
+                  "parametersOnMethod": [
+                    {
+                      "name": "country",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Commons.ESDFactDto>",
+                    "typeSimple": "[Commons.ESDFactDto]"
+                  }
+                },
+                {
+                  "name": "InsertBatch",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "UploadBatch.UploadBatchDto, GB.Opera.Application.Contracts",
+                      "type": "UploadBatch.UploadBatchDto",
+                      "typeSimple": "UploadBatch.UploadBatchDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "UploadBatch.UploadBatchDto",
+                    "typeSimple": "UploadBatch.UploadBatchDto"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "CountriesForBatches": {
+              "uniqueName": "CountriesForBatches",
+              "name": "CountriesForBatches",
+              "httpMethod": "POST",
+              "url": "api/app/upload-batch/countries-for-batches",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "GB.Opera.BatchAdmin.BatchAdminDto",
+                "typeSimple": "GB.Opera.BatchAdmin.BatchAdminDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "UploadBatch.IUploadBatchAppService"
+            },
+            "GetCountriesFactsTitlesByCountry": {
+              "uniqueName": "GetCountriesFactsTitlesByCountry",
+              "name": "GetCountriesFactsTitles",
+              "httpMethod": "GET",
+              "url": "api/app/upload-batch/countries-facts-titles",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "country",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "country",
+                  "name": "country",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Commons.ESDFactDto>",
+                "typeSimple": "[Commons.ESDFactDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "UploadBatch.IUploadBatchAppService"
+            },
+            "InsertBatchByInput": {
+              "uniqueName": "InsertBatchByInput",
+              "name": "InsertBatch",
+              "httpMethod": "POST",
+              "url": "api/app/upload-batch/batch",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "UploadBatch.UploadBatchDto, GB.Opera.Application.Contracts",
+                  "type": "UploadBatch.UploadBatchDto",
+                  "typeSimple": "UploadBatch.UploadBatchDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "UploadBatch.UploadBatchDto",
+                  "typeSimple": "UploadBatch.UploadBatchDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "UploadBatch.UploadBatchDto",
+                "typeSimple": "UploadBatch.UploadBatchDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "UploadBatch.IUploadBatchAppService"
+            }
+          }
         }
       }
     },
@@ -29001,6 +29150,219 @@
           "jsonName": null,
           "type": "[Reviewers.ReviewReportDto]",
           "typeSimple": "[Reviewers.ReviewReportDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "UploadBatch.UploadBatchDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "BatchID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CountryID",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ReportType",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Source",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ASource",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "StatusID",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AsofDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Remarks",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ARemarks",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "UploadDate",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ESDFactID",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HijriDate",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "FileName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Note",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ANote",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GbEntryUserId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "GbReEntryUserId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
