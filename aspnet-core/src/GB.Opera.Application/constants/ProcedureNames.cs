@@ -121,6 +121,10 @@ namespace GB.Opera.constants
         public const string usp_getAdminBatches = "usp_getAdminBatches";
         public const string usp_getCountriesFactsTitles = "usp_getCountriesFactsTitles";
         public const string usp_InserUpdateBatch = "usp_InserUpdateBatch";
+        public const string usp_getAllESDFactsMappings = "usp_getAllESDFactsMappings";
+        public const string usp_getESDFactParams = "usp_getESDFactParams";
+        public const string usp_DeleteGBFact = "usp_DeleteGBFact";
+        public const string usp_AddUpdateESDFact = "usp_AddUpdateESDFact";
 
     }
 }

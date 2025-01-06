@@ -1,22 +1,167 @@
 <div>
-    <form #template="ngForm">
-      <div class="row mb-1">
-        <div class="col-sm-12">
-          <label class="col-form-label">Account</label>
-          <input autofocus type="text" class="form-control" [(ngModel)]="account.accountName" name="accountName"
-            placeholder="Account" />
+  <form #template="ngForm">
+    <div class="row mb-1">
+      <div class="col-md-12">
+        <label class="col-form-label">ESD Fact</label>
+        <input
+          autofocus
+          type="text"
+          class="form-control"
+          [(ngModel)]="esdFact.esdFact"
+          name="esdFact"
+          placeholder="ESD Fact"
+        />
+      </div>
+      <div class="col-md-12">
+        <label class="col-form-label">ESD Fact (AR)</label>
+        <input
+          autofocus
+          type="text"
+          class="form-control"
+          [(ngModel)]="esdFact.aesdFact"
+          name="aesdFact"
+          placeholder="ESD Fact (AR)"
+        />
+      </div>
+      <div class="col-md-12">
+        <label class="form-check-label" for="defaultCheck4"></label>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="esdFact.isTitle"
+            name="isTitle"
+          />
+          <label class="form-check-label" for="defaultCheck4">Title</label>
         </div>
       </div>
-      <div class="p-dialog-footer app-dialog-footer">
-        <div class="col-sm-12 text-center">
-          <button type="submit" [disabled]="template.form.invalid" class="btn btn-success ps-4 pe-4"><span class="text-white">SAVE</span></button>
-          &nbsp;&nbsp;
-          <button type="button" class="btn btn-primary" (click)="Cancel()"><span class="text-white">CANCEL</span></button>
-          &nbsp;&nbsp;
-          <button type="button" class="btn btn-danger" (click)="deleteAccount()"><span class="text-white">Delete</span></button>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body p-2">
+            <div class="row">
+              <div class="col-md-12">
+                <label class="col-form-label">Unit</label>
+                <input
+                  autofocus
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="esdFact.measurementUnit"
+                  name="measurementUnit"
+                  placeholder="Unit"
+                />
+              </div>
+              <div class="col-md-12">
+                <label class="col-form-label">Currency</label>
+                <input
+                  autofocus
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="esdFact.currency"
+                  name="currency"
+                  placeholder="Currency"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </form>
-  </div>
-
-
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body p-2">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-check-label" for="defaultCheck5"></label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="esdFact.daily"
+                    name="daily"
+                  />
+                  <label class="form-check-label" for="defaultCheck5">Daily</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-check-label" for="defaultCheck6"></label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="esdFact.weekly"
+                    name="weekly"
+                  />
+                  <label class="form-check-label" for="defaultCheck6">Weekly</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-check-label" for="defaultCheck7"></label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="esdFact.monthly"
+                    name="monthly"
+                  />
+                  <label class="form-check-label" for="defaultCheck7">Monthly</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-check-label" for="defaultCheck8"></label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="esdFact.quarterly"
+                    name="quarterly"
+                  />
+                  <label class="form-check-label" for="defaultCheck8">Quarterly</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-check-label" for="defaultCheck9"></label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="esdFact.yearly"
+                    name="yearly"
+                  />
+                  <label class="form-check-label" for="defaultCheck9">Yearly</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-check-label" for="defaultCheck2"></label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="esdFact.forcast"
+                    name="forcast"
+                  />
+                  <label class="form-check-label" for="defaultCheck2">Forcast</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-dialog-footer app-dialog-footer">
+      <div class="col-sm-12 text-center">
+        <button type="submit" [disabled]="template.form.invalid" (click)="saveUpdateESDFact()"  class="btn btn-success ps-4 pe-4">
+          <span class="text-white">SAVE</span>
+        </button>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" (click)="Cancel()">
+          <span class="text-white">CANCEL</span>
+        </button>
+        &nbsp;&nbsp;
+        <!-- <button type="button" class="btn btn-danger" (click)="deletESDFactByIdByESDFactID()">
+          <span class="text-white">Delete</span>
+        </button> -->
+      </div>
+    </div>
+  </form>
+</div>

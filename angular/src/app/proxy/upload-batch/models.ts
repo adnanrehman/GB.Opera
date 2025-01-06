@@ -10,7 +10,7 @@ export interface UploadBatchDto {
   remarks?: string;
   aRemarks?: string;
   uploadDate?: string;
-  esdFactID: number;
+  esdFactID?: number;
   hijriDate?: string;
   fileName?: string;
   note?: string;

@@ -1,0 +1,9 @@
+﻿Alter Procedure [dbo].[usp_getESDFactParams]    
+(     
+@ESDFactID smallint    
+)    
+AS    
+BEGIN    
+    
+select ESDfact,AESDFact,IsTitle,Daily,Weekly,Monthly,Quarterly,Yearly,Forcast,MeasurementUnit,Currency from ESDFacts where ESDFactID=@ESDFactID    
+end
