@@ -221,6 +221,12 @@ export class EnglishComponent {
       });
     } else {
 
+
+
+
+
+
+      
       Swal.fire({
         toast: true,
         position: 'top-end',
