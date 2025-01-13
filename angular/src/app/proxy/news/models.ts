@@ -19,3 +19,10 @@ export interface NewsDto {
   isHotNews: boolean;
   isApproved: boolean;
 }
+
+export interface NewsSourceDto {
+  sourceID: number;
+  source?: string;
+  aSource?: string;
+  isEnglish: number;
+}

@@ -1,4 +1,4 @@
-import type { NewsDto } from './models';
+import type { NewsDto, NewsSourceDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 
@@ -32,6 +32,14 @@ export class NewsService {
       method: 'GET',
       url: '/api/app/news/news',
       params: { langId, newsId },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getSourceByNewsId = (newsId: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, NewsSourceDto[]>({
+      method: 'GET',
+      url: `/api/app/news/source/${newsId}`,
     },
     { apiName: this.apiName,...config });
 
