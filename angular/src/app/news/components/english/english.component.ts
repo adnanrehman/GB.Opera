@@ -80,7 +80,7 @@ export class EnglishComponent {
   constructor(
     private commonService: CommonService,
     public fileService: FileService,
-    private newsEngService: NewsService, private permissionService: PermissionService,private cdr: ChangeDetectorRef
+    private newsEngService: NewsService, private permissionService: PermissionService, private cdr: ChangeDetectorRef
   ) {
     this.permission = {
       create: false,
@@ -198,30 +198,29 @@ export class EnglishComponent {
     }
   }
 
-  
+
   uploadLogo() {
     this.loading = true;
-  
-    // Get the selected file
+
     const file = this.imgContactAvatar.files[0];
     if (file) {
-      // Call your file upload service
+
       this.fileService.uploadImage(file).subscribe((res: any) => {
-        this.newsEng.newsImage = res;  // Save the uploaded image URL
-        
-        // Reset the file input to allow a new file to be selected
-        this.imgContactAvatar.clear(); // PrimeNG method to clear file input
-        
-        // Trigger Angular change detection to reflect the change
+        this.newsEng.newsImage = res;
+
+
+        this.imgContactAvatar.clear();
+
+
         this.cdr.detectChanges();
-        
+
         this.loading = false;
       }, (error) => {
-        // Handle error (if any)
+
         this.loading = false;
       });
     } else {
-      // Show error message if no file is selected
+
       Swal.fire({
         toast: true,
         position: 'top-end',
@@ -235,10 +234,10 @@ export class EnglishComponent {
       this.loading = false;
     }
   }
- 
-  
-  
-  
+
+
+
+
 
   getNewsEngs() {
     debugger;
