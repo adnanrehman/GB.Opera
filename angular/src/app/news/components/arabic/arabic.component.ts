@@ -1,10 +1,10 @@
 import { PermissionService } from '@abp/ng.core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { CommonModule, NgFor } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonService } from '@proxy/commons';
-import { NewsDto, NewsService } from '@proxy/news';
+import { NewsDto, NewsService, NewsSourceDto } from '@proxy/news';
 import { AutoCompleteModule, AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -68,6 +68,7 @@ export class ArabicComponent {
   newsCategories = [];
   countries = [];
   newsArabs: NewsDto[] = [];
+  source : NewsSourceDto[]=[];
   newsArab: NewsDto = {
     newsID: 0,
     isHotNews: false,
@@ -76,8 +77,8 @@ export class ArabicComponent {
 
   constructor(
     private commonService: CommonService,
-    public fileService: FileService,
-    private newsArabService: NewsService, private permissionService: PermissionService
+    public fileService: FileService,  
+    private newsArabService: NewsService, private permissionService: PermissionService,private cdr: ChangeDetectorRef
   ) {
     this.permission = {
       create: false,
@@ -111,6 +112,13 @@ export class ArabicComponent {
     this.newsArab.islamic = true;
     this.newsArab.forSocialNetworks = true;
     this.newsArab.isGulfbaseNews = true;
+    this.getSource(0)
+  }
+
+  getSource(id: number) {
+    this.newsArabService.getSourceByNewsId(id).subscribe(res => {
+      this.source = res;
+    });
   }
 
   search(event: AutoCompleteCompleteEvent) {
@@ -153,15 +161,51 @@ export class ArabicComponent {
     }
   }
 
-  uploadLogo(){
-    this.loading = true;
-    this.fileService.uploadImage(this.imgContactAvatar._files[0])
-        .subscribe((res: any) => {
-          this.newsArab.newsImage = res;
-          this.imgContactAvatar = null;
+  // uploadLogo(){
+  //   this.loading = true;
+  //   this.fileService.uploadImage(this.imgContactAvatar._files[0])
+  //       .subscribe((res: any) => {
+  //         this.newsArab.newsImage = res;
+  //         this.imgContactAvatar = null;
+  //         this.loading = false;
+  //       });
+  // }
+   
+    uploadLogo() {
+      this.loading = true;
+     
+      const file = this.imgContactAvatar.files[0];
+      if (file) {
+      
+        this.fileService.uploadImage(file).subscribe((res: any) => {
+          this.newsArab.newsImage = res;   
+          
+         
+          this.imgContactAvatar.clear(); 
+          
+         
+          this.cdr.detectChanges();
+          
+          this.loading = false;
+        }, (error) => { 
           this.loading = false;
         });
-  }
+      } else {
+ 
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 4000,
+          title: 'Error!',
+          text: 'Please select an image to upload',
+          icon: 'error',
+        });
+  
+        this.loading = false;
+      }
+    }
+   
 
   addNewNewsArab(){
     this.newsArab = {isHotNews:false,isApproved:false};
@@ -270,6 +314,22 @@ export class ArabicComponent {
   createOrUpdateNewsArab() {
     debugger;
     this.loading = true;
+    if (!this.newsArab.date ) {
+      // If date is empty or invalid, show the validation message
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000,
+        title: 'Error!',
+        text: 'Please select a valid date',
+        icon: 'error',
+      });
+  
+      // Stop further processing
+      this.loading = false;
+      return;
+    }
     this.newsArab.companyID = this.companyID;
     this.newsArab.gulfBaseSectorID = this.sectorID;
     this.newsArab.langID = false;
@@ -280,6 +340,7 @@ export class ArabicComponent {
       if (this.newsArab.newsID > 0) {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' updated successfully', icon: 'success', });
         this.handleNewsArab(this.newsArab);
+        this.addNewNewsArab();
       }
       else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' created successfully', icon: 'success', });
@@ -299,6 +360,23 @@ export class ArabicComponent {
   createOrUpdateapprovedNewsArab() {
     debugger;
     this.loading = true;
+
+    if (!this.newsArab.date ) {
+      // If date is empty or invalid, show the validation message
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000,
+        title: 'Error!',
+        text: 'Please select a valid date',
+        icon: 'error',
+      });
+  
+      // Stop further processing
+      this.loading = false;
+      return;
+    }
     this.newsArab.companyID = this.companyID;
     this.newsArab.gulfBaseSectorID = this.sectorID;
     this.newsArab.langID = false;
@@ -309,6 +387,7 @@ export class ArabicComponent {
       if (this.newsArab.newsID > 0) {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' updated successfully', icon: 'success', });
         this.handleNewsArab(this.newsArab);
+        this.addNewNewsArab();
       }
       else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' created successfully', icon: 'success', });

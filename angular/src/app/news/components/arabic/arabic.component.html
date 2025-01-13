@@ -212,7 +212,7 @@
           <div class="d-flex p-2 bd-highlight">
             <div class="mt-1 me-4">
               <label class="col-form-label col-4">Source</label>
-              <input
+              <!-- <input
                 autofocus
                 [(ngModel)]="newsArab.source"
                 [ngModelOptions]="{ standalone: true }"
@@ -220,7 +220,19 @@
                 class="form-control"
                 name="source"
                 placeholder="Source (AR)"
-              />
+              /> -->
+              <p-dropdown
+              [options]="source"
+              [(ngModel)]="newsArab.source"
+              name="source"
+              placeholder="Select a AR Source"
+              optionLabel="aSource"
+              optionValue="aSource"
+              
+              [style]="{ width: '100%' }"
+              [showClear]="true"
+            >
+            </p-dropdown>
             </div>
             <div class="mt-1 me-4">
               <label class="col-form-label col-4">&nbsp;</label>

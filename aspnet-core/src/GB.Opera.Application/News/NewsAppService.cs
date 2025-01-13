@@ -21,6 +21,7 @@ using static Volo.Abp.UI.Navigation.DefaultMenuNames.Application;
 using System.Text.RegularExpressions;
 using GB.Opera.Books;
 using System.Diagnostics.Metrics;
+using GB.Opera.News;
 
 namespace News
 {
@@ -109,6 +110,27 @@ namespace News
                 }
 
                 await _connection.QueryAsync(sql);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        public async Task<List<NewsSourceDto>> GetSource(  int newsId)
+        {
+            try
+            {
+                var sql = "";
+                
+                    sql = $@"Select * from NewsSource  WHERE (IsEnglish= {newsId} ) order by Source Asc ";
+               
+                
+
+                var data = await _connection.QueryAsync<NewsSourceDto>(sql);
+                return data.ToList();
             }
             catch (Exception ex)
             {

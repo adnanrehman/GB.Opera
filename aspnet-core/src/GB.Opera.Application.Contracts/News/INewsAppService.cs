@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GB.Opera.News;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Text;
@@ -13,6 +14,7 @@ namespace News
         Task<List<NewsDto>> GetNews(bool langId, int newsId);
         Task<NewsDto> CreateOrUpdateNews(NewsDto input);
         Task DeleteNews(bool langId, int newsId);
+        public Task<List<NewsSourceDto>> GetSource(int newsId);
 
     }
 }

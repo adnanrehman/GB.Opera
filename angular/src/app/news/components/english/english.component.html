@@ -146,6 +146,7 @@
                 (uploadHandler)="uploadLogo()"
                 [auto]="true"
                 accept="image/*"
+               
               >
               </p-fileUpload>
             </div>
@@ -200,7 +201,20 @@
           <div class="d-flex p-2 bd-highlight">
             <div class="mt-1 me-4">
               <label class="col-form-label col-4">Source</label>
-              <input
+
+              <p-dropdown
+              [options]="source"
+              [(ngModel)]="newsEng.source"
+              name="source"
+              placeholder="Select a source"
+              optionLabel="source"
+              optionValue="source"
+              
+              [style]="{ width: '100%' }"
+              [showClear]="true"
+            >
+            </p-dropdown>
+              <!-- <input
                   autofocus
                   [(ngModel)]="newsEng.source"
                   [ngModelOptions]="{ standalone: true }"
@@ -208,7 +222,7 @@
                   class="form-control"
                   name="source"
                   placeholder="Source"
-                />
+                /> -->
             </div>
             <div class="mt-1 me-4">
               <label class="col-form-label col-4">&nbsp;</label>
