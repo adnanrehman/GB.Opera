@@ -125,7 +125,7 @@ namespace News
             {
                 var sql = "";
                 
-                    sql = $@"Select * from NewsSource  WHERE (IsEnglish= {newsId} ) order by Source Asc ";
+                    sql = $@"Select * from NewsSource  WHERE (IsEnglish= {newsId} ) AND Source is NOT null order by Source Asc ";
                
                 
 
