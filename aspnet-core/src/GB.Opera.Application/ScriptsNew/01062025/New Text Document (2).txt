@@ -1,0 +1,30 @@
+ 
+ALTER PROCEDURE [dbo].[InsertOrUpdateGulfbaseVideo]
+    @Id INT,
+    @Tag NVARCHAR(255),
+    @Width INT,
+    @Height INT,
+    @IsHome BIT,
+	@SortOrder int
+AS
+BEGIN
+    -- Check if the video with the provided Id exists
+    IF EXISTS (SELECT 1 FROM GulfbaseVideos WHERE Id = @Id)
+    BEGIN
+        -- If it exists, perform an UPDATE
+        UPDATE GulfbaseVideos
+        SET 
+            Tag = @Tag,
+            Width = @Width,
+            Height = @Height,
+            IsHome = @IsHome,
+			sortorder=@SortOrder
+        WHERE Id = @Id;
+    END
+    ELSE
+    BEGIN
+        -- If it does not exist, perform an INSERT
+        INSERT INTO GulfbaseVideos (   Tag, Width, Height, IsHome,sortorder)
+        VALUES (  @Tag, @Width, @Height, @IsHome,@SortOrder);
+    END
+END;

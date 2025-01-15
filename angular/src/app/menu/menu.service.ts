@@ -62,8 +62,9 @@ import { BatchesAdminComponent } from 'src/app/financials/components/batches-adm
 import { AccountsCustomOrderComponent } from 'src/app/companies/components/accounts-custom-order/accounts-custom-order.component';
 import { EstimatesAndForecastsComponent } from 'src/app/companies/components/estimates-and-forecasts/estimates-and-forecasts.component';
 import { GlobalIndicesComponent } from 'src/app/prices/components/global-indices/global-indices.component';
-import { Application, Application_AccountsClassification, Application_EconomicAndStatisticalData, Application_GbFacts, Application_Gbir, Application_GbUniversalFacts, Application_LhscUpload, Application_Ownership, Application_ProductsServicesAndRawMaterials, Application_Reports, Company, Company_Accounts, Company_AccountsCustomOrder, Company_AgenciesRating, Company_Announcements, Company_CompaniesAgenciesAndRatings, Company_CompaniesProductsServicesRawMaterialsUpdates, Company_Company, Company_CountryAccounts, Company_CountryAccountsFactsOrder, Company_EstimatesAndForecasts, Company_Ipos, Company_Management, Company_MutaulFunds, Company_MutaulFundsSettings, Company_Ownership, Company_UpdateOwnershipFacts, CompanyAndMarket, CompanyAndMarket_Country, CompanyAndMarket_CountryGroup, CompanyAndMarket_CountryProfile, CompanyAndMarket_CurrencyExchange, CompanyAndMarket_MarketSector, Financial, Financial_BatchesAdmin, Financial_BatchesEntry, Financial_BatchesReEntry, Financial_CompQnetP, Financial_CurrentDividends, Financial_CurrentValues, Financial_EnhancedRatios, Financial_Entry, Financial_FinancialsAdmin, Financial_HistoricalCashDividends, Financial_QnetProfitReport, Financial_ReEntry, Financial_Reviewer, Financial_ReviewerNew, Financial_Upload, Financial_UploadIndicatorsBatch, News, News_Arabic, News_EconomicAndBusiness, News_English, News_Gulfbase, News_Market, PriceAndIndices, PriceAndIndices_EndOfDay, PriceAndIndices_FundPrices, PriceAndIndices_GlobalIndices, PriceAndIndices_GulfbasePrice, PriceAndIndices_IntraDay, PriceAndIndices_Official } from 'src/app/services/permissions';
-
+import { Application, Application_AccountsClassification, Application_EconomicAndStatisticalData, Application_GbFacts, Application_Gbir, Application_GbUniversalFacts, Application_GulfBaseVideo, Application_LhscUpload, Application_Ownership, Application_ProductsServicesAndRawMaterials, Application_Reports, Company, Company_Accounts, Company_AccountsCustomOrder, Company_AgenciesRating, Company_Announcements, Company_CompaniesAgenciesAndRatings, Company_CompaniesProductsServicesRawMaterialsUpdates, Company_Company, Company_CountryAccounts, Company_CountryAccountsFactsOrder, Company_EstimatesAndForecasts, Company_Ipos, Company_Management, Company_MutaulFunds, Company_MutaulFundsSettings, Company_Ownership, Company_UpdateOwnershipFacts, CompanyAndMarket, CompanyAndMarket_Country, CompanyAndMarket_CountryGroup, CompanyAndMarket_CountryProfile, CompanyAndMarket_CurrencyExchange, CompanyAndMarket_MarketSector, Financial, Financial_BatchesAdmin, Financial_BatchesEntry, Financial_BatchesReEntry, Financial_CompQnetP, Financial_CurrentDividends, Financial_CurrentValues, Financial_EnhancedRatios, Financial_Entry, Financial_FinancialsAdmin, Financial_HistoricalCashDividends, Financial_QnetProfitReport, Financial_ReEntry, Financial_Reviewer, Financial_ReviewerNew, Financial_Upload, Financial_UploadIndicatorsBatch, News, News_Arabic, News_EconomicAndBusiness, News_English, News_Gulfbase, News_Market, PriceAndIndices, PriceAndIndices_EndOfDay, PriceAndIndices_FundPrices, PriceAndIndices_GlobalIndices, PriceAndIndices_GulfbasePrice, PriceAndIndices_IntraDay, PriceAndIndices_Official } from 'src/app/services/permissions';
+//import { GulfbasevideosComponent } from '../application/components/gulfbasevideos/gulfbasevideos.component';
+ import { GulfbasevideosComponent } from 'src/app/application/components/gulfbasevideos/gulfbasevideos.component';
 class Menu {
   title: string;
   permission: string;
@@ -133,6 +134,11 @@ constructor(){
           href: "economic-and-statistical-data", title: "Economic and Statistical Data", permission: Application_EconomicAndStatisticalData, component: EconomicAndStatisticalDataComponent,
           active: false
         },
+        {
+          href: "gulfbasevideos", title: "Gulf Base Videos", permission: Application_GulfBaseVideo, component: GulfbasevideosComponent,
+          active: false
+        },
+        
       ],
       active: false
     },

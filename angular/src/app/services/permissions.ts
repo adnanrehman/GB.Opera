@@ -8,6 +8,7 @@
     export const Application_GbUniversalFacts = Application + ".GbUniversalFacts";
     export const Application_ProductsServicesAndRawMaterials = Application + ".ProductsServicesAndRawMaterials";
     export const Application_EconomicAndStatisticalData = Application + ".EconomicAndStatisticalData";
+    export const Application_GulfBaseVideo = Application + ".GulfBaseVideo";
 
     export const CompanyAndMarket = "CompanyAndMarket";
     export const CompanyAndMarket_CountryGroup = CompanyAndMarket + ".CountryGroup";

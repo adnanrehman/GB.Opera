@@ -17,6 +17,7 @@ public class OperaPermissions : PermissionDefinitionProvider
     public const string Application_GbUniversalFacts = Application + ".GbUniversalFacts";
     public const string Application_ProductsServicesAndRawMaterials = Application + ".ProductsServicesAndRawMaterials";
     public const string Application_EconomicAndStatisticalData = Application + ".EconomicAndStatisticalData";
+    public const string Application_GulfBaseVideo = Application + ".GulfBaseVideo";
 
     public const string CompanyAndMarket = "CompanyAndMarket";
     public const string CompanyAndMarket_CountryGroup = CompanyAndMarket + ".CountryGroup";

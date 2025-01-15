@@ -1,0 +1,85 @@
+<div class="container ms-2" [abpLoading]="loading">
+    <div class="row mb-2">
+      <div class="card">
+        <div class="card-body p-2">
+          <div class="row">
+            <div class="col-md-8">
+              <!-- You can add search or filter input here if needed -->
+            </div>
+            <div class="col-md-4">
+
+                <a href="#" class="btn btn-primary btn-sm me-1" (click)="reset()"
+                ><i class="fa fa-plus"></i> Add New</a
+              >
+              <a href="#" *ngIf="permission.create" (click)="save()" class="btn btn-success btn-sm me-1">
+                <i class="fa fa-save"></i> Save
+              </a>
+            </div>
+          </div>
+  
+          <!-- Form for adding/updating Gulfbase video -->
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label class="col-form-label">Tag</label>
+              <input [(ngModel)]="gulfbasevideo.tag" class="form-control col-8" type="text" placeholder="Tag">
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Width</label>
+              <input [(ngModel)]="gulfbasevideo.width" class="form-control col-8" type="number" placeholder="Width">
+            </div>
+            <div class="col-md-4">
+              <label class="col-form-label">Height</label>
+              <input [(ngModel)]="gulfbasevideo.height" class="form-control col-8" type="number" placeholder="Height">
+            </div>
+            <div class="col-md-4 mt-4" hidden>
+              <p-checkbox binary="true" [(ngModel)]="gulfbasevideo.isHome"></p-checkbox>
+              <label for="ny" class="col-form-label">Is Home</label>
+            </div>
+
+            <div class="col-md-4">
+              <label class="col-form-label">Sort Order</label>
+              <input [(ngModel)]="gulfbasevideo.sortOrder" class="form-control col-8" type="number" placeholder="Sort Order">
+            </div>
+          </div>
+  
+          <!-- Table to display the Gulfbase videos -->
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <p-table [value]="gulfbaseVideos" [scrollable]="true" scrollHeight="20rem" responsiveLayout="stack">
+                <ng-template pTemplate="caption">
+                  <div class="d-flex flex-column flex-md-row justify-content-between">
+                    <div class="mr-auto p-2">
+                      <h5>Gulfbase Videos</h5>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Action</th>
+                    <th>Tag</th>
+                    <th>Width</th>
+                    <th>Height</th>
+                    <th pSortableColumn="sortOrder">Sort Order <p-sortIcon field="sortOrder"></p-sortIcon></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                  <tr>
+                 <td>   <button class="btn btn-primary btn-sm" (click)="editItem(item)">
+                        <i class="fa fa-edit"></i> Edit
+                      </button>
+                    </td>
+                    <td>{{ item.tag }}</td>
+                    <td>{{ item.width }}</td>
+                    <td>{{ item.height }}</td>
+                    <td>{{ item.sortOrder }}</td>
+                    <!-- <td><input class="form-check-input" type="checkbox" [(ngModel)]="item.isHome"></td> -->
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

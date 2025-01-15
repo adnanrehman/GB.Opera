@@ -60,6 +60,11 @@ public class OperaPermissionDefinitionProvider : PermissionDefinitionProvider
         application_EconomicAndStatisticalData.AddChild(OperaPermissions.Application_EconomicAndStatisticalData + ".Edit", L("Edit"));
         application_EconomicAndStatisticalData.AddChild(OperaPermissions.Application_EconomicAndStatisticalData + ".Delete", L("Delete"));
 
+        var application_GulfBaseVideo = application.AddPermission(OperaPermissions.Application_GulfBaseVideo, L("GulfBaseVideo"));
+        application_GulfBaseVideo.AddChild(OperaPermissions.Application_GulfBaseVideo + ".Create", L("Create"));
+        application_GulfBaseVideo.AddChild(OperaPermissions.Application_GulfBaseVideo + ".Edit", L("Edit"));
+        application_GulfBaseVideo.AddChild(OperaPermissions.Application_GulfBaseVideo + ".Delete", L("Delete"));
+
         #endregion
 
         #region CompanyAndMarket

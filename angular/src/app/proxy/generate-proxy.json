@@ -7840,6 +7840,69 @@
             }
           }
         },
+        "GB.Opera.GulfbaseVideos.GulfbaseVideoAppService": {
+          "controllerName": "GulfbaseVideo",
+          "controllerGroupName": "GulfbaseVideo",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "GB.Opera.GulfbaseVideos.GulfbaseVideoAppService",
+          "interfaces": [],
+          "actions": {
+            "CreateOrUpdateGulfbaseVideoByVideo": {
+              "uniqueName": "CreateOrUpdateGulfbaseVideoByVideo",
+              "name": "CreateOrUpdateGulfbaseVideo",
+              "httpMethod": "POST",
+              "url": "api/app/gulfbase-video/or-update-gulfbase-video",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "video",
+                  "typeAsString": "GB.Opera.GulfbaseVideos.GulfbaseVideo, GB.Opera.Application.Contracts",
+                  "type": "GB.Opera.GulfbaseVideos.GulfbaseVideo",
+                  "typeSimple": "GB.Opera.GulfbaseVideos.GulfbaseVideo",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "video",
+                  "name": "video",
+                  "jsonName": null,
+                  "type": "GB.Opera.GulfbaseVideos.GulfbaseVideo",
+                  "typeSimple": "GB.Opera.GulfbaseVideos.GulfbaseVideo",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.GulfbaseVideos.GulfbaseVideoAppService"
+            },
+            "GetGulfbaseVideo": {
+              "uniqueName": "GetGulfbaseVideo",
+              "name": "GetGulfbaseVideo",
+              "httpMethod": "GET",
+              "url": "api/app/gulfbase-video/gulfbase-video",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.GulfbaseVideos.GulfbaseVideo>",
+                "typeSimple": "[GB.Opera.GulfbaseVideos.GulfbaseVideo]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.GulfbaseVideos.GulfbaseVideoAppService"
+            }
+          }
+        },
         "GB.Opera.LHRUploads.LHRUploadsAppService": {
           "controllerName": "LHRUploads",
           "controllerGroupName": "LHRUploads",
@@ -26179,6 +26242,87 @@
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "GB.Opera.GulfbaseVideos.GulfbaseVideo": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Id",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Tag",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Width",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Height",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsHome",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SortOrder",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
