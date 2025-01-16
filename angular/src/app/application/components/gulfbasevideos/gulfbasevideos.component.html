@@ -23,7 +23,7 @@
               <label class="col-form-label">Tag</label>
               <input [(ngModel)]="gulfbasevideo.tag" class="form-control col-8" type="text" placeholder="Tag">
             </div>
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <label class="col-form-label">Width</label>
               <input [(ngModel)]="gulfbasevideo.width" class="form-control col-8" type="number" placeholder="Width">
             </div>
@@ -34,9 +34,9 @@
             <div class="col-md-4 mt-4" hidden>
               <p-checkbox binary="true" [(ngModel)]="gulfbasevideo.isHome"></p-checkbox>
               <label for="ny" class="col-form-label">Is Home</label>
-            </div>
+            </div> -->
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label class="col-form-label">Sort Order</label>
               <input [(ngModel)]="gulfbasevideo.sortOrder" class="form-control col-8" type="number" placeholder="Sort Order">
             </div>
@@ -57,8 +57,8 @@
                   <tr>
                     <th>Action</th>
                     <th>Tag</th>
-                    <th>Width</th>
-                    <th>Height</th>
+                    <!-- <th>Width</th>
+                    <th>Height</th> -->
                     <th pSortableColumn="sortOrder">Sort Order <p-sortIcon field="sortOrder"></p-sortIcon></th>
                   </tr>
                 </ng-template>
@@ -69,8 +69,8 @@
                       </button>
                     </td>
                     <td>{{ item.tag }}</td>
-                    <td>{{ item.width }}</td>
-                    <td>{{ item.height }}</td>
+                    <!-- <td>{{ item.width }}</td>
+                    <td>{{ item.height }}</td> -->
                     <td>{{ item.sortOrder }}</td>
                     <!-- <td><input class="form-check-input" type="checkbox" [(ngModel)]="item.isHome"></td> -->
                   </tr>
