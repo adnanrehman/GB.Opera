@@ -1,0 +1,25 @@
+﻿/****** Object:  StoredProcedure [dbo].[sp_GB_GetGBVideos]    Script Date: 1/16/2025 3:58:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER Procedure [dbo].[sp_GB_GetGBVideos]
+@type Int
+AS
+BEGIN
+
+
+	IF (@type =1)
+	  BEGIN
+
+	  SELECT * from GulfBaseVideos WHERE sortorder >= 1 AND sortorder <= 2 Order by Id DESC
+
+	  END
+	ELSE 
+	  BEGIN
+		
+		SELECT * from GulfBaseVideos WHERE sortorder >= 3 AND sortorder <= 4 Order by Id DESC
+
+	  END
+
+END
