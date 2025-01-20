@@ -1,0 +1,119 @@
+﻿/****** Object:  StoredProcedure [dbo].[usp_GB_GetPortfoioDashBoardData]    Script Date: 1/16/2025 4:00:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:      <Author, Adnan Ur rehman>
+-- Create Date: <Create Date, 15-01-2025 >
+-- Description: <Description, , >
+-- =============================================
+-- usp_GB_GetPortfoioDashBoardData 11415,1,'AssetAllocation'
+ALTER PROCEDURE [dbo].[usp_GB_GetPortfoioDashBoardData]
+(
+@portfolioId int,
+@langId int,
+@type  varchar(100)
+)
+AS
+BEGIN
+    
+	Declare @GrandTotal As Decimal(16,4)
+	Declare @Cash As Decimal(16,4)
+	 Declare @ToCurrencyID int  
+    Declare @ConversionCurrentValue float   
+	Declare @PortfolioTotals TABLE (
+	   Symbol Nvarchar(Max),CurrencyID INT,SumCurrentValue Decimal(16,4),SumTodayGain Decimal(16,4),SumTotalCost Decimal(16,4),SumOverAllGain Decimal(16,4),
+	   SumGainPercent Decimal(16,4),Cash Decimal(16,4),Name Nvarchar(Max),GrandTotal Decimal(16,4),TotalWeight Decimal(16,4))
+
+	If(@type = 'AssetAllocation')
+	  BEGIN
+	   INSERT INTO @PortfolioTotals  EXEC [usp_Midas_GetPortfolioTotals] @portfolioId,@langId
+
+	   Select @GrandTotal = GrandTotal,@Cash = Cash from @PortfolioTotals 
+
+	   select  @ToCurrencyID = CurrencyID from Midas_Portfolio where PortfolioID = @PortfolioID  
+		if(@LangID = 1)  
+		BEGIN     
+			Select CompanyID,Ticker as 'Name'  , ((Current_Value * dbo.fn_Midas_PortfolioExchangeRate(CurrencyID, @ToCurrencyID))/@GrandTotal) * 100  as 'Y',
+			(@Cash/@GrandTotal) * 100 As Cash,Description as Currency, Company as 'Name', Change , Company as EngCompany, Ticker as EngTicker
+			from dbo.midas_VCashManagePortfolioValues where PortfolioID = @PortfolioID  
+		END  
+		ELSE  
+		BEGIN  
+			Select CompanyID, ATicker as 'Name',((Current_Value * dbo.fn_Midas_PortfolioExchangeRate(CurrencyID, @ToCurrencyID))/@GrandTotal) * 100 as 'Y',  
+			ADescription as Currency, ACompany as 'Name', Change , Company as EngCompany, Ticker as EngTicker,
+			(@Cash/@GrandTotal) * 100 As Cash
+			from midas_VCashManagePortfolioValues where PortfolioID = @PortfolioID  
+		END  
+
+	  END
+	  ELSE If(@type = 'SectorAllocation')
+	  BEGIN
+	  --Declare Variable table to insert Portfolio Total
+	  
+ 
+	   INSERT INTO @PortfolioTotals  EXEC [usp_Midas_GetPortfolioTotals] @portfolioId,@langId
+
+	   Select @GrandTotal = GrandTotal from @PortfolioTotals 
+
+			SELECT TOP (100) PERCENT dbo.Sectors.SectorAbbr Name, (SUM(dbo.midas_VCashManagePortfolioValues.Current_Value)/@GrandTotal) * 100 AS Y
+			--dbo.papp_getTASISectorWeightings(dbo.Sectors.SectorAbbr)   
+			--		AS TasiWeighting,SUM(dbo.midas_VCashManagePortfolioValues.TotalCost) AS SumtotalCost  
+			FROM     dbo.midas_VCashManagePortfolioValues INNER JOIN  
+					dbo.Companies ON dbo.midas_VCashManagePortfolioValues.CompanyID = dbo.Companies.CompanyID INNER JOIN  
+					dbo.Sectors ON dbo.Companies.SectorID = dbo.Sectors.SectorID  
+			WHERE  (dbo.midas_VCashManagePortfolioValues.PortfolioID = @portfolioId)  
+			GROUP BY dbo.Sectors.SectorAbbr  
+			ORDER BY Y DESC
+
+	  END
+	  	  ELSE If(@type = 'CapSize')
+	  BEGIN
+	  --Declare Variable table to insert Portfolio Total
+	  
+ 
+		   INSERT INTO @PortfolioTotals  EXEC [usp_Midas_GetPortfolioTotals] @portfolioId,@langId
+
+		   Select @GrandTotal = GrandTotal from @PortfolioTotals 
+
+			SELECT dbo.CapacitySizes.CapSize As Name, (SUM(dbo.midas_VCashManagePortfolioValues.Current_Value)/@GrandTotal) * 100 AS Y
+			FROM     dbo.midas_VCashManagePortfolioValues INNER JOIN  
+							  dbo.Companies ON dbo.midas_VCashManagePortfolioValues.CompanyID = dbo.Companies.CompanyID INNER JOIN  
+							  dbo.CapacitySizes ON dbo.Companies.CapSizeID = dbo.CapacitySizes.CapSizeID  
+			WHERE  (dbo.midas_VCashManagePortfolioValues.PortfolioID = @PortfolioID)  
+			GROUP BY dbo.CapacitySizes.CapSize  
+			ORDER BY Y DESC  
+
+	  END
+	 ELSE If(@type = 'SectorWeightings')
+	  BEGIN
+	  --Declare Variable table to insert Portfolio Total
+	  
+ 
+	   INSERT INTO @PortfolioTotals  EXEC [usp_Midas_GetPortfolioTotals] @portfolioId,@langId
+
+	   Select @GrandTotal = GrandTotal from @PortfolioTotals 
+
+			SELECT TOP (100) PERCENT dbo.Sectors.SectorAbbr Name, (SUM(dbo.midas_VCashManagePortfolioValues.Current_Value)/@GrandTotal) * 100 AS Y,
+			dbo.papp_getTASISectorWeightings(dbo.Sectors.SectorAbbr)   
+                  AS Weighting,SUM(dbo.midas_VCashManagePortfolioValues.TotalCost) AS SumtotalCost 
+			--dbo.papp_getTASISectorWeightings(dbo.Sectors.SectorAbbr)   
+			--		AS TasiWeighting,SUM(dbo.midas_VCashManagePortfolioValues.TotalCost) AS SumtotalCost  
+			FROM     dbo.midas_VCashManagePortfolioValues INNER JOIN  
+					dbo.Companies ON dbo.midas_VCashManagePortfolioValues.CompanyID = dbo.Companies.CompanyID INNER JOIN  
+					dbo.Sectors ON dbo.Companies.SectorID = dbo.Sectors.SectorID  
+			WHERE  (dbo.midas_VCashManagePortfolioValues.PortfolioID = @portfolioId)  
+			GROUP BY dbo.Sectors.SectorAbbr  
+			ORDER BY Y DESC
+
+	  END
+
+	  
+
+	    
+
+
+
+END

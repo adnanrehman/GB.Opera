@@ -83,7 +83,7 @@ export class GulfbasevideosComponent {
   }
 
   save() {
-    if (!this.gulfbasevideo.tag || !this.gulfbasevideo.width || !this.gulfbasevideo.height) {
+    if (!this.gulfbasevideo.tag) {
       Swal.fire({
         toast: true,
         position: 'top-end',
