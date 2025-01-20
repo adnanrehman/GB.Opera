@@ -1,0 +1,29 @@
+CREATE PROCEDURE [dbo].[USP_SaveUpdatePortfolioWidgetDashboard]
+    @Id INT,
+    @PortfolioId INT,
+    @MemberId INT  ,
+    @DashboardId INT  ,
+    @WidgetId INT  
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM [dbo].[GbPortfolioWidgetDashboard] WHERE [Id] = @Id)
+    BEGIN
+        
+        UPDATE [dbo].[GbPortfolioWidgetDashboard]
+        SET 
+            [PortfolioId] = @PortfolioId,
+            [MemberId] = @MemberId,
+            [DashboardId] = @DashboardId,
+            [WidgetId] = @WidgetId
+        WHERE [Id] = @Id;
+    END
+    ELSE
+    BEGIN
+        
+        INSERT INTO [dbo].[GbPortfolioWidgetDashboard] ([PortfolioId], [MemberId], [DashboardId], [WidgetId])
+        VALUES (@PortfolioId, @MemberId, @DashboardId, @WidgetId);
+    END
+END;
+GO

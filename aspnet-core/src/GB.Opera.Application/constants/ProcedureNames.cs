@@ -127,6 +127,9 @@ namespace GB.Opera.constants
         public const string usp_AddUpdateESDFact = "usp_AddUpdateESDFact";
         public const string InsertOrUpdateGulfbaseVideo = "InsertOrUpdateGulfbaseVideo";
         public const string usp_getGulfbaseVideos = "usp_getGulfbaseVideos";
+        public const string usp_getAllPSRMappings_New = "usp_getAllPSRMappings_New";
+        public const string usp_AddUpdatePSR_New = "usp_AddUpdatePSR_New";
+        public const string USP_GetProductServiceRawByID = "USP_GetProductServiceRawByID";
 
     }
 }

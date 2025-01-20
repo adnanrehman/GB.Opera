@@ -1,0 +1,27 @@
+CREATE PROCEDURE [dbo].[USP_SaveUpdateGbWidgetDashboard]
+    @Id INT,                    -- Id of the record (can be passed as NULL for new records)
+    @Name VARCHAR(200) = NULL,   -- Name (can be NULL)
+    @MemberId INT = NULL,        -- MemberId (can be NULL)
+    @PortfolioId INT = NULL      -- PortfolioId (can be NULL)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM [dbo].[GbWidgetDashboard] WHERE [Id] = @Id)
+    BEGIN
+        -- Update Existing Record
+        UPDATE [dbo].[GbWidgetDashboard]
+        SET 
+            [Name] = @Name,
+            [MemberId] = @MemberId,
+            [PortfolioId] = @PortfolioId
+        WHERE [Id] = @Id;
+    END
+    ELSE
+    BEGIN
+        -- Insert New Record
+        INSERT INTO [dbo].[GbWidgetDashboard] ([Name], [MemberId], [PortfolioId])
+        VALUES (@Name, @MemberId, @PortfolioId);
+    END
+END;
+GO

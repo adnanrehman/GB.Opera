@@ -1,0 +1,6 @@
+ Create Procedure USP_GetProductServiceRawByID
+ @ProductServiceRawID as smallint
+ as
+
+
+SElect * From ProductServiceRaw Where ProductServiceRawID =@ProductServiceRawID

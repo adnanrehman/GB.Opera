@@ -126,10 +126,10 @@ constructor(){
         //   href: "gbir-universal-facts-view", title: "GBIR Universal Facts View", permission: Application_GbFacts, component: GbUniversalFactsViewComponent,
         //   active: false
         // },
-        // {
-        //   href: "products-services-and-raw-materials", title: "Products Services And Raw Materials", permission: Application_ProductsServicesAndRawMaterials, component: ProductsServicesAndRawMaterialsComponent,
-        //   active: false
-        // },
+         {
+            href: "products-services-and-raw-materials", title: "Products Services And Raw Materials", permission: Application_ProductsServicesAndRawMaterials, component: ProductsServicesAndRawMaterialsComponent,
+           active: false
+          },
         {
           href: "economic-and-statistical-data", title: "Economic and Statistical Data", permission: Application_EconomicAndStatisticalData, component: EconomicAndStatisticalDataComponent,
           active: false

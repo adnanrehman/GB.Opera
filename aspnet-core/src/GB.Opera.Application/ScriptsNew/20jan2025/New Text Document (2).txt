@@ -1,0 +1,39 @@
+ 
+ALTER  PROCEDURE [dbo].[usp_getPSRMappings_New]  
+(  
+@ProductServiceRawID smallint  
+)  
+  
+as  
+  
+Begin  
+SET NOCOUNT ON;  
+  
+WITH AllAccounts(ProductServiceRawID, ParentID,Name,AName,OrgLevel,OrderAsc) as  
+(  
+  
+SELECT     dbo.ProductServiceRaw.ProductServiceRawID, dbo.ProductServiceRawMapping.ParentID, dbo.ProductServiceRaw.Name, dbo.ProductServiceRaw.AName, 0 ,   
+                      CAST(dbo.ProductServiceRaw.ProductServiceRawID AS VARBINARY(900))   
+FROM         dbo.ProductServiceRawMapping INNER JOIN  
+                      dbo.ProductServiceRaw ON dbo.ProductServiceRawMapping.ProductServiceRawID = dbo.ProductServiceRaw.ProductServiceRawID  
+WHERE     (dbo.ProductServiceRaw.ProductServiceRawID = @ProductServiceRawID)  
+  
+  
+  
+UNION ALL  
+  
+SELECT  
+     dbo.ProductServiceRaw.ProductServiceRawID, dbo.ProductServiceRawMapping.ParentID,dbo.ProductServiceRaw.Name,dbo.ProductServiceRaw.AName,b.OrgLevel + 1,  
+     CAST(b.OrderAsc + CAST (dbo.ProductServiceRaw.ProductServiceRawID AS BINARY(4)) AS VARBINARY(900))  
+ From  dbo.ProductServiceRawMapping  INNER JOIN  
+                      dbo.ProductServiceRaw  ON dbo.ProductServiceRawMapping.ProductServiceRawID  = dbo.ProductServiceRaw.ProductServiceRawID
+      
+     INNER JOIN AllAccounts b   
+                       ON dbo.ProductServiceRawMapping.ParentID= b.ProductServiceRawID  
+  
+ )  
+  
+SELECT ProductServiceRawID,ParentID,Name,AName FROM AllAccounts  ORDER BY OrderAsc  
+--  
+End  
+  
