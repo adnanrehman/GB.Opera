@@ -29,10 +29,14 @@ namespace News
     {
         private readonly IConfiguration _configuration;
         private readonly SqlConnection _connection;
-        public NewsAppService(IConfiguration configuration)
+        private readonly SqlConnection _Newsconnection;
+        public NewsAppService(IConfiguration configuration, IConfiguration Newsconnection)
         {
             _configuration = configuration;
+          
+
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultForNews"));
+            _Newsconnection = new SqlConnection(configuration.GetConnectionString("NewaSaveinOperaMirror"));
         }
 
         //LangId , News Id
@@ -50,7 +54,7 @@ namespace News
                     sql = $@"select top 100 NewsID,GCCID,NewsCategoryID,CompanyID,[Date],ATitle As Title,ASubTitle As SubTitle,ASource As Source,[ADescription] As Description,IsHome,GulfBaseSectorID,Islamic,ForSocialNetworks,IsGulfbaseNews,NewsImage,IsHotNews from News_Ar WHERE (NewsId= {newsId} OR {newsId} =0) order by NewsID desc";
                 }               
 
-                var data = await _connection.QueryAsync<NewsDto>(sql);
+                var data = await _Newsconnection.QueryAsync<NewsDto>(sql);
                 return data.ToList();
             }
             catch (Exception ex)
@@ -85,7 +89,7 @@ namespace News
                 parameters.Add("@GulfBaseSectorID", 0);
                 parameters.Add("@IsApproved", input.IsApproved);
 
-                await _connection.ExecuteAsync("USP_GBN_InsertUpdateNews_New", parameters, commandType: CommandType.StoredProcedure);
+                await _Newsconnection.ExecuteAsync("USP_GBN_InsertUpdateNews_New", parameters, commandType: CommandType.StoredProcedure);
 
                 return input;
             }
@@ -109,7 +113,7 @@ namespace News
                     sql = $@"delete from News_Ar  WHERE NewsId= {newsId}";
                 }
 
-                await _connection.QueryAsync(sql);
+                await _Newsconnection.QueryAsync(sql);
             }
             catch (Exception ex)
             {
