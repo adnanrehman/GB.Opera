@@ -206,8 +206,8 @@ public class FileController : AbpController
     private string GetContentType(string path)
     {
         var provider = new FileExtensionContentTypeProvider();
-        string contentType;
-        if (!provider.TryGetContentType(path, out contentType))
+        string? contentType;
+        if (!provider.TryGetContentType(path, out contentType ))
         {
             contentType = "application/octet-stream";
         }
