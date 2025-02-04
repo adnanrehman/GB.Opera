@@ -1,0 +1,5 @@
+Create procedure [usp_GB_GetGBWidgetDashboards]
+@portfolioId as int ,
+@memberId as int 
+as 
+SElect * From GbWidgetDashboard Where MemberId=@memberId and PortfolioId=@portfolioId

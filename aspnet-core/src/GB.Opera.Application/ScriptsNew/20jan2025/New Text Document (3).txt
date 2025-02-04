@@ -1,0 +1,63 @@
+ 
+Create Procedure [dbo].[usp_AddUpdatePSR_New]   
+(   
+@ProductServiceRawID smallint,  
+@ParentID smallint,  
+@Name varchar(100),  
+@AName nvarchar(100),  
+@Description varchar(100),  
+@ADescription nvarchar(100),  
+@IsTitle bit  
+)  
+AS  
+BEGIN  
+  
+if not exists(Select ProductServiceRawID from ProductServiceRaw where ProductServiceRawID=@ProductServiceRawID)  
+begin  
+  
+Declare @newFactID smallint  
+  
+  
+  
+INSERT INTO[ProductServiceRaw]
+           ([Name]
+           ,[AName]
+           ,[Description]
+           ,[ADescription]
+           ,[IsTitle])
+     VALUES
+           (@Name,@AName,@Description,@ADescription,@IsTitle)
+
+  
+set @newFactID=@@identity  
+  
+INSERT INTO[ProductServiceRawMapping]
+           ([ProductServiceRawID]
+           ,[ParentID])
+     VALUES
+           (@newFactID,@ParentID)
+  
+Select @newFactID as ProductServiceRawID,@ParentID as ParentID   
+END  
+
+
+
+else  
+begin  
+  
+UPDATE[ProductServiceRaw]  
+   SET	 Name = @Name
+		,AName = @AName
+		,[Description]=@Description
+        ,[ADescription]=@ADescription
+		,IsTitle =@IsTitle  
+  
+Where ProductServiceRawID=@ProductServiceRawID   
+  
+Select @ProductServiceRawID as ProductServiceRawID,@ParentID as  ParentID  
+end  
+  
+  
+  
+  
+end

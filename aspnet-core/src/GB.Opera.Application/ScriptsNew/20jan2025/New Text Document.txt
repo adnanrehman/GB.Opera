@@ -1,0 +1,33 @@
+ 
+
+  Create  PROCEDURE [dbo].[usp_getAllPSRMappings_New]  
+  
+as  
+  
+SET NOCOUNT ON;  
+  
+Declare @ParentID smallint;  
+Declare @ProductServiceRawID smallint  
+  
+  
+DECLARE ParentAccounts CURSOR FOR   
+  
+SELECT     dbo.ProductServiceRaw.ProductServiceRawID, dbo.ProductServiceRawMapping.ParentID 
+FROM         dbo.ProductServiceRaw RIGHT OUTER JOIN  
+                      dbo.ProductServiceRawMapping ON dbo.ProductServiceRaw.ProductServiceRawID = dbo.ProductServiceRawMapping.ProductServiceRawID  
+WHERE     (dbo.ProductServiceRawMapping.ParentID = 0)  
+  
+OPEN ParentAccounts  
+  
+FETCH NEXT FROM ParentAccounts INTO @ProductServiceRawID, @ParentID  
+  
+WHILE @@FETCH_STATUS = 0  
+BEGIN  
+exec usp_getPSRMappings @ProductServiceRawID  
+FETCH NEXT FROM ParentAccounts INTO @ProductServiceRawID, @ParentID  
+End  
+  
+CLOSE ParentAccounts   
+DEALLOCATE ParentAccounts   
+RETURN  
+  

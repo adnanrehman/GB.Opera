@@ -1,0 +1,43 @@
+<div>
+    <form #template="ngForm">
+      <div class="row mb-1">
+        <div class="col-sm-12">
+          <label class="col-form-label">Name</label>
+          <input autofocus type="text" class="form-control" [(ngModel)]="account.name" name="name"
+            placeholder="Name" />
+        </div>
+        <div class="col-sm-12">
+            <label class="col-form-label">Name (AR)</label>
+            <input autofocus type="text" class="form-control" [(ngModel)]="account.aName" name="aName"
+              placeholder="Name AR" />
+        </div>
+        <div class="col-sm-12">
+            <label class="col-form-label">Description  </label>
+            <input autofocus type="text" class="form-control" [(ngModel)]="account.description" name="description"
+              placeholder="Description" />
+        </div>
+        <div class="col-sm-12">
+            <label class="col-form-label">Description (accountAr) </label>
+            <input autofocus type="text" class="form-control" [(ngModel)]="account.aDescription" name="aDescription"
+              placeholder="A Description" />
+        </div>
+         
+        <div class="col-sm-6"> 
+            <label class="form-check-label" for="defaultCheck4"></label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="account.isTitle"
+              name="title" />
+              <label class="form-check-label" for="defaultCheck4">Title</label>
+            </div>
+        </div>
+      </div>
+      <div class="p-dialog-footer app-dialog-footer">
+        <div class="col-sm-12 text-center">
+          <button type="submit" (click)="addProduct()"   [disabled]="template.form.invalid" class="btn btn-success ps-4 pe-4"><span class="text-white">SAVE</span></button>
+          &nbsp;&nbsp;
+          <button type="button" class="btn btn-danger" (click)="Cancel()"><span class="text-white">CANCEL</span></button>
+        </div>
+      </div>
+    </form>
+  </div>
+

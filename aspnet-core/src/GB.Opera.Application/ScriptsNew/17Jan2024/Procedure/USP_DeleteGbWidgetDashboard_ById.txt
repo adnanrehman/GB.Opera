@@ -1,0 +1,10 @@
+CREATE PROCEDURE [dbo].[USP_DeleteGbWidgetDashboard_ById]
+    @Id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM [dbo].[GbWidgetDashboard]
+    WHERE [Id] = @Id;
+END;
+GO
