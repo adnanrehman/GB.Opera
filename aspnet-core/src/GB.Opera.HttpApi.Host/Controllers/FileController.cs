@@ -62,6 +62,8 @@ public class FileController : AbpController
         //using (System.IO.Stream stream = new FileStream(filePath, FileMode.Create))
         //{
         //    file.CopyTo(stream);
+
+
         //}
         if (file == null || file.Length == 0)
         {
