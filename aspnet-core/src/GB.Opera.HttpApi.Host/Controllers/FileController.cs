@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OfficeOpenXml.Style;
 using System.Drawing;
 using Microsoft.AspNetCore.StaticFiles;
+using Azure.Storage.Blobs;
 
 namespace GB.Opera.Controllers;
 
@@ -20,10 +21,12 @@ public class FileController : AbpController
 {
     private readonly IWebHostEnvironment _env;
     private readonly IReviewerAppService _reviewerAppService;
-    public FileController(IWebHostEnvironment env, IReviewerAppService reviewerAppService)
+    private readonly BlobServiceClient _blobserviceClient;
+    public FileController(IWebHostEnvironment env, IReviewerAppService reviewerAppService, BlobServiceClient blobserviceClient)
     {
         _env = env;
         _reviewerAppService = reviewerAppService;
+        _blobserviceClient = blobserviceClient;
     }
     public ActionResult UploadFile(IFormFile file)
     {
@@ -45,25 +48,55 @@ public class FileController : AbpController
         return Json(System.IO.File.ReadAllBytes(filePath));
     }
 
-	public ActionResult UploadImage(IFormFile file)
-	{
-		var uploadDirecotroy = "uploads/";
-		var uploadPath = Path.Combine(_env.WebRootPath, uploadDirecotroy);
+    public ActionResult UploadImage(IFormFile file)
+    {
+        //var uploadDirecotroy = "uploads/";
+        //var uploadPath = Path.Combine(_env.WebRootPath, uploadDirecotroy);
 
-		if (!Directory.Exists(uploadPath))
-			Directory.CreateDirectory(uploadPath);
+        //if (!Directory.Exists(uploadPath))
+        //    Directory.CreateDirectory(uploadPath);
 
-		var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-		var filePath = Path.Combine(uploadPath, fileName);
+        //var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+        //var filePath = Path.Combine(uploadPath, fileName);
 
-		using (System.IO.Stream stream = new FileStream(filePath, FileMode.Create))
-		{
-			file.CopyTo(stream);
-		}
-		return Json(fileName);
-	}
+        //using (System.IO.Stream stream = new FileStream(filePath, FileMode.Create))
+        //{
+        //    file.CopyTo(stream);
+        //}
+        if (file == null || file.Length == 0)
+        {
+            return BadRequest(new { message = "No file uploaded" });
+        }
 
-	public async Task<ActionResult> GetReviewReport(int financialsID)
+        try
+        {
+
+            var fileExtension = Path.GetExtension(file.FileName);
+
+
+            var uniqueFileName = $"{Path.GetFileNameWithoutExtension(file.FileName)}_{Guid.NewGuid()}{fileExtension}";
+
+
+            var containerClient = _blobserviceClient.GetBlobContainerClient("gbnewsfiles");
+
+
+            var blobClient = containerClient.GetBlobClient(uniqueFileName);
+
+
+            using (var stream = file.OpenReadStream())
+            {
+                blobClient.Upload(stream, true);
+            }
+
+            return Json(blobClient.Uri.ToString());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "File upload failed", error = ex.Message });
+        }
+    }
+
+    public async Task<ActionResult> GetReviewReport(int financialsID)
     {
         var output = await _reviewerAppService.GetReviewReport(financialsID);
 
