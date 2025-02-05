@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -33,6 +35,10 @@ public class Program
                 .UseAutofac()
                 .UseSerilog();
             await builder.AddApplicationAsync<OperaHttpApiHostModule>();
+
+            builder.Services.AddSingleton(x =>
+              new BlobServiceClient(builder.Configuration.GetConnectionString("BlobStorage")));
+
 
             var app = builder.Build();
             await app.InitializeApplicationAsync();

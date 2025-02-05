@@ -64,9 +64,9 @@
       <div class="card">
         <div class="card-body p-2">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
             </div>
-            <div class="col-md-4 text-end">
+            <div class="col-md-6 text-end">
               <a href="#" class="btn btn-primary btn-sm me-1" (click)="addNewNewsArab()"
                 ><i class="fa fa-plus"></i> Add New</a
               >
@@ -139,7 +139,7 @@
             <div class="col-md-6 text-center mt-2">
               <!-- src="https://salogos.org/wp-content/uploads/2021/12/%D8%A8%D9%86%D9%83-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF.png" -->
               <p-image
-                src="{{apiUrl}}{{ newsArab.newsImage }}"
+                src="{{ newsArab.newsImage }}"
                 imageClass="d-block rounded"
                 height=""
                 width="200"

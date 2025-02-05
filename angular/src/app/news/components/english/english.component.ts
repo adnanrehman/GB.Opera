@@ -205,7 +205,7 @@ export class EnglishComponent {
     const file = this.imgContactAvatar.files[0];
     if (file) {
 
-      this.fileService.uploadImage(file).subscribe((res: any) => {
+      this.fileService.uploadImageOnBlobStorage(file).subscribe((res: any) => {
         this.newsEng.newsImage = res;
 
 
