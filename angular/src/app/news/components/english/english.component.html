@@ -67,9 +67,9 @@
             <div class="col-md-6">
             </div>
             <div class="col-md-6 text-end">
-              <a href="#" class="btn btn-primary btn-sm me-1" (click)="addNewNewsEng()"><i class="fa fa-plus"></i> Add New</a>
-              <a href="#" *ngIf="permission.approved"  (click)="createOrUpdateApprovedNewsEng()" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save & Approved</a>
-             &nbsp; <a href="#" *ngIf="permission.create && permission.approved"  (click)="createOrUpdateNewsEng()" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</a>
+              <a href="#" class="btn btn-primary btn-sm me-1" *ngIf="permission.create"  (click)="addNewNewsEng()"><i class="fa fa-plus"></i> Add New</a>
+              <a href="#" *ngIf="permission.approved"  (click)="createOrUpdateApprovedNewsEng()" class="btn btn-success btn-sm me-1"><i class="fa fa-save"></i> Save & Approved</a>
+             &nbsp; <a href="#" *ngIf="permission.edit"  (click)="createOrUpdateNewsEng()" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</a>
               <!-- <a href="#" *ngIf="permission.create"  class="btn btn-primary btn-sm me-1"><i class="fa fa-edit"></i> Update</a> -->
             </div>
           </div>
@@ -113,7 +113,6 @@
                     required="true"
                     dataType="string"
                     dateFormat="mm/dd/yy"
-                    [showTime]="true" 
                     [showIcon]="true"
                     [(ngModel)]="newsEng.date"
                     name="asofDate"

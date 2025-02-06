@@ -319,7 +319,32 @@ export class EnglishComponent {
     debugger;
     this.loading = true;
 
-
+if(!this.newsEng.newsCategoryID){
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000,
+        title: 'Error!',
+        text: 'Please select a category',
+        icon: 'error',
+      });
+      this.loading = false;
+      return;
+    }
+    if(!this.newsEng.title){
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000,
+        title: 'Error!',
+        text: 'Please add any title',
+        icon: 'error',
+      });
+      this.loading = false;
+      return;
+    }
     if (!this.newsEng.date) {
       // If date is empty or invalid, show the validation message
       Swal.fire({
@@ -351,6 +376,7 @@ export class EnglishComponent {
       }
       else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' created successfully', icon: 'success', });
+        this.addNewNewsEng();
         this.getNewsEngs();
       }
 
@@ -403,6 +429,7 @@ export class EnglishComponent {
       else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsEng.title + ' created successfully', icon: 'success', });
         this.getNewsEngs();
+        this.addNewNewsEng();
       }
 
 
