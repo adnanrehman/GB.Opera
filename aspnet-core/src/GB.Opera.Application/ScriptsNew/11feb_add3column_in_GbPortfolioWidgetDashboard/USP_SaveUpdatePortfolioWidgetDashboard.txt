@@ -1,0 +1,24 @@
+ 
+ALTER PROCEDURE [dbo].[USP_SaveUpdatePortfolioWidgetDashboard]
+    @Id INT,
+    @PortfolioId INT,
+    @MemberId INT  ,
+    @DashboardId INT  ,
+    @WidgetId INT,
+	@WidgetHeight int,
+	@WidgetWidth int,
+	@WidgetSortOrder int
+
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOt EXISTS (SELECT 1 FROM [dbo].[GbPortfolioWidgetDashboard] WHERE [Id] = @Id and[PortfolioId] =@PortfolioId and [DashboardId]=@DashboardId and [WidgetId]=@WidgetId  )
+    BEGIN
+      
+
+		 INSERT INTO [dbo].[GbPortfolioWidgetDashboard] ([PortfolioId], [MemberId], [DashboardId], [WidgetId],WidgetHeight,WidgetWidth,WidgetSortOrder)
+        VALUES (@PortfolioId, @MemberId, @DashboardId, @WidgetId,@WidgetHeight,@WidgetWidth,@WidgetSortOrder);
+    END
+    
+END;

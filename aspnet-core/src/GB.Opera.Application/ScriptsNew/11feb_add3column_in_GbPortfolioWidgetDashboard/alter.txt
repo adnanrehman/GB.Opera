@@ -1,0 +1,5 @@
+alter table GbPortfolioWidgetDashboard add   WidgetHeight int 
+
+alter table GbPortfolioWidgetDashboard add  WidgetWidth int
+alter table GbPortfolioWidgetDashboard add   WidgetSortOrder int 
+
