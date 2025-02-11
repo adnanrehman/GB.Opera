@@ -98,6 +98,56 @@ public class FileController : AbpController
         }
     }
 
+    public ActionResult UploadImageOnBlobStorage(IFormFile file)
+    {
+        //var uploadDirecotroy = "uploads/";
+        //var uploadPath = Path.Combine(_env.WebRootPath, uploadDirecotroy);
+
+        //if (!Directory.Exists(uploadPath))
+        //    Directory.CreateDirectory(uploadPath);
+
+        //var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+        //var filePath = Path.Combine(uploadPath, fileName);
+
+        //using (System.IO.Stream stream = new FileStream(filePath, FileMode.Create))
+        //{
+        //    file.CopyTo(stream);
+
+
+        //}
+        if (file == null || file.Length == 0)
+        {
+            return BadRequest(new { message = "No file uploaded" });
+        }
+
+        try
+        {
+
+            var fileExtension = Path.GetExtension(file.FileName);
+
+
+            var uniqueFileName = $"{Path.GetFileNameWithoutExtension(file.FileName)}_{Guid.NewGuid()}{fileExtension}";
+
+
+            var containerClient = _blobserviceClient.GetBlobContainerClient("gbnewsfiles");
+
+
+            var blobClient = containerClient.GetBlobClient(uniqueFileName);
+
+
+            using (var stream = file.OpenReadStream())
+            {
+                blobClient.Upload(stream, true);
+            }
+
+            return Json(blobClient.Uri.ToString());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "File upload failed", error = ex.Message });
+        }
+    }
+
     public async Task<ActionResult> GetReviewReport(int financialsID)
     {
         var output = await _reviewerAppService.GetReviewReport(financialsID);

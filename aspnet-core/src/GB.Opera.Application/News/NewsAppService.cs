@@ -22,6 +22,7 @@ using System.Text.RegularExpressions;
 using GB.Opera.Books;
 using System.Diagnostics.Metrics;
 using GB.Opera.News;
+using System.Globalization;
 
 namespace News
 {
@@ -29,14 +30,10 @@ namespace News
     {
         private readonly IConfiguration _configuration;
         private readonly SqlConnection _connection;
-       
         public NewsAppService(IConfiguration configuration, IConfiguration Newsconnection)
         {
             _configuration = configuration;
-          
-
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultForNews"));
-             
         }
 
         //LangId , News Id
@@ -69,13 +66,16 @@ namespace News
         {
             try
             {
+                TimeSpan time = DateTime.Now.TimeOfDay;
+                input.Date = Convert.ToDateTime(input.Date.Value.ToString("yyyy-MM-dd" + " " + time.ToString()));
+                var date = input.Date.Value.ToString("yyyy-MM-dd");
                 var parameters = new DynamicParameters();
                 parameters.Add("@LangID", input.LangID);
                 parameters.Add("@NewsID", input.NewsID);
                 parameters.Add("@GCCID", input.GCCID);
                 parameters.Add("@NewsCategoryID", input.NewsCategoryID);
-                parameters.Add("@CompanyID", input.CompanyID);
-                parameters.Add("@Date", input.Date);
+                parameters.Add("@CompanyID", input.CompanyID == 0? null : input.CompanyID);
+                parameters.Add("@Date", date);
                 parameters.Add("@Title", input.Title);
                 parameters.Add("@SubTitle", input.SubTitle);
                 parameters.Add("@Source", input.Source);

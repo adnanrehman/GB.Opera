@@ -177,7 +177,7 @@ export class ArabicComponent {
       const file = this.imgContactAvatar.files[0];
       if (file) {
       
-        this.fileService.uploadImage(file).subscribe((res: any) => {
+        this.fileService.uploadImageOnBlobStorage(file).subscribe((res: any) => {
           this.newsArab.newsImage = res;   
           
          
@@ -314,6 +314,32 @@ export class ArabicComponent {
   createOrUpdateNewsArab() {
     debugger;
     this.loading = true;
+    if(!this.newsArab.newsCategoryID){
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000,
+        title: 'Error!',
+        text: 'Please select a category',
+        icon: 'error',
+      });
+      this.loading = false;
+      return;
+    }
+    if(!this.newsArab.title){
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000,
+        title: 'Error!',
+        text: 'Please add any title',
+        icon: 'error',
+      });
+      this.loading = false;
+      return;
+    }
     if (!this.newsArab.date ) {
       // If date is empty or invalid, show the validation message
       Swal.fire({
@@ -345,6 +371,7 @@ export class ArabicComponent {
       else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' created successfully', icon: 'success', });
         this.getNewsArabs();
+        this.addNewNewsArab();
       }
       
 
@@ -392,6 +419,7 @@ export class ArabicComponent {
       else {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newsArab.title + ' created successfully', icon: 'success', });
         this.getNewsArabs();
+        this.addNewNewsArab();
       }
       
 

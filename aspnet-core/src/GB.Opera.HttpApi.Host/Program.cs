@@ -36,9 +36,9 @@ public class Program
                 .UseSerilog();
             await builder.AddApplicationAsync<OperaHttpApiHostModule>();
 
-              builder.Services.AddSingleton(x =>
-                new BlobServiceClient(builder.Configuration.GetConnectionString("BlobStorage")));
-            
+            builder.Services.AddSingleton(x =>
+              new BlobServiceClient(builder.Configuration.GetConnectionString("BlobStorage")));
+
 
             var app = builder.Build();
             await app.InitializeApplicationAsync();
