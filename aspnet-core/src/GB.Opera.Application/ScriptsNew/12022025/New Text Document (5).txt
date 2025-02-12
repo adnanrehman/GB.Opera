@@ -1,0 +1,8 @@
+Create procedure Usp_deleteMiscNotes
+@MiscNotesID smallint
+as 
+
+
+Delete from [MiscNotes]  
+   
+ WHERE[MiscNotesID]=@MiscNotesID  

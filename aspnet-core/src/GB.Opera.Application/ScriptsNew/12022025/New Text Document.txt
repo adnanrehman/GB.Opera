@@ -1,0 +1,6 @@
+Create Procedure usp_deleteCompQuartersNetProfit
+@CompQNProfitID bigint
+ as 
+
+
+Delete From [CompQuartersNetProfit] Where CompQNProfitID=@CompQNProfitID

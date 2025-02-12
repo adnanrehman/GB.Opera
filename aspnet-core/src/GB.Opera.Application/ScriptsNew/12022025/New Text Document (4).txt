@@ -1,0 +1,7 @@
+Create procedure Usp_deleteForeignInvestmentPermitted
+@FIPID smallint
+as 
+
+Delete from [ForeignInvestmentPermitted]  
+   
+ WHERE [FIPID]=@FIPID  

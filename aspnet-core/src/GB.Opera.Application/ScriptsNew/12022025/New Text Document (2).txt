@@ -1,0 +1,7 @@
+Alter Procedure usp_deleteSubsComp
+@SubsCompUpdID smallint
+as
+delete from [Subsidiaries] WHERE [SubsidiaryID]=@SubsCompUpdID
+
+
+ 

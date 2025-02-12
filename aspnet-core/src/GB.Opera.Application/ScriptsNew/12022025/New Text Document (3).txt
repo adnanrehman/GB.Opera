@@ -1,0 +1,10 @@
+Create Procedure usp_delteCompanyRawMaterials
+@RawMaterialID smallint
+as
+ 
+  
+ 
+ 
+delete from [CompanyRawMaterials]  
+    WHERE  [RawMaterialID]=@RawMaterialID  
+ 
