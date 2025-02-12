@@ -72,6 +72,60 @@ export class CompanyOwnershipService {
     { apiName: this.apiName,...config });
   
 
+  deleteCompanyProductsByCompanyProductID = (CompanyProductID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'DELETE',
+      url: '/api/app/company-ownership/company-products',
+      params: { companyProductID: CompanyProductID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  deleteForeignInvestmentPermittedByFIPID = (FIPID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'DELETE',
+      url: '/api/app/company-ownership/foreign-investment-permitted',
+      params: { fipid: FIPID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  deleteMiscNotesByMiscNotesID = (MiscNotesID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'DELETE',
+      url: '/api/app/company-ownership/misc-notes',
+      params: { miscNotesID: MiscNotesID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  deleteSubsidiariesBySubsCompUpdID = (SubsCompUpdID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'DELETE',
+      url: '/api/app/company-ownership/subsidiaries',
+      params: { subsCompUpdID: SubsCompUpdID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  deletesistercompanyBySisterCompanyID = (SisterCompanyID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'DELETE',
+      url: '/api/app/company-ownership/sistercompany',
+      params: { sisterCompanyID: SisterCompanyID },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  delteCompanyRawMaterialsByRawMaterialID = (RawMaterialID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'POST',
+      url: '/api/app/company-ownership/delte-company-raw-materials',
+      params: { rawMaterialID: RawMaterialID },
+    },
+    { apiName: this.apiName,...config });
+  
+
   getRelatedInformationsByCompanyID = (companyID: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, CompanyOwnershipDto>({
       method: 'GET',

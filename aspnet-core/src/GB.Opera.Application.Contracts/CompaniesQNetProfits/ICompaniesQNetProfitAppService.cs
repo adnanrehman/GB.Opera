@@ -11,5 +11,9 @@ namespace GB.Opera.CompaniesQNetProfits
     {
         Task<CompaniesQNetProfitListDto> GetCompaniesQNetProfits(int companyID);
         Task InsertUpdateCalculateCompQuartersNetProfit(CompaniesQNetProfitDto input);
+
+        public Task DeleteCompQuartersNetProfit(Int64 CompQNProfitID);
+
+       
     }
 }

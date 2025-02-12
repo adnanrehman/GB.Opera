@@ -19,5 +19,15 @@ namespace CompanyOwnerships
         Task<CompanyFIPDto> CreateOrUpdateCompanyFIP(CompanyFIPDto model);
         Task<MiscNotesDto> CreateOrUpdateMiscNote(MiscNotesDto model);
 
+        public   Task DeleteSubsidiaries(Int16 SubsCompUpdID);
+
+        public Task Deletesistercompany(Int16 SisterCompanyID);
+
+        public Task DeleteCompanyProducts(Int16 CompanyProductID);
+        public   Task DelteCompanyRawMaterials(Int16 RawMaterialID);
+
+        public Task DeleteForeignInvestmentPermitted(Int16 FIPID);
+        public Task DeleteMiscNotes(Int16 MiscNotesID);
+
     }
 }

@@ -218,5 +218,36 @@ export class CompQnetPComponent {
         this.loading = false;
       });
   }
+   deleteCorporateAnnouncement(Id :number) {
+      
+      Swal.fire({
+        title: 'Confirm Deletion',
+        text: "Are you sure you want to delete this Quarters NetProfit?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel'
+  
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.loading = true;
+          this.companiesQNetProfitService.deleteCompQuartersNetProfitByCompQNProfitID(Id).subscribe((res) => {
+            Swal.fire({
+              title: 'Success',
+              text: 'Quarters NetProfit Deleted Successfully',
+              icon: 'success',
+            }).then((result) => {
+           
+              this.loading = false;
+              this.addNewCompaniesQNetProfit();
+              this.getCompaniesQNetProfitsByCompanyID();
+            });
+  
+          });
+        }
+      })
+    }
 
 }

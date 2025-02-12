@@ -256,8 +256,14 @@ export class ManagementComponent {
 
   handleCompanyManagement(companyManagement: CompanyManagementDto) {
     debugger;
+   
     this.managements = companyManagement.managements;
-    this.seniorManagements = companyManagement.seniorManagements;
+    //this.seniorManagements = companyManagement.seniorManagements.sort(a=>a.since );
+    this.seniorManagements = companyManagement.seniorManagements.sort(
+      (a, b) => new Date(b.since || 0).getTime() - new Date(a.since || 0).getTime()
+    );
+    
+    
     this.boardMembers = companyManagement.boardMembers;
     this.auditors = companyManagement.auditors;
     this.branches = companyManagement.branches;

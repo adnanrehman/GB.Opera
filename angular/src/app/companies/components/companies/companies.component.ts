@@ -96,7 +96,8 @@ export class CompaniesComponent {
     orderID: 0,
     logo: [],
     attributes: false,
-    activeIndices: false
+    activeIndices: false,
+     
   };
   companies: any[] = [];
   markets = [];
@@ -187,6 +188,9 @@ export class CompaniesComponent {
     debugger;
     this.company = company;
     this.companyActivation = this.company.isActive ? 1 : 0;
+    const date = new Date(this.company.establishmentDate);
+this.company.establishmentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
   }
 
   addNewCompany() {

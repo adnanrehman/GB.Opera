@@ -130,7 +130,13 @@ namespace GB.Opera.constants
         public const string usp_getAllPSRMappings_New = "usp_getAllPSRMappings_New";
         public const string usp_AddUpdatePSR_New = "usp_AddUpdatePSR_New";
         public const string USP_GetProductServiceRawByID = "USP_GetProductServiceRawByID";
-
+        public const string usp_deleteCompQuartersNetProfit = "usp_deleteCompQuartersNetProfit";
+             public const string usp_deleteSubsComp = "usp_deleteSubsComp";
+        public const string Usp_deletesistercompany = "Usp_deletesistercompany";
+        public const string usp_deleteCompanyProducts = "usp_deleteCompanyProducts";
+        public const string usp_delteCompanyRawMaterials = "usp_delteCompanyRawMaterials";
+        public const string Usp_deleteForeignInvestmentPermitted = "Usp_deleteForeignInvestmentPermitted";
+        public const string Usp_deleteMiscNotes = "Usp_deleteMiscNotes";
     }
 }
  

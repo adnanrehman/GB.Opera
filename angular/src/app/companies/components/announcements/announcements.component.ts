@@ -109,6 +109,7 @@ export class AnnouncementsComponent {
   }
 
   onSelect(event: any) {
+    
     debugger;
     this.loading = true;
     debugger;
@@ -166,7 +167,7 @@ export class AnnouncementsComponent {
   }
 
   getCorporateAnnouncements() {
-    debugger;
+   
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
     this.corporateAnnouncementService
@@ -181,6 +182,7 @@ export class AnnouncementsComponent {
   }
 
   handleCorporateAnnouncement(corporateAnnouncement: CorporateAnnouncementDto) {
+     
     this.corporateAnnouncement = corporateAnnouncement;
     debugger;
     // this.corporateAnnouncement.announcedDateTime = this.corporateAnnouncement.announcedDate;
@@ -202,14 +204,21 @@ export class AnnouncementsComponent {
   }
 
   createOrUpdateCorporateAnnouncement() {
-    debugger;
+     
     this.loading = true;
+    
     this.corporateAnnouncement.isActive = this.corporateAnnouncementActivation == 1 ? true : false;
+    
+  
+      
+   if (this.corporateAnnouncement.isActive===false)
+   {
     this.corporateAnnouncement.announcedDate = moment(this.corporateAnnouncement.announcedDate).format();
     // this.corporateAnnouncement.announcedDate = this.corporateAnnouncement.announcedDateTime;
     this.corporateAnnouncement.ticker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker
+    
     this.corporateAnnouncementService.createOrUpdateCorporateAnnouncementByModel(this.corporateAnnouncement).subscribe(res => {
-      debugger;
+      
       if (this.corporateAnnouncement.corporateAnnouncementID > 0) {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.corporateAnnouncement.announcement + ' updated successfully', icon: 'success', });
         this.getCorporateAnnouncements();
@@ -218,9 +227,11 @@ export class AnnouncementsComponent {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.corporateAnnouncement.announcement + ' created successfully', icon: 'success', });
 
       }
+     
       this.handleCorporateAnnouncement(this.corporateAnnouncement);
 
       this.loading = false;
+
     },
       error => {
         this.loading = false;
@@ -228,9 +239,16 @@ export class AnnouncementsComponent {
       () => {
         this.loading = false;
       });
+    }
+    else{
+      this.loading = false;
+      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Info!', text:  'No Change', icon: 'success', });
+        this.getCorporateAnnouncements();
+    }
   }
 
-  deleteCorporateAnnouncement() {
+  deleteCorporateAnnouncement(Id :number) {
+     
     Swal.fire({
       title: 'Confirm Deletion',
       text: "Are you sure you want to delete this Coreporate Announcement?",
@@ -244,7 +262,7 @@ export class AnnouncementsComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.loading = true;
-        this.corporateAnnouncementService.deleteCorporateAnnouncementByCorporateAnnouncementID(this.corporateAnnouncement.corporateAnnouncementID).subscribe((res) => {
+        this.corporateAnnouncementService.deleteCorporateAnnouncementByCorporateAnnouncementID(Id).subscribe((res) => {
           Swal.fire({
             title: 'Success',
             text: 'Coreporate Announcement Deleted Successfully',

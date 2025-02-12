@@ -29,7 +29,7 @@ export interface CompanyDto {
   tradingMainCurrencyID: number;
   tradingSubCurrencyID: number;
   logo: number[];
-  establishmentDate?: string;
+  establishmentDate?: Date;
   creationDate?: string;
   isActive: boolean;
   orderID: number;

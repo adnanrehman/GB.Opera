@@ -221,6 +221,96 @@ namespace CompanyOwnerships
             }
         }
 
+        public async Task DeleteSubsidiaries(Int16 SubsCompUpdID)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@SubsCompUpdID", SubsCompUpdID);
 
+                await _connection.ExecuteAsync(ProcedureNames.usp_deleteSubsComp, parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        public async Task  Deletesistercompany(Int16 SisterCompanyID)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@SisterCompanyID", SisterCompanyID);
+
+                await _connection.ExecuteAsync(ProcedureNames.Usp_deletesistercompany, parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        public async Task DeleteCompanyProducts(Int16 CompanyProductID)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@CompanyProductID", CompanyProductID);
+
+                await _connection.ExecuteAsync(ProcedureNames.usp_deleteCompanyProducts, parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public async Task DelteCompanyRawMaterials(Int16 RawMaterialID)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@RawMaterialID", RawMaterialID);
+
+                await _connection.ExecuteAsync(ProcedureNames.usp_delteCompanyRawMaterials, parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        public async Task DeleteForeignInvestmentPermitted(Int16 FIPID)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@FIPID ", FIPID);
+
+                await _connection.ExecuteAsync(ProcedureNames.Usp_deleteForeignInvestmentPermitted, parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        public async Task DeleteMiscNotes(Int16 MiscNotesID)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@MiscNotesID ", MiscNotesID);
+
+                await _connection.ExecuteAsync(ProcedureNames.Usp_deleteMiscNotes, parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
 }

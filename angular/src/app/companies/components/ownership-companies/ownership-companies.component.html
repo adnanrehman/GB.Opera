@@ -246,6 +246,7 @@
                           <th>Share</th>
                           <th>Principle Activity</th>
                           <th>Customer Order</th>
+                          <th>Action</th>
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -254,6 +255,9 @@
                           <td>{{ item.share }}</td>
                           <td>{{ item.principalActivity }}</td>
                           <td>{{ item.customOrder }}</td>
+                          <td>{{ item.subsidiaryID }}</td>
+                          <td><button type="button"  class="btn btn-sm btn-danger" (click)="deleteSubsidiaries(item.subsidiaryID)"><i class="fa fa-sm fa-close me-1"
+                            ></i>Delete</button></td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -347,12 +351,15 @@
                         <tr>
                           <th>Siter Company</th>
                           <th>Relation</th>
+                          <th>Action</th>
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item let-i="rowIndex">
                         <tr (click)="handlesiterCompany(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                           <td>{{ item.sisterCompany }}</td>
                           <td>{{ item.relation }}</td>
+                          <td><button type="button"  class="btn btn-sm btn-danger" (click)="deleteSisterCompay(item.sisterCompanyID)"><i class="fa fa-sm fa-close me-1"
+                            ></i>Delete</button></td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -467,6 +474,7 @@
                           <th>Company Product</th>
                           <th>Launch Date</th>
                           <th>Last Product</th>
+                          <th>Action</th>
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -474,6 +482,9 @@
                           <td>{{ item.companyProduct }}</td>
                           <td>{{ item.launchDate | date: 'dd/MM/yyyy' }}</td>
                           <td>{{ item.lastProduct }}</td>
+                          <td><button type="button"  class="btn btn-sm btn-danger" (click)="deleteproduct(item.companyProductID)"><i class="fa fa-sm fa-close me-1"
+                            ></i>Delete</button>
+</td>
                         </tr>
                       </ng-template>
                     </p-table>
@@ -630,6 +641,7 @@
                             <th>Raw Material</th>
                             <th>Current Provider</th>
                             <th>Last Provider</th>
+                            <th>Action</th>
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -637,6 +649,8 @@
                             <td>{{ item.rawMaterial }}</td>
                             <td>{{ item.currentProvider }}</td>
                             <td>{{ item.lastProvider }}</td>
+                            <td><button type="button"  class="btn btn-sm btn-danger" (click)="DelteCompanyRawMaterials(item.rawMaterialID)"><i class="fa fa-sm fa-close me-1"
+                              ></i>Delete</button></td>
                           </tr>
                         </ng-template>
                       </p-table>
@@ -747,6 +761,7 @@
                             <th>Permitted Share to Foreigners</th>
                             <th>Permitted Share to GCC Nationals</th>
                             <th>Permitted Share to Arab Nationals</th>
+                            <th>Action</th>
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -754,6 +769,9 @@
                             <td>{{ item.permittedSharesToForeigners }}</td>
                             <td>{{ item.permittedSharesToGCCNationals }}</td>
                             <td>{{ item.permittedSharesToArabNationals }}</td>
+                            <td><button type="button"  class="btn btn-sm btn-danger" (click)="DeleteForeignInvestmentPermitted(item.fipid)"><i class="fa fa-sm fa-close me-1"
+                              ></i>Delete</button>
+  </td>
                           </tr>
                         </ng-template>
                       </p-table>
@@ -827,12 +845,15 @@
                           <tr>
                             <th>Date</th>
                             <th>Note</th>
+                            <th>Action</th>
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item let-i="rowIndex">
                           <tr (click)="handlemiscNote(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}">
                             <td>{{ item.date | date: 'dd/MM/yyyy' }}</td>
                             <td>{{ item.note }}</td>
+                            <td><button type="button"  class="btn btn-sm btn-danger" (click)="DeleteMiscNotes(item.miscNotesID)"><i class="fa fa-sm fa-close me-1"
+                              ></i>Delete</button></td>
                           </tr>
                         </ng-template>
                       </p-table>

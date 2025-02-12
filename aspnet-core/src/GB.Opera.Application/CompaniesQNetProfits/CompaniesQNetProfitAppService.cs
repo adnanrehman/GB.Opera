@@ -85,5 +85,21 @@ namespace CompaniesQNetProfits
                 throw ex;
             }
         }
+        public async Task DeleteCompQuartersNetProfit(Int64 CompQNProfitID)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@CompQNProfitID", CompQNProfitID);
+
+                await _connection.ExecuteAsync(ProcedureNames.usp_deleteCompQuartersNetProfit, parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
     }
 }

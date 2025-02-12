@@ -283,6 +283,7 @@
                   [(ngModel)]="company.establishmentDate"
                   name="establishmentDate"
                   placeholder="Select a Establishment Date"
+                  dateFormat="mm-dd-yy"
                 />
               </div>
               <div class="col-md-6">
@@ -333,8 +334,10 @@
                   name="activeIndices"
                   placeholder="Alternative Ticker"
                 />
-              </div>
-              <div class="col-md-2 mt-2">
+              </div> 
+              <div class="col-md-0 mt2">
+                <label class="col-form-label">Stock Ticker</label>
+        
                 <input
                   [(ngModel)]="company.stockTicker"
                   autofocus
@@ -344,7 +347,9 @@
                   placeholder="Stock Ticker"
                 />
               </div>
-              <div class="col-md-2 mt-2">
+              <div class="col-md-0 mt-2">
+                <label class="col-form-label">OrderID</label>
+
                 <input
                   [(ngModel)]="company.orderID"
                   autofocus

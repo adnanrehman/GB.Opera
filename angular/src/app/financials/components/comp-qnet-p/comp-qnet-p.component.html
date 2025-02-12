@@ -393,6 +393,7 @@
                     <th>Is Yearly</th>
                     <th>Net Profit</th>
                     <th>Announcement Date</th>
+                    <th>Action</th>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -405,6 +406,8 @@
                     <td class="text-center"><p-checkbox value="Yearly" [(ngModel)]="item.isYearly" [binary]="true" inputId="binary" /></td>
                     <td>{{ item.netProfit }}</td>
                     <td>{{ item.announcementDate | date : 'MM/dd/yyyy' }}</td>
+                    <td><button type="button"  class="btn btn-sm btn-danger" (click)="deleteCorporateAnnouncement(item.compQNProfitID)"><i class="fa fa-sm fa-close me-1"
+                      ></i>Delete</button></td>
                   </tr>
                 </ng-template>
               </p-table>

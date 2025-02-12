@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 import { PermissionService } from '@abp/ng.core';
 import { Company_Ownership } from 'src/app/services/permissions';
 
+
 @Component({
   selector: 'app-ownership-companies',
   standalone: true,
@@ -139,7 +140,7 @@ export class OwnershipCompaniesComponent {
       edit: false,
       delete: false
     }
-   
+
   }
 
   ngOnInit() {
@@ -189,8 +190,8 @@ export class OwnershipCompaniesComponent {
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
       if (this.companyMarketSectors.length > 0) {
-        if(!this.sectorID)
-        this.sectorID = this.companyMarketSectors[0].sectorID;
+        if (!this.sectorID)
+          this.sectorID = this.companyMarketSectors[0].sectorID;
         this.getSectorCompaniesBySectorIDAndStockMarketID();
       }
       else this.loading = false;
@@ -206,8 +207,8 @@ export class OwnershipCompaniesComponent {
       .subscribe(res => {
         this.companiesTickers = res;
         if (this.companiesTickers.length > 0) {
-          if(!this.companyID)
-          this.companyID = this.companiesTickers[0].companyID;
+          if (!this.companyID)
+            this.companyID = this.companiesTickers[0].companyID;
           this.getCompanySubsidiaries();
         }
         else this.loading = false;
@@ -222,6 +223,8 @@ export class OwnershipCompaniesComponent {
       .getRelatedInformationsByCompanyID(this.companyID)
       .subscribe(res => {
         debugger;
+        console.warn(res);
+
         this.companySubsidiaries = res;
         if (this.companySubsidiaries.subsidiaries.length > 0)
           this.handleCompanyOwnership(this.companySubsidiaries);
@@ -499,6 +502,9 @@ export class OwnershipCompaniesComponent {
     this.loading = true;
     this.companyproduct.isActive = this.companyproductActivation == 1 ? true : false;
     if (this.companyproduct.companyID == 0) this.companyproduct.companyID = this.companyID;
+    if (this.companyproduct.isActive === false) {
+      this.companyproduct.companyProductID = 0
+    }
     this.companyOwnershipService.createOrUpdateCompanyProductByModel(this.companyproduct).subscribe(
       res => {
         debugger;
@@ -544,6 +550,10 @@ export class OwnershipCompaniesComponent {
     this.loading = true;
     this.companyrawmaterial.isActive = this.companyrawmaterialActivation == 1 ? true : false;
     if (this.companyrawmaterial.companyID == 0) this.companyrawmaterial.companyID = this.companyID;
+
+    if (this.companyrawmaterial.isActive === false) {
+      this.companyrawmaterial.rawMaterialID = 0;
+    }
     this.companyOwnershipService.createOrUpdateRawMaterialByModel(this.companyrawmaterial).subscribe(
       res => {
         debugger;
@@ -589,6 +599,9 @@ export class OwnershipCompaniesComponent {
     this.loading = true;
     this.companyFIP.isActive = this.companyFIPActivation == 1 ? true : false;
     if (this.companyFIP.companyID == 0) this.companyFIP.companyID = this.companyID;
+    if (this.companyFIP.isActive === false) {
+      this.companyFIP.fipid = 0
+    }
     this.companyOwnershipService.createOrUpdateCompanyFIPByModel(this.companyFIP).subscribe(
       res => {
         debugger;
@@ -634,6 +647,9 @@ export class OwnershipCompaniesComponent {
     this.loading = true;
     this.miscNote.isActive = this.miscNotermationActivation == 1 ? true : false;
     if (this.miscNote.companyID == 0) this.miscNote.companyID = this.companyID;
+    if (this.companyFIP.isActive === false) {
+      this.miscNote.miscNotesID = 0
+    }
     this.companyOwnershipService.createOrUpdateMiscNoteByModel(this.miscNote).subscribe(
       res => {
         debugger;
@@ -674,5 +690,257 @@ export class OwnershipCompaniesComponent {
         this.loading = false;
       }
     );
+  }
+  deleteSubsidiaries(SubsCompUpdID: number) {
+    alert(SubsCompUpdID);
+
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: "Are you sure you want to delete this Subsidiaries?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.companyOwnershipService.deleteSubsidiariesBySubsCompUpdID(SubsCompUpdID).subscribe((res) => {
+          Swal.fire({
+            title: 'Success',
+            text: 'Subsidiaries Deleted Successfully',
+            icon: 'success',
+          }).then((result) => {
+
+            this.loading = false;
+            this.getCompanySubsidiaries();
+
+          });
+
+        });
+      }
+    })
+  }
+
+
+  deleteSisterCompay(SisterCompanyID: number) {
+
+
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: "Are you sure you want to delete this sister company?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.companyOwnershipService.deletesistercompanyBySisterCompanyID(SisterCompanyID).subscribe((res) => {
+          Swal.fire({
+            title: 'Success',
+            text: 'sister company Deleted Successfully',
+            icon: 'success',
+          }).then((result) => {
+
+            this.loading = false;
+
+            this.companyOwnershipService
+              .getRelatedInformationsByCompanyID(this.companyID)
+              .subscribe(res => {
+                this.sisterCompanies = res.sisterCompanies;
+                this.handlesiterCompany(this.siterCompany);
+              });
+
+          });
+
+        });
+
+      }
+    })
+  }
+
+  deleteproduct(CompanyProductID: number) {
+
+
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: "Are you sure you want to delete this Product company?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.companyOwnershipService.deleteCompanyProductsByCompanyProductID(CompanyProductID).subscribe((res) => {
+          Swal.fire({
+            title: 'Success',
+            text: 'Product company Deleted Successfully',
+            icon: 'success',
+          }).then((result) => {
+
+            this.loading = false;
+
+            this.companyOwnershipService
+              .getRelatedInformationsByCompanyID(this.companyID)
+              .subscribe(res => {
+                this.companyproducts = res.companyProducts;
+                this.handlecompanyproduct(this.companyproduct);
+              });
+
+
+          });
+
+        });
+
+      }
+    })
+  }
+
+  DelteCompanyRawMaterials(RawMaterialID: number) {
+
+
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: "Are you sure you want to delete this Raw Materials?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.companyOwnershipService.delteCompanyRawMaterialsByRawMaterialID(RawMaterialID).subscribe((res) => {
+          Swal.fire({
+            title: 'Success',
+            text: 'Raw Materials Deleted Successfully',
+            icon: 'success',
+          }).then((result) => {
+
+
+
+            this.companyOwnershipService
+              .getRelatedInformationsByCompanyID(this.companyID)
+              .subscribe(res => {
+                this.companyrawmaterials = res.companyRawMaterials;
+              });
+
+            this.handleCompanyRawMaterial(this.companyrawmaterial);
+            this.loading = false;
+
+
+          });
+
+        });
+
+      }
+    })
+  }
+  DeleteForeignInvestmentPermitted(FIPID: number) {
+
+
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: "Are you sure you want to delete this Foreign Investment Options?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.companyOwnershipService.deleteForeignInvestmentPermittedByFIPID(FIPID).subscribe((res) => {
+          Swal.fire({
+            title: 'Success',
+            text: 'Foreign Investment Options Deleted Successfully',
+            icon: 'success',
+          }).then((result) => {
+
+
+ 
+                this.companyOwnershipService
+                  .getRelatedInformationsByCompanyID(this.companyID)
+                  .subscribe(res => {
+                    this.companyFIPs = res.companyFIPs;
+                    this.handlecompanyFIP(this.companyFIP);
+                  });
+
+
+            
+
+
+            this.loading = false;
+
+
+          });
+
+        });
+
+      }
+    })
+  }
+
+  DeleteMiscNotes(MiscNotesID: number) {
+
+
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: "Are you sure you want to delete this MISC Note?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel'
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.companyOwnershipService.deleteMiscNotesByMiscNotesID(MiscNotesID).subscribe((res) => {
+          Swal.fire({
+            title: 'Success',
+            text: 'MISC Note Options Deleted Successfully',
+            icon: 'success',
+          }).then((result) => {
+
+
+
+
+            this.companyOwnershipService
+              .getRelatedInformationsByCompanyID(this.companyID)
+              .subscribe(res => {
+                this.miscNotes = res.miscNotes;
+                this.handlemiscNote(this.miscNote);
+              });
+
+
+
+
+
+
+            this.loading = false;
+
+
+          });
+
+        });
+
+      }
+    })
   }
 }

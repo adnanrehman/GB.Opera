@@ -132,7 +132,7 @@
                   >
                     <ng-template pTemplate="caption">
                       <div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="mr-auto p-2">
+                        <div class="mr-auto p-3">
                           <span>
                             <h5>Announcements</h5>
                           </span>
@@ -141,16 +141,23 @@
                     </ng-template>
                     <ng-template pTemplate="header">
                       <tr>
-                        <th>Announcement Date</th>
+                        <th>Id</th>
+                        <th hidden>Announcement Date</th>
                         <th>Announcement</th>
                         <th>Announcement (AR)</th>
+                        <th>Action</th>
+                        <th hidden>Activation</th>
                       </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
                       <tr (click)="handleCorporateAnnouncement(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}"> 
+                        <td hidden>{{ item.corporateAnnouncementID }}</td>
                         <td>{{ item.announcedDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{ item.announcement }}</td>
                         <td>{{ item.aAnnouncement }}</td>
+                        <td>{{ item.isActive }}</td>
+                        <td>  <button type="button"  class="btn btn-sm btn-danger" (click)="deleteCorporateAnnouncement(item.corporateAnnouncementID)"><i class="fa fa-sm fa-close me-1"
+                            ></i>Delete</button></td>
                       </tr>
                     </ng-template>
                   </p-table>

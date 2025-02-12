@@ -2242,6 +2242,23 @@
                     "type": "System.Void",
                     "typeSimple": "System.Void"
                   }
+                },
+                {
+                  "name": "DeleteCompQuartersNetProfit",
+                  "parametersOnMethod": [
+                    {
+                      "name": "CompQNProfitID",
+                      "typeAsString": "System.Int64, System.Private.CoreLib",
+                      "type": "System.Int64",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
                 }
               ]
             }
@@ -2311,6 +2328,43 @@
                   "defaultValue": null,
                   "constraintTypes": null,
                   "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.CompaniesQNetProfits.ICompaniesQNetProfitAppService"
+            },
+            "DeleteCompQuartersNetProfitByCompQNProfitID": {
+              "uniqueName": "DeleteCompQuartersNetProfitByCompQNProfitID",
+              "name": "DeleteCompQuartersNetProfit",
+              "httpMethod": "DELETE",
+              "url": "api/app/companies-qNet-profit/comp-quarters-net-profit",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "CompQNProfitID",
+                  "typeAsString": "System.Int64, System.Private.CoreLib",
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "CompQNProfitID",
+                  "name": "CompQNProfitID",
+                  "jsonName": null,
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
                   "descriptorName": ""
                 }
               ],
@@ -3591,6 +3645,108 @@
                     "type": "CompanyOwnerships.MiscNotesDto",
                     "typeSimple": "CompanyOwnerships.MiscNotesDto"
                   }
+                },
+                {
+                  "name": "DeleteSubsidiaries",
+                  "parametersOnMethod": [
+                    {
+                      "name": "SubsCompUpdID",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "Deletesistercompany",
+                  "parametersOnMethod": [
+                    {
+                      "name": "SisterCompanyID",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "DeleteCompanyProducts",
+                  "parametersOnMethod": [
+                    {
+                      "name": "CompanyProductID",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "DelteCompanyRawMaterials",
+                  "parametersOnMethod": [
+                    {
+                      "name": "RawMaterialID",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "DeleteForeignInvestmentPermitted",
+                  "parametersOnMethod": [
+                    {
+                      "name": "FIPID",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "DeleteMiscNotes",
+                  "parametersOnMethod": [
+                    {
+                      "name": "MiscNotesID",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
                 }
               ]
             }
@@ -3888,6 +4044,228 @@
               "returnValue": {
                 "type": "CompanyOwnerships.MiscNotesDto",
                 "typeSimple": "CompanyOwnerships.MiscNotesDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "DeleteSubsidiariesBySubsCompUpdID": {
+              "uniqueName": "DeleteSubsidiariesBySubsCompUpdID",
+              "name": "DeleteSubsidiaries",
+              "httpMethod": "DELETE",
+              "url": "api/app/company-ownership/subsidiaries",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "SubsCompUpdID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "SubsCompUpdID",
+                  "name": "SubsCompUpdID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "DeletesistercompanyBySisterCompanyID": {
+              "uniqueName": "DeletesistercompanyBySisterCompanyID",
+              "name": "Deletesistercompany",
+              "httpMethod": "DELETE",
+              "url": "api/app/company-ownership/sistercompany",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "SisterCompanyID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "SisterCompanyID",
+                  "name": "SisterCompanyID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "DeleteCompanyProductsByCompanyProductID": {
+              "uniqueName": "DeleteCompanyProductsByCompanyProductID",
+              "name": "DeleteCompanyProducts",
+              "httpMethod": "DELETE",
+              "url": "api/app/company-ownership/company-products",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "CompanyProductID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "CompanyProductID",
+                  "name": "CompanyProductID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "DelteCompanyRawMaterialsByRawMaterialID": {
+              "uniqueName": "DelteCompanyRawMaterialsByRawMaterialID",
+              "name": "DelteCompanyRawMaterials",
+              "httpMethod": "POST",
+              "url": "api/app/company-ownership/delte-company-raw-materials",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "RawMaterialID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "RawMaterialID",
+                  "name": "RawMaterialID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "DeleteForeignInvestmentPermittedByFIPID": {
+              "uniqueName": "DeleteForeignInvestmentPermittedByFIPID",
+              "name": "DeleteForeignInvestmentPermitted",
+              "httpMethod": "DELETE",
+              "url": "api/app/company-ownership/foreign-investment-permitted",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "FIPID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "FIPID",
+                  "name": "FIPID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"
+            },
+            "DeleteMiscNotesByMiscNotesID": {
+              "uniqueName": "DeleteMiscNotesByMiscNotesID",
+              "name": "DeleteMiscNotes",
+              "httpMethod": "DELETE",
+              "url": "api/app/company-ownership/misc-notes",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "MiscNotesID",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "MiscNotesID",
+                  "name": "MiscNotesID",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
               },
               "allowAnonymous": null,
               "implementFrom": "CompanyOwnerships.ICompanyOwnershipAppService"

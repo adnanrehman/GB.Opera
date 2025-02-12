@@ -9,6 +9,15 @@ export class CompaniesQNetProfitService {
   apiName = 'Default';
   
 
+  deleteCompQuartersNetProfitByCompQNProfitID = (CompQNProfitID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'DELETE',
+      url: '/api/app/companies-qNet-profit/comp-quarters-net-profit',
+      params: { compQNProfitID: CompQNProfitID },
+    },
+    { apiName: this.apiName,...config });
+  
+
   getCompaniesQNetProfitsByCompanyID = (companyID: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, CompaniesQNetProfitListDto>({
       method: 'GET',
