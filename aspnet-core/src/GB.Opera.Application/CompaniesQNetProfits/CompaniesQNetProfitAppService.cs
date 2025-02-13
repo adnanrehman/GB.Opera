@@ -24,7 +24,7 @@ namespace CompaniesQNetProfits
         public CompaniesQNetProfitAppService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connection = new SqlConnection(configuration.GetConnectionString("Default"));
+            _connection = new SqlConnection(configuration.GetConnectionString("DefaultForNews"));
         }
 
         public async Task<CompaniesQNetProfitListDto> GetCompaniesQNetProfits(int companyID)

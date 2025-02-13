@@ -21,7 +21,7 @@ namespace CompanyCurrentValues
         public CompanyCurrentValuesAppService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connection = new SqlConnection(configuration.GetConnectionString("Default"));
+            _connection = new SqlConnection(configuration.GetConnectionString("DefaultForNews"));
         }
 
         //public async Task<List<CompanyCurrentValuesdtos>> GetCompanyCurrentValues(short companyID)

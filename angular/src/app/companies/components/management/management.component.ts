@@ -181,10 +181,10 @@ export class ManagementComponent {
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading =true;
+    
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading =false;
+      
     });
   }
 
@@ -511,6 +511,7 @@ export class ManagementComponent {
           }
           this.handleseniorManagement(this.seniorManagement);
           this.loading = false;
+          this.getCompanyManagements();
         },
         error => {
           this.loading = false;

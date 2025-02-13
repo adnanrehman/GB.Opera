@@ -25,7 +25,7 @@ namespace GB.Opera.EndOfDay
         public EndofDayAppService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connection = new SqlConnection(configuration.GetConnectionString("Default"));
+            _connection = new SqlConnection(configuration.GetConnectionString("DefaultForNews"));
         }
          
         public async Task<List<GCCSector>> GetAllGCCSector()
@@ -82,8 +82,11 @@ namespace GB.Opera.EndOfDay
             {
                 try
                 {
-                    var stockMarkets = await _connection.QueryAsync<StockMarketDto>($@"SELECT * FROM StockMarkets", transaction: transaction);
-                    var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT * FROM Companies", transaction: transaction);
+
+					var marketAbb = list.Select(g => g.StockMarket).FirstOrDefault();
+
+                    var stockMarket = await _connection.QueryFirstAsync<StockMarketDto>($@"SELECT * FROM StockMarkets WHERE Abbr='{marketAbb}'", transaction: transaction);
+                    var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT Ticker,Company,CompanyId FROM Companies WHERE StockMarketId={stockMarket.StockMarketID}", transaction: transaction);
 
                     foreach (var item in list)
                     {
@@ -91,7 +94,7 @@ namespace GB.Opera.EndOfDay
                         {
                             
                         }
-                        var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (item.StockMarket).ToUpper()).FirstOrDefault();
+                        
 						if (stockMarket != null)
 						{
 							var ticker = Companies.Where(f => f.Ticker.ToUpper() == (item.Ticker).ToUpper()).FirstOrDefault();

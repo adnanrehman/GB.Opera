@@ -33,7 +33,7 @@ namespace CompanyOwnershipFacts
         public CompanyOwnershipFactAppService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connection = new SqlConnection(configuration.GetConnectionString("Default"));
+            _connection = new SqlConnection(configuration.GetConnectionString("DefaultForNews"));
         }
 
         public async Task<List<CompanyOwnershipFactDto>> GetCompanyOwnershipPreview(int companyID)

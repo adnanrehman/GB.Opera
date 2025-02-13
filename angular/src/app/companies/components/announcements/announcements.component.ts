@@ -101,10 +101,10 @@ export class AnnouncementsComponent {
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading = true;
+   
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading = false;
+      
     });
   }
 
@@ -227,10 +227,9 @@ export class AnnouncementsComponent {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.corporateAnnouncement.announcement + ' created successfully', icon: 'success', });
 
       }
-     
       this.handleCorporateAnnouncement(this.corporateAnnouncement);
-
       this.loading = false;
+      this.getCorporateAnnouncements();
 
     },
       error => {

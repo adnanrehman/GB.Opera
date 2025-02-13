@@ -185,7 +185,7 @@ export class CompaniesComponent {
   
 
   handleCompany(company: CompanyDto) {
-    debugger;
+    debugger; 
     this.company = company;
     this.companyActivation = this.company.isActive ? 1 : 0;
     const date = new Date(this.company.establishmentDate);

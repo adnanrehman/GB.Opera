@@ -25,7 +25,7 @@ namespace GB.Opera.OfficialsIndics
         public OfficialIndicsAppService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connection = new SqlConnection(configuration.GetConnectionString("Default"));
+            _connection = new SqlConnection(configuration.GetConnectionString("DefaultForNews"));
         }
 
         public async Task<List<OfficialIndics>> GetOfficialIndics(DateTime PriceDate, Int16 StockMarketID)

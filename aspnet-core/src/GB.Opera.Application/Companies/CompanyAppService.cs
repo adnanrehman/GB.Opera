@@ -25,7 +25,7 @@ namespace Companies
         public CompanyAppService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connection = new SqlConnection(configuration.GetConnectionString("Default"));
+            _connection = new SqlConnection(configuration.GetConnectionString("DefaultForNews"));
         }
 
         public async Task<List<CompanyDto>> GetCompanies(int sectorID, int stockMarketID)

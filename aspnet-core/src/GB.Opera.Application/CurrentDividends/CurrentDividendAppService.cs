@@ -23,7 +23,7 @@ namespace CurrentDividends
         public CurrentDividendAppService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connection = new SqlConnection(configuration.GetConnectionString("Default"));
+            _connection = new SqlConnection(configuration.GetConnectionString("DefaultForNews"));
         }
         public async Task<List<CurrentDividendDto>> GetCurrentDividends(int stockMarketID)
         {
