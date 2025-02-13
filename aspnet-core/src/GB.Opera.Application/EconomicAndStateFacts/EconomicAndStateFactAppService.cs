@@ -71,7 +71,8 @@ namespace EconomicAndStateFacts
                 Forcast = input.Forcast,
                 MeasurementUnit = input.MeasurementUnit,
                 Currency = input.Currency,    
-                Weekly = input.Weekly
+                Weekly = input.Weekly,
+                RootParentESDFactID= 0
 
             };
 

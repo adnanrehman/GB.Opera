@@ -364,7 +364,10 @@
                             <td>{{ item.managingDirector }}</td>
                             <td>{{ item.since | date: 'dd/MM/yyyy' }}</td>
                             <td>{{ item.till | date: 'dd/MM/yyyy' }}</td>
-                            <td>{{ item.isActive }}</td>
+                            <td>
+                              <input type="checkbox" [checked]="item.isActive"   />
+                            </td>
+                            
                             <td>{{ item.gulfbaseUpdateDate | date: 'dd/MM/yyyy' }}</td>
                           </tr>
                         </ng-template>
@@ -468,7 +471,7 @@
                           <th>Senior Management</th>
                           <th>Since</th>
                           <th>Till</th>
-                          <th>IsActive</th>
+                          <th>Active</th>
                           <th>Gulf Base Update</th>
                         </tr>
                       </ng-template>
@@ -478,7 +481,10 @@
                           <td>{{item.seniorManagement}}</td>
                           <td>{{item.since | date: 'dd/MM/yyyy'}}</td>
                           <td>{{item.till | date: 'dd/MM/yyyy'}}</td>
-                          <td>{{item.isActive}}</td>
+                          <td>
+                            <input type="checkbox" [checked]="item.isActive"   />
+                          </td>
+                          
                           <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
                         </tr>
                       </ng-template>
@@ -581,7 +587,7 @@
                           <th>Auditor</th>
                           <th>Since</th>
                           <th>Till</th>
-                          <th>IsActive</th>
+                          <th> Active</th>
                           <th>Gulf Base Update</th>
                         </tr>
                       </ng-template>
@@ -591,7 +597,10 @@
                           <td>{{item.auditor}}</td>
                           <td>{{item.since | date: 'dd/MM/yyyy'}}</td>
                           <td>{{item.till | date: 'dd/MM/yyyy'}}</td>
-                          <td>{{item.isActive}}</td>
+                          <td>
+                            <input type="checkbox" [checked]="item.isActive"   />
+                          </td>
+                          
                           <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
                         </tr>
                       </ng-template>
@@ -706,7 +715,7 @@
                           <th>Board Member</th>
                           <th>Since</th>
                           <th>Till</th>
-                          <th>IsActive</th>
+                          <th> Active</th>
                           <th>Gulf Base Update</th>
                           <th>Custom Order</th>
                         </tr>
@@ -717,7 +726,10 @@
                           <td>{{item.boardMember}}</td>
                           <td>{{item.since | date: 'dd/MM/yyyy'}}</td>
                           <td>{{item.till | date: 'dd/MM/yyyy'}}</td>
-                          <td>{{item.isActive}}</td>
+                          <td>
+                            <input type="checkbox" [checked]="item.isActive"   />
+                          </td>
+                          
                           <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
                           <td>{{item.customOrder}}</td>
                         </tr>
@@ -928,7 +940,7 @@
                             <th>City</th>
                             <th>Telephone</th>
                             <th>Fax</th>
-                            <th>IsActive</th>
+                            <th>Active</th>
                             <th>Gulf Base Update</th>
                             <th>Region</th>
                           </tr>
@@ -939,7 +951,10 @@
                             <td>{{item.city}}</td>
                             <td>{{item.telephone}}</td>
                             <td>{{item.fax}}</td>
-                            <td>{{item.isActive}}</td>
+                            <td>
+                              <input type="checkbox" [checked]="item.isActive"   />
+                            </td>
+                            
                             <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
                             <td>{{item.region}}</td>
                           </tr>
@@ -1076,7 +1091,7 @@
                           <th>PaidUp Capiton</th>
                           <th>Outstanding Shares</th>
                           <th>Per value per share</th>
-                          <th>Is Active</th>
+                          <th>Active</th>
                           <th>Gulf Base Update</th>
                         </tr>
                       </ng-template>
@@ -1086,7 +1101,10 @@
                           <td>{{item.paidupCapital}}</td>
                           <td>{{item.outstandingShares}}</td>
                           <td>{{item.parValuePerShare}}</td>
-                          <td>{{item.isActive}}</td>
+                          <td>
+                            <input type="checkbox" [checked]="item.isActive"   />
+                          </td>
+                          
                           <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
                         </tr>
                       </ng-template>
@@ -1279,7 +1297,7 @@
                             <th>City</th>
                             <th>Telephone</th>
                             <th>Fax</th>
-                            <th>IsActive</th>
+                            <th>Active</th>
                             <th>Gulf Base Update</th>
                             <th>Region</th>
                           </tr>
@@ -1290,7 +1308,10 @@
                             <td>{{item.city}}</td>
                             <td>{{item.telephone}}</td>
                             <td>{{item.fax}}</td>
-                            <td>{{item.isActive}}</td>
+                            <td>
+                              <input type="checkbox" [checked]="item.isActive"   />
+                            </td>
+                            
                             <td>{{item.gulfbaseUpdateDate | date: 'dd/MM/yyyy'}}</td>
                             <td>{{item.region}}</td>
                           </tr>
