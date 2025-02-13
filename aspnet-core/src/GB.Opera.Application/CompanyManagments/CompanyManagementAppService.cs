@@ -137,7 +137,7 @@ namespace CompanyManagements
                 parameters.Add("@AAuditor", model.AAuditor);
                 parameters.Add("@Since", model.Since);
                 parameters.Add("@Till", model.Till);
-                parameters.Add("@IsActive", true);
+                parameters.Add("@IsActive", model.IsActive);
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
 
                 await _connection.ExecuteAsync(ProcedureNames.usp_InsertAuditors, parameters, commandType: CommandType.StoredProcedure);
