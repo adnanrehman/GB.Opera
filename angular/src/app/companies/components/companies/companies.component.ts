@@ -138,7 +138,7 @@ export class CompaniesComponent {
 }
 
   fillCompByMarketId() {
-    this.loading = true;
+ //  this.loading = true;
     this.commonService.getCompMSectorsByMarketID(this.company.stockMarketID).subscribe(res => {
       debugger;
       this.gbIndustrialGroups = res.gbIndustrialGroups;
@@ -148,7 +148,7 @@ export class CompaniesComponent {
       this.subCurrencies = res.subCurrencies;
       this.capSizes = res.capSizes;
       this.marketSectors = res.marketSectors;
-      this.loading = false;
+    //  this.loading = false;
       if (this.compDropdown) {
         this.sectorID = this.marketSectors[0].sectorID
         this.getCompanies();
@@ -157,14 +157,14 @@ export class CompaniesComponent {
   }
 
   getCompanies() {
-    this.loading = true;
+  //  this.loading = true;
     this.companyService
       .getCompaniesBySectorIDAndStockMarketID(this.sectorID, this.company.stockMarketID)
       .subscribe(res => {
         debugger;
         this.companies = res;
         if (this.companies.length > 0) this.handleCompany(this.companies[0]);
-        this.loading = false;
+    //    this.loading = false;
       });
   }
 
@@ -258,11 +258,12 @@ this.company.establishmentDate = new Date(date.getFullYear(), date.getMonth(), d
 handleDataFromAutoCompelete(company: CompanyDto) {
   debugger;
   this.company = company;
-  this.fillCompByMarketId()
+  //this.fillCompByMarketId()
   this.companySector.stockMarketID = company.stockMarketID;
   this.companySector.sectorID = company.sectorID;
-  this.companySector.fillCompByMarketId();
-  this.companySector.getCompanies()
+//  this.companySector.fillCompByMarketId();
+ // this.companySector.getCompanies()
   this.companyActivation = this.company.isActive ? 1 : 0;
 }
+ 
 }

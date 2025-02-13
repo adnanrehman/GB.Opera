@@ -99,10 +99,10 @@ export class CompQnetPComponent {
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading = true;
+   // this.loading = true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading = false;
+    //  this.loading = false;
     });
   }
 
@@ -199,6 +199,9 @@ export class CompQnetPComponent {
     this.companiesQNetProfit.companyID = this.companyID;
     this.companiesQNetProfit.asOfDate = moment(this.companiesQNetProfit.asOfDate).format();
     this.companiesQNetProfit.announcementDate = moment(this.companiesQNetProfit.announcementDate).format();
+   
+    
+   
     this.companiesQNetProfitService.insertUpdateCalculateCompQuartersNetProfitByInput(this.companiesQNetProfit).subscribe(res => {
       debugger;
       if (this.companiesQNetProfit.compQNProfitID > 0) {

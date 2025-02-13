@@ -103,10 +103,10 @@ export class FundPricesComponent {
   }
 
   search(event: AutoCompleteCompleteEvent) {
-    this.loading = true;
+   // this.loading = true;
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
       this.suggestions = res;
-      this.loading = false;
+    //  this.loading = false;
     });
   }
 
