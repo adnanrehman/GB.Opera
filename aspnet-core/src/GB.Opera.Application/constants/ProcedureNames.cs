@@ -137,6 +137,8 @@ namespace GB.Opera.constants
         public const string usp_delteCompanyRawMaterials = "usp_delteCompanyRawMaterials";
         public const string Usp_deleteForeignInvestmentPermitted = "Usp_deleteForeignInvestmentPermitted";
         public const string Usp_deleteMiscNotes = "Usp_deleteMiscNotes";
+        public const string usp_getLastYearFinEndRecordForQNP = "usp_getLastYearFinEndRecordForQNP";
+
     }
 }
  

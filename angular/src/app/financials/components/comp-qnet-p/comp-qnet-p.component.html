@@ -206,6 +206,7 @@
                     </div>
                   </div>
                 </div>
+                
                 <div class="col-md-3">
                   <div class="row">
                     <div class="col-md-12"></div>
@@ -284,7 +285,7 @@
                     [(ngModel)]="companiesQNetProfit.previousNP"
                     [ngModelOptions]="{ standalone: true }"
                     name="previousNP"
-                    class="form-control"
+                    class="form-control" readonly
                     placeholder="Prevoius Net Profit"
                   />
                 </div>
@@ -297,7 +298,7 @@
                     [(ngModel)]="companiesQNetProfit.netProfitChange"
                     [ngModelOptions]="{ standalone: true }"
                     name="netProfitChange"
-                    class="form-control"
+                    class="form-control" readonly
                     placeholder="Net Profit Change (%)"
                   />
                 </div>
@@ -310,7 +311,7 @@
                     [(ngModel)]="companiesQNetProfit.netProfit"
                     [ngModelOptions]="{ standalone: true }"
                     name="netProfit"
-                    class="form-control"
+                    class="form-control" readonly
                     placeholder="TTM Net Profit"
                   />
                 </div>
@@ -323,7 +324,7 @@
                     [(ngModel)]="companiesQNetProfit.eps"
                     [ngModelOptions]="{ standalone: true }"
                     name="eps"
-                    placeholder="EPS"
+                    placeholder="EPS" readonly
                     class="form-control"
                   />
                 </div>
@@ -336,7 +337,7 @@
                     [(ngModel)]="companiesQNetProfit.pe"
                     [ngModelOptions]="{ standalone: true }"
                     name="pe"
-                    class="form-control"
+                    class="form-control" readonly
                     name="Company"
                     placeholder="PE"
                   />
@@ -350,29 +351,29 @@
                     [(ngModel)]="companiesQNetProfit.fiveYearGrowth"
                     [ngModelOptions]="{ standalone: true }"
                     name="fiveYearGrowth"
-                    class="form-control"
+                    class="form-control" readonly
                     placeholder="5 Year Growth"
                   />
                 </div>
               </div>
             </div>
           </div>
-          <!-- <div class="card mt-2">
+           <div class="card mt-2">
             <div class="card-body p-2">
               <div class="row">
                 <div class="col-md-12">
                   <label class="col-form-label">Earning Announcement</label>
-                  <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                  <textarea rows="2" class="form-control"  [(ngModel)]="strEA">
                   </textarea>
                 </div>
                 <div class="col-md-12">
                   <label class="col-form-label">Earning Announcement (AR)</label>
-                  <textarea rows="3" class="form-control" placeholder="Describe Overview here...">
+                  <textarea rows="2"  [(ngModel)]="strAA" class="form-control" >
                   </textarea>
                 </div>
               </div>
             </div>
-          </div> -->
+          </div> 
           <div class="row">
             <div class="col-md-12">
               <p-table

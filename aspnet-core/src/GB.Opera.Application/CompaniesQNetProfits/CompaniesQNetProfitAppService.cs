@@ -101,5 +101,30 @@ namespace CompaniesQNetProfits
 
         }
 
+        public async Task<bool> GetLastYearFinEndRecordForQNP(Int16 CompanyID, Int16 Year)
+        {
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@CompanyID", CompanyID);
+                parameters.Add("@Year", Year);
+
+                // Query single boolean result
+                bool result = await _connection.QueryFirstOrDefaultAsync<bool>(
+                    ProcedureNames.usp_getLastYearFinEndRecordForQNP,
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return result; // Returns true or false from DB
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error executing stored procedure.", ex);
+            }
+        }
+
+
+
     }
 }

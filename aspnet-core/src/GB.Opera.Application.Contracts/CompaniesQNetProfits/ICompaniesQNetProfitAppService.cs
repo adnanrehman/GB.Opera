@@ -14,6 +14,8 @@ namespace GB.Opera.CompaniesQNetProfits
 
         public Task DeleteCompQuartersNetProfit(Int64 CompQNProfitID);
 
-       
+        public Task<bool> GetLastYearFinEndRecordForQNP(Int16 CompanyID, Int16 Year);
+
+
     }
 }

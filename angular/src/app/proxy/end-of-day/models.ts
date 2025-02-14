@@ -21,15 +21,19 @@ export interface FundPricesImportDto {
   temp?: string;
   id: number;
   company?: string;
+  companyId: number;
   ticker?: string;
   stockMarket?: string;
+  stockMarketId: number;
   priceDate?: string;
+  lastUpdated?: string;
   openingPrice?: number;
   highestPrice?: number;
   lowestPrice?: number;
   closingPrice?: number;
   tradingVolume?: number;
   tradingValue?: number;
+  lastClosedPrice?: number;
   trades?: number;
 }
 

@@ -186,6 +186,8 @@ export class GbFactsComponent {
    
   }
 
+ 
+
 
  
 }

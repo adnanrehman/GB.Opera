@@ -27,6 +27,15 @@ export class CompaniesQNetProfitService {
     { apiName: this.apiName,...config });
   
 
+  getLastYearFinEndRecordForQNPByCompanyIDAndYear = (CompanyID: number, Year: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, boolean>({
+      method: 'GET',
+      url: '/api/app/companies-qNet-profit/last-year-fin-end-record-for-qNP',
+      params: { companyID: CompanyID, year: Year },
+    },
+    { apiName: this.apiName,...config });
+  
+
   insertUpdateCalculateCompQuartersNetProfitByInput = (input: CompaniesQNetProfitDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
       method: 'POST',
