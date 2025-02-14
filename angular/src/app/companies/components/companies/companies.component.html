@@ -167,10 +167,10 @@
                   [(ngModel)]="company.gbSectorID"
                   required="true"
                   name="gbSectorID"
-                  [options]="gbIndustrialGroups"
+                  [options]="sectors"
                   placeholder="Select a Gb Sector"
-                  optionLabel="gbIndustrialGroup"
-                  optionValue="gbSectorID"
+                  optionLabel="sector"
+                  optionValue="sectorID"
                   [style]="{ width: '100%' }"
                   [showClear]="true"
                 >
@@ -197,7 +197,7 @@
                 <p-dropdown
                   [(ngModel)]="company.sectorID"
                   [ngModelOptions]="{ standalone: true }"
-                  [options]="sectors"
+                  [options]="marketSectors"
                   placeholder="Select a Official Sector"
                   optionLabel="sector"
                   optionValue="sectorID"

@@ -250,17 +250,19 @@ this.company.establishmentDate = new Date(date.getFullYear(), date.getMonth(), d
   handleDataFromChild(companies: []) {
     debugger;
     this.companies = companies;
-    this.fillCompByMarketId()
     this.company.stockMarketID = this.companySector.stockMarketID;
+    this.fillCompByMarketId();
     if (this.companies.length > 0) this.handleCompany(this.companies[0]);
 }
 
 handleDataFromAutoCompelete(company: CompanyDto) {
-  debugger;
+  
   this.company = company;
   //this.fillCompByMarketId()
   this.companySector.stockMarketID = company.stockMarketID;
   this.companySector.sectorID = company.sectorID;
+  
+  this.company.company = this.company.company.split("-").length > 1 ?  this.company.company.split("-")[1] : this.company.company
 //  this.companySector.fillCompByMarketId();
  // this.companySector.getCompanies()
   this.companyActivation = this.company.isActive ? 1 : 0;

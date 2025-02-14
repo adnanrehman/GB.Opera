@@ -58,7 +58,7 @@ namespace Companies
                 parameters.Add("@StockMarketID", model.StockMarketID);
                 parameters.Add("@SectorID", model.SectorID);
                 parameters.Add("@CapSizeID", model.CapSizeID);
-                parameters.Add("@GBSectorID", model.CompanyID);
+                parameters.Add("@GBSectorID", model.GBSectorID);
                 parameters.Add("@GBIndustrialGroupsID", model.GBIndustrialGroupsID);
                 parameters.Add("@GBIndustryID", model.GBIndustryID);
                 parameters.Add("@InternalCategoryID", model.InternalCategoryID);
