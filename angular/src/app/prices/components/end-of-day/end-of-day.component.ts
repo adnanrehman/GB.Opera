@@ -234,7 +234,7 @@ export class EndOfDayComponent {
 
     const file = event.files[0];
     const reader = new FileReader();
-
+    this.fundPricesImportDto = [];
     reader.onload = (e: any) => {
       const data = e.target.result;
       const workbook = XLSX.read(data, { type: 'binary' });

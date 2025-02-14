@@ -9,10 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
@@ -27,7 +29,7 @@ namespace GB.Opera.EndOfDay
             _configuration = configuration;
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultForNews"));
         }
-         
+
         public async Task<List<GCCSector>> GetAllGCCSector()
         {
             try
@@ -57,8 +59,8 @@ namespace GB.Opera.EndOfDay
             }
 
         }
-         
-        public async Task<List<EODPrices>> EODPrices(DateTime PriceDate,Int16 StockMarketID)
+
+        public async Task<List<EODPrices>> EODPrices(DateTime PriceDate, Int16 StockMarketID)
         {
             // Define the parameters for the stored procedure
             var parameters = new DynamicParameters();
@@ -78,125 +80,87 @@ namespace GB.Opera.EndOfDay
         public async Task<string> ImportPrices(List<FundPricesImportDto> list)
         {
             _connection.Open();
-            using (var transaction = _connection.BeginTransaction())
+
+            try
             {
-                try
+                List<FundPricesImportDto> josnList = new List<FundPricesImportDto>();
+
+                var marketAbb = list.Select(g => g.StockMarket).FirstOrDefault();
+
+                var stockMarket = await _connection.QueryFirstAsync<StockMarketDto>($@"SELECT * FROM StockMarkets WHERE Abbr='{marketAbb}'");
+                var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT Ticker,Company,CompanyId FROM Companies WHERE StockMarketId={stockMarket.StockMarketID}");
+
+                foreach (var item in list)
                 {
-
-					var marketAbb = list.Select(g => g.StockMarket).FirstOrDefault();
-
-                    var stockMarket = await _connection.QueryFirstAsync<StockMarketDto>($@"SELECT * FROM StockMarkets WHERE Abbr='{marketAbb}'", transaction: transaction);
-                    var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT Ticker,Company,CompanyId FROM Companies WHERE StockMarketId={stockMarket.StockMarketID}", transaction: transaction);
-
-                    foreach (var item in list)
+                    if (item.Id > 0 && !string.IsNullOrEmpty(item.Ticker) && !string.IsNullOrEmpty(item.StockMarket))
                     {
-                        if (item.Id > 0 && !string.IsNullOrEmpty(item.Ticker) && !string.IsNullOrEmpty(item.StockMarket))
+
+                    }
+
+                    if (stockMarket != null)
+                    {
+                        var ticker = Companies.Where(f => f.Ticker.Trim().ToUpper() == (item.Ticker).Trim().ToUpper()).FirstOrDefault();
+                        if (ticker != null)
                         {
-                            
+
+                            josnList.Add(new FundPricesImportDto
+                            {
+                                StockMarketId = stockMarket.StockMarketID,
+                                CompanyId = ticker.CompanyID,
+                                PriceDate = item.PriceDate,
+                                OpeningPrice = item.OpeningPrice,
+                                HighestPrice = item.HighestPrice,
+                                LowestPrice = item.LowestPrice,
+                                ClosingPrice = item.ClosingPrice,
+                                TradingVolume = item.TradingVolume,
+                                Trades = item.Trades,
+                                TradingValue = item.TradingValue,
+                                LastClosedPrice = null,
+                                LastUpdated = DateTime.Now
+                            });
+
+
+                            //parameters.Add("@ClosingPrice", item.ClosingPrice);
+                            //parameters.Add("@TradingVolume", item.TradingVolume);
+                            //parameters.Add("@Trades", item.Trades);
+                            //parameters.Add("@TradingValue", item.TradingValue);
+                            //parameters.Add("@LastClosedPrice", null);
+                            //parameters.Add("@LastUpdated", DateTime.Now);
+                            //parameters.Add("@IsActive", true);
+                            //await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice_New, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+
                         }
-                        
-						if (stockMarket != null)
-						{
-							var ticker = Companies.Where(f => f.Ticker.ToUpper() == (item.Ticker).ToUpper()).FirstOrDefault();
-							if (ticker != null)
-							{
-								var parameters = new DynamicParameters();
-								parameters.Add("@StockMarketID", stockMarket.StockMarketID);
-								parameters.Add("@CompanyID", ticker.CompanyID);
-								parameters.Add("@PriceDate", item.PriceDate);
-								parameters.Add("@OpeningPrice", item.OpeningPrice);
-								parameters.Add("@HighestPrice", item.HighestPrice);
-								parameters.Add("@LowestPrice", item.LowestPrice);
-								parameters.Add("@ClosingPrice", item.ClosingPrice);
-								parameters.Add("@TradingVolume", item.TradingVolume);
-								parameters.Add("@Trades", item.Trades);
-								parameters.Add("@TradingValue", item.TradingValue);
-								parameters.Add("@LastClosedPrice", null);
-								parameters.Add("@LastUpdated", DateTime.Now);
-								parameters.Add("@IsActive", true);
-								await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice_New, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+                        else
+                        {
+                            josnList = new List<FundPricesImportDto>();
+                            return $@"{item.Ticker} not exist please first add this Ticker";
 
-							}
-							else
-							{
-								return $@"{item.Ticker} not exist please first add this Ticker";
-								await transaction.RollbackAsync();
-							}
-						}
-						else
-						{
-							return $@"{item.StockMarket} not exist please first add this Stock Market";
-							await transaction.RollbackAsync();
-						}
-					}
-
-					await transaction.CommitAsync();
-					return "1";
-
-					//using (var package = new ExcelPackage(new FileInfo(filePath)))
-					//{
-					//    var worksheet = package.Workbook.Worksheets[0];
-					//    var rowCount = worksheet.Dimension.Rows;
-					//    var colCount = worksheet.Dimension.Columns;
-
-					//    for
-
-					//    for (int row = 2; row <= rowCount; row++)
-					//    {
-					//        if (!string.IsNullOrEmpty(worksheet.Cells[row, 1].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 4].Text) && !string.IsNullOrEmpty(worksheet.Cells[row, 5].Text))
-					//        {
-					//            var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (worksheet.Cells[row, 5].Text).ToUpper()).FirstOrDefault();
-					//            if (stockMarket != null)
-					//            {
-					//                var ticker = Companies.Where(f => f.Ticker.ToUpper() == (worksheet.Cells[row, 4].Text).ToUpper()).FirstOrDefault();
-					//                if (ticker != null)
-					//                {
-					//                    var parameters = new DynamicParameters();
-					//                    parameters.Add("@StockMarketID", stockMarket.StockMarketID);
-					//                    parameters.Add("@CompanyID", ticker.CompanyID);
-					//                    parameters.Add("@PriceDate", Convert.ToDateTime(worksheet.Cells[row, 6].Text));
-					//                    parameters.Add("@OpeningPrice", Convert.ToDecimal(worksheet.Cells[row, 7].Text));
-					//                    parameters.Add("@HighestPrice", Convert.ToDecimal(worksheet.Cells[row, 8].Text));
-					//                    parameters.Add("@LowestPrice", Convert.ToDecimal(worksheet.Cells[row, 9].Text));
-					//                    parameters.Add("@ClosingPrice", Convert.ToDecimal(worksheet.Cells[row, 10].Text));
-					//                    parameters.Add("@TradingVolume", Convert.ToInt64((worksheet.Cells[row, 11].Text).Replace(",", "")));
-					//                    parameters.Add("@Trades", Convert.ToInt64((worksheet.Cells[row, 12].Text).Replace(",", "")));
-					//                    parameters.Add("@TradingValue", Convert.ToDecimal((worksheet.Cells[row, 13].Text).Replace(",", "")));
-					//                    parameters.Add("@LastClosedPrice", null);
-					//                    parameters.Add("@LastUpdated", DateTime.Now);
-					//                    parameters.Add("@IsActive", true);
-					//                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice_New, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
-
-					//                }
-					//                else
-					//                {
-					//                    return $@"{worksheet.Cells[row, 4].Text} not exist please first add this Ticker";
-					//                    await transaction.RollbackAsync();
-					//                }
-					//            }
-					//            else
-					//            {
-					//                return $@"{worksheet.Cells[row, 5].Text} not exist please first add this Stock Market";
-					//                await transaction.RollbackAsync();
-					//            }
-					//        }
-
-					//    }
-					//    await transaction.CommitAsync();
-					//    return "1";
-					//}
-				}
-				catch (Exception ex)
-                {
-                    await transaction.RollbackAsync();
-                    return ex.Message;
+                        }
+                    }
+                    else
+                    {
+                        josnList = new List<FundPricesImportDto>();
+                        return $@"{item.StockMarket} not exist please first add this Stock Market";
+                    }
                 }
+
+                if (josnList.Count > 0)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@Json", JsonSerializer.Serialize(josnList));
+                    parameters.Add("@StockMarketId", stockMarket.StockMarketID);
+                    parameters.Add("@PriceDate", list.Select(g => g.PriceDate).FirstOrDefault());
+
+                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice_New, parameters, commandType: CommandType.StoredProcedure);
+                }
+
+                return "1";
             }
-
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
-
-
-
-
     }
+
 }

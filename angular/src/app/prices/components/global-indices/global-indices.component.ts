@@ -178,7 +178,7 @@ export class GlobalIndicesComponent {
 
     const file = event.files[0];
     const reader = new FileReader();
-
+   
     reader.onload = (e: any) => {
       const data = e.target.result;
       const workbook = XLSX.read(data, { type: 'binary' });
