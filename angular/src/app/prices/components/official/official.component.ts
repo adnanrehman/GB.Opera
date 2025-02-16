@@ -231,58 +231,59 @@ export class OfficialComponent {
   
           // Format the data using the column names from the header row
           const formattedData = jsonData.slice(1).map((row: any) => {
-              console.log('Row:', row);  // Log each row to check the data
-  
-              // Using `trim()` to clean any potential extra spaces from headers
-              const sector = row[headers.indexOf('Sector')]?.trim();
-              const StockMarket = row[headers.indexOf('StockMarket')]?.trim();
-              const dateValue = row[headers.indexOf('Date')];
-  
-              const opening = parseFloat(row[headers.indexOf('Opening')])?.toFixed(2); // Parsing and fixing decimal places
-              const highest = parseFloat(row[headers.indexOf('Highest')])?.toFixed(2);
-              const lowest = parseFloat(row[headers.indexOf('Lowest')])?.toFixed(2);
-              const closing = parseFloat(row[headers.indexOf('Closing')])?.toFixed(2);
-              const volume = parseFloat(row[headers.indexOf('Volume')])?.toFixed(0); // Volume is an integer
-              const transactions = parseFloat(row[headers.indexOf('Transactions')])?.toFixed(0); // Transactions is an integer
-              const tradingValue = parseFloat(row[headers.indexOf('TradingValue')])?.toFixed(2);
-              const previousClose = parseFloat(row[headers.indexOf('PreviousClose')])?.toFixed(2);
-  
-              let date: Date | null = null;
-  
-              // Handle date formatting
-              if (typeof dateValue === 'number') {
-                  // Excel numeric date conversion (if number is passed)
-                  const dateCode = XLSX.SSF.parse_date_code(dateValue);
-                  date = new Date(Date.UTC(dateCode.y, dateCode.m - 1, dateCode.d));
-              } else if (typeof dateValue === 'string') {
-                  date = new Date(dateValue); // Parse string date
-              }
-  
-              // If date parsing fails, make sure to set it as null
-              if (isNaN(date?.getTime())) {
-                  date = null;
-              }
-  
-              // Return the formatted data with safe types
-              return {
-                  CurrencyExchangeID: 0,  // Assuming you want to initialize this as 0
-                  sector,
-                  StockMarket,
-                  date,
-                  opening,
-                  highest,
-                  lowest,
-                  closing,
-                  volume,
-                  transactions,
-                  tradingValue,
-                  previousClose
-              };
-          }).filter((item: any) => item !== null);  // Remove any invalid rows
-  
-          // Log formatted data to check the structure
-          console.log('Formatted Data:', formattedData);
-  
+          
+                   const StockMarket = row[headers.indexOf('StockMarket')]?.trim();
+             
+            
+                    // Using `trim()` to clean any potential extra spaces from headers
+                    const sector = row[headers.indexOf('Sector')]?.trim() == undefined ? null : row[headers.indexOf('Sector')]?.trim();
+                                  
+                                  
+                    const dateValue = row[headers.indexOf('Date')];
+
+                    const open = parseFloat(row[headers.indexOf('Open')])?.toFixed(2); // Parsing and fixing decimal places
+                    const high = parseFloat(row[headers.indexOf('High')])?.toFixed(2);
+                    const low = parseFloat(row[headers.indexOf('Low')])?.toFixed(2);
+                    const close = parseFloat(row[headers.indexOf('Close')])?.toFixed(2);
+                    const volume = parseFloat(row[headers.indexOf('Volume')])?.toFixed(0); // Volume is an integer
+                    const transaction = parseFloat(row[headers.indexOf('Transaction')])?.toFixed(0); // Transactions is an integer
+                    const value = parseFloat(row[headers.indexOf('Value')])?.toFixed(2);
+                    const previousClose = row[headers.indexOf('PreviousClose')]?.toFixed(2) == undefined ? null : row[headers.indexOf('PreviousClose')]?.toFixed(2);
+
+                    let date: Date | null = null;
+
+                    // Handle date formatting
+                    if (typeof dateValue === 'number') {
+                        // Excel numeric date conversion (if number is passed)
+                        const dateCode = XLSX.SSF.parse_date_code(dateValue);
+                        date = new Date(Date.UTC(dateCode.y, dateCode.m - 1, dateCode.d));
+                    } else if (typeof dateValue === 'string') {
+                        date = new Date(dateValue); // Parse string date
+                    }
+
+                    // If date parsing fails, make sure to set it as null
+                    if (isNaN(date?.getTime())) {
+                        date = null;
+                    }
+
+                    // Return the formatted data with safe types
+                    return {
+                        sector,
+                        StockMarket,
+                        date,
+                        open,
+                        high,
+                        low,
+                        close,
+                        volume,
+                        transaction,
+                        value,
+                        previousClose
+                    };
+              
+              
+          }).filter((item: any) => item.date != null);  // Remove any invalid rows
+
           // Pass the formatted data to the import function
           this.importCurrencyData(formattedData);
       };
@@ -292,20 +293,22 @@ export class OfficialComponent {
   
   
   importCurrencyData(data: any) {
-      this.loading = true;
-  
-      if (!Array.isArray(data)) {
-          console.error('Data passed to importCurrencyData is not an array:', data);
-          return;
-      }
-  
-      if (!Array.isArray(this.importofficail)) {
-          console.error('this.importofficail is not an array. Initializing as an empty array.');
-          this.importofficail = [];
-      }
-  
-      console.log('Imported Currencies:', data);
-      this.importofficail = [...this.importofficail, ...data];
+    this.loading = true;
+    console.log(data);
+    if (!Array.isArray(data)) {
+      console.error('Data passed to import Official Indices Data is not an array:', data);
+      return;
+    }
+      
+            this.importofficail = [];  
+            this.importofficail = [...this.importofficail, ...data];
+
+            if (!Array.isArray(this.importofficail)) {
+              console.error('this.importofficail is not an array. Initializing as an empty array.');
+              this.importofficail = [];
+            }
+        
+
       this.loading = false;
   }
 
@@ -318,14 +321,14 @@ export class OfficialComponent {
         showConfirmButton: false,
         timer: 4000,
         title: 'Error!',
-        text: 'No currencies to save.',
+        text: 'No Official Indices to save.',
         icon: 'error',
       });
       return;  // Prevent further execution
     }
 
     this.loading = true; // Show loading spinner
-debugger;
+    this.importofficail = this.importofficail.filter((x: any | null): x is any => x !== null);
      this.officialIndicsService.importOfficialIndicesByList(this.importofficail).subscribe(
       res => {
         if(res == "1"){
@@ -338,6 +341,7 @@ debugger;
             text: 'Saved successfully',
             icon: 'success',
           });
+          this.loading = false;
         }else{
           Swal.fire({
             toast: true,
@@ -364,6 +368,7 @@ debugger;
           text: 'Failed to save data',
           icon: 'error',
         });
+        this.loading = false;
       },
       () => {
         this.loading = false; // Hide loading spinner when the request completes

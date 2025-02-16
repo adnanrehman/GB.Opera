@@ -24,6 +24,7 @@ using GB.Opera.constants;
 using GB.Opera.OfficialsIndics;
 using Castle.MicroKernel.Registration;
 using Companies;
+using System.Text.Json;
 
 namespace FundPrices
 {
@@ -63,61 +64,56 @@ namespace FundPrices
 		public async Task<string> ImportMFundPrices(List<MFundPrices> list)
 		{
 			_connection.Open();
-            using (var transaction = _connection.BeginTransaction())
+            List<MFundPrices> josnList = new List<MFundPrices>();
+            try
             {
-				try
-				{
-					var mFunds = await _connection.QueryAsync<MFunds>($@"SELECT * FROM Mfunds", transaction: transaction);
-					var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT * FROM Companies", transaction: transaction);
+                var mFunds = await _connection.QueryAsync<MFunds>($@"Select MFundID,Name,ShortName from MFunds");
+                var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT * FROM Companies");
 
-					foreach (var item in list)
-					{
-						if (!string.IsNullOrEmpty(item.Ticker) && !string.IsNullOrEmpty(item.MFund))
-						{
-							var company = Companies.Where(f => f.Ticker.ToUpper() == (item.Ticker).ToUpper()).FirstOrDefault();
-							if (company != null)
-							{
-								var mfund = mFunds.Where(f => f.ShortName.ToUpper() == (item.MFund).ToUpper() && f.CompanyID == company.CompanyID).FirstOrDefault();
-								if (mfund != null)
-								{
-									var parameters = new DynamicParameters();
-									parameters.Add("@MFundPriceID", item.MFundPriceID);
-									parameters.Add("@MFundID", mfund.MFundID);
-									parameters.Add("@PriceDate", item.PriceDate);
-									parameters.Add("@ClosingPrice", item.ClosingPrice);
-									parameters.Add("@TradingVolume", item.TradingVolume);
-									parameters.Add("@LastClosePrice", null);
-									parameters.Add("@LastUpdated", null);
-									parameters.Add("@IsActive", true);
+                foreach (var item in list)
+                {
+                    if (!string.IsNullOrEmpty(item.Ticker) && !string.IsNullOrEmpty(item.MFund))
+                    {
+                        var company = Companies.Where(f => f.Ticker.ToUpper() == (item.Ticker).ToUpper()).FirstOrDefault();
+                        if (company != null)
+                        {
+                            var mfund = mFunds.Where(f => f.ShortName.ToUpper() == (item.MFund).ToUpper() && f.CompanyID == company.CompanyID).FirstOrDefault();
+                            if (mfund != null)
+                            {
+                                josnList.Add(new MFundPrices
+                                {
+                                    PriceDate = item.PriceDate,
+                                    MFundID = mfund.MFundID,
+                                    ClosingPrice = item.ClosingPrice,
+                                    TradingVolume = item.TradingVolume
+                                });
+                            }
+                            else
+                            {
+                                return $@"{item.Ticker} not exist please first add this Company";
 
-									await _connection.ExecuteAsync(ProcedureNames.usp_InsertMFundPrices, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
-								}
-								else
-								{
-									return $@"{item.Ticker} not exist please first add this Company";
-									await transaction.RollbackAsync();
-								}
-							}
-							else
-							{
-								return $@"{item.MFund} not exist please first add this Mutual Fund";
-								await transaction.RollbackAsync();
-							}
-						}
+                            }
+                        }
+                        else
+                        {
+                            return $@"{item.MFund} not exist please first add this Mutual Fund";
+                        }
+                    }
+                }
+                if (josnList.Count > 0)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@Json", JsonSerializer.Serialize(josnList));
+                    parameters.Add("@PriceDate", josnList.Select(g => g.PriceDate).FirstOrDefault());
+                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertMFundPrices, parameters, commandType: CommandType.StoredProcedure);
+                }
+                return "1";
+            }
+            catch (Exception ex)
+            {
 
-					}
-					await transaction.CommitAsync();
-					return "1";
-
-					
-				}
-				catch (Exception ex)
-				{
-					await transaction.RollbackAsync();
-					return ex.Message;
-				}
-			}
-				
+                return ex.Message;
+            }
 		}
 	}
 }

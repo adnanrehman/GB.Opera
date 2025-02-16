@@ -28158,6 +28158,18 @@
           "regex": null
         },
         {
+          "name": "StockMarketID",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "Date",
           "jsonName": null,
           "type": "System.DateTime",
@@ -28251,10 +28263,34 @@
           "regex": null
         },
         {
+          "name": "StockMarketId",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "Sector",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SectorId",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -28275,7 +28311,7 @@
           "regex": null
         },
         {
-          "name": "Opening",
+          "name": "Open",
           "jsonName": null,
           "type": "System.Decimal",
           "typeSimple": "number",
@@ -28287,7 +28323,7 @@
           "regex": null
         },
         {
-          "name": "Highest",
+          "name": "High",
           "jsonName": null,
           "type": "System.Decimal",
           "typeSimple": "number",
@@ -28299,7 +28335,7 @@
           "regex": null
         },
         {
-          "name": "Lowest",
+          "name": "Low",
           "jsonName": null,
           "type": "System.Decimal",
           "typeSimple": "number",
@@ -28311,7 +28347,7 @@
           "regex": null
         },
         {
-          "name": "Closing",
+          "name": "Close",
           "jsonName": null,
           "type": "System.Decimal",
           "typeSimple": "number",
@@ -28335,7 +28371,7 @@
           "regex": null
         },
         {
-          "name": "Transactions",
+          "name": "Transaction",
           "jsonName": null,
           "type": "System.Decimal",
           "typeSimple": "number",
@@ -28347,7 +28383,7 @@
           "regex": null
         },
         {
-          "name": "TradingValue",
+          "name": "Value",
           "jsonName": null,
           "type": "System.Decimal",
           "typeSimple": "number",
@@ -28361,8 +28397,20 @@
         {
           "name": "PreviousClose",
           "jsonName": null,
-          "type": "System.Decimal",
-          "typeSimple": "number",
+          "type": "System.Decimal?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LastUpdated",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

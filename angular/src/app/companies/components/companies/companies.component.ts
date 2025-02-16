@@ -183,13 +183,13 @@ export class CompaniesComponent {
 
   
   
-
+ 
   handleCompany(company: CompanyDto) {
     debugger; 
     this.company = company;
     this.companyActivation = this.company.isActive ? 1 : 0;
     const date = new Date(this.company.establishmentDate);
-this.company.establishmentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    this.company.establishmentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()).toString();
 
   }
 

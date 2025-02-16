@@ -26,6 +26,7 @@ export interface GulfbasePrices {
 
 export interface ImportGlobalIndicesDto {
   stockMarket?: string;
+  stockMarketID: number;
   date?: string;
   open: number;
   high: number;
@@ -36,16 +37,19 @@ export interface ImportGlobalIndicesDto {
 
 export interface ImportOfficialIndicesDto {
   stockMarket?: string;
+  stockMarketId: number;
   sector?: string;
+  sectorId?: number;
   date?: string;
-  opening: number;
-  highest: number;
-  lowest: number;
-  closing: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
   volume: number;
-  transactions: number;
-  tradingValue: number;
-  previousClose: number;
+  transaction: number;
+  value: number;
+  previousClose?: number; 
+  lastUpdated?: string;
 }
 
 export interface MFundCompanies {

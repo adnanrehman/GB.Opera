@@ -92,55 +92,58 @@ namespace GB.Opera.EndOfDay
 
                 foreach (var item in list)
                 {
-                    if (item.Id > 0 && !string.IsNullOrEmpty(item.Ticker) && !string.IsNullOrEmpty(item.StockMarket))
+                    if (item != null)
                     {
-
-                    }
-
-                    if (stockMarket != null)
-                    {
-                        var ticker = Companies.Where(f => f.Ticker.Trim().ToUpper() == (item.Ticker).Trim().ToUpper()).FirstOrDefault();
-                        if (ticker != null)
+                        if (item.Id > 0 && !string.IsNullOrEmpty(item.Ticker) && !string.IsNullOrEmpty(item.StockMarket))
                         {
 
-                            josnList.Add(new FundPricesImportDto
+                        }
+
+                        if (stockMarket != null)
+                        {
+                            var ticker = Companies.Where(f => f.Ticker.Trim().ToUpper() == (item.Ticker).Trim().ToUpper()).FirstOrDefault();
+                            if (ticker != null)
                             {
-                                StockMarketId = stockMarket.StockMarketID,
-                                CompanyId = ticker.CompanyID,
-                                PriceDate = item.PriceDate,
-                                OpeningPrice = item.OpeningPrice,
-                                HighestPrice = item.HighestPrice,
-                                LowestPrice = item.LowestPrice,
-                                ClosingPrice = item.ClosingPrice,
-                                TradingVolume = item.TradingVolume,
-                                Trades = item.Trades,
-                                TradingValue = item.TradingValue,
-                                LastClosedPrice = null,
-                                LastUpdated = DateTime.Now
-                            });
+
+                                josnList.Add(new FundPricesImportDto
+                                {
+                                    StockMarketId = stockMarket.StockMarketID,
+                                    CompanyId = ticker.CompanyID,
+                                    PriceDate = item.PriceDate,
+                                    OpeningPrice = item.OpeningPrice,
+                                    HighestPrice = item.HighestPrice,
+                                    LowestPrice = item.LowestPrice,
+                                    ClosingPrice = item.ClosingPrice,
+                                    TradingVolume = item.TradingVolume,
+                                    Trades = item.Trades,
+                                    TradingValue = item.TradingValue,
+                                    LastClosedPrice = null,
+                                    LastUpdated = DateTime.Now
+                                });
 
 
-                            //parameters.Add("@ClosingPrice", item.ClosingPrice);
-                            //parameters.Add("@TradingVolume", item.TradingVolume);
-                            //parameters.Add("@Trades", item.Trades);
-                            //parameters.Add("@TradingValue", item.TradingValue);
-                            //parameters.Add("@LastClosedPrice", null);
-                            //parameters.Add("@LastUpdated", DateTime.Now);
-                            //parameters.Add("@IsActive", true);
-                            //await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice_New, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
+                                //parameters.Add("@ClosingPrice", item.ClosingPrice);
+                                //parameters.Add("@TradingVolume", item.TradingVolume);
+                                //parameters.Add("@Trades", item.Trades);
+                                //parameters.Add("@TradingValue", item.TradingValue);
+                                //parameters.Add("@LastClosedPrice", null);
+                                //parameters.Add("@LastUpdated", DateTime.Now);
+                                //parameters.Add("@IsActive", true);
+                                //await _connection.ExecuteAsync(ProcedureNames.usp_InsertPrice_New, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
 
+                            }
+                            else
+                            {
+                                josnList = new List<FundPricesImportDto>();
+                                return $@"{item.Ticker} not exist please first add this Ticker";
+
+                            }
                         }
                         else
                         {
                             josnList = new List<FundPricesImportDto>();
-                            return $@"{item.Ticker} not exist please first add this Ticker";
-
+                            return $@"{item.StockMarket} not exist please first add this Stock Market";
                         }
-                    }
-                    else
-                    {
-                        josnList = new List<FundPricesImportDto>();
-                        return $@"{item.StockMarket} not exist please first add this Stock Market";
                     }
                 }
 

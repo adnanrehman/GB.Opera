@@ -11,7 +11,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Transactions;
 using Volo.Abp.Application.Services;
@@ -126,112 +128,130 @@ namespace GB.Opera.OfficialsIndics
         public async Task<string> ImportOfficialIndices(List<ImportOfficialIndicesDto> list)
         {
             _connection.Open();
-            using (var transaction = _connection.BeginTransaction())
+
+            try
             {
-                try
+                var stockMarkets = await _connection.QueryAsync<StockMarketDto>($@"SELECT * FROM StockMarkets");
+
+                var sectors = await _connection.QueryAsync<SectorDto>($@"SELECT * FROM Sectors");
+                var sector = new SectorDto();
+                List<ImportOfficialIndicesDto> josnList = new List<ImportOfficialIndicesDto>();
+               
+                foreach (var item in list)
                 {
-                    var stockMarkets = await _connection.QueryAsync<StockMarketDto>($@"SELECT * FROM StockMarkets", transaction: transaction);
-                    var Companies = await _connection.QueryAsync<SectorDto>($@"SELECT * FROM Sectors", transaction: transaction);
 
+                    var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (item.StockMarket).ToUpper()).FirstOrDefault();
+                    if (stockMarket != null)
+                    {
+                        int? sectorId = null;
+                       
+                        if (!string.IsNullOrWhiteSpace(item.Sector))
+                        {
+                            sector = sectors.Where(f => f.Sector.Trim().ToUpper() == (item.Sector.Trim()).ToUpper()).FirstOrDefault();
 
-					foreach (var item in list)
-					{
-						if (!string.IsNullOrEmpty(item.Sector) && !string.IsNullOrEmpty(item.StockMarket))
-						{
-							var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (item.StockMarket).ToUpper()).FirstOrDefault();
-							if (stockMarket != null)
-							{
-								var ticker = Companies.Where(f => f.Sector.ToUpper() == (item.Sector).ToUpper()).FirstOrDefault();
-								if (ticker != null)
-								{
-									var parameters = new DynamicParameters();
-									parameters.Add("@StockMarket", item.StockMarket);
-									parameters.Add("@Sector", item.Sector);
-									parameters.Add("@Date", item.Date);
-									parameters.Add("@Opening", item.Opening);
-									parameters.Add("@Highest", item.Highest);
-									parameters.Add("@Lowest", item.Lowest);
-									parameters.Add("@Closing", item.Closing);
-									parameters.Add("@Volume", item.Volume);
-									parameters.Add("@Transactions", item.Transactions);
-									parameters.Add("@TradingValue", item.TradingValue);
-									parameters.Add("@PreviousClose", item.PreviousClose);
-									parameters.Add("@LastUpdated", DateTime.Now);
-									await _connection.ExecuteAsync(ProcedureNames.usp_InsertOfficialIndices, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
-								}
-								else
-								{
-									return $@"{item.Sector} not exist please first add this Sector";
-									await transaction.RollbackAsync();
-								}
-							}
-							else
-							{
-								return $@"{item.StockMarket} not exist please first add this Stock Market";
-								await transaction.RollbackAsync();
-							}
-						}
+                            if (sector == null)
+                            {
+                                return $@"{item.Sector} not exist please first add this Sector";
+                            }
+                            sectorId = sector.SectorID;
+                        }
 
-					}
-					await transaction.CommitAsync();
-					return "1";
-				}
-                catch (Exception ex)
-                {
-                    await transaction.RollbackAsync();
-                    return ex.Message;
+                        josnList.Add(new ImportOfficialIndicesDto
+                        {
+                            StockMarketId = stockMarket.StockMarketID,
+                            SectorId = sectorId,
+                            Date = item.Date,
+                            Open = item.Open,
+                            High = item.High,
+                            Low = item.Low,
+                            Close = item.Close,
+                            Volume = item.Volume,
+                            Transaction = item.Transaction,
+                            Value = item.Value,
+                            PreviousClose = item.PreviousClose,
+                            LastUpdated = DateTime.Now,
+
+                        });
+                    }
+                    else
+                    {
+                        return $@"{item.StockMarket} not exist please first add this Stock Market";
+                    }
+                    //}
                 }
+
+                if (josnList.Count > 0)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@Json", JsonSerializer.Serialize(josnList));
+                    parameters.Add("@StockMarketId", josnList.Select(g => g.StockMarketId).FirstOrDefault());
+                    parameters.Add("@Date", josnList.Select(g => g.Date).FirstOrDefault());
+                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertOfficialIndices, parameters, commandType: CommandType.StoredProcedure);
+                }
+
+                return "1";
             }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+
 
         }
 
         public async Task<string> ImportGlobalIndices(List<ImportGlobalIndicesDto> list)
         {
-            
+
             _connection.Open();
-            using (var transaction = _connection.BeginTransaction())
+
+            List<ImportGlobalIndicesDto> josnList = new List<ImportGlobalIndicesDto>();
+            try
             {
-                try
+                foreach (var item in list)
                 {
-						foreach (var item in list)
-						{
-						if (!string.IsNullOrEmpty(item.StockMarket))
-						{
-							var stockMarkets = await _connection.QueryAsync<StockMarketDto>($@"SELECT * FROM StockMarkets", transaction: transaction);
-							var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (item.StockMarket).ToUpper()).FirstOrDefault();
-							if (stockMarket != null)
-							{
+                    if (item != null)
+                    {
+                        if (!string.IsNullOrEmpty(item.StockMarket))
+                        {
+                            var stockMarkets = await _connection.QueryAsync<StockMarketDto>($@"SELECT * FROM StockMarkets");
+                            var stockMarket = stockMarkets.Where(f => f.Abbr.ToUpper() == (item.StockMarket).ToUpper()).FirstOrDefault();
+                            if (stockMarket != null)
+                            {
 
-								var parameters = new DynamicParameters();
-								//parameters.Add("@StockMarket", worksheet.Cells[row, 2].Text);
-								parameters.Add("@StockMarket", item.StockMarket);
-								parameters.Add("@Date",item.Date);
-								parameters.Add("@Open", item.Open);
-								parameters.Add("@High", item.High);
-								parameters.Add("@Low", item.Low);
-								parameters.Add("@Close", item.Close);
-								parameters.Add("@Volume", item.Volume);
-								await _connection.ExecuteAsync(ProcedureNames.usp_InsertGlobalIndices, parameters, transaction: transaction, commandType: CommandType.StoredProcedure);
-
-							}
-							else
-							{
-								await transaction.RollbackAsync();
-								return $@"{item.StockMarket} not exist please first add this Stock Market";
-							}
-						}
-
-					}
-					await transaction.CommitAsync();
-					return "1";
-				}
-                catch (Exception ex)
-                {
-                    await transaction.RollbackAsync();
-                    return ex.Message;
+                                josnList.Add(new ImportGlobalIndicesDto
+                                {
+                                    StockMarketID = stockMarket.StockMarketID,
+                                    Date = item.Date,
+                                    Open = item.Open,
+                                    High = item.High,
+                                    Low = item.Low,
+                                    Close = item.Close,
+                                    Volume = item.Volume
+                                });
+                            }
+                            else
+                            {
+                                return $@"{item.StockMarket} not exist please first add this Stock Market";
+                            }
+                        }
+                    }
                 }
-            }
 
+                if (josnList.Count > 0)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@Json", JsonSerializer.Serialize(josnList));
+                    parameters.Add("@Date", josnList.Select(g=> g.Date).FirstOrDefault());
+                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertGlobalIndices, parameters, commandType: CommandType.StoredProcedure);
+                }
+                return "1";
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
         }
     }
 }

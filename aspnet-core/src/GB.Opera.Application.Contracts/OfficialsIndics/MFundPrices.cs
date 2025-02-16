@@ -24,21 +24,28 @@ namespace GB.Opera.OfficialsIndics
     public class ImportOfficialIndicesDto
     {
         public string StockMarket { get; set; }
-        public string Sector { get; set; }
+
+        public int StockMarketId { get; set; }
+        public string? Sector { get; set; }
+
+        public int? SectorId { get; set; }
+
         public DateTime Date { get; set; }
-        public decimal Opening { get; set; }
-        public decimal Highest { get; set; }
-        public decimal Lowest { get; set; }
-        public decimal Closing { get; set; }
+        public decimal Open { get; set; }
+        public decimal High { get; set; }
+        public decimal Low { get; set; }
+        public decimal Close { get; set; }
         public decimal Volume { get; set; }
-        public decimal Transactions { get; set; }
-        public decimal TradingValue { get; set; }
-        public decimal PreviousClose { get; set; }
+        public decimal Transaction { get; set; }
+        public decimal Value { get; set; }
+        public decimal? PreviousClose { get; set; }
+        public DateTime? LastUpdated { get; set; }
     }
 
 	public class ImportGlobalIndicesDto
 	{
 		public string StockMarket { get; set; }
+		public int StockMarketID { get; set; }
 		public DateTime Date { get; set; }
 		public decimal Open { get; set; }
 		public decimal High { get; set; }
