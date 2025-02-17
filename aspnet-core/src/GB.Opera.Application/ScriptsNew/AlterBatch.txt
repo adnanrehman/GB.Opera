@@ -49,8 +49,8 @@ INSERT INTO [Batches]
       ,@ASource      
       ,@StatusID      
       ,@AsofDate  
-	  ,27
-	  ,27
+	  ,null
+	  ,null
       ,@EntryUserID      
       ,@ReEntryUserID      
       ,@Remarks      

@@ -155,7 +155,9 @@
                         <td>{{ item.announcedDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{ item.announcement }}</td>
                         <td>{{ item.aAnnouncement }}</td>
-                        <td>{{ item.isActive }}</td>
+                        <td>
+                          <input type="checkbox" [checked]="item.isActive" />
+                        </td>
                         <td>  <button type="button"  class="btn btn-sm btn-danger" (click)="deleteCorporateAnnouncement(item.corporateAnnouncementID)"><i class="fa fa-sm fa-close me-1"
                             ></i></button></td>
                       </tr>
