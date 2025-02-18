@@ -195,8 +195,8 @@ export class FinancialsAdminComponent {
     }
 
     // Directly proceed with the update method without performing the check
-    this.newReviewFinancial.asOfDate = moment(this.newReviewFinancial.asOfDate).format();
-
+    this.newReviewFinancial.asOfDate = this.newReviewFinancial.asOfDate;
+   
     // Call the update method
     this.financialsAdminService.updateAdminFinancialsByInput(this.newReviewFinancial).subscribe(
         (updateRes) => {
