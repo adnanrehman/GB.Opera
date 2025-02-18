@@ -7,7 +7,7 @@
             <div class="card-header">
               <div class="row">
                 <div class="col-md-8">
-                  <h6>FINEBOX</h6>
+                  <h6><a href="JavaScript:void(0)" (click)="getStatusFinancialsByUserId()">FINEBOX</a></h6>
                 </div>
                 <div class="col-md-2 ps-1 pe-1 text-end">
                   <!-- <a class="btn btn-sm btn-link">Report (P)</a> -->
@@ -171,15 +171,15 @@
                 </div>
               </div>
               <div class="row mt-2">
-                <div class="col-md-6">
+                <div class="col-md-12 text-end">
                     <button *ngIf="permission.create" type="button" (click)="SavePending()"  class="btn btn-sm btn-block btn-primary">Save (Pending)</button>
                 </div>
-                <div class="col-md-3 text-end">
+                <!-- <div class="col-md-3 text-end">
                     <button class="btn btn-sm btn-block btn-primary" type="button" (click)="forward()">Forward</button>
                 </div>
                 <div class="col-md-3 text-end">
                     <button class="btn btn-sm btn-block btn-primary">Review</button>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-md-2">
@@ -189,7 +189,7 @@
                     </div>
                     <div class="card-body p-1 text-center" style="height: 35rem;overflow: auto;">
                       <ng-container *ngFor="let item of asOfDates;">
-                        <a (click)="getAsofDatesFinancials(item)" class="btn btn-sm btn-link">{{item.asOfDate}}</a>
+                        <a (click)="getAsofDatesFinancials(item)" style="cursor: pointer;" [ngClass]="{'fw-bold': asOfDate === item}" class="btn btn-sm btn-link cursor-pointer">{{item.asOfDate}}</a>
                      </ng-container>
                         
                     </div>
@@ -201,7 +201,7 @@
                     <h6>Review Financial:</h6>
                   </div>
                   <div class="col-md-6">
-                    <h6>As Of Date: {{statusFinanial.asOfDate | date : 'MM/dd/yyyy'}}</h6>
+                    <h6>As Of Date: {{asOfDate.asOfDate}}</h6>
                   </div>
                 </div>
                 <div class="row">
@@ -245,15 +245,15 @@
                   </div>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-6">
+                    <div class="col-md-12 text-end">
                         <button class="btn btn-sm btn-block btn-primary" type="button" (click)="ComitChanges()">Commit Changes</button>
                     </div>
-                    <div class="col-md-3">
-                        <!-- <button class="btn btn-sm btn-block btn-primary">Forward</button> -->
+                    <!-- <div class="col-md-3">
+                        <button class="btn btn-sm btn-block btn-primary">Forward</button> 
                     </div>
                     <div class="col-md-3 text-end">
                         <button class="btn btn-sm btn-block btn-primary">Review</button>
-                    </div>
+                    </div> -->
                   </div>
               </div>
           </div>

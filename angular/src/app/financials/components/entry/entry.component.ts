@@ -83,9 +83,11 @@ export class EntryComponent {
   }
 
   getStatusFinancialsByUserId() {
+    this.loading =true;
     this.entryService.getStatusFinancialsByUserId(this.userId).subscribe(res => {
       this.statusFinancials = res;
       this.statusFinancialsFilterData = res;
+      this.loading =false;
     });
   }
 

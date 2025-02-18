@@ -176,7 +176,7 @@ public class FileController : AbpController
         }
         row++;
 
-        foreach (var item in output.IncomeStatement)
+        foreach (var item in output.IncomeStatement.GroupBy(x => x.Account).Select(y => y.First()))
         {
             var column = 1;
             worksheet.Column(column).Width = 40;
@@ -188,7 +188,7 @@ public class FileController : AbpController
             }
             row++;
         }
-        row++;
+        //row++;
         row++;
         var headersNew = output.BalanceSheet.GroupBy(x => x.AsOfDate).Select(y => y.First());
         var colNew = 1;
@@ -209,7 +209,7 @@ public class FileController : AbpController
         }
         row++;
 
-        foreach (var item in output.BalanceSheet)
+        foreach (var item in output.BalanceSheet.GroupBy(x => x.Account).Select(y => y.First()))
         {
             var columnNew = 1;
             worksheet.Column(columnNew).Width = 40;
