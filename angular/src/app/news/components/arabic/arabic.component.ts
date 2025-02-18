@@ -360,7 +360,7 @@ export class ArabicComponent {
     this.newsArab.gulfBaseSectorID = this.sectorID;
     this.newsArab.langID = false;
     this.newsArab.isApproved=false;
-    this.newsArab.date = moment(this.newsArab.date).format();
+    // this.newsArab.date = moment(this.newsArab.date).format();
     this.newsArabService.createOrUpdateNewsByInput(this.newsArab).subscribe(res => {
       debugger;
       if (this.newsArab.newsID > 0) {
@@ -408,7 +408,7 @@ export class ArabicComponent {
     this.newsArab.gulfBaseSectorID = this.sectorID;
     this.newsArab.langID = false;
     this.newsArab.isApproved=true;
-    this.newsArab.date = moment(this.newsArab.date).format();
+    // this.newsArab.date = moment(this.newsArab.date).format();
     this.newsArabService.createOrUpdateNewsByInput(this.newsArab).subscribe(res => {
       debugger;
       if (this.newsArab.newsID > 0) {

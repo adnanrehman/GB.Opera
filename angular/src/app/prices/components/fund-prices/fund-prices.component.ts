@@ -189,7 +189,7 @@ export class FundPricesComponent {
     }
     else{
       this.fundPrice.mFundID = this.fundID;
-      this.fundPrice.priceDate = moment(this.fundPrice.priceDate).format();
+      // this.fundPrice.priceDate = moment(this.fundPrice.priceDate).format();
       this.fundPriceService.insertMFundPricesByModel(this.fundPrice).subscribe(res => {
         debugger;
         if (this.fundPrice.mFundPriceID > 0) {

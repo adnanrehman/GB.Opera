@@ -524,8 +524,8 @@ export class ManagementComponent {
   createOrUpdateBMembers() {
     this.loading = true;
     this.boardMember.isActive = this.boardMemberActivation == 1 ? true : false;
-    this.boardMember.since = moment(this.boardMember.since).format();
-    this.boardMember.till = moment(this.boardMember.till).format();
+    // this.boardMember.since = moment(this.boardMember.since).format();
+    // this.boardMember.till = moment(this.boardMember.till).format();
     if (this.boardMember.companyID == 0) this.boardMember.companyID = this.companyID;
     this.companyManagmentService.createOrUpdateBMembersByModel(this.boardMember).subscribe(
       res => {

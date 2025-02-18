@@ -147,7 +147,7 @@ export class BatchesAdminComponent {
     }
 
     try {
-      this.searchBatches.asofDate = moment(this.searchBatches.asofDate).format();
+      // this.searchBatches.asofDate = moment(this.searchBatches.asofDate).format();
       // Call service to update the batches and subscribe to the Observable
       this.batchAdminService.insertBatchesadminByList(this.searchBatches).subscribe(
         (response) => {

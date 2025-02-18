@@ -237,13 +237,13 @@ export class HistoricalCashDividendsComponent {
     debugger;
     this.loading = true;
     this.historicalCashDividend.companyID = this.companyID;
-    this.historicalCashDividend.asOfDateTime = moment(this.historicalCashDividend.asOfDateTime).format();
-    this.historicalCashDividend.announcedOnDateTime = moment(this.historicalCashDividend.announcedOnDateTime).format();
-    this.historicalCashDividend.approvedOnDateTime = moment(this.historicalCashDividend.approvedOnDateTime).format();
-    this.historicalCashDividend.dueOnDateTime = moment(this.historicalCashDividend.dueOnDateTime).format();
-    this.historicalCashDividend.xDividendDateTime = moment(this.historicalCashDividend.xDividendDateTime).format();
+    // this.historicalCashDividend.asOfDateTime = moment(this.historicalCashDividend.asOfDateTime).format();
+    // this.historicalCashDividend.announcedOnDateTime = moment(this.historicalCashDividend.announcedOnDateTime).format();
+    // this.historicalCashDividend.approvedOnDateTime = moment(this.historicalCashDividend.approvedOnDateTime).format();
+    // this.historicalCashDividend.dueOnDateTime = moment(this.historicalCashDividend.dueOnDateTime).format();
+    // this.historicalCashDividend.xDividendDateTime = moment(this.historicalCashDividend.xDividendDateTime).format();
     this.divindedDates.forEach((item, index) => {
-      item.cashDivDate = moment(item.cashDivDate).format();
+      // item.cashDivDate = moment(item.cashDivDate).format();
     });
     var obj: CreateHistoricalCashDividendDto = {
       historicalCashDividend: this.historicalCashDividend,

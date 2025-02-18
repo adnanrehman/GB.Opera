@@ -193,8 +193,8 @@ export class CompQnetPComponent {
     debugger;
     this.loading = true;
     this.companiesQNetProfit.companyID = this.companyID;
-    this.companiesQNetProfit.asOfDate = moment(this.companiesQNetProfit.asOfDate).format();
-    this.companiesQNetProfit.announcementDate = moment(this.companiesQNetProfit.announcementDate).format();
+    // this.companiesQNetProfit.asOfDate = moment(this.companiesQNetProfit.asOfDate).format();
+    // this.companiesQNetProfit.announcementDate = moment(this.companiesQNetProfit.announcementDate).format();
 
 
 

@@ -366,7 +366,7 @@ if(!this.newsEng.newsCategoryID){
     this.newsEng.gulfBaseSectorID = this.sectorID;
     this.newsEng.langID = true;
     this.newsEng.isApproved = false;
-    this.newsEng.date = moment(this.newsEng.date).format();
+    // this.newsEng.date = moment(this.newsEng.date).format();
     this.newsEngService.createOrUpdateNewsByInput(this.newsEng).subscribe(res => {
       debugger;
       if (this.newsEng.newsID > 0) {
@@ -418,7 +418,7 @@ if(!this.newsEng.newsCategoryID){
     this.newsEng.gulfBaseSectorID = this.sectorID;
     this.newsEng.langID = true;
     this.newsEng.isApproved = true;
-    this.newsEng.date = moment(this.newsEng.date).format();
+    // this.newsEng.date = moment(this.newsEng.date).format();
     this.newsEngService.createOrUpdateNewsByInput(this.newsEng).subscribe(res => {
       debugger;
       if (this.newsEng.newsID > 0) {

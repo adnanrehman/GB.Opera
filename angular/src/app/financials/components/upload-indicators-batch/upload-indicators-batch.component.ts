@@ -189,7 +189,7 @@ export class UploadIndicatorsBatchComponent {
     try {
       debugger;
       this.loading =true;
-      this.uploadBatch.asofDate = moment(this.uploadBatch.asofDate).format();
+      // this.uploadBatch.asofDate = moment(this.uploadBatch.asofDate).format();
       this.uploadBatch.countryID = this.countries.find(f => f.abbr == this.country).countryID;
       // Call service to update the batches and subscribe to the Observable
       this.uploadBatchService.insertBatchByInput(this.uploadBatch).subscribe(
