@@ -223,12 +223,12 @@ getEntryusers()
   }
 
   createUploadFinancial() {
-    debugger;
+   
     this.loading = true;
     this.uploadFinancial.companyID = this.companyID;
     this.uploadFinancial.userID = this.userId;
-    this.uploadFinancial.asOfDate = moment(this.uploadFinancial.asOfDate).format();
-  
+    this.uploadFinancial.asOfDate = this.uploadFinancial.asOfDate;
+    
     // Call the service to check if the period already exists for the given year and company
     this.uploadService.checkfinancialyearByYearAndQPeriodIDAndCompanyID(this.uploadFinancial.year.toString(),
       this.uploadFinancial.qPeriodId,

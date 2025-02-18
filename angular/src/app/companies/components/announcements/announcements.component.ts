@@ -213,7 +213,7 @@ export class AnnouncementsComponent {
       
    if (this.corporateAnnouncement.isActive===false)
    {
-    this.corporateAnnouncement.announcedDate = moment(this.corporateAnnouncement.announcedDate).format();
+    this.corporateAnnouncement.announcedDate = this.corporateAnnouncement.announcedDate;
     // this.corporateAnnouncement.announcedDate = this.corporateAnnouncement.announcedDateTime;
     this.corporateAnnouncement.ticker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker
     

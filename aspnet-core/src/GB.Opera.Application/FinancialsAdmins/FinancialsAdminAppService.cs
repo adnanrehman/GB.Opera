@@ -79,7 +79,7 @@ namespace FinancialsAdmins
                 parameters.Add("@IsAudited", input.IsAudited);
                 parameters.Add("@IsActive", input.IsActive);
                 parameters.Add("@FinancialEntryTypeID", input.FinancialEntryTypeID);
-                parameters.Add("@AsOfDate", input.AsOfDate);
+                parameters.Add("@AsOfDate", input.AsOfDate.Date.ToString("MM-dd-yyyy"));
                 parameters.Add("@PeriodTypeID", input.PeriodTypeID);
                 parameters.Add("@Year", input.Year);
                 parameters.Add("@QPeriod", input.QPeriod);
