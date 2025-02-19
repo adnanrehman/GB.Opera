@@ -1066,6 +1066,21 @@
                           placeholder="Beta"
                         />
                     </div>
+
+                    <div class="col-md-6">
+                      <label class="col-form-label">Activation</label>
+                      <p-dropdown
+                      [(ngModel)]="companyFinancialOverviewActivation"
+                      [ngModelOptions]="{ standalone: true }"
+                      [options]="overviewDropdown"
+                      placeholder="Select  Activation"
+                      optionLabel="displayText"
+                      optionValue="value"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                      >
+                      </p-dropdown>
+                    </div>
                 </div>
                 <div class="row mt-2">
                   <div class="col-md-12">
@@ -1272,6 +1287,22 @@
                           placeholder="Tele Phone"
                         />
                     </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Activation</label>
+                      <p-dropdown
+                      [(ngModel)]="contactInformationActivation"
+                      [ngModelOptions]="{ standalone: true }"
+                      [options]="contactsDropdown"
+                      placeholder="Select a Company Activation"
+                      optionLabel="displayText"
+                      optionValue="value"
+                      [style]="{ width: '100%' }"
+                      [showClear]="true"
+                      >
+                      </p-dropdown>
+                    </div>
+
+
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-12">

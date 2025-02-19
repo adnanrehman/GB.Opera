@@ -141,6 +141,16 @@ export class ManagementComponent {
     { value: 0, displayText: 'No' },
     { value: 1, displayText: 'Yes' },
   ];
+  overviewDropdown: any[] = [
+    { value: 0, displayText: 'No' },
+    { value: 1, displayText: 'Yes' },
+  ];
+
+
+  contactsDropdown: any[] = [
+    { value: 0, displayText: 'No' },
+    { value: 1, displayText: 'Yes' },
+  ];
 
   markets = [
     { name: 'TASI' },
