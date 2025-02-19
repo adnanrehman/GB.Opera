@@ -48,7 +48,7 @@ export interface ImportOfficialIndicesDto {
   volume: number;
   transaction: number;
   value: number;
-  previousClose?: number; 
+  previousClose?: number;
   lastUpdated?: string;
 }
 

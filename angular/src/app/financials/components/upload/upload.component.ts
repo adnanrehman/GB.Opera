@@ -76,7 +76,8 @@ export class UploadComponent {
     financialEntryTypeID: 0,
     isYearly: false,
     qPeriodId: 0,
-    newReviewFinancialID: 0
+    newReviewFinancialID: 0,
+    asOfDate:null
   }
 
   data: UploadwithHasDtos | null = null;
@@ -227,7 +228,8 @@ getEntryusers()
     this.loading = true;
     this.uploadFinancial.companyID = this.companyID;
     this.uploadFinancial.userID = this.userId;
-    this.uploadFinancial.asOfDate = this.uploadFinancial.asOfDate;
+    
+   
     
     // Call the service to check if the period already exists for the given year and company
     this.uploadService.checkfinancialyearByYearAndQPeriodIDAndCompanyID(this.uploadFinancial.year.toString(),
@@ -248,6 +250,8 @@ getEntryusers()
           });
           this.loading = false;
         } else {
+
+        
           // Proceed with saving the data if the period is not already added
           this.uploadService.createUploadFinancialByInput(this.uploadFinancial).subscribe(
             (res) => {
@@ -257,7 +261,7 @@ getEntryusers()
                 showConfirmButton: false,
                 timer: 4000,
                 title: 'Success!',
-                text: this.uploadFinancial.remarks + ' saved successfully',
+                text: 'Financial  saved successfully',
                 icon: 'success',
               });
               this.getFinancialsBycompanyIdByCompanyID();
