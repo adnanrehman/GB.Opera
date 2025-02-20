@@ -145,10 +145,10 @@ export class HomeComponent {
       debugger;
       var exist = this.tabs.find(a=>a.title.toString() == title.toString());
       if(exist == undefined){
-        this.tabService.addTab({ title:title,component:component,href:href });
-        this.selectTab(href);
-        setTimeout(()=>{           
-          this.loadTabComponent();
+        this.tabService.addTab({ title:title,component:component,href:href });        
+        setTimeout(()=>{ 
+          this.selectTab(href);          
+          this.loadTabComponent(component);
           this.spinner.hide();
      }, 100);        
       } else{
@@ -157,9 +157,10 @@ export class HomeComponent {
 
     }else{
       this.tabService.addTab({ title:title,component:component,href:href  });
-      this.selectTab(href);      
-      setTimeout(()=>{         
-        this.loadTabComponent();
+          
+      setTimeout(()=>{   
+        this.selectTab(href);        
+        this.loadTabComponent(component);
         this.spinner.hide();
    }, 500);
       
@@ -186,7 +187,7 @@ export class HomeComponent {
     // this.loadTabComponent();
   }
 
-  async loadTabComponent() {    
+  loadTabComponent(currentcomponent:any) {    
     debugger;
     if(this.tabs.length > 0){    
       if(this.widgetTargets.length == 0)  {
@@ -195,9 +196,9 @@ export class HomeComponent {
         // this.navtab.nativeElement.nextSibling.classList.toggle('d-none');
         this.widgetTargets.map((vcr: ViewContainerRef,index:number) =>{
           // index = index+1;
-          vcr.clear();
+          // vcr.clear();
           const component = this.tabs[index].component;
-          const componentRef = vcr.createComponent(component);
+          this.createComponent(vcr,currentcomponent,component)
           // let element: HTMLElement = <HTMLElement>componentRef.location.nativeElement;
           // if(this.widgetTargets.length != index)
           //   element.style.display = "none";
@@ -205,6 +206,11 @@ export class HomeComponent {
       }
   
     }
+  }
+
+  createComponent(vcr:any,component:any,indexComponent:any){
+    if(indexComponent == component)
+      vcr.createComponent(component);
   }
   
 }
