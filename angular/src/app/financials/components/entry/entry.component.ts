@@ -18,12 +18,13 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import Swal from 'sweetalert2';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-entry',
   standalone: true,
   imports: [TableModule,AutoCompleteModule, FormsModule,DropdownModule,CalendarModule,ListboxModule,CommonModule,ThemeSharedModule,
-    ImageModule,FileUploadModule,TabViewModule,CheckboxModule,RadioButtonModule,CommonModule,    InputNumberModule,
+    ImageModule,FileUploadModule,TabViewModule,CheckboxModule,RadioButtonModule,CommonModule,    InputNumberModule,TooltipModule,
     InputTextModule, ],
   templateUrl: './entry.component.html',
   styleUrl: './entry.component.scss'
@@ -38,6 +39,8 @@ export class EntryComponent {
   statusFinancialsFilterData: any[];
   financialEntryType:any;
   loading = false;
+  loadingR = false;
+  loadingU = false;
   statusFinanial:StatusFinancialsDto ={
     financialsID: 0,
     companyID: 0,
@@ -99,7 +102,7 @@ export class EntryComponent {
   }
 
   getCompanyAccounts(){
-    this.loading = true;
+    this.loadingU = true;
     var obj: CompanyAccountsInputDto= {
       financialsID: this.statusFinanial.financialsID,
       newReviewFinancialID: this.statusFinanial.newReviewFinancialID,
@@ -109,14 +112,29 @@ export class EntryComponent {
     this.entryService.getCompanyAccountsByInput(obj).subscribe(res => {
       debugger;
       this.financialsDetails = res.financialsDetails;
-      this.asOfDates = res.asOfDates;
-      if(this.asOfDates.length > 0) this.getAsofDatesFinancials(this.asOfDates[0]);
-      else this.loading = false;        
+      this.getValueWorkingCapitol(this.financialsDetails);
+      if(this.asOfDate.financialsID == 0)
+        this.asOfDates = res.asOfDates;
+      this.loadingU = false; 
+      if(this.asOfDates.length > 0 && this.asOfDate.financialsID == 0) this.getAsofDatesFinancials(this.asOfDates[0]);
+      else this.loadingU = false;        
     });
   }
 
+  iniatalizaAsOfDate(){
+    this.financialsDetails= [];
+    this.asOfDates =[];
+    this.reviewFinancialsDetails = [];
+    this.finEntryInReviews = [];
+    this.asOfDate ={
+      financialsID: 0,
+      companyID: 0,
+      hasChanges: false
+    }
+  }
+
   getAsofDatesFinancials(asOfDate:AsOfDateDto){
-    this.loading = true;
+    this.loadingR = true;
     this.asOfDate = asOfDate;
     var obj: AsofDatesFinancialInputDto= {
       financialsID: asOfDate.financialsID,
@@ -126,26 +144,44 @@ export class EntryComponent {
     this.entryService.getAsofDatesFinancialsByInput(obj).subscribe(res => {
       debugger;
       this.reviewFinancialsDetails = res.financialsDetails;
+      this.getValueWorkingCapitol(this.reviewFinancialsDetails);
       this.finEntryInReviews = res.finEntryInReviews
-      this.loading = false;
+      this.loadingR = false;
     });
   }
 
+  calculateFinancialsCapitol(item:any,list:any[]){
+    if(item.gbFact == "Current Assets" || item.gbFact == "Current Liabilities")
+      this.getValueWorkingCapitol(list);
+  }
+
+  getValueWorkingCapitol(list: any[]){
+    debugger;
+    var workingCapitol = list.find(f => f.gbFact == "Working Capital");
+    if(workingCapitol != null){
+      var currentAssets = list.find(f => f.gbFact == "Current Assets");
+      var currentLiabilities = list.find(f => f.gbFact == "Current Liabilities");
+      if(currentAssets != null && currentLiabilities != null){
+        workingCapitol.value = currentAssets.value - currentLiabilities.value;
+      }
+    }
+  }
+
+
+
   SavePending() {
     debugger;
-    this.loading = true;
+    this.loadingU = true;
     this.entryService.insertUpdateFinancialValuesByList(this.financialsDetails).subscribe(res => {
       debugger;
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:'Saved successfully', icon: 'success', });
       this.getCompanyAccounts();
-
-      this.loading = false;
     },
       error => {
-        this.loading = false;
+        this.loadingU = false;
       },
       () => {
-        this.loading = false;
+        // this.loadingU = false;
       });
   }
 
@@ -163,13 +199,13 @@ export class EntryComponent {
         this.loading = false;
       },
       () => {
-        this.loading = false;
+        // this.loading = false;
       });
   }
 
   ComitChanges() {
     debugger;
-    this.loading = true;
+    this.loadingR = true;
     var obj: AsofDatesFinancialDto= {
       financialsDetails: this.reviewFinancialsDetails,
       finEntryInReviews: this.financialEntryType
@@ -179,13 +215,13 @@ export class EntryComponent {
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:'Saved successfully', icon: 'success', });
       this.getAsofDatesFinancials(this.asOfDate);
 
-      this.loading = false;
+      // this.loadingR = false;
     },
       error => {
-        this.loading = false;
+        this.loadingR = false;
       },
       () => {
-        this.loading = false;
+        // this.loadingR = false;
       });
   }
 

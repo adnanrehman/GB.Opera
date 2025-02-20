@@ -145,7 +145,7 @@
               <div class="col-md-3">
                 <p-radioButton
                   name="reportType"
-                  value="Quarterly"
+                  value="false"
                   [(ngModel)]="reportType"
                   inputId="credit1"
                 />
@@ -154,14 +154,14 @@
               <div class="col-md-2">
                 <p-radioButton
                   name="reportType"
-                  value="Yearly"
+                  value="true"
                   [(ngModel)]="reportType"
                   inputId="awards1"
                 />
                 <label for="awards1" class="ms-2 col-form-label"> Yearly </label>
               </div>
               <div class="col-md-3 p-0">
-                  <button class="btn btn-sm btn-primary" (click)="generateReport()">Generate Report</button>
+                  <button class="btn btn-sm btn-primary" [disabled]="statusFinanial.financialsID == 0" (click)="generateReport()">Generate Report</button>
               </div>
               <!-- <div class="col-md-2 p-0 text-end">
                   <a href="{{reportSrc}}" class="btn btn-sm btn-link" >View Excel</a>

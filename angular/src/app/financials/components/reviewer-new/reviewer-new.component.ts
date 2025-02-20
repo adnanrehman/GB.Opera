@@ -33,7 +33,7 @@ export class ReviewerNewComponent {
   statusFinancials: any[]=[];
   statusFinancialsFilterData: any[]=[]
   financialEntryType:any;
-  reportType:any;
+  reportType='false';
   selectedItem: any;
   suggestions: any[] = [];
   exportFile: number[] = [];
@@ -111,7 +111,8 @@ export class ReviewerNewComponent {
 
   generateReport(){
     this.loading = true;
-    this.fileService.getReviewReport(this.statusFinanial.financialsID).subscribe(res => {
+    debugger;
+    this.fileService.getReviewReport(this.statusFinanial.financialsID,this.reportType).subscribe(res => {
       this.loading = false;
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:'Report genrated successfully', icon: 'success', });
       debugger;

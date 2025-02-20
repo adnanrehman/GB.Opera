@@ -54,6 +54,7 @@ namespace Entry
         public int GBFactID { get; set; }
         public int ParentID { get; set; }
         public string? GBFact { get; set; }
+        public string? GBFactName { get; set; }
         public decimal? Value { get; set; }
         public long FinancialsID { get; set; }
         public bool IsTitle { get; set; }

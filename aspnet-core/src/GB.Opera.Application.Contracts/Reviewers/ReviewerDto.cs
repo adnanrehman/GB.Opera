@@ -20,6 +20,7 @@ namespace Reviewers
         public decimal? Value { get; set; }
         public string? Year { get; set; }
         public string? QPeriod { get; set; }
+        public int CustomOrder { get; set; }
     }
 
     public class ReviewReportOutputDto

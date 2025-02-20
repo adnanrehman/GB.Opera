@@ -148,9 +148,9 @@ public class FileController : AbpController
         }
     }
 
-    public async Task<ActionResult> GetReviewReport(int financialsID)
+    public async Task<ActionResult> GetReviewReport(int financialsID,bool isYearly)
     {
-        var output = await _reviewerAppService.GetReviewReport(financialsID);
+        var output = await _reviewerAppService.GetReviewReport(financialsID,isYearly);
 
         var file = new FileInfo("test.xlsx");
         var package = new ExcelPackage((file));

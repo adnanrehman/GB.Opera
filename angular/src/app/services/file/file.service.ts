@@ -33,9 +33,10 @@ export class FileService {
     return this.http.post<Response>(`${environment.apis.default.url}/File/UploadImageOnBlobStorage`, formData);
   }
 
-   public getReviewReport(financialsID: any):Observable<any> {
+   public getReviewReport(financialsID: any,isYearly: any):Observable<any> {
     let formData: FormData = new FormData();
     formData.append('financialsID', financialsID);
+    formData.append('isYearly', isYearly);
     return this.http.post<any>(`${environment.apis.default.url}/File/GetReviewReport`, formData);
   }
 

@@ -43,19 +43,28 @@ namespace Reviewers
             return data.ToList();
         }
 
-        public async Task<ReviewReportOutputDto> GetReviewReport(int financialsID)
+        public async Task<ReviewReportOutputDto> GetReviewReport(int financialsID, bool isYearly)
         {
             try
             {
-                var reader = await _connection.QueryMultipleAsync(ProcedureNames.RPT_ReviewReportQuarterlyNew,
+                var reader = await _connection.QueryMultipleAsync(isYearly ? ProcedureNames.RPT_ReviewReport_New : ProcedureNames.RPT_ReviewReportQuarterlyNew,
                     param: new { FinancialsID = financialsID },
                     commandType: CommandType.StoredProcedure,commandTimeout:300);
 
                 var output = new ReviewReportOutputDto();
-              //  output.Reviewers = reader.Read<ReviewerDto>().Take(0).ToList();
-               // output.ReviewersNew = reader.Read<ReviewerDto>().Take(0).ToList();
-                output.IncomeStatement = reader.Read<ReviewReportDto>().ToList();
-                output.BalanceSheet = reader.Read<ReviewReportDto>().ToList();
+                //  output.Reviewers = reader.Read<ReviewerDto>().Take(0).ToList();
+                // output.ReviewersNew = reader.Read<ReviewerDto>().Take(0).ToList();
+                if (isYearly)
+                {
+                    output.IncomeStatement = reader.Read<ReviewReportDto>().OrderByDescending(f => Convert.ToInt32(f.Year)).OrderBy(f => f.CustomOrder).ToList();
+                    output.BalanceSheet = reader.Read<ReviewReportDto>().OrderByDescending(f => Convert.ToInt32(f.Year)).OrderBy(f => f.CustomOrder).ToList();
+                }
+                else
+                {
+                    output.IncomeStatement = reader.Read<ReviewReportDto>().ToList();
+                    output.BalanceSheet = reader.Read<ReviewReportDto>().ToList();
+                }
+                
                 return output;
             }
             catch (Exception ex)

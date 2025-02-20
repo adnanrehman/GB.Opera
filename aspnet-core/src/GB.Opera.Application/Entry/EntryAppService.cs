@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Entry;
 using GB.Opera.constants;
+using GbFacts;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections;
@@ -47,7 +48,7 @@ namespace Entry
             try
             {
                 var reader = await _connection.QueryMultipleAsync(
-                ProcedureNames.usp_getCompaniesAccounts,
+                ProcedureNames.usp_getCompaniesAccounts_New,
                 param: new
                 {
                     @FinancialsID = input.FinancialsID,
@@ -60,9 +61,14 @@ namespace Entry
             );
                 var output = new CompanyAccountsDto();
                 output.FinancialsDetails = reader.Read<FinancialsDetailDto>().OrderBy(f => f.CustomOrder).ToList();
-                output.AsOfDates = reader.Read<AsOfDateDto>().ToList();
+                output.AsOfDates = reader.Read<AsOfDateDto>().ToList();                
                 output.FinValueMatches = reader.Read<FinValueMatchDto>().ToList();
                 output.ReentryMatches = reader.Read<ReentryMatchDto>().ToList();
+                var gbFacts = reader.Read<GbFactListDto>().ToList();
+                foreach (var item in output.FinancialsDetails)
+                {
+                    item.GBFactName = gbFacts.Where(f => f.GBFactID == item.GBFactID).Select(f => f.GBFact).FirstOrDefault();
+                }
                 return output;
 
             }

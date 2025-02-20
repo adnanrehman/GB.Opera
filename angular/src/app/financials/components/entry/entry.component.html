@@ -7,7 +7,7 @@
             <div class="card-header">
               <div class="row">
                 <div class="col-md-8">
-                  <h6><a href="JavaScript:void(0)" (click)="getStatusFinancialsByUserId()">FINEBOX</a></h6>
+                  <h6><a href="JavaScript:void(0)" (click)="getStatusFinancialsByUserId()">FINEBOX ({{statusFinancials.length}})</a></h6>
                 </div>
                 <div class="col-md-2 ps-1 pe-1 text-end">
                   <!-- <a class="btn btn-sm btn-link">Report (P)</a> -->
@@ -25,7 +25,7 @@
                     <p-listbox
               [options]="statusFinancials"
               optionLabel="fileName"
-              (click)="getCompanyAccounts()"
+              (click)="getCompanyAccounts();iniatalizaAsOfDate();"
               [(ngModel)]="statusFinanial" 
               [style]="{ width: '100%' }"
               [listStyle]="{ 'max-height': '820px','min-height': '420px' }"
@@ -128,7 +128,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-5" [abpLoading]="loadingU">
               <div class="row">
                 <div class="col-md-6">
                   <h6>Uploaded Financial:</h6>
@@ -155,10 +155,11 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-item>
                       <tr [ngClass]="{'parent-item': item.parentID == 0, 'bold-row': !item.checkMe}">
-                        <td>{{ item.gbFact }}</td>
+                        <td ><span pTooltip="{{item.gbFactName}}" tooltipPosition="top">{{ item.gbFact }}</span></td>
                         <td>
                           <p-inputNumber                      
                       [(ngModel)]="item.value"
+                      (keyup)="calculateFinancialsCapitol(item,financialsDetails)"
                       [ngModelOptions]="{ standalone: true }"
                       [minFractionDigits]="2"
                       mode="decimal" [disabled]="item.isTitle"
@@ -182,7 +183,7 @@
                 </div> -->
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" [abpLoading]="loadingR">
                 <div class="card">
                     <div class="card-header p-2">
                         <h6>Review Dates</h6>
@@ -195,7 +196,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5" [abpLoading]="loadingR">
                 <div class="row">
                   <div class="col-md-6">
                     <h6>Review Financial:</h6>
@@ -222,10 +223,10 @@
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
                         <tr [ngClass]="{'parent-item' : item.parentID == 0, 'bold-row': !item.checkMe}">
-                          <td>{{ item.gbFact }}</td>
+                          <td ><span pTooltip="{{item.gbFactName}}" tooltipPosition="top">{{ item.gbFact }}</span></td>
                           <td>
                             <p-inputNumber
-                            
+                            (keyup)="calculateFinancialsCapitol(item,reviewFinancialsDetails)"
                             [(ngModel)]="item.value"
                             [ngModelOptions]="{ standalone: true }"
                             [minFractionDigits]="2"

@@ -72,6 +72,7 @@ namespace GB.Opera.constants
         public const string usp_InsertPrice_New = "InsertPrice_New";
         public const string usp_getStatusFinancials_New = "usp_getStatusFinancials_New";
         public const string usp_getCompaniesAccounts = "usp_getCompaniesAccounts";
+        public const string usp_getCompaniesAccounts_New = "usp_getCompaniesAccounts_New";
         public const string usp_getAsofDatesFinancials = "usp_getAsofDatesFinancials";
         public const string usp_InsertFinancialsNewReview_New = "usp_InsertFinancialsNewReview_New";
         public const string usp_SetNewReviewFinanUploadedPath_New = "usp_SetNewReviewFinanUploadedPath_New";
@@ -90,6 +91,7 @@ namespace GB.Opera.constants
         public const string usp_getCurrentDividends = "usp_getCurrentDividends";
         public const string usp_insertUpdateCurrentDividends = "usp_insertUpdateCurrentDividends";
         public const string RPT_ReviewReportQuarterlyNew = "RPT_ReviewReportQuarterlyNew";
+        public const string RPT_ReviewReport_New = "RPT_ReviewReport_New";
         public const string usp_InsertOfficialIndices = "usp_InsertOfficialIndices_New";
         public const string usp_InsertGlobalIndices = "usp_InsertGlobalIndices_New";
         public const string usp_getCountryGroupInfo_New = "usp_getCountryGroupInfo_New";

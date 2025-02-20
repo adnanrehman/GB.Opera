@@ -13,7 +13,7 @@ namespace Reviewers
     public interface IReviewerAppService : IApplicationService
     {
         Task<List<StatusFinancialsDto>> GetStatusFinancials(Guid userId);
-        Task<ReviewReportOutputDto> GetReviewReport(int financialsID);
+        Task<ReviewReportOutputDto> GetReviewReport(int financialsID, bool isYearly);
 
     }
 }
