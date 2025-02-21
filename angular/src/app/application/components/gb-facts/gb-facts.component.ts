@@ -171,7 +171,7 @@ export class GbFactsComponent {
     
      
     if(event.node.gbFact != "GB Account"){
-      const element = event.originalEvent.currentTarget; 
+      const element = event.originalEvent.target; 
       element.addEventListener('dblclick', () => {
         this.editHeader(event);
       });

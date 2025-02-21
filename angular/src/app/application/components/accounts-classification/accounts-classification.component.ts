@@ -203,7 +203,7 @@ export class AccountsClassificationComponent {
     console.log('Node clicked:', event.node);
     debugger;
     if(event.node.parentId != -1){
-      const element = event.originalEvent.currentTarget; 
+      const element = event.originalEvent.target; 
       element.addEventListener('dblclick', () => {
         this.editHeader(event);
       });
