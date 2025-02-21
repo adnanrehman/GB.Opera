@@ -333,10 +333,10 @@ constructor(){
           href: "comp-qnet-p", title: "CompQnetP", permission: Financial_CompQnetP, component: CompQnetPComponent,
           active: false
         },
-        {
-          href: "qnet-profit-report", title: "QNet Profit Report", permission: Financial_QnetProfitReport, component: QnetProfitReportComponent,
-          active: false
-        },
+        // {
+        //   href: "qnet-profit-report", title: "QNet Profit Report", permission: Financial_QnetProfitReport, component: QnetProfitReportComponent,
+        //   active: false
+        // },
         {
           href: "current-dividends", title: "Current Dividends", permission: Financial_CurrentDividends, component: CurrentDividendsComponent,
           active: false
