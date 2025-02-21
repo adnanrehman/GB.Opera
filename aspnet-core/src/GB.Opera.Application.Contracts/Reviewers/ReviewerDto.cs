@@ -30,12 +30,13 @@ namespace Reviewers
             Reviewers = new List<ReviewerDto>();
             ReviewersNew = new List<ReviewerDto>();
             IncomeStatement = new List<ReviewReportDto>();
-            BalanceSheet = new List<ReviewReportDto>();
+            CashFlow = new List<ReviewReportDto>();
         }
         public List<ReviewerDto> Reviewers { get; set; }
         public List<ReviewerDto> ReviewersNew { get; set; }
         public List<ReviewReportDto> IncomeStatement { get; set; }
         public List<ReviewReportDto> BalanceSheet { get; set; }
+        public List<ReviewReportDto> CashFlow { get; set; }
     }
 
 }

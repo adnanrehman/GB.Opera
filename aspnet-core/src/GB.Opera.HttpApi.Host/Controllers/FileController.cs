@@ -223,6 +223,42 @@ public class FileController : AbpController
             row++;
         }
 
+
+        //Cash Fhlow
+        row++;
+        var headerCashFlowNew = output.CashFlow.GroupBy(x => x.AsOfDate).Select(y => y.First());
+        var colCashFlowNew = 1;
+        using (var range = worksheet.Cells[row, 1, row, headerCashFlowNew.Count() + 1])  //Address "A1:A5"
+        {
+            range.Style.Font.Bold = true;
+            range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+            range.Style.Fill.BackgroundColor.SetColor(Color.Black);
+            range.Style.Font.Color.SetColor(Color.White);
+        }
+        worksheet.Column(colCashFlowNew).Width = 40;
+        worksheet.Cells[row, colCashFlowNew].Value = "Cash Flow";
+        colCashFlowNew++;
+        foreach (var item in headerCashFlowNew)
+        {
+            worksheet.Column(colCashFlowNew).Width = 20;
+            worksheet.Cells[row, colCashFlowNew++].Value = item.AsOfDate;
+        }
+        row++;
+
+        foreach (var item in output.CashFlow.GroupBy(x => x.Account).Select(y => y.First()))
+        {
+            var columnNew = 1;
+            worksheet.Column(columnNew).Width = 40;
+            worksheet.Cells[row, columnNew++].Value = item.Account;
+            foreach (var data in headerCashFlowNew)
+            {
+                worksheet.Column(columnNew).Width = 20;
+                var value = output.CashFlow.Where(f => f.AsOfDate == data.AsOfDate && f.Account == item.Account).FirstOrDefault() == null ? 0 : output.CashFlow.Where(f => f.AsOfDate == data.AsOfDate && f.Account == item.Account).Select(f => f.Value).FirstOrDefault();
+                worksheet.Cells[row, columnNew++].Value = value;
+            }
+            row++;
+        }
+
         var stream = new MemoryStream();
         await package.SaveAsAsync(stream);
         stream.Position = 0;

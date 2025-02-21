@@ -56,8 +56,9 @@ namespace Reviewers
                 // output.ReviewersNew = reader.Read<ReviewerDto>().Take(0).ToList();
                 if (isYearly)
                 {
-                    output.IncomeStatement = reader.Read<ReviewReportDto>().OrderByDescending(f => Convert.ToInt32(f.Year)).OrderBy(f => f.CustomOrder).ToList();
-                    output.BalanceSheet = reader.Read<ReviewReportDto>().OrderByDescending(f => Convert.ToInt32(f.Year)).OrderBy(f => f.CustomOrder).ToList();
+                    output.IncomeStatement = reader.Read<ReviewReportDto>().ToList();
+                    output.BalanceSheet = reader.Read<ReviewReportDto>().ToList();
+                    output.CashFlow = reader.Read<ReviewReportDto>().ToList();
                 }
                 else
                 {
