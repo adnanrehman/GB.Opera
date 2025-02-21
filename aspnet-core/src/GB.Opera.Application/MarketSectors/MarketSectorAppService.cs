@@ -74,6 +74,12 @@ namespace GB.Opera.MarketSectors
                 //await _connection.ExecuteAsync(ProcedureNames.usp_InsertCGroup_New, parameters, commandType: CommandType.StoredProcedure);
                 var stockemarketid = await _connection.QuerySingleAsync<int>(ProcedureNames.usp_InsertMarketInfo, parameters, commandType: CommandType.StoredProcedure);
 
+                // delete old Records
+                var parameters4 = new DynamicParameters();
+                parameters4.Add("@StockMarketID", stockemarketid);
+
+                await _connection.ExecuteAsync(ProcedureNames.usp_DeleteAllOldMarketInfoValues_New, parameters4, commandType: CommandType.StoredProcedure);
+
                 foreach (var item in model.marketsSector)
                 {
                     var parameters2 = new DynamicParameters();

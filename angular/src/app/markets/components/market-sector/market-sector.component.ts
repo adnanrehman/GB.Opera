@@ -158,6 +158,15 @@ export class MarketSectorComponent {
     });
     this.loading = false;
   }
+
+  addNewMarketSector(){
+    this.stockMarketById = {
+      stockMarketID: 0,
+    isActive: false,
+    }
+    this.selectedCapsizess = [];
+    this.selectedmarketsector = [];
+  }
   
 
   getCountryByGroupId() {
@@ -189,6 +198,7 @@ export class MarketSectorComponent {
       if (this.stockMarketById.stockMarketID > 0) {
       //  Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!'  });
        this.getMarketsInfo(0);
+       this.stockMarketID = 0;
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:  ' updated successfully', icon: 'success', });
       // this.addNewCountryGroup();
       }
@@ -197,7 +207,7 @@ export class MarketSectorComponent {
        this.getMarketsInfo(0);
       }
       // this.handleCorporateAnnouncement(this.corporateAnnouncement);
-
+      this.stockMarketID = 0;
     this.loading = false;
     },
       error => {

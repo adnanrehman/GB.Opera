@@ -68,6 +68,14 @@ namespace CountryGroups
                 //await _connection.ExecuteAsync(ProcedureNames.usp_InsertCGroup_New, parameters, commandType: CommandType.StoredProcedure);
                 var countryGroupId = await _connection.QuerySingleAsync<int>(ProcedureNames.usp_InsertCGroup_New, parameters, commandType: CommandType.StoredProcedure);
 
+                // delete old Records
+                var parameters4 = new DynamicParameters();
+                parameters4.Add("@CountryGroupID", countryGroupId);
+
+                await _connection.ExecuteAsync(ProcedureNames.usp_DeleteAllOldGBSectors_New, parameters4, commandType: CommandType.StoredProcedure);
+
+
+
                 foreach (var item in model.GBSectors)
                 {
                     var parameters2 = new DynamicParameters();

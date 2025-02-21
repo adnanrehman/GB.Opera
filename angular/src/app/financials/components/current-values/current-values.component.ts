@@ -85,12 +85,12 @@ export class CurrentValuesComponent {
   } 
 
   getCompanyCuurrentValue() {
-   // this.loading = true;
+    this.loading = true;
   
      this.companyCurrentValuesService.getCompanyCurrentValuesByCompanyID(this.companyID).subscribe(res => {
        this.CurrentValues = res ;
  
-    //   this.loading = false;
+      this.loading = false;
        
       
      });
