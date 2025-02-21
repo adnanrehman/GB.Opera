@@ -68,35 +68,37 @@ namespace FundPrices
             try
             {
                 var mFunds = await _connection.QueryAsync<MFunds>($@"Select MFundID,Name,ShortName from MFunds");
-                var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT * FROM Companies");
+                var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT Ticker FROM Companies");
 
                 foreach (var item in list)
                 {
-                    if (!string.IsNullOrEmpty(item.Ticker) && !string.IsNullOrEmpty(item.MFund))
+                    if (item != null)
                     {
-                        var company = Companies.Where(f => f.Ticker.ToUpper() == (item.Ticker).ToUpper()).FirstOrDefault();
-                        if (company != null)
+                        if (!string.IsNullOrEmpty(item.Ticker) && !string.IsNullOrEmpty(item.MFund))
                         {
-                            var mfund = mFunds.Where(f => f.ShortName.ToUpper() == (item.MFund).ToUpper() && f.CompanyID == company.CompanyID).FirstOrDefault();
-                            if (mfund != null)
+                            var company = Companies.Where(f => f.Ticker.ToUpper() == (item.Ticker).ToUpper()).FirstOrDefault();
+                            if (company != null)
                             {
-                                josnList.Add(new MFundPrices
+                                var mfund = mFunds.Where(f => f.ShortName.ToUpper() == (item.MFund).ToUpper() && f.CompanyID == company.CompanyID).FirstOrDefault();
+                                if (mfund != null)
                                 {
-                                    PriceDate = item.PriceDate,
-                                    MFundID = mfund.MFundID,
-                                    ClosingPrice = item.ClosingPrice,
-                                    TradingVolume = item.TradingVolume
-                                });
+                                    josnList.Add(new MFundPrices
+                                    {
+                                        PriceDate = item.PriceDate,
+                                        MFundID = mfund.MFundID,
+                                        ClosingPrice = item.ClosingPrice,
+                                        TradingVolume = item.TradingVolume
+                                    });
+                                }
+                                else
+                                {
+                                    return $@"{item.MFund} not exist please first add this Mutual Fund";
+                                }
                             }
                             else
                             {
                                 return $@"{item.Ticker} not exist please first add this Company";
-
                             }
-                        }
-                        else
-                        {
-                            return $@"{item.MFund} not exist please first add this Mutual Fund";
                         }
                     }
                 }
