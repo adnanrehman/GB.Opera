@@ -18,7 +18,7 @@ namespace Reviewers
         public string? AsOfDate { get; set; }
         public string? Account { get; set; }
         public decimal? Value { get; set; }
-        public string? Year { get; set; }
+        public int Year { get; set; }
         public string? QPeriod { get; set; }
         public int CustomOrder { get; set; }
     }
