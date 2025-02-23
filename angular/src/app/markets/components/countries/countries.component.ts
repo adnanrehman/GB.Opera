@@ -289,11 +289,11 @@ export class CountriesComponent {
     this.countryService.insertEconomicIndicatorByModel(this.economicIndicator).subscribe(res => {
       debugger;
       if (this.economicIndicator.economicIndicatorID > 0) {
-        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.economicIndicator.indicatorType + ' updated successfully', icon: 'success', });
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.economicIndicator.description + ' updated successfully', icon: 'success', });
         this.addNewEconomicIndicator();
       }
       else {
-        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.economicIndicator.indicatorType + ' created successfully', icon: 'success', });
+        Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.economicIndicator.description + ' created successfully', icon: 'success', });
         this.addNewEconomicIndicator();
         this.getCountryInfos();
       }

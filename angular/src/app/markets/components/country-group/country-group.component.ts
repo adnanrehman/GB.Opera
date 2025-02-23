@@ -139,13 +139,15 @@ export class CountryGroupComponent {
       countryGroupID: 0,
       isActive: false
     };
+    this.selectedCapsizess = [];
+    this.selectedSectors = [];
   }
 
   insertCountryGroup() {
     debugger;
     this.loading = true;
     this.countryGroup.isActive = this.countryGroupActivation == 1 ? true : false;
-    // this.countryGroup.formationDate = moment(this.countryGroup.formationDate).format();
+    this.countryGroup.formationDate = moment(this.countryGroup.formationDate).format();
     this.insertCountryGroupmodel.countryGroup = this.countryGroup;
     this.insertCountryGroupmodel.gbSectors = this.selectedSectors; 
     this.selectedCapsizess.forEach(item => {

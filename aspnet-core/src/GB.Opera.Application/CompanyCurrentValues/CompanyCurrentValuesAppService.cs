@@ -57,8 +57,8 @@ namespace CompanyCurrentValues
                 var data = await _connection.QueryAsync<CompanyCurrentValuesdtos>(
                     sql: ProcedureNames.usp_CompanyCurrentValues,
                     param: parameters,
-                    commandType: CommandType.StoredProcedure,
-                    commandTimeout : 600
+                    commandType: CommandType.StoredProcedure
+                    //commandTimeout : 180
                 );
                 return data.ToList();
             }

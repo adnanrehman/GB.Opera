@@ -97,6 +97,7 @@ namespace GB.Opera.constants
         public const string usp_getCountryGroupInfo_New = "usp_getCountryGroupInfo_New";
         public const string usp_InsertCGroup_New = "usp_InsertCGroup_New";
         public const string usp_InsertNewGBSector_New = "usp_InsertNewGBSector_New";
+        public const string usp_DeleteAllOldGBSectors_New = "usp_DeleteAllOldGBSectors_New";
         public const string usp_getMarketsInfo = "usp_getMarketsInfo";
         public const string usp_getCountryInfo = "usp_getCountryInfo";
         public const string usp_UpdateCountryInfo = "usp_UpdateCountryInfo";
@@ -107,6 +108,7 @@ namespace GB.Opera.constants
         public const string usp_InsertMarketInfo = "usp_InsertMarketInfo";
         public const string usp_InsertMarketSectors = "usp_InsertMarketSectors";
         public const string usp_InsertMarketCaps = "usp_InsertMarketCaps";
+        public const string usp_DeleteAllOldMarketInfoValues_New = "usp_DeleteAllOldMarketInfoValues_New";
         public const string getCurrencyExchange = "getCurrencyExchange";
         public const string usp_InsertCurrencyExchange = "usp_InsertCurrencyExchange";
         public const string Deletefianancial = "Deletefianancial";

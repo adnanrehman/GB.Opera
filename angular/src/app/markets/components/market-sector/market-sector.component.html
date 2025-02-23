@@ -12,7 +12,7 @@
                   <div class="card-body p-0">
                     <p-listbox
                     [options]="Stockmarket"
-                    
+                    [(ngModel)]="stockMarketID"
                     name="stockMarketID"
                     
                     optionLabel="stockMarket"
@@ -46,7 +46,7 @@
                     </p-autoComplete>
                   </div>
                   <div class="col-md-4">
-               <a href="#" class="btn btn-primary btn-sm me-1"><i class="fa fa-plus"></i> Add New</a>
+               <a href="#" class="btn btn-primary btn-sm me-1" (click)="addNewMarketSector()"><i class="fa fa-plus"></i> Add New</a>
                <a href="#" *ngIf="permission.create" (click)="insertCountryGroup()" class="btn btn-success btn-sm me-1"
                ><i class="fa fa-save" ></i> Save</a
              >

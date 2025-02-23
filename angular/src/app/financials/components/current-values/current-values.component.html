@@ -78,7 +78,7 @@
                   <ng-template pTemplate="body" let-item>
                     <tr>
                       <td>{{item.ticker}}</td>
-                      <td>{{item.asofDate}}</td>
+                      <td>{{item.asofDate | date: 'dd/MM/yyyy'}}</td>
                       <td>{{item.netProfit}}</td>
                       <td>{{item.revenues}}</td>
                       <td  >
