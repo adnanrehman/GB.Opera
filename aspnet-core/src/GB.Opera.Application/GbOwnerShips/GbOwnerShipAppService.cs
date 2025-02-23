@@ -55,22 +55,33 @@ namespace GB.Opera.GbOwnerShips
 
         public GbOwnerShip SaveUpdateGbOwnerShip(GbOwnerShip gbOwnerShip)
         {
-
-            var parameters = new
+            try
             {
-                GBOwnershipID = gbOwnerShip.GBOwnershipID,
-                ParentID = gbOwnerShip.ParentID,
-                GBOwnership = gbOwnerShip.GBOwnership,
-                AGBOwnership = gbOwnerShip.AGBOwnership,
-                IsGBOwnership = gbOwnerShip.IsGBOwnership,
-                IsTitle = gbOwnerShip.IsTitle
-                 
-            };
+                var parameters = new
+                {
+                    GBOwnershipID = gbOwnerShip.GBOwnershipID,
+                    ParentID = gbOwnerShip.ParentID,
+                    GBOwnership = gbOwnerShip.GBOwnership,
+                    AGBOwnership = gbOwnerShip.AGBOwnership,
+                    IsGBOwnership = gbOwnerShip.IsGBOwnership,
+                    IsTitle = gbOwnerShip.IsTitle
 
-            _connection.Execute(ProcedureNames.usp_AddUpdateGBOwnership, parameters, commandType: CommandType.StoredProcedure);
+                };
 
+                _connection.Execute(ProcedureNames.usp_AddUpdateGBOwnership, parameters, commandType: CommandType.StoredProcedure);
 
-            return gbOwnerShip;
+                return gbOwnerShip;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+           
+
+           
         }
 
         public async Task<List<GbOwnerShip>> GetGBOwnershipbyId(short GBOwnershipID)

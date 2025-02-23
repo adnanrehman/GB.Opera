@@ -103,11 +103,12 @@ export class OwnershipComponent {
   // }
 
   onNodeClick(event: any) {
-    // Handle single click logic here
+     
     console.log('Node clicked:', event.node);
     debugger;
-    if(event.node.parentId != -1){
-      const element = event.originalEvent.currentTarget; 
+
+    if(event.node.parentId = -1){
+      const element = event.originalEvent.target; 
       element.addEventListener('dblclick', () => {
         this.editAccount(event);
       });

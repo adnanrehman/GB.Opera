@@ -118,6 +118,8 @@ export class OwnershipAccountDetailComponent {
   getaacgbownerByid(gbOwnershipID: number) {
     this.gbOwnerShipService.getGBOwnershipbyIdByGBOwnershipID(gbOwnershipID).subscribe({
       next: (response) => {
+
+        
         this.gbOwnerShip = response.find(item => item.gbOwnershipID === gbOwnershipID);
   
       },

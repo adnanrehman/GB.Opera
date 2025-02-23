@@ -17,6 +17,6 @@ namespace GB.Opera.GbOwnerShips
 
         public bool IsGBOwnership { get; set; }
 
-        public bool IsTitle { get; set; }
+        public bool? IsTitle { get; set; }
     }
 }
