@@ -119,7 +119,7 @@
                         <td>{{ item.factName }}</td>
                         <td>{{ item.gbFactIDOrder }}</td>
                         <!-- <td>{{ item.customOrder }}</td> -->
-                        <input type="text" [(ngModel)]="item.customOrder" name="customOrder" />
+                        <input type="text" [(ngModel)]="item.customOrder" (focus)="sortArray()" name="customOrder" />
                         <td class="text-center">
                           <div class="text-center">
                             <input class="form-check-input" [(ngModel)]="item.checkMe" name="checkMe"

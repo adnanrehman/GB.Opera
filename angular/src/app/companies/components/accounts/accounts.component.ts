@@ -138,6 +138,7 @@ export class AccountsComponent {
           ...item,
           label: item.gbFact || '', // Assign gbFact to label or default to empty string
           parent: null,
+          key:item.gbFact || '',
           children: []
         };
         idMap[newItem.gbFactID] = newItem;

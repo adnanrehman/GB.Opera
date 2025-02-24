@@ -156,6 +156,10 @@ export class AccountsCustomOrderComponent {
       });
   }
 
+  sortArray(){
+    this.companyFactOrders.sort((a, b) => (a.customOrder < b.customOrder ? -1 : 1));
+  }
+
   getCompaniesFactOrdersByCompanyID() {
     debugger;
     this.companyFactOrders = [];
