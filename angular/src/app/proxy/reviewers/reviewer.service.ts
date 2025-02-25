@@ -10,11 +10,11 @@ export class ReviewerService {
   apiName = 'Default';
   
 
-  getReviewReportByFinancialsID = (financialsID: number, config?: Partial<Rest.Config>) =>
+  getReviewReportByFinancialsIDAndIsYearly = (financialsID: number, isYearly: boolean, config?: Partial<Rest.Config>) =>
     this.restService.request<any, ReviewReportOutputDto>({
       method: 'GET',
       url: '/api/app/reviewer/review-report',
-      params: { financialsID },
+      params: { financialsID, isYearly },
     },
     { apiName: this.apiName,...config });
   

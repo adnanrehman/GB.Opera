@@ -52,6 +52,7 @@ export interface FinancialsDetailDto {
   gbFactID: number;
   parentID: number;
   gbFact?: string;
+  gbFactName?: string;
   value?: number;
   financialsID: number;
   isTitle: boolean;

@@ -8584,6 +8584,155 @@
             }
           }
         },
+        "GB.Opera.NewSources.NewSourceAppService": {
+          "controllerName": "NewSource",
+          "controllerGroupName": "NewSource",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "GB.Opera.NewSources.NewSourceAppService",
+          "interfaces": [
+            {
+              "type": "GB.Opera.NewSources.INewSourceAppService",
+              "name": "INewSourceAppService",
+              "methods": [
+                {
+                  "name": "SaveUpdate",
+                  "parametersOnMethod": [
+                    {
+                      "name": "source",
+                      "typeAsString": "GB.Opera.NewSources.NewSourceDto, GB.Opera.Application.Contracts",
+                      "type": "GB.Opera.NewSources.NewSourceDto",
+                      "typeSimple": "GB.Opera.NewSources.NewSourceDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "GB.Opera.NewSources.NewSourceDto",
+                    "typeSimple": "GB.Opera.NewSources.NewSourceDto"
+                  }
+                },
+                {
+                  "name": "GetNewSourceByID",
+                  "parametersOnMethod": [
+                    {
+                      "name": "Source",
+                      "typeAsString": "System.Int16, System.Private.CoreLib",
+                      "type": "System.Int16",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GB.Opera.NewSources.NewSourceDto>",
+                    "typeSimple": "[GB.Opera.NewSources.NewSourceDto]"
+                  }
+                },
+                {
+                  "name": "GetNewSource",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GB.Opera.NewSources.NewSourceDto>",
+                    "typeSimple": "[GB.Opera.NewSources.NewSourceDto]"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "SaveUpdateBySource": {
+              "uniqueName": "SaveUpdateBySource",
+              "name": "SaveUpdate",
+              "httpMethod": "POST",
+              "url": "api/app/new-source/save-update",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "source",
+                  "typeAsString": "GB.Opera.NewSources.NewSourceDto, GB.Opera.Application.Contracts",
+                  "type": "GB.Opera.NewSources.NewSourceDto",
+                  "typeSimple": "GB.Opera.NewSources.NewSourceDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "source",
+                  "name": "source",
+                  "jsonName": null,
+                  "type": "GB.Opera.NewSources.NewSourceDto",
+                  "typeSimple": "GB.Opera.NewSources.NewSourceDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "GB.Opera.NewSources.NewSourceDto",
+                "typeSimple": "GB.Opera.NewSources.NewSourceDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.NewSources.INewSourceAppService"
+            },
+            "GetNewSourceByIDBySource": {
+              "uniqueName": "GetNewSourceByIDBySource",
+              "name": "GetNewSourceByID",
+              "httpMethod": "GET",
+              "url": "api/app/new-source/new-source-by-iD",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "Source",
+                  "typeAsString": "System.Int16, System.Private.CoreLib",
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "Source",
+                  "name": "Source",
+                  "jsonName": null,
+                  "type": "System.Int16",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.NewSources.NewSourceDto>",
+                "typeSimple": "[GB.Opera.NewSources.NewSourceDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.NewSources.INewSourceAppService"
+            },
+            "GetNewSource": {
+              "uniqueName": "GetNewSource",
+              "name": "GetNewSource",
+              "httpMethod": "GET",
+              "url": "api/app/new-source/new-source",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.NewSources.NewSourceDto>",
+                "typeSimple": "[GB.Opera.NewSources.NewSourceDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GB.Opera.NewSources.INewSourceAppService"
+            }
+          }
+        },
         "GB.Opera.OfficialsIndics.OfficialIndicsAppService": {
           "controllerName": "OfficialIndics",
           "controllerGroupName": "OfficialIndics",
@@ -10230,6 +10379,14 @@
                       "typeSimple": "number",
                       "isOptional": false,
                       "defaultValue": null
+                    },
+                    {
+                      "name": "isYearly",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
                     }
                   ],
                   "returnValue": {
@@ -10278,8 +10435,8 @@
               "allowAnonymous": null,
               "implementFrom": "Reviewers.IReviewerAppService"
             },
-            "GetReviewReportByFinancialsID": {
-              "uniqueName": "GetReviewReportByFinancialsID",
+            "GetReviewReportByFinancialsIDAndIsYearly": {
+              "uniqueName": "GetReviewReportByFinancialsIDAndIsYearly",
               "name": "GetReviewReport",
               "httpMethod": "GET",
               "url": "api/app/reviewer/review-report",
@@ -10292,6 +10449,14 @@
                   "typeSimple": "number",
                   "isOptional": false,
                   "defaultValue": null
+                },
+                {
+                  "name": "isYearly",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null
                 }
               ],
               "parameters": [
@@ -10301,6 +10466,18 @@
                   "jsonName": null,
                   "type": "System.Int32",
                   "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "isYearly",
+                  "name": "isYearly",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -23865,6 +24042,18 @@
           "regex": null
         },
         {
+          "name": "GBFactName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "Value",
           "jsonName": null,
           "type": "System.Decimal?",
@@ -26897,8 +27086,8 @@
         {
           "name": "IsTitle",
           "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -27883,6 +28072,63 @@
           "jsonName": null,
           "type": "System.Int16",
           "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "GB.Opera.NewSources.NewSourceDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "SourceID",
+          "jsonName": null,
+          "type": "System.Int16",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Source",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ASource",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsEnglish",
+          "jsonName": null,
+          "type": "System.Boolean?",
+          "typeSimple": "boolean?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -30557,8 +30803,8 @@
         {
           "name": "Year",
           "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
+          "type": "System.Int32",
+          "typeSimple": "number",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -30571,6 +30817,18 @@
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CustomOrder",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -30625,6 +30883,18 @@
         },
         {
           "name": "BalanceSheet",
+          "jsonName": null,
+          "type": "[Reviewers.ReviewReportDto]",
+          "typeSimple": "[Reviewers.ReviewReportDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CashFlow",
           "jsonName": null,
           "type": "[Reviewers.ReviewReportDto]",
           "typeSimple": "[Reviewers.ReviewReportDto]",

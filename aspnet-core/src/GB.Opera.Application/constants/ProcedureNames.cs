@@ -142,6 +142,9 @@ namespace GB.Opera.constants
         public const string Usp_deleteForeignInvestmentPermitted = "Usp_deleteForeignInvestmentPermitted";
         public const string Usp_deleteMiscNotes = "Usp_deleteMiscNotes";
         public const string usp_getLastYearFinEndRecordForQNP = "usp_getLastYearFinEndRecordForQNP";
+        public const string SaveOrUpdateNewsSource_New = "SaveOrUpdateNewsSource_New";
+        public const string usp_GetSourceById_new = "usp_GetSourceById_new";
+        public const string usp_GetSource_new = "usp_GetSource_new";
 
     }
 }

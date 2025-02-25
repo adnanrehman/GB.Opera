@@ -41,6 +41,7 @@
     export const News_Gulfbase = News + ".Gulfbase";
     export const News_English = News + ".English";
     export const News_Arabic = News + ".Arabic";    
+    export const News_Source = News + ".News Source"; 
 
     export const PriceAndIndices = "PriceAndIndices";
     export const PriceAndIndices_EndOfDay = PriceAndIndices + ".EndOfDay";

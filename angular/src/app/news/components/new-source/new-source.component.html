@@ -1,0 +1,80 @@
+<div class="container ms-2" [abpLoading]="loading">
+    <div class="row mb-2">
+      <div class="card">
+        <div class="card-body p-2">
+          <div class="row">
+            <div class="col-md-8">
+              <!-- You can add search or filter input here if needed -->
+            </div>
+            <div class="col-md-4">
+
+                <a href="#" class="btn btn-primary btn-sm me-1" (click)="reset()"
+                ><i class="fa fa-plus"></i> Add New</a
+              >
+              <a href="#" *ngIf="permission.create" (click)="save()" class="btn btn-success btn-sm me-1">
+                <i class="fa fa-save"></i> Save
+              </a>
+            </div>
+          </div>
+  
+          <!-- Form for adding/updating Gulfbase video -->
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label class="col-form-label">Source</label>
+              <input [(ngModel)]="newsourcedto.source" class="form-control col-8" type="text" placeholder="Source">
+            </div>
+ 
+
+            <div class="col-md-6">
+              <label class="col-form-label">ASource</label>
+              <input [(ngModel)]="newsourcedto.aSource" class="form-control col-8" type="text"  placeholder="ASource">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="col-form-label">Is English</label>
+            &nbsp;
+            <input [(ngModel)]="newsourcedto.isEnglish" type="checkbox" class="form-check-input">
+          </div>
+  
+          <!-- Table to display the Gulfbase videos -->
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <p-table [value]="newsource" [scrollable]="true" scrollHeight="20rem" responsiveLayout="stack">
+                <ng-template pTemplate="caption">
+                  <div class="d-flex flex-column flex-md-row justify-content-between">
+                    <div class="mr-auto p-2">
+                      <h5>New Source</h5>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Action</th>
+                    <th>Source</th>
+                    <th>ASource</th>
+                    <!-- <th>Width</th>
+                    <th>Height</th> -->
+                    <th  >Englis/Arabic</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                  <tr>
+                 <td>   <button class="btn btn-primary btn-sm" (click)="editItem(item)">
+                        <i class="fa fa-edit"></i> Edit
+                      </button>
+                    </td>
+                    <td>{{ item.source }}</td>
+                    <!-- <td>{{ item.width }}</td>
+                    <td>{{ item.height }}</td> -->
+                    <td>{{ item.aSource }}</td>
+                     <td><input class="form-check-input" type="checkbox" [(ngModel)]="item.isEnglish"></td>  
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

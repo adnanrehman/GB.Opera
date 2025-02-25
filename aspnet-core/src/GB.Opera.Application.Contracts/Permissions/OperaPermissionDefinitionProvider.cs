@@ -215,6 +215,12 @@ public class OperaPermissionDefinitionProvider : PermissionDefinitionProvider
         news_Arabic.AddChild(OperaPermissions.News_Arabic + ".Delete", L("Delete"));
         news_Arabic.AddChild(OperaPermissions.News_Arabic + ".Approved", L("Approved"));
 
+
+        var news_Source = news.AddPermission(OperaPermissions.News_Source, L("News Source"));
+        news_Source.AddChild(OperaPermissions.News_Source + ".Create", L("Create"));
+        news_Source.AddChild(OperaPermissions.News_Source + ".Edit", L("Edit"));
+        news_Source.AddChild(OperaPermissions.News_Source + ".Delete", L("Delete"));
+
         #endregion
 
         #region PriceAndIndices

@@ -5,5 +5,5 @@ export interface GbOwnerShip {
   gbOwnership?: string;
   agbOwnership?: string;
   isGBOwnership: boolean;
-  isTitle: boolean;
+  isTitle?: boolean;
 }

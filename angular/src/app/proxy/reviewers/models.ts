@@ -4,8 +4,9 @@ export interface ReviewReportDto {
   asOfDate?: string;
   account?: string;
   value?: number;
-  year?: string;
+  year: number;
   qPeriod?: string;
+  customOrder: number;
 }
 
 export interface ReviewReportOutputDto {
@@ -13,6 +14,7 @@ export interface ReviewReportOutputDto {
   reviewersNew: ReviewerDto[];
   incomeStatement: ReviewReportDto[];
   balanceSheet: ReviewReportDto[];
+  cashFlow: ReviewReportDto[];
 }
 
 export interface ReviewerDto {

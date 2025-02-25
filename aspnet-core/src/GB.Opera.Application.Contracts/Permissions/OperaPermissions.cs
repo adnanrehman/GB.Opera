@@ -49,7 +49,9 @@ public class OperaPermissions : PermissionDefinitionProvider
     public const string News_Market = News + ".Market";
     public const string News_Gulfbase = News + ".Gulfbase";
     public const string News_English = News + ".English";
-    public const string News_Arabic = News + ".Arabic";    
+    public const string News_Arabic = News + ".Arabic";
+
+    public const string News_Source = News + ".News Source";
 
     public const string PriceAndIndices = "PriceAndIndices";
     public const string PriceAndIndices_EndOfDay = PriceAndIndices + ".EndOfDay";
