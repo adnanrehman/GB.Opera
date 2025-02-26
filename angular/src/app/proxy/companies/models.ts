@@ -28,7 +28,7 @@ export interface CompanyDto {
   financialCurrencyID: number;
   tradingMainCurrencyID: number;
   tradingSubCurrencyID: number;
-  logo: number[];
+  logo?: number[] | null;
   establishmentDate?: string;
   creationDate?: string;
   isActive: boolean;

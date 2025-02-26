@@ -77,7 +77,8 @@ namespace Companies
                 parameters.Add("@FinancialCurrencyID", model.FinancialCurrencyID);
                 parameters.Add("@TradingMainCurrencyID", model.TradingMainCurrencyID);
                 parameters.Add("@TradingSubCurrencyID", model.TradingSubCurrencyID);
-                parameters.Add("@Logo", model.Logo);
+                parameters.Add("@Logo", model.Logo != null ? model.Logo.ToArray() : null, DbType.Binary);
+
                 parameters.Add("@EstablishmentDate", model.EstablishmentDate);
                 parameters.Add("@CreationDate", DateTime.Now);
                 parameters.Add("@IsActive", model.IsActive);

@@ -94,7 +94,7 @@ export class CompaniesComponent {
     tradingSubCurrencyID: 0,
     isActive: false,
     orderID: 0,
-    logo: [],
+    logo: null,
     attributes: false,
     activeIndices: false,
      
@@ -157,18 +157,21 @@ export class CompaniesComponent {
   }
 
   getCompanies() {
-  //  this.loading = true;
+     this.loading = true;
     this.companyService
       .getCompaniesBySectorIDAndStockMarketID(this.sectorID, this.company.stockMarketID)
       .subscribe(res => {
         debugger;
         this.companies = res;
+        
+         
         if (this.companies.length > 0) this.handleCompany(this.companies[0]);
-    //    this.loading = false;
+         this.loading = false;
       });
   }
 
   onUpload(event) {
+    if (event.files.length > 0) {
     let fileReader = new FileReader();
     for (let file of event.files) {
       fileReader.readAsDataURL(file);
@@ -179,6 +182,10 @@ export class CompaniesComponent {
       };
       this.company.logo = [1,2];
     }
+  }else
+  {
+    this.company.logo = null
+  }
   }
 
   
@@ -188,9 +195,16 @@ export class CompaniesComponent {
     debugger; 
     this.company = company;
     this.companyActivation = this.company.isActive ? 1 : 0;
-    const date = new Date(this.company.establishmentDate);
-    this.company.establishmentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()).toString();
-
+    if (this.company.establishmentDate) {
+      const date = new Date(this.company.establishmentDate); // Convert string to Date
+    
+      this.company.establishmentDate =
+        ('0' + (date.getMonth() + 1)).slice(-2) + '-' +  // MM
+        ('0' + date.getDate()).slice(-2) + '-' +        // DD
+        date.getFullYear();                             // YYYY
+    }                           // YYYY
+    
+    
   }
 
   addNewCompany() {
@@ -221,8 +235,12 @@ export class CompaniesComponent {
     debugger;
     this.loading = true;
     this.company.isActive = this.companyActivation == 1 ? true : false;
+    if (!this.company.logo || this.company.logo.length === 0) {
+      this.company.logo=null;
+    }
+    
     this.companyService.createOrUpdateCompanyByModel(this.company).subscribe(res => {
-      debugger;
+       
       if(this.company.companyID > 0)
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.company.company + ' updated successfully', icon: 'success', });
       else
@@ -266,6 +284,15 @@ handleDataFromAutoCompelete(company: CompanyDto) {
 //  this.companySector.fillCompByMarketId();
  // this.companySector.getCompanies()
   this.companyActivation = this.company.isActive ? 1 : 0;
+  if (this.company.establishmentDate) {
+    const date = new Date(this.company.establishmentDate); // Convert string to Date
+  
+    this.company.establishmentDate =
+      ('0' + (date.getMonth() + 1)).slice(-2) + '-' +  // MM
+      ('0' + date.getDate()).slice(-2) + '-' +        // DD
+      date.getFullYear();                             // YYYY
+  }
+  
 }
  
 }

@@ -156,7 +156,8 @@ export class UpdateOwnershipFactsComponent {
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID
-    this.getCompMarketSectorsByMarketID();
+    //this.getCompMarketSectorsByMarketID();
+    this.getCompaniesTickersBySectorIDAndMarketID();
     this.selectedItem = null;
     this.loading = false;
   }
@@ -198,13 +199,16 @@ export class UpdateOwnershipFactsComponent {
   }
 
   getCompaniesFactsByCompanyID(): void {
-    debugger; // For debugging purposes
+    
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
     this.companyOwnershipFactService.getCompanyOwnershipPreviewByCompanyID(this.companyID).subscribe(res => {
       this.companyOwnerships = res;
-      if (this.companyOwnerships.length > 0) this.handleCompanyOwnershipFact(this.companyOwnerships[0]);
+      if (this.companyOwnerships.length > 0) 
+        this.handleCompanyOwnershipFact(this.companyOwnerships[0]);
       else this.loading = false;
+      
+      
     });
   }
 
@@ -291,6 +295,14 @@ export class UpdateOwnershipFactsComponent {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
         console.log('Save response:', res);
         this.loading = false;
+this.getCompaniesFactsByCompanyID();
+        this.companyOwnershipFact = {
+          gbOwnershipID: 0,
+          companyID: 0,
+          parentID: 0,
+          value: 0
+        };
+        
       },
       error: (err) => {
         console.error("Error While Saveing", err);
