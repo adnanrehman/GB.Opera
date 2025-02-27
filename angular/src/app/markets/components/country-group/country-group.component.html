@@ -10,7 +10,7 @@
             name="countryGroupID"
             optionLabel="countryGroup"
             optionValue="countryGroupID"
-            (click)="handleCountryGroup()"
+            (click)="onListBoxSelectionChange($event);handleCountryGroup()"
             [style]="{ width: '100%' }"
             [listStyle]="{ 'max-height': '30rem' }"
           />

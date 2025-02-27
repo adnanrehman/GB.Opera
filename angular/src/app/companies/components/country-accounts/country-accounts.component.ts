@@ -44,7 +44,8 @@ import { Company_CountryAccounts } from 'src/app/services/permissions';
 })
 export class CountryAccountsComponent {
   loading: boolean = false;
-  countryID: number;
+  countryID: number = 0;
+  lastcountryID: number = this.countryID;
   countryName: string;
   countries = [];
   ESDFacts: ESDFactDto[];
@@ -67,6 +68,7 @@ export class CountryAccountsComponent {
 
    
   }
+  
 
   ngOnInit() {
     if (this.permissionService.getGrantedPolicy(Company_CountryAccounts + '.Create')) {
@@ -80,6 +82,13 @@ export class CountryAccountsComponent {
     }
     this.getCountriesForIndicators();
     this.fetchESDFacts();
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.countryID == null)
+      this.countryID = this.lastcountryID;
+    else
+    this.lastcountryID = this.countryID;
   }
 
 

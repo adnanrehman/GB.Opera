@@ -43,7 +43,8 @@ import { Company_CountryAccountsFactsOrder } from 'src/app/services/permissions'
 })
 export class CountryAccountsFactsOrderComponent {
   loading: boolean = false;
-  countryID: number;
+  countryID: number = 0;
+  lastcountryID: number = this.countryID;
   countryName: string;
   countries = [];
   countryFactOrders: CountryFactOrderDto[];
@@ -62,6 +63,13 @@ export class CountryAccountsFactsOrderComponent {
       delete  :false
     }
    
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.countryID == null)
+      this.countryID = this.lastcountryID;
+    else
+    this.lastcountryID = this.countryID;
   }
 
   ngOnInit() {

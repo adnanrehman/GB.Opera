@@ -46,7 +46,8 @@ export class CurrentValuesComponent {
   loading = false;
   companyMarketSectors = [];
   companiesTickers =  [];
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   
  CurrentValues=[];
 
@@ -69,6 +70,13 @@ export class CurrentValuesComponent {
         this.getStockMarketSectorsByStockMarketID();
       }
     });
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
 
   getStockMarketSectorsByStockMarketID() {

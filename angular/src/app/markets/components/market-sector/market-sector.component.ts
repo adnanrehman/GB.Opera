@@ -45,7 +45,8 @@ export class MarketSectorComponent {
   marketCaps=[];
   selectedCapsizess=[];
   selectedmarketsector=[];
-  stockMarketID=0;
+  stockMarketID: number = 0;
+  laststockMarketID: number = this.stockMarketID;
   countryGroupActivation!: number;
   countryGroupID: number;
   stockMarketById: StockMarketByID = {
@@ -175,8 +176,19 @@ export class MarketSectorComponent {
     this.CountrySelect = this.Country.filter(country => country.countryGroupID === this.countryGroupID);
    // alert(this.CountrySelect);
   }
+
+  onListBoxSelectionChange(event: any) {
+    debugger;
+    if(this.stockMarketID == null)
+      this.stockMarketID = this.laststockMarketID;
+    else
+    this.laststockMarketID = this.stockMarketID;
+  }
   onStockMarketChange(event) {
-    const selectedID = event.value;  
+    var selectedID = event.value; 
+    if(event.value == null)
+      selectedID = this.laststockMarketID;
+     
        
     this.getMarketsInfo(selectedID);  
   }

@@ -20,7 +20,7 @@
         [options]="marketSectors"
         [(ngModel)]="sectorID"
         optionLabel="sector"
-        (click)="getCompanies()"
+        (click)="onListBoxSelectionChange($event);getCompanies()"
         optionValue="sectorID"
         [style]="{ width: '100%' }"
         [listStyle]="{ 'max-height': '200rem' }"

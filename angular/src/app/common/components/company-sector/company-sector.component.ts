@@ -18,7 +18,8 @@ import { ListboxModule } from 'primeng/listbox';
 })
 export class CompanySectorComponent {
   @Output() dataEvent = new EventEmitter<any[]>();
-  sectorID:number;
+  sectorID: number = 0;
+  lastsectorID: number = this.sectorID;
   stockMarketID:number;
   markets = [];
   marketSectors = [];
@@ -29,6 +30,13 @@ export class CompanySectorComponent {
   ngOnInit() {
     this.getCompStockMarkets();
     // this.stockMarketID = 0;
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.sectorID == null)
+      this.sectorID = this.lastsectorID;
+    else
+    this.lastsectorID = this.sectorID;
   }
 
   getCompStockMarkets() {

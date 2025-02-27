@@ -50,7 +50,8 @@ export class CompQnetPComponent {
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   rate: number = 0;
   stockMarkets = [];
   companyMarketSectors = [];
@@ -187,6 +188,14 @@ export class CompQnetPComponent {
       isYearly: false,
       netProfit: 0
     };
+  }
+
+
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
 
   insertUpdateCalculateCompQuartersNetProfitByInput() {

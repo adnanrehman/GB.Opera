@@ -62,7 +62,8 @@ export class EnglishComponent {
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   newsId: number;
   stockMarkets = [];
   companyMarketSectors = [];
@@ -115,6 +116,13 @@ export class EnglishComponent {
     this.newsEng.islamic = true;
     this.newsEng.forSocialNetworks = true;
     this.newsEng.isGulfbaseNews = true;
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
 
   search(event: AutoCompleteCompleteEvent) {

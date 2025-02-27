@@ -50,7 +50,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 })
 export class CountryGroupComponent {
   loading: boolean = false;
-  countryGroupID = 0
+  countryGroupID: number = 0;
+  lastcountryGroupID: number = this.countryGroupID;
   countryGroups: CountryGroupDto[]=[];
   sectors:SectorDto[]=[];
   capSizes:CapSizeDto[]=[];
@@ -132,6 +133,13 @@ export class CountryGroupComponent {
     var filterListNew = this.gbSectors.filter(f => f.countryGroupID == this.countryGroup.countryGroupID);
     this.selectedSectors = filterListNew.map(item => ({sectorID: this.sectors.find(f => f.sector.toUpperCase() == item.gbSector.toUpperCase()).sectorID,sector:item.gbSector,aSector: this.sectors.find(f => f.sector.toUpperCase() == item.gbSector.toUpperCase()).aSector}));
     this.loading = false;
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.countryGroupID == null)
+      this.countryGroupID = this.lastcountryGroupID;
+    else
+    this.lastcountryGroupID = this.countryGroupID;
   }
 
   addNewCountryGroup() {

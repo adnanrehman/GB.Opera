@@ -84,7 +84,8 @@ export class UploadComponent {
 
    
  
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   newsEng: NewsDto = {
     newsID: 0,
     isApproved:false,
@@ -163,6 +164,13 @@ getEntryusers()
         this.getStockMarketSectorsByStockMarketID();
       }
     });
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
 
   getUploadData() {

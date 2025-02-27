@@ -47,7 +47,8 @@ export class OwnershipCompaniesComponent {
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   clickedIndex = 0;
   stockMarkets = [];
   companyMarketSectors = [];
@@ -406,6 +407,13 @@ export class OwnershipCompaniesComponent {
         this.loading = false;
       }
     );
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
   createOrUpdateSubsCompUpd() {
     this.loading = true;

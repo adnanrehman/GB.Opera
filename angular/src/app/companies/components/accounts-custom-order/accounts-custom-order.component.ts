@@ -51,7 +51,8 @@ export class AccountsCustomOrderComponent {
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   searchCompanyId: number = 0;
   companyTicker: string;
   stockMarkets = [];
@@ -158,6 +159,12 @@ export class AccountsCustomOrderComponent {
 
   sortArray(){
     this.companyFactOrders.sort((a, b) => (a.customOrder < b.customOrder ? -1 : 1));
+  }
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
 
   getCompaniesFactOrdersByCompanyID() {

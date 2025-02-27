@@ -48,7 +48,8 @@ export class EstimatesAndForecastsComponent {
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   stockMarkets = [];
   companyMarketSectors = [];
   companiesTickers = [];
@@ -138,6 +139,12 @@ export class EstimatesAndForecastsComponent {
       } 
       else this.loading = false;
     });
+  }
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
 
   getSectorCompaniesBySectorIDAndStockMarketID() {

@@ -53,7 +53,8 @@ export class AccountsComponent {
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   searchCompanyId:number =0;
   ref!: DynamicDialogRef;
   companyTicker: string;
@@ -124,6 +125,13 @@ export class AccountsComponent {
         ],
       }
     ]
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
 
   fetchTreeData(): void {
@@ -324,7 +332,7 @@ export class AccountsComponent {
     debugger;
     this.loading = true;
     const gbAcFactsAccounts: CompanyGBFactMappingDto[] = this.mapGbFactListDtoTocompanyGBFactMapping(this.selectedNodes);
-    this.companyAccountService.createOrUpdateCompanyFactsByList(gbAcFactsAccounts).subscribe({
+    this.companyAccountService.createOrUpdateCompanyFactsByListAndCompanyId(gbAcFactsAccounts,this.companyID).subscribe({
       next: (res) => {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, title: 'Success!', text: 'Save successfully', icon: 'success', });
         console.log('Save response:', res);

@@ -86,6 +86,7 @@ export class CurrentDividendsComponent {
     //  this.loading = false;
     });
   }
+  
 
   onSelect(event: any) {
     debugger;

@@ -53,6 +53,7 @@
             [(ngModel)]="companyID"
             name="companyID"
             optionLabel="ticker"
+            (click)="onListBoxSelectionChange($event);"
             optionValue="companyID"
             [style]="{ width: '100%' }"
             [listStyle]="{ 'max-height': '21rem' }"

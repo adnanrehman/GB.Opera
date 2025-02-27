@@ -96,6 +96,7 @@ export class AgenciesRatingComponent {
       this.loading = false;
     });
   }
+  
 
   handleAgency(agency: AgencyDto) {
     // this.agency = agency;

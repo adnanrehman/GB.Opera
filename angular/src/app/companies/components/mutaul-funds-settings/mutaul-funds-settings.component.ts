@@ -52,6 +52,7 @@ export class MutaulFundsSettingsComponent {
   mfCategories = [];
   mfSubCategories = [];
   settingID: number = 1;
+  lastsettingID:number = this.settingID;
   companyMutualFundSettings: any[] = [
     { settingID: 1, settingName: "Assets Allocations" },
     { settingID: 2, settingName: "Benchmarks" },
@@ -91,6 +92,13 @@ export class MutaulFundsSettingsComponent {
       this.permission.delete = true;
     }
     this.getCompanyMutualFundSettings();
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.settingID == null)
+      this.settingID = this.lastsettingID;
+    else
+    this.lastsettingID = this.settingID;
   }
 
   getCompanyMutualFundSettings() {

@@ -2498,6 +2498,14 @@
                       "typeSimple": "[CompanyAccounts.CompanyGBFactMappingDto]",
                       "isOptional": false,
                       "defaultValue": null
+                    },
+                    {
+                      "name": "companyId",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
                     }
                   ],
                   "returnValue": {
@@ -2546,11 +2554,11 @@
               "allowAnonymous": null,
               "implementFrom": "CompanyAccounts.ICompanyAccountAppService"
             },
-            "CreateOrUpdateCompanyFactsByList": {
-              "uniqueName": "CreateOrUpdateCompanyFactsByList",
+            "CreateOrUpdateCompanyFactsByListAndCompanyId": {
+              "uniqueName": "CreateOrUpdateCompanyFactsByListAndCompanyId",
               "name": "CreateOrUpdateCompanyFacts",
               "httpMethod": "POST",
-              "url": "api/app/company-account/or-update-company-facts",
+              "url": "api/app/company-account/or-update-company-facts/{companyId}",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
@@ -2558,6 +2566,14 @@
                   "typeAsString": "System.Collections.Generic.List`1[[CompanyAccounts.CompanyGBFactMappingDto, GB.Opera.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib",
                   "type": "System.Collections.Generic.List<CompanyAccounts.CompanyGBFactMappingDto>",
                   "typeSimple": "[CompanyAccounts.CompanyGBFactMappingDto]",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "companyId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -2573,6 +2589,18 @@
                   "defaultValue": null,
                   "constraintTypes": null,
                   "bindingSourceId": "Body",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "companyId",
+                  "name": "companyId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
                   "descriptorName": ""
                 }
               ],

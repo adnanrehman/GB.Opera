@@ -51,7 +51,8 @@ export class UpdateOwnershipFactsComponent {
   sectorID: number;
   clickedIndex = 0;
   stockMarketID: number;
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   marketLangAnnouncement = [];
   companyMarketSectors = [];
   companiesTickers = [];
@@ -167,6 +168,13 @@ export class UpdateOwnershipFactsComponent {
       this.marketLangAnnouncement = res;
       
     });
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
 
   getCompMarketSectorsByMarketID() {

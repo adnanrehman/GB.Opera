@@ -10,7 +10,7 @@
             name="countryID"
             optionLabel="country"
             optionValue="countryID"
-            (click)="getCountryInfos()"
+            (click)="onListBoxSelectionChange($event);getCountryInfos()"
             [style]="{ width: '100%' }"
             [listStyle]="{ 'max-height': '30rem' }"
           />
