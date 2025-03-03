@@ -87,6 +87,24 @@ export class EntryComponent {
 
   getStatusFinancialsByUserId() {
     this.loading =true;
+    this.statusFinancials = [];
+    this.statusFinancialsFilterData = [];
+    this.financialsDetails = [];
+    this.finEntryInReviews = [];
+    this.asOfDate = {
+      financialsID: 0,
+      companyID: 0,
+      hasChanges: false
+    }
+    this.asOfDates = []
+    this.reviewFinancialsDetails = [];
+    this.statusFinanial = {
+      financialsID: 0,
+      companyID: 0,
+      newReviewFinancialID: 0,
+      financialEntryTypeID: 0
+    };
+    
     this.entryService.getStatusFinancialsByUserId(this.userId).subscribe(res => {
       this.statusFinancials = res;
       this.statusFinancialsFilterData = res;
