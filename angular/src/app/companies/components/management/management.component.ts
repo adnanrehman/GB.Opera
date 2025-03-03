@@ -205,7 +205,8 @@ export class ManagementComponent {
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
-    this.companyID = event.value.companyID
+    this.companyID = event.value.companyID;
+    this.lastcompanyID = this.companyID;
     this.getCompMarketSectorsByMarketID();
     this.selectedItem = null;
     this.loading =false;
@@ -348,6 +349,7 @@ export class ManagementComponent {
   }
 
   onListBoxSelectionChange(event: any) {
+    debugger;
     if(this.companyID == null)
       this.companyID = this.lastcompanyID;
     else

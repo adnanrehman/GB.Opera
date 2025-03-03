@@ -110,6 +110,7 @@ export class FinancialsAdminComponent {
   }
 
   onListBoxSelectionChange(event: any) {
+    debugger;
     if(this.companyID == null)
       this.companyID = this.lastcompanyID;
     else
@@ -122,7 +123,8 @@ export class FinancialsAdminComponent {
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
-    this.companyID = event.value.companyID
+    this.companyID = event.value.companyID;
+    this.lastcompanyID = this.companyID;
     this.getStockMarketSectorsByStockMarketID();
     this.selectedItem = null;
     this.loading = false;
@@ -166,7 +168,7 @@ export class FinancialsAdminComponent {
   getNewFinancialReviewsByCompanyID() {
     debugger;
     this.loading = true;
-    if (this.companyID == undefined && this.companiesTickers.length > 0)
+    if (this.companyID == 0 && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
     this.companyTicker = this.companiesTickers.find(f => f.companyID == this.companyID).ticker;
    

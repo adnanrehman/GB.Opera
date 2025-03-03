@@ -281,11 +281,12 @@ onListBoxSelectionChange(event: any) {
 }
 
 handleDataFromAutoCompelete(company: CompanyDto) {
-  
+  debugger;
   this.company = company;
   //this.fillCompByMarketId()
   this.companySector.stockMarketID = company.stockMarketID;
   this.companySector.sectorID = company.sectorID;
+  this.lastsectorID = company.sectorID;
   
   this.company.company = this.company.company.split("-").length > 1 ?  this.company.company.split("-")[1] : this.company.company
 //  this.companySector.fillCompByMarketId();

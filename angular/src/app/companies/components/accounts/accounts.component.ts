@@ -191,6 +191,7 @@ export class AccountsComponent {
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID;
+    this.lastcompanyID = this.companyID;
     this.searchCompanyId = event.value.companyID;
     this.companyTicker = event.value.ticker
     this.getCompMarketSectorsByMarketID();

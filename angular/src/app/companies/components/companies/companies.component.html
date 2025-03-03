@@ -1,7 +1,7 @@
 <div class="container ms-2" [abpLoading]="loading">
   <div class="row mb-2">
     <div class="col-md-3">
-      <app-company-sector #companysectorRef
+      <app-company-sector #companysectorRef [sectorIDFromParent]="sectorID" [lastsectorIDFromParent]="lastsectorID"
       (dataEvent)="handleDataFromChild($event)">
       </app-company-sector>
       <!-- <div class="row mb-2">

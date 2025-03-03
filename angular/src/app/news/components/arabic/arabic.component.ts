@@ -143,7 +143,8 @@ export class ArabicComponent {
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
-    this.companyID = event.value.companyID
+    this.companyID = event.value.companyID;
+    this.lastcompanyID = this.companyID;
     this.getStockMarketSectorsByStockMarketID();
     this.selectedItem = null;
     this.loading = false;

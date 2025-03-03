@@ -132,7 +132,7 @@ export class MutaulFundsComponent {
     debugger;
     this.loading = true;
     this.stockMarketID = event.value.stockMarketID;
-    this.companyID = event.value.companyID
+    this.companyID = event.value.companyID;
     this.getCompaniesWithHasFundByStockMarketID();
     this.loading = false;
   }
