@@ -39,7 +39,7 @@
             [(ngModel)]="companyID"
             name="companyID"
             optionLabel="ticker"
-            (click)="getCompaniesQNetProfitsByCompanyID()"
+            (click)="onListBoxSelectionChange($event);getCompaniesQNetProfitsByCompanyID()"
             optionValue="companyID"
             [style]="{ width: '100%' }"
             [listStyle]="{ 'max-height': '30rem' }"

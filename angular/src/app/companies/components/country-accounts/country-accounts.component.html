@@ -8,7 +8,7 @@
               [options]="countries"
               [(ngModel)]="countryID"
               name="countryID"
-              (click)="getCountriesFactsByCountryID()"
+              (click)="onListBoxSelectionChange($event);getCountriesFactsByCountryID()"
               optionLabel="country"
               optionValue="countryID"
               [style]="{ width: '100%' }"

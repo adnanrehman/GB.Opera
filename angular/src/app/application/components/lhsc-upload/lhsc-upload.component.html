@@ -21,7 +21,7 @@
                 [(ngModel)]="stockmarketid"
                 name="stockMarketID"
                 optionLabel="abbr"
-                (click)="getcompanies()"
+                (click)="onListBoxSelectionChange($event);getcompanies()"
                 optionValue="stockMarketID"
                 [style]="{ width: '100%' }"
                 [listStyle]="{ 'max-height': '200rem' }"

@@ -60,7 +60,8 @@ export class ArabicComponent {
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   newsId:number;
   stockMarkets = [];
   companyMarketSectors = [];
@@ -121,6 +122,13 @@ export class ArabicComponent {
     });
   }
 
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
+  }
+
   search(event: AutoCompleteCompleteEvent) {
     
     this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
@@ -135,7 +143,8 @@ export class ArabicComponent {
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
-    this.companyID = event.value.companyID
+    this.companyID = event.value.companyID;
+    this.lastcompanyID = this.companyID;
     this.getStockMarketSectorsByStockMarketID();
     this.selectedItem = null;
     this.loading = false;

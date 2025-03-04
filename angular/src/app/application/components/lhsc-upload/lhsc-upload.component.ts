@@ -28,7 +28,8 @@ export class LhscUploadComponent {
   markets = [];
   tree:TreeNode[];
   data:TreeNode[];
-  stockmarketid : number;
+  stockmarketid : number = 0;
+  laststockMarketID: number = this.stockmarketid;
   CompanyList: Company[]
   subsidiaries: any[] = [ 
     { company: "Suadi Travels Cheque",share:"25",pa:"Traveler Cheques",order:"" }, 
@@ -59,6 +60,14 @@ export class LhscUploadComponent {
       this.markets = res;
        
     });
+  }
+
+  onListBoxSelectionChange(event: any) {
+    debugger;
+    if(this.stockmarketid == null)
+      this.stockmarketid = this.laststockMarketID;
+    else
+    this.laststockMarketID = this.stockmarketid;
   }
  
   getcompanies() {

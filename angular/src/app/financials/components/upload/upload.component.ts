@@ -84,7 +84,8 @@ export class UploadComponent {
 
    
  
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   newsEng: NewsDto = {
     newsID: 0,
     isApproved:false,
@@ -134,6 +135,7 @@ export class UploadComponent {
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID;
+    this.lastcompanyID = this.companyID;
     this.getStockMarkets();
     this.selectedItem = null;
     this.loading = false;
@@ -163,6 +165,13 @@ getEntryusers()
         this.getStockMarketSectorsByStockMarketID();
       }
     });
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
 
   getUploadData() {

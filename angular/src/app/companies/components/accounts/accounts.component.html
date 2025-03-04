@@ -38,7 +38,7 @@
               [options]="companiesTickers"
               [(ngModel)]="companyID"
               name="companyID"
-              (click)="getCompaniesFactsByCompanyID()"
+              (click)="onListBoxSelectionChange($event);getCompaniesFactsByCompanyID()"
               optionLabel="ticker"
               optionValue="companyID"
               [style]="{ width: '100%' }"

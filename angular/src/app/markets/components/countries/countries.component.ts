@@ -48,7 +48,8 @@ import Swal from 'sweetalert2';
 export class CountriesComponent {
 
   loading: boolean = false;
-  countryID = 0;
+  countryID: number = 0;
+  lastcountryID: number = this.countryID;
   // clickedIndex = 0;
   countryInfos: CountryInfoDto[]=[];
   countryGroups:CountryGroupDto[]=[];
@@ -269,6 +270,13 @@ export class CountriesComponent {
     debugger;
     this.economicIndicator = this.economicIndicators.find(f => f.countryProfileID == this.countryInfo.countryProfileID);
     this.loading = false;
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.countryID == null)
+      this.countryID = this.lastcountryID;
+    else
+    this.lastcountryID = this.countryID;
   }
 
   addNewEconomicIndicator() {

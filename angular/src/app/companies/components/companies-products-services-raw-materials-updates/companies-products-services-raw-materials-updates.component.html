@@ -10,7 +10,7 @@
           placeholder="Select a Market"
           optionLabel="abbr"
           optionValue="stockMarketID"
-          (ngModelChange)="getCompMarketSectorsByMarketID()"
+          (ngModelChange)="onListBoxSelectionChange($event);getCompMarketSectorsByMarketID()"
           [style]="{ width: '100%' }"
           [showClear]="true"
         >

@@ -22,6 +22,7 @@ using System.Text.RegularExpressions;
 using CompanyMutualFundSettings;
 using GB.Opera.Books;
 using GB.Opera.constants;
+using System.Text.Json;
 
 namespace CompanyAccounts
 {
@@ -52,20 +53,37 @@ namespace CompanyAccounts
 
         }
 
-        public async Task<List<CompanyGBFactMappingDto>> CreateOrUpdateCompanyFacts(List<CompanyGBFactMappingDto> list)
+        public async Task<List<CompanyGBFactMappingDto>> CreateOrUpdateCompanyFacts(List<CompanyGBFactMappingDto> list,int companyId)
         {
             try
             {
-                foreach (var company in list) {
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@CompanyID", company.CompanyID);
-                    parameters.Add("@GBFactID", company.GBFactID);
-                    parameters.Add("@ParentID", company.ParentID);
-                    parameters.Add("@CustomFactName", company.CustomFactName);
-                    parameters.Add("@ACustomFactName", company.ACustomFactName);
+                var parameters4 = new DynamicParameters();
+                parameters4.Add("@CompanyID", companyId);
+                await _connection.ExecuteAsync(ProcedureNames.usp_SetCompFactsFalse, parameters4, commandType: CommandType.StoredProcedure);
 
-                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateCompaniesFacts, parameters, commandType: CommandType.StoredProcedure);
+
+                List<CompanyGBFactMappingDto> josnList = new List<CompanyGBFactMappingDto>();
+                foreach (var company in list) {
+                    josnList.Add(new CompanyGBFactMappingDto
+                    {
+                        CompanyID = company.CompanyID,
+                        GBFactID = company.GBFactID,
+                        ParentID = company.ParentID,
+                        CustomFactName = company.CustomFactName,
+                        ACustomFactName = company.ACustomFactName,
+
+                    });                    
                 }
+                var parameters = new DynamicParameters();
+                parameters.Add("@Json", JsonSerializer.Serialize(josnList));
+                parameters.Add("@CompanyID", companyId);
+                //parameters.Add("@CompanyID", company.CompanyID);
+                //parameters.Add("@GBFactID", company.GBFactID);
+                //parameters.Add("@ParentID", company.ParentID);
+                //parameters.Add("@CustomFactName", company.CustomFactName);
+                //parameters.Add("@ACustomFactName", company.ACustomFactName);
+
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateCompaniesFacts, parameters, commandType: CommandType.StoredProcedure);
 
                 return list;
             }

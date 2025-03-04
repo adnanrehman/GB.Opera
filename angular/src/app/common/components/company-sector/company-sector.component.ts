@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonService } from '@proxy/commons';
 import { CompanyService } from '@proxy/companies';
@@ -18,7 +18,10 @@ import { ListboxModule } from 'primeng/listbox';
 })
 export class CompanySectorComponent {
   @Output() dataEvent = new EventEmitter<any[]>();
-  sectorID:number;
+  @Input() sectorIDFromParent: number;
+  @Input() lastsectorIDFromParent: number;
+  sectorID: number = 0;
+  lastsectorID: number = this.sectorID;
   stockMarketID:number;
   markets = [];
   marketSectors = [];
@@ -28,7 +31,23 @@ export class CompanySectorComponent {
 
   ngOnInit() {
     this.getCompStockMarkets();
+    this.sectorID = this.sectorIDFromParent;
+    // this.lastsectorID = this.lastsectorIDFromParent;
     // this.stockMarketID = 0;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+      debugger;
+      this.lastsectorIDFromParent =   changes.lastsectorIDFromParent.currentValue;
+    
+}
+
+  onListBoxSelectionChange(event: any) {
+    debugger;
+    if(this.sectorID == null)
+      this.sectorID = this.lastsectorIDFromParent;
+    else
+    this.lastsectorIDFromParent = this.sectorID;
   }
 
   getCompStockMarkets() {

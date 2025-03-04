@@ -8,6 +8,7 @@
               [options]="companyMutualFundSettings"
               [(ngModel)]="settingID"
               name="settingID"
+              (click)="onListBoxSelectionChange($event);"
               optionLabel="settingName"
               optionValue="settingID"
               [style]="{ width: '100%' }"

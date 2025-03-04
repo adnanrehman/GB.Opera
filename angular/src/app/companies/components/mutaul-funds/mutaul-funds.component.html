@@ -39,7 +39,7 @@
             [(ngModel)]="mFundID"
             name="mFundID"
             optionLabel="shortName"
-            (click)="handleCompanyMutualFund(mFundID)"
+            (click)="onListBoxSelectionChange($event);handleCompanyMutualFund(mFundID)"
             optionValue="mFundID"
             [style]="{ width: '100%' }"
             [listStyle]="{ 'max-height': '200rem' }"

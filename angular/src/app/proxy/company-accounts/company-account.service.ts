@@ -9,10 +9,10 @@ export class CompanyAccountService {
   apiName = 'Default';
   
 
-  createOrUpdateCompanyFactsByList = (list: CompanyGBFactMappingDto[], config?: Partial<Rest.Config>) =>
+  createOrUpdateCompanyFactsByListAndCompanyId = (list: CompanyGBFactMappingDto[], companyId: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, CompanyGBFactMappingDto[]>({
       method: 'POST',
-      url: '/api/app/company-account/or-update-company-facts',
+      url: `/api/app/company-account/or-update-company-facts/${companyId}`,
       body: list,
     },
     { apiName: this.apiName,...config });

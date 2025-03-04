@@ -48,7 +48,8 @@ export class CompaniesAgenciesAndRatingsComponent {
   suggestions: any[] = [];
   sectorID: number;
   stockMarketID: number;
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   stockMarkets = [];
   companyMarketSectors = [];
   companiesTickers = [];
@@ -116,10 +117,18 @@ export class CompaniesAgenciesAndRatingsComponent {
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
-    this.companyID = event.value.companyID
+    this.companyID = event.value.companyID;
+    this.lastcompanyID = this.companyID;
     this.getStockMarketSectorsByStockMarketID();
     this.selectedItem = null;
     this.loading = false;
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
 
   getStockMarkets() {

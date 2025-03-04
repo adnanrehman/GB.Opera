@@ -66,7 +66,8 @@ export class CompaniesComponent {
   capSizes: any[] = [];
   marketSectors: any[] = [];
   companyActivation!: number;
-  sectorID:number;
+  sectorID: number = 0;
+  lastsectorID: number = this.sectorID;
   activationDropdown: any[] = 
   [
     {value:0,displayText:"No"},
@@ -135,6 +136,12 @@ export class CompaniesComponent {
 
   search(event: AutoCompleteCompleteEvent) {
     this.suggestions = this.companies.map(item => item.company);
+}
+onListBoxSelectionChange(event: any) {
+  if(this.sectorID == null)
+    this.sectorID = this.lastsectorID;
+  else
+  this.lastsectorID = this.sectorID;
 }
 
   fillCompByMarketId() {
@@ -274,11 +281,12 @@ export class CompaniesComponent {
 }
 
 handleDataFromAutoCompelete(company: CompanyDto) {
-  
+  debugger;
   this.company = company;
   //this.fillCompByMarketId()
   this.companySector.stockMarketID = company.stockMarketID;
   this.companySector.sectorID = company.sectorID;
+  this.lastsectorID = company.sectorID;
   
   this.company.company = this.company.company.split("-").length > 1 ?  this.company.company.split("-")[1] : this.company.company
 //  this.companySector.fillCompByMarketId();

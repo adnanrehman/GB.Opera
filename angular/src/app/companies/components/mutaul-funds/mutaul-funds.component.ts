@@ -48,8 +48,9 @@ export class MutaulFundsComponent {
   selectedItem: any;
   suggestions: any[] = [];
   stockMarketID: number;
-  companyID: number;
-  mFundID: number;
+  companyID: number = 0;  
+  mFundID: number = 0;
+  lasfundID: number = this.mFundID;
   stockMarkets = [];
   companiesTickers = [];
   companyMutualFunds = [];
@@ -131,9 +132,16 @@ export class MutaulFundsComponent {
     debugger;
     this.loading = true;
     this.stockMarketID = event.value.stockMarketID;
-    this.companyID = event.value.companyID
+    this.companyID = event.value.companyID;
     this.getCompaniesWithHasFundByStockMarketID();
     this.loading = false;
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.mFundID == null)
+      this.mFundID = this.lasfundID;
+    else
+    this.lasfundID = this.mFundID;
   }
 
   getStockMarkets() {

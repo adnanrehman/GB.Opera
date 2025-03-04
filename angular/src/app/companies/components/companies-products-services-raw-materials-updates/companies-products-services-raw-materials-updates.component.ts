@@ -51,7 +51,8 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
   sectorID: number;
   clickedIndex = 0;
   stockMarketID: number;
-  companyID: number;
+  companyID: number = 0;
+  lastcompanyID: number = this.companyID;
   productServiceRawID: number;
   marketLangAnnouncement = [];
   companyMarketSectors = [];
@@ -179,7 +180,8 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
-    this.companyID = event.value.companyID
+    this.companyID = event.value.companyID;
+    this.lastcompanyID = this.companyID;
     this.getCompMarketSectorsByMarketID();
     this.selectedItem = null;
     this.loading = false;
@@ -190,6 +192,13 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
       this.marketLangAnnouncement = res;
       if (this.marketLangAnnouncement.length > 0) this.stockMarketID = this.marketLangAnnouncement[0].stockMarketID; this.getCompMarketSectorsByMarketID();
     });
+  }
+
+  onListBoxSelectionChange(event: any) {
+    if(this.companyID == null)
+      this.companyID = this.lastcompanyID;
+    else
+    this.lastcompanyID = this.companyID;
   }
 
   getCompMarketSectorsByMarketID() {

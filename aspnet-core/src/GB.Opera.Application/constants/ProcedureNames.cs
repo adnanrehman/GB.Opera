@@ -11,7 +11,7 @@ namespace GB.Opera.constants
         public const string usp_getCompanies = "usp_getCompanies";
         public const string usp_InsertCompanies = "usp_InsertCompanies";
         public const string usp_getCompaniesFacts = "usp_getCompaniesFacts";
-        public const string usp_InsertUpdateCompaniesFacts = "usp_InsertUpdateCompaniesFacts";
+        public const string usp_InsertUpdateCompaniesFacts = "usp_InsertUpdateCompaniesFacts_New";
         public const string usp_getCompanyFactsOrders = "usp_getCompanyFactsOrders";
         public const string usp_UpdateCompanyFactOrders = "usp_UpdateCompanyFactOrders";
         public const string usp_getCompaniesManagement = "usp_getCompaniesManagement";
@@ -109,6 +109,7 @@ namespace GB.Opera.constants
         public const string usp_InsertMarketSectors = "usp_InsertMarketSectors";
         public const string usp_InsertMarketCaps = "usp_InsertMarketCaps";
         public const string usp_DeleteAllOldMarketInfoValues_New = "usp_DeleteAllOldMarketInfoValues_New";
+        public const string usp_SetCompFactsFalse = "usp_SetCompFactsFalse";
         public const string getCurrencyExchange = "getCurrencyExchange";
         public const string usp_InsertCurrencyExchange = "usp_InsertCurrencyExchange";
         public const string Deletefianancial = "Deletefianancial";

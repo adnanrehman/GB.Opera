@@ -11,7 +11,7 @@ namespace CompanyAccounts
     public interface ICompanyAccountAppService : IApplicationService
     {
         Task<List<CompanyGBFactMappingDto>> GetCompaniesFacts(int companyID);
-        Task<List<CompanyGBFactMappingDto>> CreateOrUpdateCompanyFacts(List<CompanyGBFactMappingDto> list);
+        Task<List<CompanyGBFactMappingDto>> CreateOrUpdateCompanyFacts(List<CompanyGBFactMappingDto> list, int companyId);
 
     }
 }
