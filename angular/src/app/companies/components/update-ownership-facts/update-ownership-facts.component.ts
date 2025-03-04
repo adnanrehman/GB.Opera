@@ -158,7 +158,8 @@ export class UpdateOwnershipFactsComponent {
     this.companyID = event.value.companyID
     //this.getCompMarketSectorsByMarketID();
     this.getCompaniesTickersBySectorIDAndMarketID();
-    this.selectedItem = null;
+     
+    this.selectedItem = null ;
     this.loading = false;
   }
 
@@ -191,7 +192,9 @@ export class UpdateOwnershipFactsComponent {
       .subscribe(res => {
         this.companiesTickers = res;
         if (this.companiesTickers.length > 0) {
-          this.companyID = this.companiesTickers[0].companyID;
+          //this.companyID = this.companiesTickers[0].companyID;
+
+          //alert(this.companyID);
           this.getCompaniesFactsByCompanyID();
         }
         else this.loading = false;
