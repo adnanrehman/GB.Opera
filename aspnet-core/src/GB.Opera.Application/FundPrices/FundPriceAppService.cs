@@ -107,7 +107,7 @@ namespace FundPrices
                     var parameters = new DynamicParameters();
                     parameters.Add("@Json", JsonSerializer.Serialize(josnList));
                     parameters.Add("@PriceDate", josnList.Select(g => g.PriceDate).FirstOrDefault());
-                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertMFundPrices, parameters, commandType: CommandType.StoredProcedure);
+                    await _connection.ExecuteAsync(ProcedureNames.usp_InsertMFundPrices_New, parameters, commandType: CommandType.StoredProcedure);
                 }
                 return "1";
             }
