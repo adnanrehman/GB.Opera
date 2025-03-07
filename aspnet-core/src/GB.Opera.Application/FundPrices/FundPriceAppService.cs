@@ -67,8 +67,8 @@ namespace FundPrices
             List<MFundPrices> josnList = new List<MFundPrices>();
             try
             {
-                var mFunds = await _connection.QueryAsync<MFunds>($@"Select MFundID,Name,ShortName from MFunds");
-                var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT Ticker FROM Companies");
+                var mFunds = await _connection.QueryAsync<MFunds>($@"Select MFundID,Name,ShortName from MFunds WHERE ShortName IS NOT NULL");
+                var Companies = await _connection.QueryAsync<CompanyDto>($@"SELECT Ticker,CompanyID,Company FROM Companies");
 
                 foreach (var item in list)
                 {
