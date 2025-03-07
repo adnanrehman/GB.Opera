@@ -1513,6 +1513,21 @@
               "allowAnonymous": null,
               "implementFrom": "Commons.ICommonAppService"
             },
+            "MaintainSession": {
+              "uniqueName": "MaintainSession",
+              "name": "MaintainSession",
+              "httpMethod": "POST",
+              "url": "api/app/common/maintain-session",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.CommonAppService"
+            },
             "SearchCompaniesByParam": {
               "uniqueName": "SearchCompaniesByParam",
               "name": "SearchCompanies",

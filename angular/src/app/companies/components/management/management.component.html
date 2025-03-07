@@ -971,7 +971,8 @@
                           autofocus
                           [(ngModel)]="companyFinancialOverview.initialCapital"
                           [ngModelOptions]="{ standalone: true }"
-                          type="text"
+                          type="number"
+                                step="any"
                           class="form-control"
                           name="initialCapital"
                           placeholder="Initial Capital"
@@ -983,7 +984,8 @@
                           autofocus
                           [(ngModel)]="companyFinancialOverview.authorizedCapital"
                           [ngModelOptions]="{ standalone: true }"
-                          type="text"
+                          type="number"
+                                step="any"
                           class="form-control"
                           name="authorizedCapital"
                           placeholder="Authorized Capital"
@@ -995,7 +997,8 @@
                           autofocus
                           [(ngModel)]="companyFinancialOverview.subscribedCapital"
                           [ngModelOptions]="{ standalone: true }"
-                          type="text"
+                          type="number"
+                                step="any"
                           class="form-control"
                           name="subscribedCapital"
                           placeholder="Subscribed Capitol"

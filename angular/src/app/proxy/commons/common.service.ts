@@ -163,6 +163,14 @@ export class CommonService {
     { apiName: this.apiName,...config });
   
 
+  maintainSession = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'POST',
+      url: '/api/app/common/maintain-session',
+    },
+    { apiName: this.apiName,...config });
+  
+
   searchCompaniesByParam = (param: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, CompanyDto[]>({
       method: 'POST',
