@@ -13,6 +13,7 @@ import { ReportsComponent } from '../application/components/reports/reports.comp
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TabService } from '../tab/tab.service';
 import { MenuService } from '../menu/menu.service';
+import { CommonService } from '@proxy/commons';
 
 @Component({
   selector: 'app-home',
@@ -45,6 +46,7 @@ export class HomeComponent {
 
   constructor(private authService: AuthService,
     private tabService: TabService,
+    private commonService: CommonService,
     private config: ConfigStateService,
     private permissionService: PermissionService,
     private menuService: MenuService,
@@ -74,6 +76,7 @@ export class HomeComponent {
 
   ngOnInit(){
     this.spinner.show();
+    this.updateSession();
     this.loadUserRoles();
     this.tabService.tabs$.subscribe(tabs => {
       this.tabs = tabs;
@@ -137,6 +140,18 @@ export class HomeComponent {
     //   this.addTab("Economic and Statistical Data", EconomicAndStatisticalDataComponent,type);
     // }
     
+  }
+
+  updateSession(){
+    setInterval(()=>{ 
+      this.updateSessionServerside();
+ }, 30000); 
+  }
+
+  updateSessionServerside(){
+    this.commonService.maintainSession().subscribe(res => {
+      
+    });
   }
 
   addTab(title: string, component: any,href:string) {

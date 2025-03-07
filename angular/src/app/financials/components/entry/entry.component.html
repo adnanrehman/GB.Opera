@@ -131,7 +131,7 @@
             <div class="col-md-5" [abpLoading]="loadingU">
               <div class="row">
                 <div class="col-md-6">
-                  <h6>Uploaded Financial:</h6>
+                  <h6>Uploaded Financial: {{statusFinanial.financialsID}}</h6>
                 </div>
                 <div class="col-md-6">
                   <h6>As Of Date: {{statusFinanial.asOfDate | date : 'MM/dd/yyyy'}}</h6>
@@ -199,7 +199,7 @@
             <div class="col-md-5" [abpLoading]="loadingR">
                 <div class="row">
                   <div class="col-md-6">
-                    <h6>Review Financial:</h6>
+                    <h6>Review Financial: {{asOfDate.financialsID}}</h6>
                   </div>
                   <div class="col-md-6">
                     <h6>As Of Date: {{asOfDate.asOfDate}}</h6>

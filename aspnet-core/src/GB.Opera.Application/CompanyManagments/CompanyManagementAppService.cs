@@ -200,7 +200,7 @@ namespace CompanyManagements
                 parameters.Add("@Description", model.Description);
                 parameters.Add("@ADescription", model.ADescription);
                 parameters.Add("@CreationDate", model.CreationDate);
-                parameters.Add("@IsActive", true);
+                parameters.Add("@IsActive", model.IsActive);
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
                 parameters.Add("@Region", model.Region);
                 parameters.Add("@ARegion", model.ARegion);
@@ -231,7 +231,7 @@ namespace CompanyManagements
                 parameters.Add("@TreasuryStocks", model.TreasuryStocks);
                 parameters.Add("@Beta", model.Beta);
                 parameters.Add("@CreationDate", DateTime.Now);
-                parameters.Add("@IsActive", true);
+                parameters.Add("@IsActive", model.IsActive);
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
 
                 await _connection.ExecuteAsync(ProcedureNames.usp_InsertOverview, parameters, commandType: CommandType.StoredProcedure);
@@ -264,7 +264,7 @@ namespace CompanyManagements
                 parameters.Add("@Cell", model.Cell);
                 parameters.Add("@Fax", model.Fax);
                 parameters.Add("@CreationDate", model.CreationDate);
-                parameters.Add("@IsActive", true);
+                parameters.Add("@IsActive", model.IsActive);
                 parameters.Add("@GulfbaseUpdateDate", model.GulfbaseUpdateDate);
 
                 await _connection.ExecuteAsync(ProcedureNames.usp_InsertContacts, parameters, commandType: CommandType.StoredProcedure);
