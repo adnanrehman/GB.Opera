@@ -153,6 +153,8 @@ export class EntryComponent {
 
   getAsofDatesFinancials(asOfDate:AsOfDateDto){
     this.loadingR = true;
+    this.reviewFinancialsDetails = [];
+    this.finEntryInReviews = [];
     this.asOfDate = asOfDate;
     var obj: AsofDatesFinancialInputDto= {
       financialsID: asOfDate.financialsID,
