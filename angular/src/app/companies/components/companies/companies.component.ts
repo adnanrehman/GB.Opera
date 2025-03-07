@@ -252,7 +252,9 @@ onListBoxSelectionChange(event: any) {
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.company.company + ' updated successfully', icon: 'success', });
       else
         Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.company.company + ' created successfully', icon: 'success', });
-      this.handleCompany(this.company);
+        this.company.companyID =res.companyID
+
+        this.handleCompany(this.company);
       this.loading = false;
     },
     error => {

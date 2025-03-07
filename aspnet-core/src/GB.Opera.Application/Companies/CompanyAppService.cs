@@ -50,7 +50,7 @@ namespace Companies
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@CompanyID", model.CompanyID);
+                parameters.Add("@CompanyID", model.CompanyID, DbType.Int16, ParameterDirection.InputOutput); // Set InputOutput
                 parameters.Add("@Company", model.Company);
                 parameters.Add("@ACompany", model.ACompany);
                 parameters.Add("@Ticker", model.Ticker);
@@ -88,6 +88,7 @@ namespace Companies
                 parameters.Add("@EnglishShortName", model.EnglishShortName);
 
                 await _connection.ExecuteAsync(ProcedureNames.usp_InsertCompanies, parameters, commandType: CommandType.StoredProcedure);
+                model.CompanyID = parameters.Get<short>("@CompanyID");
                 return model;
             }
             catch (Exception ex)
