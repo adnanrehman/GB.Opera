@@ -87,7 +87,7 @@ namespace Companies
                 parameters.Add("@StockTicker", model.StockTicker);
                 parameters.Add("@EnglishShortName", model.EnglishShortName);
 
-                await _connection.ExecuteAsync(ProcedureNames.usp_InsertCompanies, parameters, commandType: CommandType.StoredProcedure);
+                await _connection.ExecuteAsync(ProcedureNames.usp_InsertCompanies_New, parameters, commandType: CommandType.StoredProcedure);
                 model.CompanyID = parameters.Get<short>("@CompanyID");
                 return model;
             }

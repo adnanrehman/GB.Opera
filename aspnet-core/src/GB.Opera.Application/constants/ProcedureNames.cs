@@ -9,7 +9,7 @@ namespace GB.Opera.constants
     public static class ProcedureNames
     {
         public const string usp_getCompanies = "usp_getCompanies";
-        public const string usp_InsertCompanies = "usp_InsertCompanies";
+        public const string usp_InsertCompanies_New = "usp_InsertCompanies_New";
         public const string usp_getCompaniesFacts = "usp_getCompaniesFacts";
         public const string usp_InsertUpdateCompaniesFacts = "usp_InsertUpdateCompaniesFacts_New";
         public const string usp_getCompanyFactsOrders = "usp_getCompanyFactsOrders";
