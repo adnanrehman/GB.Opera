@@ -1,10 +1,10 @@
 <div class="container ms-2" [abpLoading]="loading">
   <div class="row mb-2">
     <div class="col-md-3">
-      <app-company-sector #companysectorRef [sectorIDFromParent]="sectorID" [lastsectorIDFromParent]="lastsectorID"
+      <!-- <app-company-sector #companysectorRef [sectorIDFromParent]="sectorID" [lastsectorIDFromParent]="lastsectorID"
       (dataEvent)="handleDataFromChild($event)">
-      </app-company-sector>
-      <!-- <div class="row mb-2">
+      </app-company-sector> -->
+      <div class="row mb-2">
         <div class="col-md-12">
           <p-dropdown
             [(ngModel)]="company.stockMarketID"
@@ -26,13 +26,13 @@
             [options]="marketSectors"
             [(ngModel)]="sectorID"
             optionLabel="sector"
-            (click)="getCompanies()"
+            (click)="onListBoxSelectionChange($event);getCompanies()"
             optionValue="sectorID"
             [style]="{ width: '100%' }"
             [listStyle]="{ 'max-height': '200rem' }"
           />
         </div>
-      </div> -->
+      </div>
     </div>
     <div class="col-md-9">
       <div class="card">
@@ -41,17 +41,18 @@
           <form #companyForm="ngForm" (ngSubmit)="createOrUpdateCompany()">
             <div class="row">
               <div class="col-md-9">
-                <app-company-autocomplete (dataEventAutoComplete)="handleDataFromAutoCompelete($event)"></app-company-autocomplete>
-                <!-- <p-autoComplete
+                <!-- <app-company-autocomplete (dataEventAutoComplete)="handleDataFromAutoCompelete($event)"></app-company-autocomplete> -->
+                <p-autoComplete
                   [(ngModel)]="selectedItem"
                   [ngModelOptions]="{ standalone: true }"
                   (onSelect)="onSelect($event)"
                   [suggestions]="suggestions"
+                  field="company"
                   (completeMethod)="search($event)"
                   [style]="{ width: '100%' }"
                   [inputStyle]="{ width: '100%' }"
                 >
-                </p-autoComplete> -->
+                </p-autoComplete>
               </div>
               <div class="col-md-3 text-end">
                 <a (click)="addNewCompany()" class="btn btn-primary btn-sm me-1"

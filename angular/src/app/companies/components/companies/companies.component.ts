@@ -49,9 +49,9 @@ import { Company_Company } from 'src/app/services/permissions';
 })
 export class CompaniesComponent {
   @ViewChild('imgContactAvatar') imgContactAvatar!: FileUpload;
-  @ViewChild('companysectorRef') companySector: CompanySectorComponent;
-  @Input() stockMarketIDinput;
-  @Input() sectorIDinput;
+  // @ViewChild('companysectorRef') companySector: CompanySectorComponent;
+  // @Input() stockMarketIDinput;
+  // @Input() sectorIDinput;
   filteredCountries: any[];
   items: any[] = [];
   clickedIndex = 0;
@@ -66,6 +66,8 @@ export class CompaniesComponent {
   capSizes: any[] = [];
   marketSectors: any[] = [];
   companyActivation!: number;
+  stockMarketID:number;
+  selectedSectorFromAutoComp:boolean = false;
   sectorID: number = 0;
   lastsectorID: number = this.sectorID;
   activationDropdown: any[] = 
@@ -131,11 +133,32 @@ export class CompaniesComponent {
   getCompStockMarkets() {
     this.commonService.getCompStockMarkets().subscribe(res => {
       this.markets = res;
+      if (this.markets.length > 0) this.stockMarketID = this.markets[0].stockMarketID; this.fillCompByMarketId();
     });
   }
 
-  search(event: AutoCompleteCompleteEvent) {
-    this.suggestions = this.companies.map(item => item.company);
+//   search(event: AutoCompleteCompleteEvent) {
+//     this.suggestions = this.companies.map(item => item.company);
+// }
+
+search(event: AutoCompleteCompleteEvent) {
+    
+  this.commonService.searchCompaniesByParam(event.query).subscribe(res => {
+    this.suggestions = res;
+    
+  });
+}
+
+onSelect(event: any) {
+  
+  this.loading =true;
+  this.company.stockMarketID = event.value.stockMarketID;
+  this.sectorID = event.value.sectorID;
+  this.selectedSectorFromAutoComp = true;
+  this.lastsectorID = this.sectorID;
+  this.fillCompByMarketId();
+  this.selectedItem = null;
+  this.loading =false;
 }
 onListBoxSelectionChange(event: any) {
   if(this.sectorID == null)
@@ -155,10 +178,15 @@ onListBoxSelectionChange(event: any) {
       this.subCurrencies = res.subCurrencies;
       this.capSizes = res.capSizes;
       this.marketSectors = res.marketSectors;
+      // this.sectorID = this.marketSectors[0].sectorID;
+      if(!this.selectedSectorFromAutoComp)
+        this.sectorID = this.marketSectors[0].sectorID;
+      else
+        this.selectedSectorFromAutoComp = false;
+      this.getCompanies();
     //  this.loading = false;
       if (this.compDropdown) {
-        this.sectorID = this.marketSectors[0].sectorID
-        this.getCompanies();
+        
       }
     });
   }
@@ -168,11 +196,15 @@ onListBoxSelectionChange(event: any) {
     this.companyService
       .getCompaniesBySectorIDAndStockMarketID(this.sectorID, this.company.stockMarketID)
       .subscribe(res => {
-        debugger;
+        
         this.companies = res;
         
          
-        if (this.companies.length > 0) this.handleCompany(this.companies[0]);
+        if (this.companies.length > 0) {
+          this.handleCompany(this.companies[0]);
+        }else{
+          this.addNewCompany();
+        }
          this.loading = false;
       });
   }
@@ -199,8 +231,11 @@ onListBoxSelectionChange(event: any) {
   
  
   handleCompany(company: CompanyDto) {
-    debugger; 
+     
     this.company = company;
+    // this.company.stockMarketID = this.stockMarketID;
+    // this.company.sectorID = this.sectorID;
+    this.lastsectorID = company.sectorID;
     this.companyActivation = this.company.isActive ? 1 : 0;
     if (this.company.establishmentDate) {
       const date = new Date(this.company.establishmentDate); // Convert string to Date
@@ -239,7 +274,7 @@ onListBoxSelectionChange(event: any) {
   }
 
   createOrUpdateCompany() {
-    debugger;
+    
     this.loading = true;
     this.company.isActive = this.companyActivation == 1 ? true : false;
     if (!this.company.logo || this.company.logo.length === 0) {
@@ -274,35 +309,5 @@ onListBoxSelectionChange(event: any) {
         });
   }
 
-  handleDataFromChild(companies: []) {
-    debugger;
-    this.companies = companies;
-    this.company.stockMarketID = this.companySector.stockMarketID;
-    this.fillCompByMarketId();
-    if (this.companies.length > 0) this.handleCompany(this.companies[0]);
-}
-
-handleDataFromAutoCompelete(company: CompanyDto) {
-  debugger;
-  this.company = company;
-  //this.fillCompByMarketId()
-  this.companySector.stockMarketID = company.stockMarketID;
-  this.companySector.sectorID = company.sectorID;
-  this.lastsectorID = company.sectorID;
-  
-  this.company.company = this.company.company.split("-").length > 1 ?  this.company.company.split("-")[1] : this.company.company
-//  this.companySector.fillCompByMarketId();
- // this.companySector.getCompanies()
-  this.companyActivation = this.company.isActive ? 1 : 0;
-  if (this.company.establishmentDate) {
-    const date = new Date(this.company.establishmentDate); // Convert string to Date
-  
-    this.company.establishmentDate =
-      ('0' + (date.getMonth() + 1)).slice(-2) + '-' +  // MM
-      ('0' + date.getDate()).slice(-2) + '-' +        // DD
-      date.getFullYear();                             // YYYY
-  }
-  
-}
  
 }
