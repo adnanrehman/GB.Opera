@@ -84,4 +84,5 @@ export interface StatusFinancialsDto {
   company?: string;
   ticker?: string;
   financialEntryTypeID: number;
+  country?: string;
 }
