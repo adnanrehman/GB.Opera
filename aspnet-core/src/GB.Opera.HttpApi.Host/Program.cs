@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Autofac.Core;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -38,6 +39,20 @@ public class Program
 
             builder.Services.AddSingleton(x =>
               new BlobServiceClient(builder.Configuration.GetConnectionString("BlobStorage")));
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(24);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromHours(24);
+                options.SlidingExpiration = true; // Refreshes the cookie on each request
+                options.Cookie.HttpOnly = true;
+            });
 
 
             var app = builder.Build();

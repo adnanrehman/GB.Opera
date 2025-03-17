@@ -126,6 +126,7 @@ namespace Entry
                 if (jsonList.Count > 0)
                 {
                     var parameters = new DynamicParameters();
+                    jsonList = jsonList.DistinctBy(f => f.GBFactID).ToList();
                     parameters.Add("@Json", JsonSerializer.Serialize(jsonList));
                     parameters.Add("@FinancialsID", jsonList.Select(g => g.FinancialsID).FirstOrDefault());
                     await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialValues, parameters, commandType: CommandType.StoredProcedure);
@@ -191,6 +192,7 @@ namespace Entry
                 if (jsonList.Count > 0)
                 {
                     var parameters = new DynamicParameters();
+                    jsonList = jsonList.DistinctBy(f => f.GBFactID).ToList();
                     parameters.Add("@Json", JsonSerializer.Serialize(jsonList));
                     parameters.Add("@FinancialsID", jsonList.Select(g => g.FinancialsID).FirstOrDefault());
                     await _connection.ExecuteAsync(ProcedureNames.usp_InsertUpdateFinancialValues, parameters, commandType: CommandType.StoredProcedure);

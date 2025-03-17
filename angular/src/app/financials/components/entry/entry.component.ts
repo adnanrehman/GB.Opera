@@ -195,7 +195,7 @@ export class EntryComponent {
     this.entryService.insertUpdateFinancialValuesByList(this.financialsDetails).subscribe(res => {
       debugger;
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:'Saved successfully', icon: 'success', });
-      this.getCompanyAccounts();
+      // this.getCompanyAccounts();
     },
       error => {
         this.loadingU = false;
@@ -233,7 +233,7 @@ export class EntryComponent {
     this.entryService.insertUpdateComitChangesByDtoAndUserID(obj,this.userId).subscribe(res => {
       debugger;
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:'Saved successfully', icon: 'success', });
-      this.getAsofDatesFinancials(this.asOfDate);
+      // this.getAsofDatesFinancials(this.asOfDate);
 
       // this.loadingR = false;
     },
