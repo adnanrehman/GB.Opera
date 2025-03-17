@@ -22,6 +22,7 @@ namespace Entry
         public string? Company { get; set; }
         public string? Ticker { get; set; }
         public short FinancialEntryTypeID { get; set; }
+        public string? Country { get; set; }
 
     }
 
