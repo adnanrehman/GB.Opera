@@ -55,6 +55,7 @@ export class CompaniesComponent {
   filteredCountries: any[];
   items: any[] = [];
   clickedIndex = 0;
+  companyID = 0;
   selectedItem: any;
   loading:boolean = false;
   suggestions: any[] = [];
@@ -154,6 +155,7 @@ onSelect(event: any) {
   this.loading =true;
   this.company.stockMarketID = event.value.stockMarketID;
   this.sectorID = event.value.sectorID;
+  this.companyID = event.value.companyID;
   this.selectedSectorFromAutoComp = true;
   this.lastsectorID = this.sectorID;
   this.fillCompByMarketId();
@@ -180,7 +182,7 @@ onListBoxSelectionChange(event: any) {
       this.marketSectors = res.marketSectors;
       // this.sectorID = this.marketSectors[0].sectorID;
       if(!this.selectedSectorFromAutoComp)
-        this.sectorID = this.marketSectors[0].sectorID;
+        this.sectorID = this.marketSectors[0].sectorID ?? 0;
       else
         this.selectedSectorFromAutoComp = false;
       this.getCompanies();
@@ -193,15 +195,22 @@ onListBoxSelectionChange(event: any) {
 
   getCompanies() {
      this.loading = true;
+     this.clickedIndex = 0;
     this.companyService
       .getCompaniesBySectorIDAndStockMarketID(this.sectorID, this.company.stockMarketID)
       .subscribe(res => {
         
         this.companies = res;
         
-         
+         debugger;
         if (this.companies.length > 0) {
-          this.handleCompany(this.companies[0]);
+          if(this.companyID > 0){
+            this.handleCompany(this.companies.find(f => f.companyID == this.companyID));
+            this.clickedIndex = this.companies.findIndex(f => f.companyID == this.companyID);
+            this.companyID = 0;            
+          }            
+          else
+            this.handleCompany(this.companies[0]);
         }else{
           this.addNewCompany();
         }
