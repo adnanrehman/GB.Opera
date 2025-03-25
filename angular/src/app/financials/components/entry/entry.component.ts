@@ -195,6 +195,7 @@ export class EntryComponent {
     this.entryService.insertUpdateFinancialValuesByList(this.financialsDetails).subscribe(res => {
       debugger;
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:'Saved successfully', icon: 'success', });
+      this.loadingU = false;
       // this.getCompanyAccounts();
     },
       error => {
@@ -235,7 +236,7 @@ export class EntryComponent {
       Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text:'Saved successfully', icon: 'success', });
       // this.getAsofDatesFinancials(this.asOfDate);
 
-      // this.loadingR = false;
+      this.loadingR = false;
     },
       error => {
         this.loadingR = false;
