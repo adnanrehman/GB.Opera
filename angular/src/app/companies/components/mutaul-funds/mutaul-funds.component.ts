@@ -45,6 +45,7 @@ import * as moment from 'moment';
 export class MutaulFundsComponent {
   selectedDate = moment(new Date()).format("MM/DD/YYYY")
   loading: boolean = false;
+  autocomplete: boolean = false;
   selectedItem: any;
   suggestions: any[] = [];
   stockMarketID: number;
@@ -133,6 +134,7 @@ export class MutaulFundsComponent {
     this.loading = true;
     this.stockMarketID = event.value.stockMarketID;
     this.companyID = event.value.companyID;
+    this.autocomplete = true;
     this.getCompaniesWithHasFundByStockMarketID();
     this.loading = false;
   }
@@ -152,6 +154,9 @@ export class MutaulFundsComponent {
   }
 
   getCompaniesWithHasFundByStockMarketID() {
+    this.resetAllModels();
+    if(!this.autocomplete)
+      this.companyID = undefined;
     this.commonService.getCompaniesWithHasFundByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companies = res.companies;
       this.assetsAllocations = res.assetsAllocations;
@@ -170,6 +175,7 @@ export class MutaulFundsComponent {
         if(!this.companyID)
         this.companyID = this.companies[0].companyID;
         this.getCompanyMutualFundsByCompanyID();
+        this.autocomplete =false;
       }
       else this.loading = false;
     });
@@ -194,6 +200,34 @@ export class MutaulFundsComponent {
         if (this.companyMutualFunds.length > 0) this.handleCompanyMutualFund(this.companyMutualFunds[0].mFundID);
         else this.loading = false;
       });
+  }
+
+  resetAllModels (){
+    this.companies = [];
+      this.assetsAllocations = [];
+      this.geoDiversifications = [];
+      this.sectorDiversifications = [];
+      this.majorInvestments = [];
+      this.benchmarks = [];
+      this.currencies = [];
+      this.portfolioTypes = [];
+      this.mfListings = [];
+      this.mfRisks = [];
+      this.mfClassifications = [];
+      this.mfCategories = [];
+      this.mfSubCategories = [];
+      this.companyMutualFunds = [];
+      this.mFundGeoDiversPercents = [];
+      this.mFundGeoDiversPercentsList = [];
+      this.mFundAssestAllocsPercents = [];
+      this.mFundAssestAllocsPercentsList = [];
+      this.mFundMajorInvestPercents = [];
+      this.mFundMajorInvestPercentsList = [];
+      this.mFundSectorDiversPercents = [];
+      this.mFundSectorDiversPercentsList = [];
+      this.companyMutualFund = {
+        mFundID: 0
+      };
   }
 
   handleCompanyMutualFund(mFundID: number) {

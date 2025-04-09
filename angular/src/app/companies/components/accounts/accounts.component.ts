@@ -48,6 +48,7 @@ import { TooltipModule } from 'primeng/tooltip';
 })
 export class AccountsComponent {
   loading: boolean = false;
+  autocomplete = true;
   headerValue: any;
   selectedItem: any;
   suggestions: any[] = [];
@@ -192,6 +193,7 @@ export class AccountsComponent {
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID;
     this.lastcompanyID = this.companyID;
+    this.autocomplete = true;
     this.searchCompanyId = event.value.companyID;
     this.companyTicker = event.value.ticker
     this.getCompMarketSectorsByMarketID();
@@ -213,12 +215,15 @@ export class AccountsComponent {
     this.companiesTickers = [];
     this.selectedNodes = [];
     this.loading = true;
+    if(!this.autocomplete)
+      this.sectorID = undefined;
     this.commonService.getCompMarketSectorsByMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
       if (this.companyMarketSectors.length > 0) {
         if(!this.sectorID)
           this.sectorID = this.companyMarketSectors[0].sectorID;
         this.getCompaniesTickersBySectorIDAndMarketID();
+        this.autocomplete = false;
       }
       else this.loading = false;
     });
@@ -226,6 +231,8 @@ export class AccountsComponent {
 
   getCompaniesTickersBySectorIDAndMarketID() {
     debugger;
+    if(!this.autocomplete)
+      this.companyID = undefined;
     if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
       this.sectorID = this.companyMarketSectors[0].sectorID;
     this.commonService
@@ -257,6 +264,7 @@ export class AccountsComponent {
       console.log('Tree res:', res);
       this.selectedNodes = [];
       this.NodeSelection(this.gbFactLists, res);
+      this.autocomplete = false;
       this.loading = false;
     });
   }

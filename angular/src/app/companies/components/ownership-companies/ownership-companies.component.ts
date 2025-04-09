@@ -42,6 +42,7 @@ import { Company_Ownership } from 'src/app/services/permissions';
 })
 export class OwnershipCompaniesComponent {
   loading: boolean = false;
+  autocomplete:boolean = false;
   headerValue: any;
   selectedItem: any;
   suggestions: any[] = [];
@@ -172,6 +173,7 @@ export class OwnershipCompaniesComponent {
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
+    this.autocomplete = true;
     this.companyID = event.value.companyID;
     this.lastcompanyID = this.companyID;
     this.getStockMarketSectorsByStockMarketID();
@@ -189,12 +191,18 @@ export class OwnershipCompaniesComponent {
   getStockMarketSectorsByStockMarketID() {
     debugger;
     this.loading = true;
+    this.companyMarketSectors =[];
+    this.companiesTickers = [];
+    this.resetAllModels();
+    if(!this.autocomplete)
+      this.sectorID = undefined;
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
       if (this.companyMarketSectors.length > 0) {
         if (!this.sectorID)
           this.sectorID = this.companyMarketSectors[0].sectorID;
         this.getSectorCompaniesBySectorIDAndStockMarketID();
+        this.autocomplete = false;
       }
       else this.loading = false;
     });
@@ -202,6 +210,8 @@ export class OwnershipCompaniesComponent {
 
   getSectorCompaniesBySectorIDAndStockMarketID() {
     debugger;
+    if(!this.autocomplete)
+      this.companyID = undefined;
     if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
       this.sectorID = this.companyMarketSectors[0].sectorID;
     this.commonService
@@ -212,6 +222,7 @@ export class OwnershipCompaniesComponent {
           if (!this.companyID)
             this.companyID = this.companiesTickers[0].companyID;
           this.getCompanySubsidiaries();
+          this.autocomplete = false;
         }
         else this.loading = false;
       });
@@ -219,6 +230,7 @@ export class OwnershipCompaniesComponent {
 
   getCompanySubsidiaries() {
     debugger;
+    this.resetAllModels();
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
     this.companyOwnershipService
@@ -228,9 +240,7 @@ export class OwnershipCompaniesComponent {
         console.warn(res);
 
         this.companySubsidiaries = res;
-        if (this.companySubsidiaries.subsidiaries.length > 0)
-          this.handleCompanyOwnership(this.companySubsidiaries);
-        else this.loading = false;
+        this.handleCompanyOwnership(this.companySubsidiaries);
       });
   }
 
@@ -246,6 +256,48 @@ export class OwnershipCompaniesComponent {
     this.loading = false;
     if (this.subsidiaries.length > 0) this.handleSubsidiary(this.subsidiaries[0]);
     else this.loading = false;
+  }
+
+  resetAllModels(){
+    this.subsidiaries = [];
+    this.subsCompUpds = [];
+    this.sisterCompanies = [];
+    this.companyproducts = [];
+    this.companyrawmaterials = [];
+    this.companyFIPs = [];
+    this.miscNotes = [];
+    this.subsidiary = {
+      subsidiaryID: 0,
+      companyID: 0,
+    };
+    this.subsCompUpd = {
+      subsCompUpdID: 0,
+      companyID: 0,
+    };
+    this.companyproduct = {
+      companyProductID: 0,
+      companyID: 0,
+    };
+    this.siterCompany = {
+      sisterCompanyID: 0,
+      companyID: 0,
+      isActive: false
+    };
+    this.companyrawmaterial = {
+      rawMaterialID: 0,
+      companyID: 0,
+      isActive: false,
+    };
+    this.companyFIP = {
+      fipid: 0,
+      companyID: 0,
+      isActive: false,
+    };
+    this.miscNote = {
+      miscNotesID: 0,
+      companyID: 0,
+      isActive: false
+    };
   }
 
   handleSubsidiary(subsidiary: SubsidiaryDto) {

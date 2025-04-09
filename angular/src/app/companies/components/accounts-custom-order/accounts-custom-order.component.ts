@@ -46,6 +46,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 })
 export class AccountsCustomOrderComponent {
   loading: boolean = false;
+  autocomplete: boolean = false;
   headerValue: any;
   selectedItem: any;
   suggestions: any[] = [];
@@ -108,6 +109,7 @@ export class AccountsCustomOrderComponent {
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID;
     this.lastcompanyID = this.companyID;
+    this.autocomplete = true;
     this.searchCompanyId = event.value.companyID;
     this.getStockMarketSectorsByStockMarketID();
     this.selectedItem = null;
@@ -124,20 +126,26 @@ export class AccountsCustomOrderComponent {
 
   getStockMarketSectorsByStockMarketID() {
     debugger;
+    if(!this.autocomplete)
+      this.sectorID = undefined;
     this.companyMarketSectors = [];
+    this.companiesTickers = [];
+    this.companyFactOrders = [];
     this.loading = true;
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
       if (this.companyMarketSectors.length > 0) {
         if (!this.sectorID) this.sectorID = this.companyMarketSectors[0].sectorID;
         this.getSectorCompaniesBySectorIDAndStockMarketID();
+        this.autocomplete = false;
       } else this.loading = false;
     });
   }
 
   getSectorCompaniesBySectorIDAndStockMarketID() {
-    debugger;
-    this.companiesTickers = [];
+    debugger;    
+    if(!this.autocomplete)
+      this.companyID = undefined;
     if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
       this.sectorID = this.companyMarketSectors[0].sectorID;
     this.commonService

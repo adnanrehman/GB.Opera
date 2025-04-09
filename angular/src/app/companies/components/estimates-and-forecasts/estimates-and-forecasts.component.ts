@@ -42,6 +42,7 @@ import { Company_EstimatesAndForecasts } from 'src/app/services/permissions';
 })
 export class EstimatesAndForecastsComponent {
   loading: boolean = false;
+  autocomplete: boolean = false;
   headerValue: any;
   selectedItem: any;
   clickedIndex = 0;
@@ -116,6 +117,7 @@ export class EstimatesAndForecastsComponent {
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID;
     this.lastcompanyID = this.companyID;
+    this.autocomplete = true;
     this.getStockMarketSectorsByStockMarketID();
     this.selectedItem = null;
     this.loading = false;
@@ -130,6 +132,9 @@ export class EstimatesAndForecastsComponent {
 
   getStockMarketSectorsByStockMarketID() {
     debugger;
+    this.resetAllModels();
+    if(!this.autocomplete)
+      this.sectorID = undefined;
     this.loading = true;
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
@@ -137,6 +142,7 @@ export class EstimatesAndForecastsComponent {
         if(!this.sectorID)
         this.sectorID = this.companyMarketSectors[0].sectorID;
         this.getSectorCompaniesBySectorIDAndStockMarketID();
+        this.autocomplete = false;
       } 
       else this.loading = false;
     });
@@ -150,6 +156,8 @@ export class EstimatesAndForecastsComponent {
 
   getSectorCompaniesBySectorIDAndStockMarketID() {
     debugger;
+    if(!this.autocomplete)
+      this.companyID = undefined;
     if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
       this.sectorID = this.companyMarketSectors[0].sectorID;
     this.commonService
@@ -189,6 +197,19 @@ export class EstimatesAndForecastsComponent {
           };
         }
       });
+  }
+
+  resetAllModels (){
+    this.companyMarketSectors = [];
+    this.companiesTickers = [];
+    this.estimatesandForecasts = [];
+    this.reportSources = [];
+    this.estimatesandForecast = {
+      efid: 0,
+      companyID: 0,
+      year: 0,
+      reportSourceID: 0
+    };
   }
 
   handleEstimatesandForecast(estimatesandForecast: EstimatesandForecastDto) {

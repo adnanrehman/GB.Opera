@@ -59,6 +59,7 @@ export class ManagementComponent {
   selectedItem: any;
   suggestions: any[] = [];
   sectorID: number;
+  autoComplete:boolean = false;
   clickedIndex = 0;
   stockMarketID: number;
   companyID: number = 0;
@@ -205,6 +206,7 @@ export class ManagementComponent {
     debugger;
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
+    this.autoComplete = true;
     this.companyID = event.value.companyID;
     this.lastcompanyID = this.companyID;
     this.getCompMarketSectorsByMarketID();
@@ -221,13 +223,19 @@ export class ManagementComponent {
 
   getCompMarketSectorsByMarketID() {
     debugger;
+    this.companyMarketSectors =[];
+    this.companiesTickers = [];
+    this.resetAllModels();
     this.loading = true;
+    if(!this.autoComplete)
+      this.sectorID = undefined;
     this.commonService.getCompMarketSectorsByMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
       if (this.companyMarketSectors.length > 0){
         if(!this.sectorID)
           this.sectorID = this.companyMarketSectors[0].sectorID;
         this.getCompaniesTickersBySectorIDAndMarketID();
+        this.autoComplete = false;
       } 
       else this.loading = false;
     });
@@ -235,6 +243,8 @@ export class ManagementComponent {
 
   getCompaniesTickersBySectorIDAndMarketID() {
     debugger;
+    if(!this.autoComplete)
+      this.companyID = undefined;
     if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
       this.sectorID = this.companyMarketSectors[0].sectorID;
     this.commonService
@@ -245,6 +255,7 @@ export class ManagementComponent {
           if(!this.companyID)
           this.companyID = this.companiesTickers[0].companyID;
           this.getCompanyManagements();
+          this.autoComplete = false;
         } 
         else this.loading = false;
       });
@@ -253,6 +264,7 @@ export class ManagementComponent {
   getCompanyManagements() {
     debugger;
     this.loading = true;
+    this.resetAllModels();
     if (this.companyID == undefined && this.companiesTickers.length > 0)
       this.companyID = this.companiesTickers[0].companyID;
     this.companyManagmentService
@@ -260,9 +272,7 @@ export class ManagementComponent {
       .subscribe(res => {
         debugger;
         this.companyManagements = res;
-        if (this.companyManagements.managements.length > 0)
-          this.handleCompanyManagement(this.companyManagements);
-        else this.loading = false;
+        this.handleCompanyManagement(this.companyManagements);
       });
   }
 
@@ -274,8 +284,6 @@ export class ManagementComponent {
     this.seniorManagements = companyManagement.seniorManagements.sort(
       (a, b) => new Date(b.since || 0).getTime() - new Date(a.since || 0).getTime()
     );
-    
-    
     this.boardMembers = companyManagement.boardMembers;
     this.auditors = companyManagement.auditors;
     this.branches = companyManagement.branches;
@@ -291,15 +299,15 @@ export class ManagementComponent {
     if (this.boardMembers.length > 0) this.handleboardMember(this.boardMembers[0]);
     else this.addNewManagement;
     if (this.auditors.length > 0) this.handleauditor(this.auditors[0]);
-    else this.addNewCompanyManagement;
+    else this.addNewManagement;
     if (this.branches.length > 0) this.handleBranch(this.branches[0]);
-    else this.addNewCompanyManagement;
+    else this.addNewManagement;
     if (this.companyFinancialOverviews.length > 0) this.handlecompanyFinancialOverview(this.companyFinancialOverviews[0]);
-    else this.addNewCompanyManagement;
+    else this.addNewManagement;
     if (this.contactInformations.length > 0) this.handlecontactInfo(this.contactInformations[0]);
-    else this.addNewCompanyManagement;
+    else this.addNewManagement;
     if (this.companyProjects.length > 0) this.handlecompanyProject(this.companyProjects[0]);
-    else this.addNewCompanyManagement;
+    else this.addNewManagement;
     this.loading = false;
   }
 
@@ -390,6 +398,55 @@ export class ManagementComponent {
     if (this.headerValue == 'Overview') this.createOrUpdateOverview();
     if (this.headerValue == 'Contacts') this.createOrUpdateContacts();
     if (this.headerValue == 'Projects') this.createOrUpdateCompanyProjects();
+  }
+
+  resetAllModels(){
+    this.managements = [];
+    this.seniorManagements = [];
+    this.boardMembers = [];
+    this.auditors = [];
+    this.branches = [];
+    this.companyFinancialOverviews = [];
+    this.contactInformations =[];
+    this.companyProjects = [];
+    this.projectStatuses = [];
+    this.management = {
+      managementID: 0,
+      companyID: 0,
+      isActive: false,
+    };
+    this.seniorManagement = {
+      seniorManagementID: 0,
+      companyID: 0,
+    };
+    this.auditor = {
+      auditorID: 0,
+      companyID: 0,
+    };
+    this.boardMember = {
+      boardMemberID: 0,
+      companyID: 0,
+    };
+    this.branch = {
+      branchID: 0,
+      companyID: 0,
+      isActive: false,
+    };
+    this.companyFinancialOverview = {
+      overviewID: 0,
+      companyID: 0,
+      isActive: false,
+    };
+    this.contactInfo = {
+      contactInfoID: 0,
+      companyID: 0,
+    };
+    this.companyProject = {
+      projectID: 0,
+      companyID: 0,
+      projectStatusID: 0,
+      active: false,
+    };
   }
 
   addNewManagement() {

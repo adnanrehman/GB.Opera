@@ -42,6 +42,7 @@ import * as moment from 'moment';
 })
 export class AnnouncementsComponent {
   loading: boolean = false;
+  autocomplete: boolean = true;
   headerValue: any;
   selectedItem: any;
   clickedIndex = 0;
@@ -124,6 +125,7 @@ export class AnnouncementsComponent {
     this.stockMarketID = event.value.stockMarketID;
     this.sectorID = event.value.sectorID;
     this.companyID = event.value.companyID;
+    this.autocomplete = true;
     this.lastcompanyID = this.companyID;
     this.getStockMarketSectorsByStockMarketID();
     this.selectedItem = null;
@@ -147,12 +149,16 @@ export class AnnouncementsComponent {
   getStockMarketSectorsByStockMarketID() {
     debugger;
     this.loading = true;
+    this.resetAllModels();
+    if(!this.autocomplete)
+      this.sectorID = undefined;
     this.commonService.getStockMarketSectorsByStockMarketID(this.stockMarketID).subscribe(res => {
       this.companyMarketSectors = res;
       if (this.companyMarketSectors.length > 0) {
         if(!this.sectorID)
         this.sectorID = this.companyMarketSectors[0].sectorID;
         this.getSectorCompaniesBySectorIDAndStockMarketID();
+        this.autocomplete = false;
       }
       else this.loading = false;
     });
@@ -160,6 +166,8 @@ export class AnnouncementsComponent {
 
   getSectorCompaniesBySectorIDAndStockMarketID() {
     debugger;
+    if(!this.autocomplete)
+      this.companyID = undefined;
     if (this.sectorID == undefined && this.companyMarketSectors.length > 0)
       this.sectorID = this.companyMarketSectors[0].sectorID;
     this.commonService
@@ -170,6 +178,7 @@ export class AnnouncementsComponent {
           if(!this.companyID)
           this.companyID = this.companiesTickers[0].companyID;
           this.getCorporateAnnouncements();
+          this.autocomplete = false;
         }
         else this.loading = false;
       });
@@ -188,6 +197,19 @@ export class AnnouncementsComponent {
           this.handleCorporateAnnouncement(this.corporateAnnouncements[0]);
         else this.loading = false;
       });
+  }
+  resetAllModels () {
+    this.companyMarketSectors = [];
+    this.companiesTickers = [];
+    this.corporateAnnouncements = [];
+    this.corporateAnnouncement = {
+      companyID: 0,
+      corporateAnnouncementID: 0,
+      announcementTypeID: 0,
+      gulfbaseID: 0,
+      isActive: false
+    };
+
   }
 
   handleCorporateAnnouncement(corporateAnnouncement: CorporateAnnouncementDto) {
