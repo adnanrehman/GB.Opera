@@ -51,6 +51,15 @@ export class GbFactService {
       body: gbFact,
     },
     { apiName: this.apiName,...config });
+  
+
+  searchGbFactsByParam = (param: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, GbFactsAccount[]>({
+      method: 'POST',
+      url: '/api/app/gb-fact/search-gb-facts',
+      params: { param },
+    },
+    { apiName: this.apiName,...config });
 
   constructor(private restService: RestService) {}
 }

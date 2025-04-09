@@ -118,6 +118,14 @@ namespace GbFacts
             
         }
 
+        public async Task<List<GbFactsAccount>> SearchGbFacts(string param)
+        {
+            var sql = $@"SELECT GBFactID, GBFact +' - '+AGBFact GBFact FROM GBFacts where Upper(GBFact) like Upper('%{param}%') ";
+
+            var data = await _connection.QueryAsync<GbFactsAccount>(sql);
+            return data.ToList();
+        }
+
 
     }
 }

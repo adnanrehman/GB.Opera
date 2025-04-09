@@ -2,6 +2,16 @@
     <form #template="ngForm">
       <div class="row mb-1">
         <div class="col-sm-12">
+          <label class="col-form-label">Search Account</label>
+          <p-autoComplete [(ngModel)]="selectedItem" [ngModelOptions]="{ standalone: true }"
+          (onSelect)="onSelect($event)" [suggestions]="suggestions" (completeMethod)="search($event)"
+          [style]="{ width: '100%' }" field="gbFact" [inputStyle]="{ width: '100%' }" 
+          [virtualScroll]="true" [itemSize]="30">
+</p-autoComplete>
+
+        </div>
+
+        <div class="col-sm-12">
           <label class="col-form-label">Account</label>
           <input autofocus type="text" class="form-control" [(ngModel)]="account.gbFact" name="accountName"
             placeholder="Account" />

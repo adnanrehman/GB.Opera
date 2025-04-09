@@ -3,6 +3,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GbFactsAccount, GbFactService } from '@proxy/gb-facts';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Application_GbFacts } from 'src/app/services/permissions';
 import Swal from 'sweetalert2';
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-rename-account',
   standalone: true,
-  imports: [FormsModule, CommonModule, NgIf],
+  imports: [FormsModule, CommonModule, NgIf,AutoCompleteModule],
   templateUrl: './rename-account.component.html',
   styleUrl: './rename-account.component.scss'
 })
@@ -18,6 +19,9 @@ export class RenameAccountComponent {
   ref!: DynamicDialogRef;
   companyID: number = 0;
   label:string;
+  selectedItem: any;
+  suggestions: any[] = [];
+  GBFACTID  : number
   account: GbFactsAccount = {
     gbFactID: 0,
     gbFact: '',
@@ -56,12 +60,12 @@ export class RenameAccountComponent {
       this.permission.delete = true;
     }
     debugger;
-    if ((this.config.data.obj, this.config.data.text)) {
-      var data = this.config.data.obj;
-      this.label = data.node.gbFact;
-      this.companyID = this.config.data.companyID;
-      this.getgbfactByid(data.node.gbFactID);
-    }
+      if ((this.config.data.obj, this.config.data.text)) {
+       // var data = this.config.data.obj;
+       // this.label = data.node.gbFact;
+        this.companyID = this.config.data.obj;
+       //this.getgbfactByid(data.node.gbFactID);
+      }
   }
 
   Cancel() {
@@ -81,6 +85,7 @@ export class RenameAccountComponent {
   }
 
   addAccounts() {
+    
     this.gnfactservice.renameFactByMenuByGbFactAndCompanyID(this.account,this.companyID).subscribe({
       next: res => {
         Swal.fire({
@@ -110,4 +115,19 @@ export class RenameAccountComponent {
       },
     });
   }
+
+  onSelect(event: any) {
+    
+    this.GBFACTID = event.value.gbFactID;
+    this.getgbfactByid(this.GBFACTID);
+    
+  }
+
+   search(event: AutoCompleteCompleteEvent) {
+     // this.loading = true;
+      this.gnfactservice.searchGbFactsByParam(event.query).subscribe(res => {
+        this.suggestions = res;
+     //   this.loading = false;
+      });
+    }
 }

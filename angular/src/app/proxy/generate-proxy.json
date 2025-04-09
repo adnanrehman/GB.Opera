@@ -1288,6 +1288,14 @@
                   }
                 },
                 {
+                  "name": "MaintainSession",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
                   "name": "GetMarketLangAnnouncements",
                   "parametersOnMethod": [],
                   "returnValue": {
@@ -1526,7 +1534,7 @@
                 "typeSimple": "System.Void"
               },
               "allowAnonymous": null,
-              "implementFrom": "Commons.CommonAppService"
+              "implementFrom": "Commons.ICommonAppService"
             },
             "SearchCompaniesByParam": {
               "uniqueName": "SearchCompaniesByParam",
@@ -9799,6 +9807,23 @@
                     "type": "System.Collections.Generic.List<GB.Opera.GbFacts.GbFactsAccount>",
                     "typeSimple": "[GB.Opera.GbFacts.GbFactsAccount]"
                   }
+                },
+                {
+                  "name": "SearchGbFacts",
+                  "parametersOnMethod": [
+                    {
+                      "name": "param",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GB.Opera.GbFacts.GbFactsAccount>",
+                    "typeSimple": "[GB.Opera.GbFacts.GbFactsAccount]"
+                  }
                 }
               ]
             }
@@ -9951,6 +9976,43 @@
                   "jsonName": null,
                   "type": "System.Int16",
                   "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.GbFacts.GbFactsAccount>",
+                "typeSimple": "[GB.Opera.GbFacts.GbFactsAccount]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GbFacts.IGbFactAppService"
+            },
+            "SearchGbFactsByParam": {
+              "uniqueName": "SearchGbFactsByParam",
+              "name": "SearchGbFacts",
+              "httpMethod": "POST",
+              "url": "api/app/gb-fact/search-gb-facts",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "param",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "param",
+                  "name": "param",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,

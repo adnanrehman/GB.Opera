@@ -306,7 +306,6 @@ export class AccountsComponent {
       this.renameFact(event);
     }
     
-   
   }
 
   renameFact(obj: any) {
@@ -365,6 +364,39 @@ export class AccountsComponent {
       aCustomFactName: dto.agbFact
 
     }));
+  }
+
+  onNodeDoubleClick(event: any, node: any) {
+    // Prevent default selection/unselection behavior
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  
+    // Optionally, add a slight delay to ensure tree selection/unselection doesn't interfere
+    setTimeout(() => {
+      console.log('Node double-clicked for renaming:', node);
+      this.renameFact(node);  // Trigger renaming action
+    }, 10);  // Adjust the timeout duration as necessary (e.g., 10ms)
+  }
+
+  updatefact( ) {
+    const obj= this.companyID
+  
+    this.ref = this.dialogService.open(RenameAccountComponent, {
+      header: 'Rename Account',
+      data: {
+        obj: obj,
+        companyID: this.companyID,
+        text: "Rename Account",
+      },
+      width: '40%',
+      contentStyle: { "max-height": "1000px", "overflow": "auto" },
+      baseZIndex: 10000
+    });
+    this.ref.onClose.subscribe((template: any) => {
+      if(template){
+        // this.fetchTreeData();
+      }
+    });
   }
 }
 

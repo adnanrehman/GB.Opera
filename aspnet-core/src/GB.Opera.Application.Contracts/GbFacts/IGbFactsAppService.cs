@@ -20,6 +20,8 @@ namespace GbFacts
 
 		public Task<List<GbFactsAccount>> GetgbfactByid(short GBFactID);
 
+        public Task<List<GbFactsAccount>> SearchGbFacts(string param);
+
 
     }
 }
