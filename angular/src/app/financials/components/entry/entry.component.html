@@ -153,7 +153,9 @@
                       </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-item>
-                      <tr [ngClass]="{'parent-item': item.parentID == 0, 'bold-row': !item.checkMe}">
+                      <tr [ngClass]="{'parent-item': item.parentID == 0, 'bold-row': !item.checkMe}"
+                      [style.background-color]="(item.isTitle && item.parentID != 0) ? 'rgb(185, 184, 181)' : (item.parentID == 0 ? 'rgb(255, 200, 128)' : '')"
+                      >
                         <td><span pTooltip="{{item.gbFactName}}" tooltipPosition="top">{{ item.gbFact }}</span></td>
                         <td>
                           <p-inputNumber [(ngModel)]="item.value"
@@ -215,21 +217,33 @@
                       </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-item>
-                      <tr [ngClass]="{'parent-item' : item.parentID == 0, 'bold-row': !item.checkMe}">
-                        <td><span pTooltip="{{item.gbFactName}}" tooltipPosition="top">{{ item.gbFact }}</span></td>
-                        <td>
-                          <p-inputNumber (keyup)="calculateFinancialsCapitol(item,reviewFinancialsDetails)"
-                            [(ngModel)]="item.value" [ngModelOptions]="{ standalone: true }" [minFractionDigits]="2"
-                            mode="decimal" [disabled]="item.isTitle"></p-inputNumber>
-                          <!-- <input
-                              autofocus
-                              [(ngModel)]="item.value"
-                              name="value"
-                              type="number" step="0.001" min="0"
-                              class="form-control"
-                            /> -->
-                        </td>
-                      </tr>
+                      <tr [ngClass]="{
+                        'parent-item': item.parentID == 0, 
+                        'bold-row': !item.checkMe,
+                       
+                      }" 
+                      [style.background-color]="(item.isTitle && item.parentID != 0) ? 'rgb(185, 184, 181)' : (item.parentID == 0 ? 'rgb(255, 200, 128)' : '')"
+
+                      >
+                    <td>
+                      <span pTooltip="{{item.gbFactName}}" tooltipPosition="top">{{ item.gbFact }}</span>
+                    </td>
+                    <td>
+                      <p-inputNumber 
+                        (keyup)="calculateFinancialsCapitol(item, reviewFinancialsDetails)"
+                        [(ngModel)]="item.value" 
+                        [ngModelOptions]="{ standalone: true }" 
+                        [minFractionDigits]="2"
+                        mode="decimal" 
+                        [disabled]="item.isTitle">
+                      </p-inputNumber>
+                    </td>
+                  </tr>
+                  
+                  
+                  
+                  
+                  
                     </ng-template>
                   </p-table>
                 </div>

@@ -1,6 +1,13 @@
-.parent-item{
+/* Apply background color for parent-item only if not disabled */
+.parent-item {
     background-color: rgb(255, 200, 128);
-}
-.bold-row {
-    font-weight: bold;
   }
+  
+  /* Apply bold text style when checkMe is false */
+  .bold-row {
+    font-weight: bold;
+    
+     
+  }
+  
+  

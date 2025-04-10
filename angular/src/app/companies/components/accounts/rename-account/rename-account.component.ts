@@ -72,11 +72,14 @@ export class RenameAccountComponent {
     this.modalref.close(false);
   }
   getgbfactByid(gbFactID: number) {
-    this.gnfactservice.getgbfactByidByGBFactID(gbFactID).subscribe({
+    this.gnfactservice.getGbFactByIdAndCompanyByGbFactIdAndCompanyId(gbFactID,this.companyID).subscribe({
       next: response => {
-        this.account = response.find(item => item.gbFactID === gbFactID);
-        this.account.gbFact = this.config.data.obj.node.gbFact == null ? this.config.data.obj.node.label : this.config.data.obj.node.gbFact;
-        this.account.agbFact = this.config.data.obj.node.aGbFact
+        //this.account = response.find(item => item.gbFactID === gbFactID);
+      //  this.account.gbFact = this.config.data.obj.node.gbFact == null ? this.config.data.obj.node.label : this.config.data.obj.node.gbFact;
+       // this.account.agbFact = this.config.data.obj.node.aGbFact
+       this.account.gbFactID=response.gbFactID 
+       this.account.gbFact=response.gbFact
+         this.account.agbFact=response.agbFact
       },
       error: err => {
         console.error('Error fetching GbFactsAccount:', err);

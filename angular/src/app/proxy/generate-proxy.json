@@ -9824,6 +9824,31 @@
                     "type": "System.Collections.Generic.List<GB.Opera.GbFacts.GbFactsAccount>",
                     "typeSimple": "[GB.Opera.GbFacts.GbFactsAccount]"
                   }
+                },
+                {
+                  "name": "GetGbFactByIdAndCompany",
+                  "parametersOnMethod": [
+                    {
+                      "name": "gbFactId",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "companyId",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "GB.Opera.GbFacts.GbFactsAccount",
+                    "typeSimple": "GB.Opera.GbFacts.GbFactsAccount"
+                  }
                 }
               ]
             }
@@ -10023,6 +10048,63 @@
               "returnValue": {
                 "type": "System.Collections.Generic.List<GB.Opera.GbFacts.GbFactsAccount>",
                 "typeSimple": "[GB.Opera.GbFacts.GbFactsAccount]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "GbFacts.IGbFactAppService"
+            },
+            "GetGbFactByIdAndCompanyByGbFactIdAndCompanyId": {
+              "uniqueName": "GetGbFactByIdAndCompanyByGbFactIdAndCompanyId",
+              "name": "GetGbFactByIdAndCompany",
+              "httpMethod": "GET",
+              "url": "api/app/gb-fact/gb-fact-by-id-and-company",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "gbFactId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "companyId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "gbFactId",
+                  "name": "gbFactId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "companyId",
+                  "name": "companyId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "GB.Opera.GbFacts.GbFactsAccount",
+                "typeSimple": "GB.Opera.GbFacts.GbFactsAccount"
               },
               "allowAnonymous": null,
               "implementFrom": "GbFacts.IGbFactAppService"

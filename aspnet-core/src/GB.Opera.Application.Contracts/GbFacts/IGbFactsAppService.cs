@@ -22,6 +22,8 @@ namespace GbFacts
 
         public Task<List<GbFactsAccount>> SearchGbFacts(string param);
 
+        public   Task<GbFactsAccount> GetGbFactByIdAndCompany(int gbFactId, int companyId);
+
 
     }
 }

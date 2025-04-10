@@ -17,6 +17,15 @@ export class GbFactService {
     { apiName: this.apiName,...config });
   
 
+  getGbFactByIdAndCompanyByGbFactIdAndCompanyId = (gbFactId: number, companyId: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, GbFactsAccount>({
+      method: 'GET',
+      url: '/api/app/gb-fact/gb-fact-by-id-and-company',
+      params: { gbFactId, companyId },
+    },
+    { apiName: this.apiName,...config });
+  
+
   getGbFactsDataFromProcedure = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, GbFactListDto[]>({
       method: 'GET',
