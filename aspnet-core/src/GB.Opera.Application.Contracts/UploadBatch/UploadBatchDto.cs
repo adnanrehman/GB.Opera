@@ -9,16 +9,16 @@ namespace UploadBatch
         public long BatchID { get; set; }
         public short CountryID { get; set; }
         public string ReportType { get; set; }
-        public string Source { get; set; }
-        public string ASource { get; set; }
+        public string Source { get; set; } = "";
+        public string ASource { get; set; } = "";
         public short StatusID { get; set; }
         public DateTime AsofDate { get; set; }
-        public string Remarks { get; set; }
-        public string ARemarks { get; set; }
+        public string Remarks { get; set; } = "";
+        public string ARemarks { get; set; } = "";
         public DateTime UploadDate { get; set; }
-        public short? ESDFactID { get; set; }
-        public string HijriDate { get; set; }
-        public string FileName { get; set; }
+        public short? ESDFactID { get; set; } 
+        public string HijriDate { get; set; } = "";
+        public string FileName { get; set; } = "";
         public string? Note { get; set; }
         public string? ANote { get; set; }
         public Guid? GbEntryUserId { get; set; }

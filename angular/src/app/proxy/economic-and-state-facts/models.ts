@@ -13,4 +13,5 @@ export interface ESDFactModel {
   forcast: boolean;
   measurementUnit?: string;
   currency?: string;
+  rootParentESDFactID: number;
 }

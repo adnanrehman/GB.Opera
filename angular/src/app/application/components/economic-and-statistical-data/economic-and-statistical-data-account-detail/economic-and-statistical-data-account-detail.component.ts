@@ -27,7 +27,9 @@ export class EconomicAndStatisticalDataAccountDetailComponent {
     quarterly: false,
     yearly: false,
     forcast: false,
-    parentID: 0
+    parentID: 0,
+    rootParentESDFactID:0
+    
   };
   ref!: DynamicDialogRef;
   constructor(
@@ -47,11 +49,24 @@ export class EconomicAndStatisticalDataAccountDetailComponent {
         debugger;
 
         this.esdFact.esdFactID = data.node.esdFactID;
-        this.esdFactMapping = data.node;
+        this.esdFactMapping = data.node;data.node.esdFactID
+        this.esdFact.rootParentESDFactID = data.rootparentId || data.node.esdFactID;
 
+
+         
         this.getESDFactbyIdByESDFactID(this.esdFactMapping.esdFactID);
       } else {
-        this.esdFact.parentID = data.node.esdFactID;
+        //this.esdFact.parentID =0
+         this.esdFact.parentID =data.node.esdFactID
+         ;
+      if (data.rootparentId===0 || data.rootparentId === undefined || data.rootparentId === null )
+      {
+        this.esdFact.rootParentESDFactID = data.node.esdFactID
+      }
+      else{
+        this.esdFact.rootParentESDFactID = data.rootparentId  
+      }
+        
       }
     }
   }
@@ -65,6 +80,7 @@ export class EconomicAndStatisticalDataAccountDetailComponent {
   }
 
   saveUpdateESDFact() {
+    debugger;
     this.economicAndStateFactService.saveUpdateESDFactByInput(this.esdFact).subscribe({
       next: res => {
         Swal.fire({

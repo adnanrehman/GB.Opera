@@ -10,7 +10,7 @@ namespace EconomicAndStateFacts
         public short ParentID { get; set; }
 
         public string ESDFact { get; set; }
-        public string AESDFact { get; set; }
+        public string? AESDFact { get; set; } = "";
         public bool IsTitle { get; set; }
         public bool Daily { get; set; }
         public bool Weekly { get; set; }
@@ -21,5 +21,7 @@ namespace EconomicAndStateFacts
 
         public string? MeasurementUnit { get; set; }
         public string? Currency { get; set; }
+        public short RootParentESDFactID { get; set; }
+
     }
 }

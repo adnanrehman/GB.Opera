@@ -175,16 +175,16 @@ export class UploadIndicatorsBatchComponent {
       return;
     }
 
-    if (!this.uploadBatch || !this.uploadBatch.hijriDate) {
-      console.error('Please add the Hijri Date');
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Please add the Hijri Date',
-        showConfirmButton: true,
-      });
-      return;
-    }
+    // if (!this.uploadBatch || !this.uploadBatch.hijriDate) {
+    //   console.error('Please add the Hijri Date');
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Oops...',
+    //     text: 'Please add the Hijri Date',
+    //     showConfirmButton: true,
+    //   });
+    //   return;
+    // }
 
     try {
       debugger;

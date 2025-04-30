@@ -92,28 +92,83 @@ export class EconomicAndStatisticalDataComponent {
     });
   }
 
+  onNodeClick(event: any) {
+    console.log('Node clicked:', event.node);
+    debugger;
+  
+    const node = event.node;
+    const parentId = node.parentID;
+  
+    console.log('Immediate Parent ID:', parentId);
+  
+    const parentNode = this.findNodeById(node, parentId);
+    console.log('Parent Node:', parentNode);
+  
+    // Safely get grandparent's parentID (i.e., rootparentId)
+    let rootparentId: number | null = null;
+    if (parentNode?.esdFactID !== undefined) {
+      rootparentId = parentNode.esdFactID;
+      console.log('Root Parent ID:', rootparentId);
+    }
+    event.rootparentId = rootparentId;
 
-
-onNodeClick(event: any) {
-  // Handle single click logic here
-  console.log('Node clicked:', event.node);
-  debugger;
-  if(event.node.parentID != -1){
-    const element = event.originalEvent.target; 
-    element.addEventListener('dblclick', () => {
-      this.editAccount(event);
-    });
-      
-  }
-
-  if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
-    console.log('Ctrl or Command + Click');
-    this.addAccount(event);
+    if (node.parentID !== -1) {
+      const element = event.originalEvent.target;
+  
+      element.addEventListener('dblclick', () => {
+        this.editAccount({
+          ...event,
+          rootparentId: rootparentId
+        });
+      });
+    }
+  
+    if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
+      console.log('Ctrl or Command + Click');
+      this.addAccount(event);
+    }
   }
   
- 
-}
+  
+  
+  findNodeById(node, id: number): any {
+  
+      // if (node.esdFactID === id) {
+      //   return node;
+      // }
+      if (node.parent && node.parent !=null) {
+        const found = this.findNodeById(node.parent, id);
+        if (found) return found;
+        else return null;
+      }
+   else{
+    return node;
+   }
+     
+  }
+  
+  
+// onNodeClick(event: any) {
+   
+//   console.log('Node clicked:', event.node);
+//   debugger;
+    
+//   if(event.node.parentID != -1){
+//     const element = event.originalEvent.target; 
+//     element.addEventListener('dblclick', () => {
+//       this.editAccount(event);
+//     });
+      
+//   }
 
+//   if (event.originalEvent.ctrlKey || event.originalEvent.metaKey) {
+//     console.log('Ctrl or Command + Click');
+//     this.addAccount(event);
+//   }
+  
+ 
+// }
+ 
   addAccount(obj: any) {
     this.ref = this.dialogService.open(EconomicAndStatisticalDataAccountDetailComponent, {
       header: 'Add ESD Facts',
@@ -127,6 +182,7 @@ onNodeClick(event: any) {
     });
     this.ref.onClose.subscribe((template: any) => {
 ;
+this.fetchgbOwnerShipTreeData();
     });
 
   }
@@ -144,6 +200,8 @@ onNodeClick(event: any) {
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
+      this.fetchgbOwnerShipTreeData();
     });
+    
   }
 }

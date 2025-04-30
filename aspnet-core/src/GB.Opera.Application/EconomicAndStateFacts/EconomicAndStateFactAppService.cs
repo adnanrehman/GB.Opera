@@ -72,7 +72,7 @@ namespace EconomicAndStateFacts
                 MeasurementUnit = input.MeasurementUnit,
                 Currency = input.Currency,    
                 Weekly = input.Weekly,
-                RootParentESDFactID= 0
+                RootParentESDFactID= input.RootParentESDFactID
 
             };
 
