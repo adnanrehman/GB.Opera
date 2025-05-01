@@ -181,8 +181,8 @@ export class EconomicAndStatisticalDataComponent {
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
-;
-this.fetchgbOwnerShipTreeData();
+      if(template != "close")
+        this.fetchgbOwnerShipTreeData();
     });
 
   }
@@ -200,7 +200,8 @@ this.fetchgbOwnerShipTreeData();
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
-      this.fetchgbOwnerShipTreeData();
+      if(template != "close")
+        this.fetchgbOwnerShipTreeData();
     });
     
   }

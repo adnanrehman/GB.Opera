@@ -72,7 +72,7 @@ export class EconomicAndStatisticalDataAccountDetailComponent {
   }
 
   closeModal(): void {
-    this.modalref.close();
+    this.modalref.close("close");
   }
 
   Cancel() {
