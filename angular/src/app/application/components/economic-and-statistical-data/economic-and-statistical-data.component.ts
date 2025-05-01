@@ -181,7 +181,7 @@ export class EconomicAndStatisticalDataComponent {
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
-      if(template != "close")
+      if(template !== "close")
         this.fetchgbOwnerShipTreeData();
     });
 
@@ -200,7 +200,7 @@ export class EconomicAndStatisticalDataComponent {
       baseZIndex: 10000
     });
     this.ref.onClose.subscribe((template: any) => {
-      if(template != "close")
+      if(template !== "close")
         this.fetchgbOwnerShipTreeData();
     });
     

@@ -93,7 +93,7 @@ export class EconomicAndStatisticalDataAccountDetailComponent {
           icon: 'success',
         });
         console.log('Save response:', res);
-        this.closeModal();
+        this.modalref.close();
       },
       error: err => {
         console.error('Error While Saveing', err);
@@ -106,7 +106,7 @@ export class EconomicAndStatisticalDataAccountDetailComponent {
           text: 'Error While Saveing',
           icon: 'error',
         });
-        this.closeModal();
+        this.modalref.close();
         // alert("Save error: " + err.message); // Display error message to user
       },
     });
