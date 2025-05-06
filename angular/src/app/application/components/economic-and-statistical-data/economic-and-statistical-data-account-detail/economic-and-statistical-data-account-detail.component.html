@@ -1,7 +1,7 @@
 <div>
   <form #template="ngForm">
     <div class="row mb-1">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <label class="col-form-label">ESD Fact</label>
         <input
           autofocus
@@ -12,7 +12,18 @@
           placeholder="ESD Fact"
         />
       </div>
-      <div class="col-md-12">
+      <div class="col-md-6">
+        <label class="col-form-label">ESD Fact Shortname</label>
+        <input
+          autofocus
+          type="text"
+          class="form-control"
+          [(ngModel)]="esdFact.esdFactShortName"
+          name="esdFactShortName"
+          placeholder="ESD Fact Shortname"
+        />
+      </div>
+      <div class="col-md-6">
         <label class="col-form-label">ESD Fact (AR)</label>
         <input
           autofocus
@@ -22,6 +33,75 @@
           name="aesdFact"
           placeholder="ESD Fact (AR)"
         />
+      </div>
+      <div class="col-md-6">
+        <label class="col-form-label">ESD Fact (AR) ShortName</label>
+        <input
+          autofocus
+          type="text"
+          class="form-control"
+          [(ngModel)]="esdFact.aesdFactShortName"
+          name="aesdFactShortName"
+          placeholder="ESD Fact (AR) ShortName"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="col-form-label">Country</label>
+        <input
+          autofocus
+          type="text"
+          class="form-control"
+          [(ngModel)]="esdFact.country"
+          name="Country"
+          placeholder="Country"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="col-form-label">Activity</label>
+        <input
+          autofocus
+          type="text"
+          class="form-control"
+          [(ngModel)]="esdFact.activity"
+          name="activity"
+          placeholder="Activity"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="col-form-label">Stock Market</label>
+        <p-dropdown
+        [(ngModel)]="esdFact.stockMarketID"
+        [options]="markets"
+        name="stockMarketID"
+        placeholder="Select a Market"
+        optionLabel="abbr"
+        optionValue="stockMarketID"
+        [style]="{ width: '100%' }">
+      </p-dropdown>
+      </div>
+      <div class="col-md-6">
+        <label class="col-form-label">Sector</label>
+        <p-dropdown
+        [(ngModel)]="esdFact.sectorID"
+        [options]="Sector"
+        name="sectorID"
+        placeholder="Select a Sector"
+        optionLabel="sector"
+        optionValue="sectorID"
+        [style]="{ width: '100%' }">
+      </p-dropdown>
+      </div>
+      <div class="col-md-6">
+        <label class="col-form-label">Company</label>
+        <p-dropdown
+        [(ngModel)]="esdFact.companyID"
+        [options]="Company"
+        name="companyID"
+        placeholder="Select a Company"
+        optionLabel="ticker"
+        optionValue="companyID"
+        [style]="{ width: '100%' }">
+      </p-dropdown>
       </div>
       <div class="col-md-12">
         <label class="form-check-label" for="defaultCheck4"></label>

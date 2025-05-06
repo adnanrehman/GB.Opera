@@ -80,6 +80,13 @@ namespace Commons
             return data;
         }
 
+        public async Task<List<SectorDto>> GetAllSector()
+        {
+            var data = (await _connection.QueryAsync<SectorDto>(sql: "usp_getAllSector", commandType: CommandType.StoredProcedure)).ToList();
+
+            return data;
+        }
+
         public async Task<List<CompaniesTickerDto>> GetCompaniesTickers(int sectorID,int marketID)
         {
             var data = (await _connection.QueryAsync<CompaniesTickerDto>(sql: "[usp_getCompaniesTickers]", param: new { MarketID = marketID, SectorID = sectorID }, commandType: CommandType.StoredProcedure)).ToList();
@@ -279,7 +286,13 @@ namespace Commons
             return data;
         }
 
-     
+        public async Task<List<Companydto>> GetAllCompaniesForEDFact()
+        {
+            var sql = $@"SELECT [CompanyID], [Ticker] +' - '+[Company] Ticker   FROM Companies";
+
+            var data = await _connection.QueryAsync<Companydto>(sql);
+            return data.ToList();
+        }
 
 
 

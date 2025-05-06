@@ -28,6 +28,14 @@ export class CommonService {
     { apiName: this.apiName,...config });
   
 
+  getAllCompaniesForEDFact = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, Companydto[]>({
+      method: 'GET',
+      url: '/api/app/common/companies-for-eDFact',
+    },
+    { apiName: this.apiName,...config });
+  
+
   getAllESDFactsMappings = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, ESDFactDto[]>({
       method: 'GET',
@@ -48,6 +56,14 @@ export class CommonService {
     this.restService.request<any, ProductServiceRawDto[]>({
       method: 'GET',
       url: '/api/app/common/p-sRMappings',
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getAllSector = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, SectorDto[]>({
+      method: 'GET',
+      url: '/api/app/common/sector',
     },
     { apiName: this.apiName,...config });
   

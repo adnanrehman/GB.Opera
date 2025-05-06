@@ -1,6 +1,6 @@
 ﻿using AgencyRatings;
 using Companies;
- 
+using GB.Opera.Commons;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,7 +31,12 @@ namespace Commons
         Task<List<CountryDto>> GetCountriesForIndicators();
         Task<AgencyRatingDto> GetAgencyRatings(bool isCredit);
         Task<GetNewsCatAndCountriesDto> GetNewsCatAndCountries();
-         
+
+
+        public Task<List<SectorDto>> GetAllSector();
+
+        public Task<List<Companydto>> GetAllCompaniesForEDFact();
+            
 
 
     }

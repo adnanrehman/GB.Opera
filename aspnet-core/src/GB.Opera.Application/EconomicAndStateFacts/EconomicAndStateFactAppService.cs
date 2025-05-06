@@ -72,7 +72,14 @@ namespace EconomicAndStateFacts
                 MeasurementUnit = input.MeasurementUnit,
                 Currency = input.Currency,    
                 Weekly = input.Weekly,
-                RootParentESDFactID= input.RootParentESDFactID
+                RootParentESDFactID= input.RootParentESDFactID,
+                Country = input.Country,
+                StockMarketId = input.StockMarketID,
+                CompanyId = input.CompanyID,
+                Activity = input.Activity,
+                ESDFactShortName = input.ESDFactShortName,
+                AESDFactShortName = input.AESDFactShortName,
+                SectorId = input.SectorID
 
             };
 

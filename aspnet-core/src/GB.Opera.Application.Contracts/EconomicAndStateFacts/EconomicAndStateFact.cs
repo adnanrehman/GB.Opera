@@ -23,5 +23,19 @@ namespace EconomicAndStateFacts
         public string? Currency { get; set; }
         public short RootParentESDFactID { get; set; }
 
+        public string? Country { get; set; }
+
+        public int? StockMarketID { get; set; }
+
+        public int? CompanyID { get; set; }
+
+        public string? Activity { get; set; }
+        public string? ESDFactShortName { get; set; }
+
+        public string? AESDFactShortName { get; set; }
+
+        public int? SectorID { get; set; }
+
+
     }
 }

@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ESDFactDto } from '@proxy/commons';
+import { CommonService, ESDFactDto } from '@proxy/commons';
 import { EconomicAndStateFactService, ESDFactModel } from '@proxy/economic-and-state-facts';
+import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-economic-and-statistical-data-account-detail',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,DropdownModule],
   templateUrl: './economic-and-statistical-data-account-detail.component.html',
   styleUrl: './economic-and-statistical-data-account-detail.component.scss',
 })
@@ -28,20 +29,30 @@ export class EconomicAndStatisticalDataAccountDetailComponent {
     yearly: false,
     forcast: false,
     parentID: 0,
-    rootParentESDFactID:0
+    rootParentESDFactID:0,
+    country: '',
+    stockMarketID: 0,
+    companyID: 0,
+    activity: '',
+    esdFactShortName: '',
+    aesdFactShortName: '',
+    sectorID:0
     
   };
   ref!: DynamicDialogRef;
   constructor(
     private modalref: DynamicDialogRef,
     private economicAndStateFactService: EconomicAndStateFactService,
-    public config: DynamicDialogConfig
+    public config: DynamicDialogConfig,private commonService: CommonService
   ) {
     this.account = {};
   }
 
   ngOnInit() {
     debugger;
+    this.getCompStockMarkets();
+    this.getAllCompanies();
+    this.getAllSector();
     if ((this.config.data.obj, this.config.data.text)) {
       var data = this.config.data.obj;
 
@@ -69,6 +80,7 @@ export class EconomicAndStatisticalDataAccountDetailComponent {
         
       }
     }
+  
   }
 
   closeModal(): void {
@@ -163,4 +175,32 @@ export class EconomicAndStatisticalDataAccountDetailComponent {
       }
     });
   }
+  markets = [];
+  stockMarketID:number=0
+  getCompStockMarkets() {
+    this.commonService.getCompStockMarkets().subscribe(res => {
+      this.markets = res;
+      //if (this.markets.length > 0) this.stockMarketID = this.markets[0].stockMarketID; this.fillCompByMarketId();
+    });
+  }
+
+  Company = [];
+  companyID:number=0
+  getAllCompanies() {
+    this.commonService.getAllCompaniesForEDFact().subscribe(res => {
+      this.Company = res;
+      //if (this.markets.length > 0) this.stockMarketID = this.markets[0].stockMarketID; this.fillCompByMarketId();
+    });
+  }
+
+  Sector = [];
+  
+  getAllSector() {
+    this.commonService.getAllSector().subscribe(res => {
+      this.Sector = res;
+      console.log(res);
+      //if (this.markets.length > 0) this.stockMarketID = this.markets[0].stockMarketID; this.fillCompByMarketId();
+    });
+  }
+
 }

@@ -1501,6 +1501,22 @@
                     "type": "Commons.GetNewsCatAndCountriesDto",
                     "typeSimple": "Commons.GetNewsCatAndCountriesDto"
                   }
+                },
+                {
+                  "name": "GetAllSector",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Commons.SectorDto>",
+                    "typeSimple": "[Commons.SectorDto]"
+                  }
+                },
+                {
+                  "name": "GetAllCompaniesForEDFact",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<GB.Opera.Commons.Companydto>",
+                    "typeSimple": "[GB.Opera.Commons.Companydto]"
+                  }
                 }
               ]
             }
@@ -1655,6 +1671,21 @@
                   "descriptorName": ""
                 }
               ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Commons.SectorDto>",
+                "typeSimple": "[Commons.SectorDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.ICommonAppService"
+            },
+            "GetAllSector": {
+              "uniqueName": "GetAllSector",
+              "name": "GetAllSector",
+              "httpMethod": "GET",
+              "url": "api/app/common/sector",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
               "returnValue": {
                 "type": "System.Collections.Generic.List<Commons.SectorDto>",
                 "typeSimple": "[Commons.SectorDto]"
@@ -2063,6 +2094,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Commons.CommonAppService"
+            },
+            "GetAllCompaniesForEDFact": {
+              "uniqueName": "GetAllCompaniesForEDFact",
+              "name": "GetAllCompaniesForEDFact",
+              "httpMethod": "GET",
+              "url": "api/app/common/companies-for-eDFact",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<GB.Opera.Commons.Companydto>",
+                "typeSimple": "[GB.Opera.Commons.Companydto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Commons.ICommonAppService"
             }
           }
         },
@@ -23927,6 +23973,90 @@
           "jsonName": null,
           "type": "System.Int16",
           "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "StockMarketID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CompanyID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Activity",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ESDFactShortName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AESDFactShortName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SectorID",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

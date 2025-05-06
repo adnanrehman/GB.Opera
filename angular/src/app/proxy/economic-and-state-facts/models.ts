@@ -14,4 +14,11 @@ export interface ESDFactModel {
   measurementUnit?: string;
   currency?: string;
   rootParentESDFactID: number;
+  country?: string;
+  stockMarketID?: number;
+  companyID?: number;
+  activity?: string;
+  esdFactShortName?: string;
+  aesdFactShortName?: string;
+  sectorID?: number;
 }
