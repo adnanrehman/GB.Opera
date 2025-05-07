@@ -73,7 +73,19 @@ namespace CompanyOwnershipFacts
             }
         }
 
-      
+        public async Task<bool> DeleteCompanyOwnerships(Int64 CompOwnershipID)
+        {
+            var sql = @"DELETE FROM CompanyOwnerships
+                WHERE CompOwnershipID = @CompOwnershipID";
+
+            var rowsAffected = await _connection.ExecuteAsync(sql, new
+            {
+                CompOwnershipID = CompOwnershipID,
+
+            });
+
+            return rowsAffected > 0;
+        }
 
 
     }

@@ -9,6 +9,7 @@ namespace CompanyOwnershipFacts
 {
     public class CompanyOwnershipFactDto
     {
+        public Int64 CompOwnershipID { get; set; }
         public Int64 GBOwnershipID { get; set; }
         public string? Facts { get; set; }
         public string? aFacts { get; set; }
@@ -17,6 +18,7 @@ namespace CompanyOwnershipFacts
 
     public class CompanyOwnershipFactEditDto
     {
+        public Int64? CompOwnershipID { get; set; }
         public int GBOwnershipID { get; set; }
         public int CompanyID { get; set; }
         public int ParentID { get; set; }

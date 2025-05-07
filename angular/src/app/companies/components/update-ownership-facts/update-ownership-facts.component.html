@@ -128,12 +128,19 @@
                                     <tr>
                                       <th>Facts</th>
                                       <th>Figures</th>
+                                      <th>Delete</th>
                                     </tr>
                                   </ng-template>
                                   <ng-template pTemplate="body" let-item let-i="rowIndex">
                                     <tr (click)="handleCompanyOwnershipFact(item);clickedIndex == i? clickedIndex = null : clickedIndex = i" [ngClass]="{'row-active': clickedIndex == i}"> 
                                       <td>{{ item.facts }}</td>
                                       <td>{{ item.figures }}</td>
+                                      <td>
+                                        
+                                        <button (click)="delete(item.compOwnershipID)" class="btn btn-sm btn-danger ms-2" title="Delete">
+                                          <i class="fa fa-trash"></i>
+                                        </button>
+                                      </td>
                                     </tr>
                                   </ng-template>
                                 </p-table>

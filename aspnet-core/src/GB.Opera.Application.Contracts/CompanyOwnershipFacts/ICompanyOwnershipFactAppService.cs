@@ -13,7 +13,7 @@ namespace CompanyOwnershipFacts
         Task<List<CompanyOwnershipFactDto>> GetCompanyOwnershipPreview(int companyID);
         Task<CompanyOwnershipFactEditDto> CreateOrUpdateCompanyOwnerships(CompanyOwnershipFactEditDto dto);
 
-         
+        public Task<bool> DeleteCompanyOwnerships(Int64 CompOwnershipID);
 
     }
 }

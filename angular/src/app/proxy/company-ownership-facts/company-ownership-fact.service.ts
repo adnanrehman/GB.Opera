@@ -18,6 +18,15 @@ export class CompanyOwnershipFactService {
     { apiName: this.apiName,...config });
   
 
+  deleteCompanyOwnershipsByCompOwnershipID = (CompOwnershipID: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, boolean>({
+      method: 'DELETE',
+      url: '/api/app/company-ownership-fact/company-ownerships',
+      params: { compOwnershipID: CompOwnershipID },
+    },
+    { apiName: this.apiName,...config });
+  
+
   getCompanyOwnershipPreviewByCompanyID = (companyID: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, CompanyOwnershipFactDto[]>({
       method: 'GET',

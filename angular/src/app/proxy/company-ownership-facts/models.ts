@@ -1,5 +1,6 @@
 
 export interface CompanyOwnershipFactDto {
+  compOwnershipID: number;
   gbOwnershipID: number;
   facts?: string;
   aFacts?: string;
@@ -7,6 +8,7 @@ export interface CompanyOwnershipFactDto {
 }
 
 export interface CompanyOwnershipFactEditDto {
+  compOwnershipID?: number;
   gbOwnershipID: number;
   companyID: number;
   parentID: number;

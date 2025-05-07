@@ -3596,6 +3596,23 @@
                     "type": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto",
                     "typeSimple": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto"
                   }
+                },
+                {
+                  "name": "DeleteCompanyOwnerships",
+                  "parametersOnMethod": [
+                    {
+                      "name": "CompOwnershipID",
+                      "typeAsString": "System.Int64, System.Private.CoreLib",
+                      "type": "System.Int64",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Boolean",
+                    "typeSimple": "boolean"
+                  }
                 }
               ]
             }
@@ -3671,6 +3688,43 @@
               "returnValue": {
                 "type": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto",
                 "typeSimple": "CompanyOwnershipFacts.CompanyOwnershipFactEditDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "CompanyOwnershipFacts.ICompanyOwnershipFactAppService"
+            },
+            "DeleteCompanyOwnershipsByCompOwnershipID": {
+              "uniqueName": "DeleteCompanyOwnershipsByCompOwnershipID",
+              "name": "DeleteCompanyOwnerships",
+              "httpMethod": "DELETE",
+              "url": "api/app/company-ownership-fact/company-ownerships",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "CompOwnershipID",
+                  "typeAsString": "System.Int64, System.Private.CoreLib",
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "CompOwnershipID",
+                  "name": "CompOwnershipID",
+                  "jsonName": null,
+                  "type": "System.Int64",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Boolean",
+                "typeSimple": "boolean"
               },
               "allowAnonymous": null,
               "implementFrom": "CompanyOwnershipFacts.ICompanyOwnershipFactAppService"
@@ -20600,6 +20654,18 @@
       "genericArguments": null,
       "properties": [
         {
+          "name": "CompOwnershipID",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "GBOwnershipID",
           "jsonName": null,
           "type": "System.Int64",
@@ -20656,6 +20722,18 @@
       "enumValues": null,
       "genericArguments": null,
       "properties": [
+        {
+          "name": "CompOwnershipID",
+          "jsonName": null,
+          "type": "System.Int64?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
         {
           "name": "GBOwnershipID",
           "jsonName": null,

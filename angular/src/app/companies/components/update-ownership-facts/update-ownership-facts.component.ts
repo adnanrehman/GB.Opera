@@ -66,7 +66,9 @@ export class UpdateOwnershipFactsComponent {
     gbOwnershipID: 0,
     companyID: 0,
     parentID: 0,
-    value: 0
+    value: 0,
+    compOwnershipID:0
+    
   }
   permission: {
     create: boolean;
@@ -253,6 +255,7 @@ export class UpdateOwnershipFactsComponent {
     this.companyOwnershipFact.parentID = obj.parentID;
     this.companyOwnershipFact.companyID = this.companyID;
     this.companyOwnershipFact.value = obj.figures;
+    this.companyOwnershipFact.compOwnershipID=obj.compOwnershipID
     this.NodeSelection(this.factsOwnershipMappings, this.companyOwnershipFact.gbOwnershipID);
     this.loading = false;
   }
@@ -333,4 +336,49 @@ this.getCompaniesFactsByCompanyID();
       }
     });
   }
+
+  delete(CompOwnershipID: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Are you sure want to delete this record!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.companyOwnershipFactService.deleteCompanyOwnershipsByCompOwnershipID(CompOwnershipID).subscribe({
+          next: (res) => {
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              title: 'Deleted!',
+              text: 'Record deleted successfully',
+              icon: 'success'
+            });
+            this.getCompaniesFactsByCompanyID(); // refresh the list
+            this.loading = false;
+          },
+          error: (err) => {
+            console.error('Error while deleting:', err);
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              title: 'Error!',
+              text: 'Error while deleting',
+              icon: 'error'
+            });
+            this.loading = false;
+          }
+        });
+      }
+    });
+  }
+  
+
 }
