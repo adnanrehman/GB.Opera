@@ -111,15 +111,15 @@ export class CompaniesProductsServicesRawMaterialsUpdatesComponent {
   }
 
   ngOnInit() {
-    if (this.permissionService.getGrantedPolicy(Company_CompaniesProductsServicesRawMaterialsUpdates + '.Create')) {
-      this.permission.create = true;
-    }
-    if (this.permissionService.getGrantedPolicy(Company_CompaniesProductsServicesRawMaterialsUpdates + '.Edit')) {
-      this.permission.edit = true;
-    }
-    if (this.permissionService.getGrantedPolicy(Company_CompaniesProductsServicesRawMaterialsUpdates + '.Delete')) {
-      this.permission.delete = true;
-    }
+    // if (this.permissionService.getGrantedPolicy(Company_CompaniesProductsServicesRawMaterialsUpdates + '.Create')) {
+    //   this.permission.create = true;
+    // }
+    // if (this.permissionService.getGrantedPolicy(Company_CompaniesProductsServicesRawMaterialsUpdates + '.Edit')) {
+    //   this.permission.edit = true;
+    // }
+    // if (this.permissionService.getGrantedPolicy(Company_CompaniesProductsServicesRawMaterialsUpdates + '.Delete')) {
+    //   this.permission.delete = true;
+    // }
     this.getMarketLangAnnouncements();
     // this.stockMarketID = 0;
     this.fetchTreeData();

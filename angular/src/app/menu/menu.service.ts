@@ -116,6 +116,7 @@ constructor(){
           active: false
         },
         // {
+        
         //   href: "gbir", title: "GBIR", permission: Application_Gbir, component: GbirComponent,
         //   active: false
         // },
@@ -219,10 +220,10 @@ constructor(){
           href: "estimates-and-forecasts", title: "Estimates and Forecasts", permission: Company_EstimatesAndForecasts, component: EstimatesAndForecastsComponent,
           active: false
         },
-        // {
-        //   href: "companies-products-services-raw-materials-updates", title: "Companies Products Services Raw Materials Updates", permission: Company_CompaniesProductsServicesRawMaterialsUpdates, component: CompaniesProductsServicesRawMaterialsUpdatesComponent,
-        //   active: false
-        // },
+        {
+           href: "companies-products-services-raw-materials-updates", title: "Companies Products Services Raw Materials Updates", permission: Company_CompaniesProductsServicesRawMaterialsUpdates, component: CompaniesProductsServicesRawMaterialsUpdatesComponent,
+           active: false
+         },
         {
           href: "country-accounts", title: "Country Accounts", permission: Company_CountryAccounts, component: CountryAccountsComponent,
           active: false
