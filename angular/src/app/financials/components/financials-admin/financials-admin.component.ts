@@ -248,22 +248,63 @@ export class FinancialsAdminComponent {
 
 
 
-  updateFinancialRateChangesByFinancialIdAndRate() {
-    debugger;
-    this.loading = true;
-    this.financialsAdminService.updateFinancialRateChangesByFinancialIdAndRate(this.newReviewFinancial.financialsID, this.rate).subscribe(res => {
-      debugger;
-      Swal.fire({ toast: true, position: 'top-end', showConfirmButton: false, timer: 4000, title: 'Success!', text: this.newReviewFinancial.qPeriod + ' updated successfully', icon: 'success', });
-      this.handleNewReviewFinancial(this.newReviewFinancial);
-      this.loading = false;
-    },
-      error => {
-        this.loading = false;
-      },
-      () => {
-        this.loading = false;
-      });
+updateFinancialRateChangesByFinancialIdAndRate() {
+  if (this.rate == 0) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Invalid Rate',
+      text: 'Rate value should not be zero.',
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+    return; // prevent further execution
   }
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'Do you want to update this?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, update it!',
+    cancelButtonText: 'Cancel'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.loading = true;
+      this.financialsAdminService.updateFinancialRateChangesByFinancialIdAndRate(
+        this.newReviewFinancial.financialsID,
+        this.rate
+      ).subscribe(
+        res => {
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            title: 'Success!',
+            text: this.newReviewFinancial.qPeriod + ' updated successfully',
+            icon: 'success'
+          });
+          this.handleNewReviewFinancial(this.newReviewFinancial);
+          this.loading = false;
+        },
+        error => {
+          this.loading = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Update failed',
+            text: 'There was an error updating the rate.',
+          });
+        },
+        () => {
+          this.loading = false;
+        }
+      );
+    }
+  });
+}
+
 
   deleteFinancial(financialsID: number): void {
     // Show confirmation dialog first
