@@ -31,15 +31,18 @@
             <div class="row">
                 <div class="col-md-12">
                     <b> <span> {{selectedBatchText}}</span>  </b>  
+
+                    <b> <span> BatchID : </span> {{ batchID }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span> EsdFact : </span> {{ EsdFact }} </b>  
+                    <br>
+                   <button class="btn btn-sm btn-primary"(click)="toggleSortOrder()">
+  Sorting {{ sortAsc ? '↑' : '↓' }}
+</button>
                 </div>
                 <div class="col-md-12">
                     <h6 class="p-1 mb-1"> </h6>
 
                 
 
-                    <!-- <p-listbox name="batchText" [options]="selectedBatchText" [style]="{ width: '100%' }"
-                        [(ngModel)]="selectedBatchText" [listStyle]="{ 'max-height': '200rem' }">
-                    </p-listbox> -->
                     <p-listbox
                     [options]="batchtext"
                     optionLabel="batchText"          
@@ -69,7 +72,7 @@
                         <div class="col-md-6">
                             <label class="col-form-label">Date</label>
                             <p-calendar [style]="{ width: '100%' }" [(ngModel)]="searchBatches.asofDate" [showIcon]="true"
-                                name="asofDate" placeholder="Select a Date" />
+                                name="asofDate" placeholder="Select a Date"  dateFormat="dd/mm/yyyy" />
                         </div>
                     </div>
     

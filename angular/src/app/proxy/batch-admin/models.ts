@@ -42,4 +42,6 @@ export interface SearchBatches {
   gbEntryUserId?: string;
   gbReEntryUserId?: string;
   batchText?: string;
+  esdFact?: string;
+   asofTimestamp?: number;
 }

@@ -28,5 +28,8 @@ namespace GB.Opera.BatchAdmin
 
         public string BatchText { get; set; }
 
+        public string? ESDFact { get; set; }
+        public int? asofTimestamp { get; set; }
+
     }
 }

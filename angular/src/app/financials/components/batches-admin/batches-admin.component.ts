@@ -45,6 +45,8 @@ export class BatchesAdminComponent {
   status = [];
   selectedBatchText: string;
   batchtext: SearchBatches[] = [];
+  batchID: number;
+  EsdFact:string ;
 
   searchBatches: SearchBatches = {
     countryID: 0,
@@ -66,7 +68,9 @@ export class BatchesAdminComponent {
     gbEntryUserId: '',
     gbReEntryUserId: '',
     batchText: '',
-    batchID: 0
+    batchID: 0,
+    esdFact:''
+      
   };
 
 
@@ -78,7 +82,7 @@ export class BatchesAdminComponent {
     this.getStatusFinancialsByUserId();
 
     if (this.searchBatches.asofDate) {
-      this.searchBatches.asofDate = moment(this.searchBatches.asofDate).format("MM/DD/YYYY");
+      this.searchBatches.asofDate = moment(this.searchBatches.asofDate).format("dd/MM/YYYY");
     }
 
   }
@@ -189,12 +193,16 @@ export class BatchesAdminComponent {
   }
 
   adminbacth() {
-    this.batchAdminService.adminBatchesByReportTypeAndCountryID(this.searchBatches.reportType, this.searchBatches.countryID).subscribe(res => {
-      this.batchtext = res // This will return a single SearchBatches object now.
-      console.warn(this.batchtext);
+  this.batchAdminService.adminBatchesByReportTypeAndCountryID(this.searchBatches.reportType, this.searchBatches.countryID).subscribe(res => {
+    this.batchtext = res.map(item => ({
+      ...item,
+     asofTimestamp: item.asofDate ? new Date(item.asofDate).getTime() : 0
+    }));
+    
+  });
+  this.sortBatchText();
+}
 
-    });
-  }
 
  
 
@@ -203,11 +211,14 @@ export class BatchesAdminComponent {
 
     // Perform filtering based on the selected batchID
     const selectedBatchID = this.searchBatches.batchID;
-     
+    const selectedesdFac = this.searchBatches.esdFactID;
+     this.batchID=this.searchBatches.batchID
 
     // Find the batch object based on batchID
     const filteredBatches = this.batchtext.filter(batch => batch.batchID === selectedBatchID);
-    
+    this.batchID=filteredBatches[0].batchID;
+      const filteredesdFact = this.batchtext.filter(batch => batch.esdFactID === selectedesdFac);
+    this.EsdFact=filteredBatches[0].esdFact;
     if (filteredBatches.length > 0) {
 
 
@@ -219,6 +230,22 @@ export class BatchesAdminComponent {
       console.log("No matching batch found.");
     }
   }
-  
+sortAsc: boolean = true;
+
+toggleSortOrder(): void {
+  this.sortAsc = !this.sortAsc;
+  this.sortBatchText(); // Always sort after toggling
+}
+
+sortBatchText(): void {
+  if (!this.batchtext) return;
+
+  this.batchtext.sort((a, b) => this.sortAsc
+    ? a.asofTimestamp - b.asofTimestamp
+    : b.asofTimestamp - a.asofTimestamp);
+
+  // Trigger UI update by changing reference
+  this.batchtext = [...this.batchtext];
+}
 
 }
