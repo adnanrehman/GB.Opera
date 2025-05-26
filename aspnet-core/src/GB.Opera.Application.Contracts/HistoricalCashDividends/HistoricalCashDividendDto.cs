@@ -31,18 +31,18 @@ namespace HistoricalCashDividends
         public bool DueOn { get; set; } = false;
         public bool XDividendDate { get; set; } = false;
 
-        public DateTime AsOfDateTime { get; set; }
-        public DateTime AnnouncedOnDateTime { get; set; }
-        public DateTime ApprovedOnDateTime { get; set; }
-        public DateTime DueOnDateTime { get; set; }
-        public DateTime XDividendDateTime { get; set; }
+        public DateTime? AsOfDateTime { get; set; }
+        public DateTime? AnnouncedOnDateTime { get; set; }
+        public DateTime? ApprovedOnDateTime { get; set; }
+        public DateTime? DueOnDateTime { get; set; }
+        public DateTime? XDividendDateTime { get; set; }
     }
 
     public class CashDivDateDto
     {
         public int CashDivID { get; set; }
         public string? DateSelection { get; set; }
-        public DateTime CashDivDate { get; set; }
+        public DateTime? CashDivDate { get; set; }
     }
 
     public class EPeriodDto

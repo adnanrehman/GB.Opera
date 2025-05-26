@@ -175,34 +175,47 @@ export class HistoricalCashDividendsComponent {
       });
   }
 
-  handleDivDates(){
-    this.divindedDates = []
-    if(this.historicalCashDividend.asOf){
-      this.divindedDates.push(
-        {cashDivID:this.historicalCashDividend.cashDivID, dateSelection:"As of",cashDivDate:this.historicalCashDividend.asOfDateTime},
-      )
-    }
-    if(this.historicalCashDividend.announcedOn){
-      this.divindedDates.push(
-        {cashDivID:this.historicalCashDividend.cashDivID, dateSelection:"Announced on",cashDivDate:this.historicalCashDividend.announcedOnDateTime},
-      )
-    }
-    if(this.historicalCashDividend.approvedOn){
-      this.divindedDates.push(
-        {cashDivID:this.historicalCashDividend.cashDivID, dateSelection:"Approved on",cashDivDate:this.historicalCashDividend.approvedOnDateTime},
-      )
-    }
-    if(this.historicalCashDividend.dueOn){
-      this.divindedDates.push(
-        {cashDivID:this.historicalCashDividend.cashDivID, dateSelection:"Due on",cashDivDate:this.historicalCashDividend.dueOnDateTime},
-      )
-    }
-    if(this.historicalCashDividend.xDividendDate){
-      this.divindedDates.push(
-        {cashDivID:this.historicalCashDividend.cashDivID, dateSelection:"X-dividend Date",cashDivDate:this.historicalCashDividend.xDividendDateTime},
-      )
-    }
+  handleDivDates() {
+  this.divindedDates = [];
+
+  const formatDate = (date: any) => date ? moment(date).format('YYYY-MM-DD') : null;
+
+  if (this.historicalCashDividend.asOf) {
+    this.divindedDates.push({
+      cashDivID: this.historicalCashDividend.cashDivID,
+      dateSelection: "As of",
+      cashDivDate: formatDate(this.historicalCashDividend.asOfDateTime)
+    });
   }
+  if (this.historicalCashDividend.announcedOn) {
+    this.divindedDates.push({
+      cashDivID: this.historicalCashDividend.cashDivID,
+      dateSelection: "Announced on",
+      cashDivDate: formatDate(this.historicalCashDividend.announcedOnDateTime)
+    });
+  }
+  if (this.historicalCashDividend.approvedOn) {
+    this.divindedDates.push({
+      cashDivID: this.historicalCashDividend.cashDivID,
+      dateSelection: "Approved on",
+      cashDivDate: formatDate(this.historicalCashDividend.approvedOnDateTime)
+    });
+  }
+  if (this.historicalCashDividend.dueOn) {
+    this.divindedDates.push({
+      cashDivID: this.historicalCashDividend.cashDivID,
+      dateSelection: "Due on",
+      cashDivDate: formatDate(this.historicalCashDividend.dueOnDateTime)
+    });
+  }
+  if (this.historicalCashDividend.xDividendDate) {
+    this.divindedDates.push({
+      cashDivID: this.historicalCashDividend.cashDivID,
+      dateSelection: "X-dividend Date",
+      cashDivDate: formatDate(this.historicalCashDividend.xDividendDateTime)
+    });
+  }
+}
 
   handleHistoricalCashDividend(historicalCashDividend: HistoricalCashDividendDto) {
     debugger;
@@ -243,9 +256,18 @@ export class HistoricalCashDividendsComponent {
   }
 
   insetUpdateHistoricalCashDividendsByInputAndDates() {
-    debugger;
+     if (!this.validateHistoricalCashDividend()) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Validation Error',
+      html: this.validationErrors.join('<br/>'),
+      toast: false
+    });
+    return; // Stop execution if validation fails
+  }
     this.loading = true;
     this.historicalCashDividend.companyID = this.companyID;
+    //this.handleDivDates();
     // this.historicalCashDividend.asOfDateTime = moment(this.historicalCashDividend.asOfDateTime).format();
     // this.historicalCashDividend.announcedOnDateTime = moment(this.historicalCashDividend.announcedOnDateTime).format();
     // this.historicalCashDividend.approvedOnDateTime = moment(this.historicalCashDividend.approvedOnDateTime).format();
@@ -277,4 +299,27 @@ export class HistoricalCashDividendsComponent {
         this.loading = false;
       });
   }
+
+  validationErrors: string[] = [];
+
+validateHistoricalCashDividend(): boolean {
+  this.validationErrors = [];
+
+  const fields = [
+    { label: 'As Of Date', date: this.historicalCashDividend.asOfDateTime, checked: this.historicalCashDividend.asOf },
+    { label: 'Announced On', date: this.historicalCashDividend.announcedOnDateTime, checked: this.historicalCashDividend.announcedOn },
+    { label: 'Approved On', date: this.historicalCashDividend.approvedOnDateTime, checked: this.historicalCashDividend.approvedOn },
+    { label: 'Due On', date: this.historicalCashDividend.dueOnDateTime, checked: this.historicalCashDividend.dueOn },
+    { label: 'X-dividend Date', date: this.historicalCashDividend.xDividendDateTime, checked: this.historicalCashDividend.xDividendDate }
+  ];
+
+  fields.forEach(field => {
+    if (field.checked && !field.date) {
+      this.validationErrors.push(`${field.label} is required.`);
+    }
+  });
+
+  return this.validationErrors.length === 0;
+}
+
 }
