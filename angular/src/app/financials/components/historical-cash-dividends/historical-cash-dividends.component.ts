@@ -305,6 +305,14 @@ export class HistoricalCashDividendsComponent {
 validateHistoricalCashDividend(): boolean {
   this.validationErrors = [];
 
+  if (
+    this.historicalCashDividend.year === null ||
+    this.historicalCashDividend.year === undefined ||
+    this.historicalCashDividend.year === 0
+  ) {
+    this.validationErrors.push("Year is required and cannot be 0.");
+  }
+
   const fields = [
     { label: 'As Of Date', date: this.historicalCashDividend.asOfDateTime, checked: this.historicalCashDividend.asOf },
     { label: 'Announced On', date: this.historicalCashDividend.announcedOnDateTime, checked: this.historicalCashDividend.announcedOn },
